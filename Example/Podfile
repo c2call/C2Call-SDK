@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'C2Call-SDK_Example', :exclusive => true do
+  pod "C2Call-SDK", :path => "../"
+end
+
+target 'C2Call-SDK_Tests', :exclusive => true do
+  pod "C2Call-SDK", :path => "../"
+
+  
+end
