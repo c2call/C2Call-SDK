@@ -1,0 +1,14 @@
+PODS:
+  - C2Call-SDK (0.1.0)
+
+DEPENDENCIES:
+  - C2Call-SDK (from `../`)
+
+EXTERNAL SOURCES:
+  C2Call-SDK:
+    :path: ../
+
+SPEC CHECKSUMS:
+  C2Call-SDK: d6ea7dd6a20c6a81724b93928dd39022db9ac953
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,1159 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0091AC857B2DA29C8F267D4EE6C033C1 /* C2Call-SDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C460D0FB64A6D627A6395E70782BAE0D /* C2Call-SDK-dummy.m */; };
+		1D0E8ED84C0634828D028BC2243BDF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		2D85474B124DFCF809C05E786431A905 /* C2Call-SDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BDEC728B1629D00F869FC2AE520E9FA3 /* C2Call-SDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6EF85D1B85BF31EA344C484D1283A810 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		79A92189F876395D78558933A991DAFD /* Pods-C2Call-SDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E46C4F0E66AA9E157115D14F02BA34E /* Pods-C2Call-SDK_Example-dummy.m */; };
+		97521C7A1C01B97F008E6817 /* SCUserProfileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C781C01B97F008E6817 /* SCUserProfileController.h */; };
+		97521C7B1C01B97F008E6817 /* SCUserProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C791C01B97F008E6817 /* SCUserProfileController.m */; };
+		97521C7E1C01B9BC008E6817 /* SCUserStatusController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C7C1C01B9BC008E6817 /* SCUserStatusController.h */; };
+		97521C7F1C01B9BC008E6817 /* SCUserStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C7D1C01B9BC008E6817 /* SCUserStatusController.m */; };
+		97521C821C01B9D4008E6817 /* SCEditStatusController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C801C01B9D4008E6817 /* SCEditStatusController.h */; };
+		97521C831C01B9D4008E6817 /* SCEditStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C811C01B9D4008E6817 /* SCEditStatusController.m */; };
+		97521C861C01B9FF008E6817 /* SCLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C841C01B9FF008E6817 /* SCLoginController.h */; };
+		97521C871C01B9FF008E6817 /* SCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C851C01B9FF008E6817 /* SCLoginController.m */; };
+		97521C8A1C01BA0E008E6817 /* SCRegistrationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C881C01BA0E008E6817 /* SCRegistrationController.h */; };
+		97521C8B1C01BA0E008E6817 /* SCRegistrationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C891C01BA0E008E6817 /* SCRegistrationController.m */; };
+		97521C8E1C01BA26008E6817 /* SCLaunchScreenController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C8C1C01BA26008E6817 /* SCLaunchScreenController.h */; };
+		97521C8F1C01BA26008E6817 /* SCLaunchScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C8D1C01BA26008E6817 /* SCLaunchScreenController.m */; };
+		97521C921C01BA43008E6817 /* SCPurchaseController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C901C01BA43008E6817 /* SCPurchaseController.h */; };
+		97521C931C01BA43008E6817 /* SCPurchaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C911C01BA43008E6817 /* SCPurchaseController.m */; };
+		97521C961C01BA5F008E6817 /* SCDataTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C941C01BA5F008E6817 /* SCDataTableViewController.h */; };
+		97521C971C01BA5F008E6817 /* SCDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C951C01BA5F008E6817 /* SCDataTableViewController.m */; };
+		97521C9A1C01BA7A008E6817 /* SCChatController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C981C01BA7A008E6817 /* SCChatController.h */; };
+		97521C9B1C01BA7A008E6817 /* SCChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C991C01BA7A008E6817 /* SCChatController.m */; };
+		97521C9E1C01BA92008E6817 /* SCComposeMessageController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521C9C1C01BA92008E6817 /* SCComposeMessageController.h */; };
+		97521C9F1C01BA92008E6817 /* SCComposeMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521C9D1C01BA92008E6817 /* SCComposeMessageController.m */; };
+		97521CA21C01BAB4008E6817 /* SCBoardController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CA01C01BAB4008E6817 /* SCBoardController.h */; };
+		97521CA31C01BAB4008E6817 /* SCBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CA11C01BAB4008E6817 /* SCBoardController.m */; };
+		97521CA61C01BACA008E6817 /* SCFriendListController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CA41C01BACA008E6817 /* SCFriendListController.h */; };
+		97521CA71C01BACA008E6817 /* SCFriendListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CA51C01BACA008E6817 /* SCFriendListController.m */; };
+		97521CAA1C01BADA008E6817 /* SCFriendDetailController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CA81C01BADA008E6817 /* SCFriendDetailController.h */; };
+		97521CAB1C01BADA008E6817 /* SCFriendDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CA91C01BADA008E6817 /* SCFriendDetailController.m */; };
+		97521CAE1C01BAFC008E6817 /* SCGroupDetailController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CAC1C01BAFC008E6817 /* SCGroupDetailController.h */; };
+		97521CAF1C01BAFC008E6817 /* SCGroupDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CAD1C01BAFC008E6817 /* SCGroupDetailController.m */; };
+		97521CB21C01BB10008E6817 /* SCGroupDetailHeaderController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CB01C01BB10008E6817 /* SCGroupDetailHeaderController.h */; };
+		97521CB31C01BB10008E6817 /* SCGroupDetailHeaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CB11C01BB10008E6817 /* SCGroupDetailHeaderController.m */; };
+		97521CB61C01BB28008E6817 /* SCPromptController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CB41C01BB28008E6817 /* SCPromptController.h */; };
+		97521CB71C01BB28008E6817 /* SCPromptController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CB51C01BB28008E6817 /* SCPromptController.m */; };
+		97521CBA1C01BB46008E6817 /* SCWaitIndicatorController.h in Headers */ = {isa = PBXBuildFile; fileRef = 97521CB81C01BB46008E6817 /* SCWaitIndicatorController.h */; };
+		97521CBB1C01BB46008E6817 /* SCWaitIndicatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97521CB91C01BB46008E6817 /* SCWaitIndicatorController.m */; };
+		97521CBD1C01BBDF008E6817 /* SCStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97521CBC1C01BBDF008E6817 /* SCStoryboard.storyboard */; };
+		97521CC21C01BD4D008E6817 /* SocialCommunication.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97521CC11C01BD4D008E6817 /* SocialCommunication.xcassets */; };
+		97FC025F1C02E4F400254F9E /* C2CallDataModel 20.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 97FC025E1C02E4F400254F9E /* C2CallDataModel 20.xcdatamodel */; };
+		97FC02791C02E54400254F9E /* holdtheline.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02611C02E54400254F9E /* holdtheline.wav */; };
+		97FC027A1C02E54400254F9E /* BusyTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02621C02E54400254F9E /* BusyTone.wav */; };
+		97FC027B1C02E54400254F9E /* Dtmf-0.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02631C02E54400254F9E /* Dtmf-0.wav */; };
+		97FC027C1C02E54400254F9E /* Dtmf-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02641C02E54400254F9E /* Dtmf-1.wav */; };
+		97FC027D1C02E54400254F9E /* Dtmf-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02651C02E54400254F9E /* Dtmf-2.wav */; };
+		97FC027E1C02E54400254F9E /* Dtmf-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02661C02E54400254F9E /* Dtmf-3.wav */; };
+		97FC027F1C02E54400254F9E /* Sailboat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02671C02E54400254F9E /* Sailboat.wav */; };
+		97FC02801C02E54400254F9E /* Dtmf-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02681C02E54400254F9E /* Dtmf-4.wav */; };
+		97FC02811C02E54400254F9E /* Dtmf-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02691C02E54400254F9E /* Dtmf-5.wav */; };
+		97FC02821C02E54400254F9E /* Dtmf-6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC026A1C02E54400254F9E /* Dtmf-6.wav */; };
+		97FC02831C02E54400254F9E /* Dtmf-7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC026B1C02E54400254F9E /* Dtmf-7.wav */; };
+		97FC02841C02E54400254F9E /* Dtmf-8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC026C1C02E54400254F9E /* Dtmf-8.wav */; };
+		97FC02851C02E54400254F9E /* Dtmf-9.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC026D1C02E54400254F9E /* Dtmf-9.wav */; };
+		97FC02861C02E54400254F9E /* Dtmf-hash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC026E1C02E54400254F9E /* Dtmf-hash.wav */; };
+		97FC02871C02E54400254F9E /* Dtmf-star.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC026F1C02E54400254F9E /* Dtmf-star.wav */; };
+		97FC02881C02E54400254F9E /* Message Tone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02701C02E54400254F9E /* Message Tone.wav */; };
+		97FC02891C02E54400254F9E /* callme.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02711C02E54400254F9E /* callme.wav */; };
+		97FC028A1C02E54400254F9E /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02721C02E54400254F9E /* error.wav */; };
+		97FC028B1C02E54400254F9E /* get_msg.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02731C02E54400254F9E /* get_msg.wav */; };
+		97FC028C1C02E54400254F9E /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02741C02E54400254F9E /* message.wav */; };
+		97FC028D1C02E54400254F9E /* offerwall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02751C02E54400254F9E /* offerwall.wav */; };
+		97FC028E1C02E54400254F9E /* ringout.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02761C02E54400254F9E /* ringout.wav */; };
+		97FC028F1C02E54400254F9E /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02771C02E54400254F9E /* ringtone.wav */; };
+		97FC02901C02E54400254F9E /* send_msg.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02781C02E54400254F9E /* send_msg.wav */; };
+		97FC02921C02E57500254F9E /* ringtone-bg.aif in Resources */ = {isa = PBXBuildFile; fileRef = 97FC02911C02E57500254F9E /* ringtone-bg.aif */; };
+		97FC02A21C02EBDB00254F9E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02931C02EBDB00254F9E /* CoreText.framework */; };
+		97FC02A31C02EBDB00254F9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02941C02EBDB00254F9E /* Security.framework */; };
+		97FC02A41C02EBDB00254F9E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02951C02EBDB00254F9E /* MobileCoreServices.framework */; };
+		97FC02A51C02EBDB00254F9E /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02961C02EBDB00254F9E /* QuickLook.framework */; };
+		97FC02A61C02EBDB00254F9E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02971C02EBDB00254F9E /* AssetsLibrary.framework */; };
+		97FC02A71C02EBDB00254F9E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02981C02EBDB00254F9E /* CoreData.framework */; };
+		97FC02A81C02EBDB00254F9E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02991C02EBDB00254F9E /* AdSupport.framework */; };
+		97FC02A91C02EBDB00254F9E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC029A1C02EBDB00254F9E /* MediaPlayer.framework */; };
+		97FC02AA1C02EBDB00254F9E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC029B1C02EBDB00254F9E /* CoreTelephony.framework */; };
+		97FC02AB1C02EBDB00254F9E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC029C1C02EBDB00254F9E /* CFNetwork.framework */; };
+		97FC02AC1C02EBDB00254F9E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC029D1C02EBDB00254F9E /* OpenGLES.framework */; };
+		97FC02AD1C02EBDB00254F9E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC029E1C02EBDB00254F9E /* CoreVideo.framework */; };
+		97FC02AE1C02EBDB00254F9E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC029F1C02EBDB00254F9E /* CoreMedia.framework */; };
+		97FC02AF1C02EBDB00254F9E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02A01C02EBDB00254F9E /* QuartzCore.framework */; };
+		97FC02B01C02EBDB00254F9E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02A11C02EBDB00254F9E /* StoreKit.framework */; };
+		97FC02BB1C02EBE600254F9E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B11C02EBE600254F9E /* MessageUI.framework */; };
+		97FC02BC1C02EBE600254F9E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B21C02EBE600254F9E /* MapKit.framework */; };
+		97FC02BD1C02EBE600254F9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B31C02EBE600254F9E /* CoreLocation.framework */; };
+		97FC02BE1C02EBE600254F9E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B41C02EBE600254F9E /* iAd.framework */; };
+		97FC02BF1C02EBE600254F9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B51C02EBE600254F9E /* SystemConfiguration.framework */; };
+		97FC02C01C02EBE600254F9E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B61C02EBE600254F9E /* AddressBook.framework */; };
+		97FC02C11C02EBE600254F9E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B71C02EBE600254F9E /* AddressBookUI.framework */; };
+		97FC02C21C02EBE600254F9E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B81C02EBE600254F9E /* CoreAudio.framework */; };
+		97FC02C31C02EBE600254F9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02B91C02EBE600254F9E /* AudioToolbox.framework */; };
+		97FC02C41C02EBE600254F9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02BA1C02EBE600254F9E /* AVFoundation.framework */; };
+		97FC02C71C02EBF400254F9E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02C51C02EBF400254F9E /* CoreFoundation.framework */; };
+		97FC02C81C02EBF400254F9E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02C61C02EBF400254F9E /* Accounts.framework */; };
+		97FC02CB1C02EBFD00254F9E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02C91C02EBFD00254F9E /* libz.dylib */; };
+		97FC02CC1C02EBFD00254F9E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FC02CA1C02EBFD00254F9E /* libsqlite3.dylib */; };
+		9E22F4E6AC77CA1501FC74E1291096D6 /* Pods-C2Call-SDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3891CB979B08219B388C46BF5CAF699F /* Pods-C2Call-SDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0F93FE8BECBC0D5036F5F8C4377023E /* C2Call-SDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3EE4CE60F4B6CA114AF1DB02BC4F3AF7 /* C2Call-SDK.bundle */; };
+		B628183F8CE93769B9A2BFF19DDAD8C2 /* Pods-C2Call-SDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7ECA2E7CE202C952B7305F9960C00 /* Pods-C2Call-SDK_Tests-dummy.m */; };
+		BBB37D681075DF7153E063C62250A356 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		D1A7B959F0CB58545804FAFECC0D7C3F /* ReplaceMe.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D96F9667483D781B6E4CF297401B12 /* ReplaceMe.m */; };
+		FB3C72B3F8C5F69851637D96B0A941BE /* Pods-C2Call-SDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 912251ACB580FE55C0D9FEEB9AD742B3 /* Pods-C2Call-SDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A6E0C61A9D4BA99BAE4B0D04FE0A5DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 340ECEA0946FFBCA97DDA80F1C559099;
+			remoteInfo = "C2Call-SDK";
+		};
+		704120595B857A54BF4B678A6754CD00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FEBE8CF34C1DAA2DE14D9C801D88E761;
+			remoteInfo = "C2Call-SDK-C2Call-SDK";
+		};
+		E2CB8CBE28A198C459E8B6889F157128 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 340ECEA0946FFBCA97DDA80F1C559099;
+			remoteInfo = "C2Call-SDK";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		083977B3C43C3F9D33DB283E012BB6AD /* Pods-C2Call-SDK_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-C2Call-SDK_Tests-resources.sh"; sourceTree = "<group>"; };
+		1BA7ECA2E7CE202C952B7305F9960C00 /* Pods-C2Call-SDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-C2Call-SDK_Tests-dummy.m"; sourceTree = "<group>"; };
+		1E46C4F0E66AA9E157115D14F02BA34E /* Pods-C2Call-SDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-C2Call-SDK_Example-dummy.m"; sourceTree = "<group>"; };
+		20BD44998D47379DB722FFC671455A0C /* Pods-C2Call-SDK_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-C2Call-SDK_Example-resources.sh"; sourceTree = "<group>"; };
+		222BABD708898BA0AFEB5F404535D725 /* Pods-C2Call-SDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-C2Call-SDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		24E15A4134E342056F2D3EE07654CD0D /* Pods-C2Call-SDK_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-C2Call-SDK_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		29FA79162D6D054792ABFFC51DBC47DC /* Pods-C2Call-SDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-C2Call-SDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		315104DD0DED751B66337861ED192C57 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3891CB979B08219B388C46BF5CAF699F /* Pods-C2Call-SDK_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-C2Call-SDK_Tests-umbrella.h"; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		3EE4CE60F4B6CA114AF1DB02BC4F3AF7 /* C2Call-SDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "C2Call-SDK.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4291325A637B8EE889ED70A91280E733 /* Pods_C2Call_SDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CF7C65B97C0C9944F4D7CFB0D50E3AA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		725A8E662709E262139CA26FCC7A7A29 /* C2Call-SDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "C2Call-SDK-prefix.pch"; sourceTree = "<group>"; };
+		7457463A018AF17E7C618F17DEB0BBBF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		912251ACB580FE55C0D9FEEB9AD742B3 /* Pods-C2Call-SDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-C2Call-SDK_Example-umbrella.h"; sourceTree = "<group>"; };
+		97521C781C01B97F008E6817 /* SCUserProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCUserProfileController.h; path = ../../../SocialCommunication/SCUserProfileController.h; sourceTree = "<group>"; };
+		97521C791C01B97F008E6817 /* SCUserProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCUserProfileController.m; path = ../../../SocialCommunication/SCUserProfileController.m; sourceTree = "<group>"; };
+		97521C7C1C01B9BC008E6817 /* SCUserStatusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCUserStatusController.h; path = ../../../SocialCommunication/SCUserStatusController.h; sourceTree = "<group>"; };
+		97521C7D1C01B9BC008E6817 /* SCUserStatusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCUserStatusController.m; path = ../../../SocialCommunication/SCUserStatusController.m; sourceTree = "<group>"; };
+		97521C801C01B9D4008E6817 /* SCEditStatusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCEditStatusController.h; path = ../../../SocialCommunication/SCEditStatusController.h; sourceTree = "<group>"; };
+		97521C811C01B9D4008E6817 /* SCEditStatusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCEditStatusController.m; path = ../../../SocialCommunication/SCEditStatusController.m; sourceTree = "<group>"; };
+		97521C841C01B9FF008E6817 /* SCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLoginController.h; path = ../../../SocialCommunication/SCLoginController.h; sourceTree = "<group>"; };
+		97521C851C01B9FF008E6817 /* SCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLoginController.m; path = ../../../SocialCommunication/SCLoginController.m; sourceTree = "<group>"; };
+		97521C881C01BA0E008E6817 /* SCRegistrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCRegistrationController.h; path = ../../../SocialCommunication/SCRegistrationController.h; sourceTree = "<group>"; };
+		97521C891C01BA0E008E6817 /* SCRegistrationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCRegistrationController.m; path = ../../../SocialCommunication/SCRegistrationController.m; sourceTree = "<group>"; };
+		97521C8C1C01BA26008E6817 /* SCLaunchScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLaunchScreenController.h; path = ../../../SocialCommunication/SCLaunchScreenController.h; sourceTree = "<group>"; };
+		97521C8D1C01BA26008E6817 /* SCLaunchScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLaunchScreenController.m; path = ../../../SocialCommunication/SCLaunchScreenController.m; sourceTree = "<group>"; };
+		97521C901C01BA43008E6817 /* SCPurchaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCPurchaseController.h; path = ../../../SocialCommunication/SCPurchaseController.h; sourceTree = "<group>"; };
+		97521C911C01BA43008E6817 /* SCPurchaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCPurchaseController.m; path = ../../../SocialCommunication/SCPurchaseController.m; sourceTree = "<group>"; };
+		97521C941C01BA5F008E6817 /* SCDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCDataTableViewController.h; path = ../../../SocialCommunication/SCDataTableViewController.h; sourceTree = "<group>"; };
+		97521C951C01BA5F008E6817 /* SCDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCDataTableViewController.m; path = ../../../SocialCommunication/SCDataTableViewController.m; sourceTree = "<group>"; };
+		97521C981C01BA7A008E6817 /* SCChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCChatController.h; path = ../../../SocialCommunication/SCChatController.h; sourceTree = "<group>"; };
+		97521C991C01BA7A008E6817 /* SCChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCChatController.m; path = ../../../SocialCommunication/SCChatController.m; sourceTree = "<group>"; };
+		97521C9C1C01BA92008E6817 /* SCComposeMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCComposeMessageController.h; path = ../../../SocialCommunication/SCComposeMessageController.h; sourceTree = "<group>"; };
+		97521C9D1C01BA92008E6817 /* SCComposeMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCComposeMessageController.m; path = ../../../SocialCommunication/SCComposeMessageController.m; sourceTree = "<group>"; };
+		97521CA01C01BAB4008E6817 /* SCBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBoardController.h; path = ../../../SocialCommunication/SCBoardController.h; sourceTree = "<group>"; };
+		97521CA11C01BAB4008E6817 /* SCBoardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBoardController.m; path = ../../../SocialCommunication/SCBoardController.m; sourceTree = "<group>"; };
+		97521CA41C01BACA008E6817 /* SCFriendListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCFriendListController.h; path = ../../../SocialCommunication/SCFriendListController.h; sourceTree = "<group>"; };
+		97521CA51C01BACA008E6817 /* SCFriendListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCFriendListController.m; path = ../../../SocialCommunication/SCFriendListController.m; sourceTree = "<group>"; };
+		97521CA81C01BADA008E6817 /* SCFriendDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCFriendDetailController.h; path = ../../../SocialCommunication/SCFriendDetailController.h; sourceTree = "<group>"; };
+		97521CA91C01BADA008E6817 /* SCFriendDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCFriendDetailController.m; path = ../../../SocialCommunication/SCFriendDetailController.m; sourceTree = "<group>"; };
+		97521CAC1C01BAFC008E6817 /* SCGroupDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGroupDetailController.h; path = ../../../SocialCommunication/SCGroupDetailController.h; sourceTree = "<group>"; };
+		97521CAD1C01BAFC008E6817 /* SCGroupDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGroupDetailController.m; path = ../../../SocialCommunication/SCGroupDetailController.m; sourceTree = "<group>"; };
+		97521CB01C01BB10008E6817 /* SCGroupDetailHeaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGroupDetailHeaderController.h; path = ../../../SocialCommunication/SCGroupDetailHeaderController.h; sourceTree = "<group>"; };
+		97521CB11C01BB10008E6817 /* SCGroupDetailHeaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGroupDetailHeaderController.m; path = ../../../SocialCommunication/SCGroupDetailHeaderController.m; sourceTree = "<group>"; };
+		97521CB41C01BB28008E6817 /* SCPromptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCPromptController.h; path = ../../../SocialCommunication/SCPromptController.h; sourceTree = "<group>"; };
+		97521CB51C01BB28008E6817 /* SCPromptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCPromptController.m; path = ../../../SocialCommunication/SCPromptController.m; sourceTree = "<group>"; };
+		97521CB81C01BB46008E6817 /* SCWaitIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWaitIndicatorController.h; path = ../../../SocialCommunication/SCWaitIndicatorController.h; sourceTree = "<group>"; };
+		97521CB91C01BB46008E6817 /* SCWaitIndicatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWaitIndicatorController.m; path = ../../../SocialCommunication/SCWaitIndicatorController.m; sourceTree = "<group>"; };
+		97521CBC1C01BBDF008E6817 /* SCStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SCStoryboard.storyboard; path = ../../../../../SocialCommunication/SCStoryboard.storyboard; sourceTree = "<group>"; };
+		97521CC11C01BD4D008E6817 /* SocialCommunication.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SocialCommunication.xcassets; path = ../../../../../SocialCommunication/SocialCommunication.xcassets; sourceTree = "<group>"; };
+		97FC025E1C02E4F400254F9E /* C2CallDataModel 20.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = "C2CallDataModel 20.xcdatamodel"; path = "../../../../../c2callcore/C2CallDataModel.xcdatamodeld/C2CallDataModel 20.xcdatamodel"; sourceTree = "<group>"; };
+		97FC02611C02E54400254F9E /* holdtheline.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = holdtheline.wav; path = ../../../../../holdtheline.wav; sourceTree = "<group>"; };
+		97FC02621C02E54400254F9E /* BusyTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = BusyTone.wav; path = ../../../../../BusyTone.wav; sourceTree = "<group>"; };
+		97FC02631C02E54400254F9E /* Dtmf-0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-0.wav"; path = "../../../../../Dtmf-0.wav"; sourceTree = "<group>"; };
+		97FC02641C02E54400254F9E /* Dtmf-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-1.wav"; path = "../../../../../Dtmf-1.wav"; sourceTree = "<group>"; };
+		97FC02651C02E54400254F9E /* Dtmf-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-2.wav"; path = "../../../../../Dtmf-2.wav"; sourceTree = "<group>"; };
+		97FC02661C02E54400254F9E /* Dtmf-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-3.wav"; path = "../../../../../Dtmf-3.wav"; sourceTree = "<group>"; };
+		97FC02671C02E54400254F9E /* Sailboat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Sailboat.wav; path = ../../../../../Sailboat.wav; sourceTree = "<group>"; };
+		97FC02681C02E54400254F9E /* Dtmf-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-4.wav"; path = "../../../../../Dtmf-4.wav"; sourceTree = "<group>"; };
+		97FC02691C02E54400254F9E /* Dtmf-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-5.wav"; path = "../../../../../Dtmf-5.wav"; sourceTree = "<group>"; };
+		97FC026A1C02E54400254F9E /* Dtmf-6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-6.wav"; path = "../../../../../Dtmf-6.wav"; sourceTree = "<group>"; };
+		97FC026B1C02E54400254F9E /* Dtmf-7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-7.wav"; path = "../../../../../Dtmf-7.wav"; sourceTree = "<group>"; };
+		97FC026C1C02E54400254F9E /* Dtmf-8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-8.wav"; path = "../../../../../Dtmf-8.wav"; sourceTree = "<group>"; };
+		97FC026D1C02E54400254F9E /* Dtmf-9.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-9.wav"; path = "../../../../../Dtmf-9.wav"; sourceTree = "<group>"; };
+		97FC026E1C02E54400254F9E /* Dtmf-hash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-hash.wav"; path = "../../../../../Dtmf-hash.wav"; sourceTree = "<group>"; };
+		97FC026F1C02E54400254F9E /* Dtmf-star.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Dtmf-star.wav"; path = "../../../../../Dtmf-star.wav"; sourceTree = "<group>"; };
+		97FC02701C02E54400254F9E /* Message Tone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Message Tone.wav"; path = "../../../../../Message Tone.wav"; sourceTree = "<group>"; };
+		97FC02711C02E54400254F9E /* callme.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = callme.wav; path = ../../../../../callme.wav; sourceTree = "<group>"; };
+		97FC02721C02E54400254F9E /* error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = error.wav; path = ../../../../../error.wav; sourceTree = "<group>"; };
+		97FC02731C02E54400254F9E /* get_msg.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = get_msg.wav; path = ../../../../../get_msg.wav; sourceTree = "<group>"; };
+		97FC02741C02E54400254F9E /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = message.wav; path = ../../../../../message.wav; sourceTree = "<group>"; };
+		97FC02751C02E54400254F9E /* offerwall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = offerwall.wav; path = ../../../../../offerwall.wav; sourceTree = "<group>"; };
+		97FC02761C02E54400254F9E /* ringout.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ringout.wav; path = ../../../../../ringout.wav; sourceTree = "<group>"; };
+		97FC02771C02E54400254F9E /* ringtone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ringtone.wav; path = ../../../../../ringtone.wav; sourceTree = "<group>"; };
+		97FC02781C02E54400254F9E /* send_msg.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = send_msg.wav; path = ../../../../../send_msg.wav; sourceTree = "<group>"; };
+		97FC02911C02E57500254F9E /* ringtone-bg.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ringtone-bg.aif"; path = "../../../../../ringtone-bg.aif"; sourceTree = "<group>"; };
+		97FC02931C02EBDB00254F9E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02941C02EBDB00254F9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02951C02EBDB00254F9E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02961C02EBDB00254F9E /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/QuickLook.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02971C02EBDB00254F9E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02981C02EBDB00254F9E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02991C02EBDB00254F9E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		97FC029A1C02EBDB00254F9E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		97FC029B1C02EBDB00254F9E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		97FC029C1C02EBDB00254F9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		97FC029D1C02EBDB00254F9E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		97FC029E1C02EBDB00254F9E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		97FC029F1C02EBDB00254F9E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02A01C02EBDB00254F9E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02A11C02EBDB00254F9E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B11C02EBE600254F9E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B21C02EBE600254F9E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B31C02EBE600254F9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B41C02EBE600254F9E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/iAd.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B51C02EBE600254F9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B61C02EBE600254F9E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AddressBook.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B71C02EBE600254F9E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AddressBookUI.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B81C02EBE600254F9E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02B91C02EBE600254F9E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02BA1C02EBE600254F9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02C51C02EBF400254F9E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02C61C02EBF400254F9E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/Accounts.framework; sourceTree = DEVELOPER_DIR; };
+		97FC02C91C02EBFD00254F9E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
+		97FC02CA1C02EBFD00254F9E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
+		97FC06EB1C02F84800254F9E /* libLibC2Call-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libLibC2Call-SDK.a"; path = "../../../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos/libLibC2Call-SDK.a"; sourceTree = "<group>"; };
+		9C97025173E83386B6D9A643C1AABF35 /* Pods_C2Call_SDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F5F50254BAB71A137D851965CD63590 /* Pods-C2Call-SDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-C2Call-SDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		A09DA326BE9D44A6BE22CB6731610C5D /* Pods-C2Call-SDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-C2Call-SDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		ADFBE68C4669ADE12E91E170CB69B6BE /* Pods-C2Call-SDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-C2Call-SDK_Example-frameworks.sh"; sourceTree = "<group>"; };
+		B4B2D4F4EAF5D21FFC130FBDE3418372 /* Pods-C2Call-SDK_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-C2Call-SDK_Tests.modulemap"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BC773E27DAAA1B850231233C9221899E /* C2Call-SDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "C2Call-SDK.modulemap"; sourceTree = "<group>"; };
+		BC8591AC295F47A283A4A312179CC96C /* Pods-C2Call-SDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-C2Call-SDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		BDEC728B1629D00F869FC2AE520E9FA3 /* C2Call-SDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "C2Call-SDK-umbrella.h"; sourceTree = "<group>"; };
+		C1D8BB5FEF2B5B67B9B93E8C80683965 /* Pods-C2Call-SDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-C2Call-SDK_Example.modulemap"; sourceTree = "<group>"; };
+		C460D0FB64A6D627A6395E70782BAE0D /* C2Call-SDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "C2Call-SDK-dummy.m"; sourceTree = "<group>"; };
+		C715081B0D29086EDED7611F9B258031 /* C2Call_SDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = C2Call_SDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0D3B9AFB5D0DB8E5278B2B8307306BF /* Pods-C2Call-SDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-C2Call-SDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D0D96F9667483D781B6E4CF297401B12 /* ReplaceMe.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ReplaceMe.m; sourceTree = "<group>"; };
+		E9FA961C919A5A1F4D40277F7214F6E4 /* Pods-C2Call-SDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-C2Call-SDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		ED4D827E8263F8F7D5A0DE8723D2D5A0 /* Pods-C2Call-SDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-C2Call-SDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		EFDB6FF8E7E2BB057F402769AC28E0CA /* C2Call-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "C2Call-SDK.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56AC9D8F2D4BCE0100EB02DBA8F0DD96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EF85D1B85BF31EA344C484D1283A810 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6AE6D7F0E727E5D6F0CB9BBBF63EB5D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F22DC6884DA0EAD41F0846537179412 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBB37D681075DF7153E063C62250A356 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBD726ADB1DD385A4D05A16AC0DD197B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0E8ED84C0634828D028BC2243BDF8B /* Foundation.framework in Frameworks */,
+				97FC02A21C02EBDB00254F9E /* CoreText.framework in Frameworks */,
+				97FC02A31C02EBDB00254F9E /* Security.framework in Frameworks */,
+				97FC02A41C02EBDB00254F9E /* MobileCoreServices.framework in Frameworks */,
+				97FC02A51C02EBDB00254F9E /* QuickLook.framework in Frameworks */,
+				97FC02A61C02EBDB00254F9E /* AssetsLibrary.framework in Frameworks */,
+				97FC02A71C02EBDB00254F9E /* CoreData.framework in Frameworks */,
+				97FC02A81C02EBDB00254F9E /* AdSupport.framework in Frameworks */,
+				97FC02A91C02EBDB00254F9E /* MediaPlayer.framework in Frameworks */,
+				97FC02AA1C02EBDB00254F9E /* CoreTelephony.framework in Frameworks */,
+				97FC02AC1C02EBDB00254F9E /* OpenGLES.framework in Frameworks */,
+				97FC02AD1C02EBDB00254F9E /* CoreVideo.framework in Frameworks */,
+				97FC02AE1C02EBDB00254F9E /* CoreMedia.framework in Frameworks */,
+				97FC02BB1C02EBE600254F9E /* MessageUI.framework in Frameworks */,
+				97FC02BC1C02EBE600254F9E /* MapKit.framework in Frameworks */,
+				97FC02BD1C02EBE600254F9E /* CoreLocation.framework in Frameworks */,
+				97FC02BE1C02EBE600254F9E /* iAd.framework in Frameworks */,
+				97FC02BF1C02EBE600254F9E /* SystemConfiguration.framework in Frameworks */,
+				97FC02AB1C02EBDB00254F9E /* CFNetwork.framework in Frameworks */,
+				97FC02C71C02EBF400254F9E /* CoreFoundation.framework in Frameworks */,
+				97FC02C81C02EBF400254F9E /* Accounts.framework in Frameworks */,
+				97FC02C01C02EBE600254F9E /* AddressBook.framework in Frameworks */,
+				97FC02C11C02EBE600254F9E /* AddressBookUI.framework in Frameworks */,
+				97FC02C21C02EBE600254F9E /* CoreAudio.framework in Frameworks */,
+				97FC02C31C02EBE600254F9E /* AudioToolbox.framework in Frameworks */,
+				97FC02C41C02EBE600254F9E /* AVFoundation.framework in Frameworks */,
+				97FC02AF1C02EBDB00254F9E /* QuartzCore.framework in Frameworks */,
+				97FC02B01C02EBDB00254F9E /* StoreKit.framework in Frameworks */,
+				97FC02CB1C02EBFD00254F9E /* libz.dylib in Frameworks */,
+				97FC02CC1C02EBFD00254F9E /* libsqlite3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A4CF3075A809A3988E5CD1A542E7C61 /* Pods-C2Call-SDK_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				315104DD0DED751B66337861ED192C57 /* Info.plist */,
+				B4B2D4F4EAF5D21FFC130FBDE3418372 /* Pods-C2Call-SDK_Tests.modulemap */,
+				222BABD708898BA0AFEB5F404535D725 /* Pods-C2Call-SDK_Tests-acknowledgements.markdown */,
+				A09DA326BE9D44A6BE22CB6731610C5D /* Pods-C2Call-SDK_Tests-acknowledgements.plist */,
+				1BA7ECA2E7CE202C952B7305F9960C00 /* Pods-C2Call-SDK_Tests-dummy.m */,
+				24E15A4134E342056F2D3EE07654CD0D /* Pods-C2Call-SDK_Tests-frameworks.sh */,
+				083977B3C43C3F9D33DB283E012BB6AD /* Pods-C2Call-SDK_Tests-resources.sh */,
+				3891CB979B08219B388C46BF5CAF699F /* Pods-C2Call-SDK_Tests-umbrella.h */,
+				29FA79162D6D054792ABFFC51DBC47DC /* Pods-C2Call-SDK_Tests.debug.xcconfig */,
+				ED4D827E8263F8F7D5A0DE8723D2D5A0 /* Pods-C2Call-SDK_Tests.release.xcconfig */,
+			);
+			name = "Pods-C2Call-SDK_Tests";
+			path = "Target Support Files/Pods-C2Call-SDK_Tests";
+			sourceTree = "<group>";
+		};
+		247195183AD101C4B490569ECDCA9F6F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				97521C771C01B94E008E6817 /* Controller */,
+				D0D96F9667483D781B6E4CF297401B12 /* ReplaceMe.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		3665810D51A702A71FBBA87B35231BF2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3EE4CE60F4B6CA114AF1DB02BC4F3AF7 /* C2Call-SDK.bundle */,
+				C715081B0D29086EDED7611F9B258031 /* C2Call_SDK.framework */,
+				9C97025173E83386B6D9A643C1AABF35 /* Pods_C2Call_SDK_Example.framework */,
+				4291325A637B8EE889ED70A91280E733 /* Pods_C2Call_SDK_Tests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		400A0FCC52F50FF738C83A8901FB50DE /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				247195183AD101C4B490569ECDCA9F6F /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		4F732CD3C6605EE6FAF848583258C8F2 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				97FC02601C02E53600254F9E /* Sounds */,
+				97521CBC1C01BBDF008E6817 /* SCStoryboard.storyboard */,
+				97FC025E1C02E4F400254F9E /* C2CallDataModel 20.xcdatamodel */,
+				97521CC11C01BD4D008E6817 /* SocialCommunication.xcassets */,
+				BC773E27DAAA1B850231233C9221899E /* C2Call-SDK.modulemap */,
+				EFDB6FF8E7E2BB057F402769AC28E0CA /* C2Call-SDK.xcconfig */,
+				C460D0FB64A6D627A6395E70782BAE0D /* C2Call-SDK-dummy.m */,
+				725A8E662709E262139CA26FCC7A7A29 /* C2Call-SDK-prefix.pch */,
+				BDEC728B1629D00F869FC2AE520E9FA3 /* C2Call-SDK-umbrella.h */,
+				7457463A018AF17E7C618F17DEB0BBBF /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/C2Call-SDK";
+			sourceTree = "<group>";
+		};
+		74329A87A01F7CB6A7341D1D934B0C9D /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A19BA88EAF6CA982634412DCD433C502 /* Pods-C2Call-SDK_Example */,
+				1A4CF3075A809A3988E5CD1A542E7C61 /* Pods-C2Call-SDK_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				936D6B0933DEE0F9303FB5A1384E26E6 /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				3665810D51A702A71FBBA87B35231BF2 /* Products */,
+				74329A87A01F7CB6A7341D1D934B0C9D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		85CD617AD39FA333CB5D6486F9D3DA0D /* C2Call-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				400A0FCC52F50FF738C83A8901FB50DE /* Pod */,
+				4F732CD3C6605EE6FAF848583258C8F2 /* Support Files */,
+			);
+			name = "C2Call-SDK";
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		936D6B0933DEE0F9303FB5A1384E26E6 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85CD617AD39FA333CB5D6486F9D3DA0D /* C2Call-SDK */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		97521C771C01B94E008E6817 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				97521C781C01B97F008E6817 /* SCUserProfileController.h */,
+				97521C791C01B97F008E6817 /* SCUserProfileController.m */,
+				97521C7C1C01B9BC008E6817 /* SCUserStatusController.h */,
+				97521C7D1C01B9BC008E6817 /* SCUserStatusController.m */,
+				97521C801C01B9D4008E6817 /* SCEditStatusController.h */,
+				97521C811C01B9D4008E6817 /* SCEditStatusController.m */,
+				97521C841C01B9FF008E6817 /* SCLoginController.h */,
+				97521C851C01B9FF008E6817 /* SCLoginController.m */,
+				97521C881C01BA0E008E6817 /* SCRegistrationController.h */,
+				97521C891C01BA0E008E6817 /* SCRegistrationController.m */,
+				97521C8C1C01BA26008E6817 /* SCLaunchScreenController.h */,
+				97521C8D1C01BA26008E6817 /* SCLaunchScreenController.m */,
+				97521C901C01BA43008E6817 /* SCPurchaseController.h */,
+				97521C911C01BA43008E6817 /* SCPurchaseController.m */,
+				97521C941C01BA5F008E6817 /* SCDataTableViewController.h */,
+				97521C951C01BA5F008E6817 /* SCDataTableViewController.m */,
+				97521C981C01BA7A008E6817 /* SCChatController.h */,
+				97521C991C01BA7A008E6817 /* SCChatController.m */,
+				97521C9C1C01BA92008E6817 /* SCComposeMessageController.h */,
+				97521C9D1C01BA92008E6817 /* SCComposeMessageController.m */,
+				97521CA01C01BAB4008E6817 /* SCBoardController.h */,
+				97521CA11C01BAB4008E6817 /* SCBoardController.m */,
+				97521CA41C01BACA008E6817 /* SCFriendListController.h */,
+				97521CA51C01BACA008E6817 /* SCFriendListController.m */,
+				97521CA81C01BADA008E6817 /* SCFriendDetailController.h */,
+				97521CA91C01BADA008E6817 /* SCFriendDetailController.m */,
+				97521CAC1C01BAFC008E6817 /* SCGroupDetailController.h */,
+				97521CAD1C01BAFC008E6817 /* SCGroupDetailController.m */,
+				97521CB01C01BB10008E6817 /* SCGroupDetailHeaderController.h */,
+				97521CB11C01BB10008E6817 /* SCGroupDetailHeaderController.m */,
+				97521CB41C01BB28008E6817 /* SCPromptController.h */,
+				97521CB51C01BB28008E6817 /* SCPromptController.m */,
+				97521CB81C01BB46008E6817 /* SCWaitIndicatorController.h */,
+				97521CB91C01BB46008E6817 /* SCWaitIndicatorController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		97FC02601C02E53600254F9E /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				97FC02911C02E57500254F9E /* ringtone-bg.aif */,
+				97FC02611C02E54400254F9E /* holdtheline.wav */,
+				97FC02621C02E54400254F9E /* BusyTone.wav */,
+				97FC02631C02E54400254F9E /* Dtmf-0.wav */,
+				97FC02641C02E54400254F9E /* Dtmf-1.wav */,
+				97FC02651C02E54400254F9E /* Dtmf-2.wav */,
+				97FC02661C02E54400254F9E /* Dtmf-3.wav */,
+				97FC02671C02E54400254F9E /* Sailboat.wav */,
+				97FC02681C02E54400254F9E /* Dtmf-4.wav */,
+				97FC02691C02E54400254F9E /* Dtmf-5.wav */,
+				97FC026A1C02E54400254F9E /* Dtmf-6.wav */,
+				97FC026B1C02E54400254F9E /* Dtmf-7.wav */,
+				97FC026C1C02E54400254F9E /* Dtmf-8.wav */,
+				97FC026D1C02E54400254F9E /* Dtmf-9.wav */,
+				97FC026E1C02E54400254F9E /* Dtmf-hash.wav */,
+				97FC026F1C02E54400254F9E /* Dtmf-star.wav */,
+				97FC02701C02E54400254F9E /* Message Tone.wav */,
+				97FC02711C02E54400254F9E /* callme.wav */,
+				97FC02721C02E54400254F9E /* error.wav */,
+				97FC02731C02E54400254F9E /* get_msg.wav */,
+				97FC02741C02E54400254F9E /* message.wav */,
+				97FC02751C02E54400254F9E /* offerwall.wav */,
+				97FC02761C02E54400254F9E /* ringout.wav */,
+				97FC02771C02E54400254F9E /* ringtone.wav */,
+				97FC02781C02E54400254F9E /* send_msg.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		A19BA88EAF6CA982634412DCD433C502 /* Pods-C2Call-SDK_Example */ = {
+			isa = PBXGroup;
+			children = (
+				5CF7C65B97C0C9944F4D7CFB0D50E3AA /* Info.plist */,
+				C1D8BB5FEF2B5B67B9B93E8C80683965 /* Pods-C2Call-SDK_Example.modulemap */,
+				D0D3B9AFB5D0DB8E5278B2B8307306BF /* Pods-C2Call-SDK_Example-acknowledgements.markdown */,
+				BC8591AC295F47A283A4A312179CC96C /* Pods-C2Call-SDK_Example-acknowledgements.plist */,
+				1E46C4F0E66AA9E157115D14F02BA34E /* Pods-C2Call-SDK_Example-dummy.m */,
+				ADFBE68C4669ADE12E91E170CB69B6BE /* Pods-C2Call-SDK_Example-frameworks.sh */,
+				20BD44998D47379DB722FFC671455A0C /* Pods-C2Call-SDK_Example-resources.sh */,
+				912251ACB580FE55C0D9FEEB9AD742B3 /* Pods-C2Call-SDK_Example-umbrella.h */,
+				9F5F50254BAB71A137D851965CD63590 /* Pods-C2Call-SDK_Example.debug.xcconfig */,
+				E9FA961C919A5A1F4D40277F7214F6E4 /* Pods-C2Call-SDK_Example.release.xcconfig */,
+			);
+			name = "Pods-C2Call-SDK_Example";
+			path = "Target Support Files/Pods-C2Call-SDK_Example";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97FC06EB1C02F84800254F9E /* libLibC2Call-SDK.a */,
+				97FC02C91C02EBFD00254F9E /* libz.dylib */,
+				97FC02CA1C02EBFD00254F9E /* libsqlite3.dylib */,
+				97FC02C51C02EBF400254F9E /* CoreFoundation.framework */,
+				97FC02C61C02EBF400254F9E /* Accounts.framework */,
+				97FC02B11C02EBE600254F9E /* MessageUI.framework */,
+				97FC02B21C02EBE600254F9E /* MapKit.framework */,
+				97FC02B31C02EBE600254F9E /* CoreLocation.framework */,
+				97FC02B41C02EBE600254F9E /* iAd.framework */,
+				97FC02B51C02EBE600254F9E /* SystemConfiguration.framework */,
+				97FC02B61C02EBE600254F9E /* AddressBook.framework */,
+				97FC02B71C02EBE600254F9E /* AddressBookUI.framework */,
+				97FC02B81C02EBE600254F9E /* CoreAudio.framework */,
+				97FC02B91C02EBE600254F9E /* AudioToolbox.framework */,
+				97FC02BA1C02EBE600254F9E /* AVFoundation.framework */,
+				97FC02931C02EBDB00254F9E /* CoreText.framework */,
+				97FC02941C02EBDB00254F9E /* Security.framework */,
+				97FC02951C02EBDB00254F9E /* MobileCoreServices.framework */,
+				97FC02961C02EBDB00254F9E /* QuickLook.framework */,
+				97FC02971C02EBDB00254F9E /* AssetsLibrary.framework */,
+				97FC02981C02EBDB00254F9E /* CoreData.framework */,
+				97FC02991C02EBDB00254F9E /* AdSupport.framework */,
+				97FC029A1C02EBDB00254F9E /* MediaPlayer.framework */,
+				97FC029B1C02EBDB00254F9E /* CoreTelephony.framework */,
+				97FC029C1C02EBDB00254F9E /* CFNetwork.framework */,
+				97FC029D1C02EBDB00254F9E /* OpenGLES.framework */,
+				97FC029E1C02EBDB00254F9E /* CoreVideo.framework */,
+				97FC029F1C02EBDB00254F9E /* CoreMedia.framework */,
+				97FC02A01C02EBDB00254F9E /* QuartzCore.framework */,
+				97FC02A11C02EBDB00254F9E /* StoreKit.framework */,
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8B70489E50CE9F9F23F7D1711F858517 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97521C961C01BA5F008E6817 /* SCDataTableViewController.h in Headers */,
+				97521CA61C01BACA008E6817 /* SCFriendListController.h in Headers */,
+				97521C7E1C01B9BC008E6817 /* SCUserStatusController.h in Headers */,
+				97521C921C01BA43008E6817 /* SCPurchaseController.h in Headers */,
+				97521CA21C01BAB4008E6817 /* SCBoardController.h in Headers */,
+				97521CBA1C01BB46008E6817 /* SCWaitIndicatorController.h in Headers */,
+				97521C9E1C01BA92008E6817 /* SCComposeMessageController.h in Headers */,
+				97521CB61C01BB28008E6817 /* SCPromptController.h in Headers */,
+				2D85474B124DFCF809C05E786431A905 /* C2Call-SDK-umbrella.h in Headers */,
+				97521C821C01B9D4008E6817 /* SCEditStatusController.h in Headers */,
+				97521CB21C01BB10008E6817 /* SCGroupDetailHeaderController.h in Headers */,
+				97521CAE1C01BAFC008E6817 /* SCGroupDetailController.h in Headers */,
+				97521C7A1C01B97F008E6817 /* SCUserProfileController.h in Headers */,
+				97521C8E1C01BA26008E6817 /* SCLaunchScreenController.h in Headers */,
+				97521C861C01B9FF008E6817 /* SCLoginController.h in Headers */,
+				97521CAA1C01BADA008E6817 /* SCFriendDetailController.h in Headers */,
+				97521C9A1C01BA7A008E6817 /* SCChatController.h in Headers */,
+				97521C8A1C01BA0E008E6817 /* SCRegistrationController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0EDC470D38B22A5C023991DF3587F2F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E22F4E6AC77CA1501FC74E1291096D6 /* Pods-C2Call-SDK_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B544D20C1C2CEA5338F354DBCC6F44D3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB3C72B3F8C5F69851637D96B0A941BE /* Pods-C2Call-SDK_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		340ECEA0946FFBCA97DDA80F1C559099 /* C2Call-SDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCF47EF681B2E17BA7E127894BA1E39F /* Build configuration list for PBXNativeTarget "C2Call-SDK" */;
+			buildPhases = (
+				E3DB2FD74539B0CA98DD12EBDF6FA015 /* Sources */,
+				DBD726ADB1DD385A4D05A16AC0DD197B /* Frameworks */,
+				B1350E85D2800046276B085D3F2C5B12 /* Resources */,
+				8B70489E50CE9F9F23F7D1711F858517 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49157681708167A955017AA3C8F19F79 /* PBXTargetDependency */,
+			);
+			name = "C2Call-SDK";
+			productName = "C2Call-SDK";
+			productReference = C715081B0D29086EDED7611F9B258031 /* C2Call_SDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		92F17E30550678849A9F50E14432408C /* Pods-C2Call-SDK_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90656ED17091D8C4B73FDE4B61E4E106 /* Build configuration list for PBXNativeTarget "Pods-C2Call-SDK_Example" */;
+			buildPhases = (
+				5F49E5DDD24038D002354711382CD792 /* Sources */,
+				9F22DC6884DA0EAD41F0846537179412 /* Frameworks */,
+				B544D20C1C2CEA5338F354DBCC6F44D3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3659AC36F4F768B7B064EC671D320D06 /* PBXTargetDependency */,
+			);
+			name = "Pods-C2Call-SDK_Example";
+			productName = "Pods-C2Call-SDK_Example";
+			productReference = 9C97025173E83386B6D9A643C1AABF35 /* Pods_C2Call_SDK_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		966C39E65FC118CEB2BBB3BEB6550964 /* Pods-C2Call-SDK_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 935ECE256ACE63CACEBE3256A5D4DAAC /* Build configuration list for PBXNativeTarget "Pods-C2Call-SDK_Tests" */;
+			buildPhases = (
+				23C389CA9A4CF6840A33CD0288501D9C /* Sources */,
+				56AC9D8F2D4BCE0100EB02DBA8F0DD96 /* Frameworks */,
+				A0EDC470D38B22A5C023991DF3587F2F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE0BC9ADDD7D1DF3FC455664B48C4EB5 /* PBXTargetDependency */,
+			);
+			name = "Pods-C2Call-SDK_Tests";
+			productName = "Pods-C2Call-SDK_Tests";
+			productReference = 4291325A637B8EE889ED70A91280E733 /* Pods_C2Call_SDK_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FEBE8CF34C1DAA2DE14D9C801D88E761 /* C2Call-SDK-C2Call-SDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D5FF4A31E80FB637D388F0D89C0E3B4 /* Build configuration list for PBXNativeTarget "C2Call-SDK-C2Call-SDK" */;
+			buildPhases = (
+				3679A25F919875C76ED68D6D66761F0E /* Sources */,
+				6AE6D7F0E727E5D6F0CB9BBBF63EB5D5 /* Frameworks */,
+				623E034B45F9B28FC246E7B895488822 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "C2Call-SDK-C2Call-SDK";
+			productName = "C2Call-SDK-C2Call-SDK";
+			productReference = 3EE4CE60F4B6CA114AF1DB02BC4F3AF7 /* C2Call-SDK.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 3665810D51A702A71FBBA87B35231BF2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				340ECEA0946FFBCA97DDA80F1C559099 /* C2Call-SDK */,
+				FEBE8CF34C1DAA2DE14D9C801D88E761 /* C2Call-SDK-C2Call-SDK */,
+				92F17E30550678849A9F50E14432408C /* Pods-C2Call-SDK_Example */,
+				966C39E65FC118CEB2BBB3BEB6550964 /* Pods-C2Call-SDK_Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		623E034B45F9B28FC246E7B895488822 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1350E85D2800046276B085D3F2C5B12 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97FC027D1C02E54400254F9E /* Dtmf-2.wav in Resources */,
+				97FC027A1C02E54400254F9E /* BusyTone.wav in Resources */,
+				A0F93FE8BECBC0D5036F5F8C4377023E /* C2Call-SDK.bundle in Resources */,
+				97FC02831C02E54400254F9E /* Dtmf-7.wav in Resources */,
+				97FC028E1C02E54400254F9E /* ringout.wav in Resources */,
+				97FC02901C02E54400254F9E /* send_msg.wav in Resources */,
+				97FC02891C02E54400254F9E /* callme.wav in Resources */,
+				97FC028C1C02E54400254F9E /* message.wav in Resources */,
+				97FC02821C02E54400254F9E /* Dtmf-6.wav in Resources */,
+				97FC02811C02E54400254F9E /* Dtmf-5.wav in Resources */,
+				97FC02841C02E54400254F9E /* Dtmf-8.wav in Resources */,
+				97FC02881C02E54400254F9E /* Message Tone.wav in Resources */,
+				97FC02851C02E54400254F9E /* Dtmf-9.wav in Resources */,
+				97FC027C1C02E54400254F9E /* Dtmf-1.wav in Resources */,
+				97FC028B1C02E54400254F9E /* get_msg.wav in Resources */,
+				97FC027B1C02E54400254F9E /* Dtmf-0.wav in Resources */,
+				97FC02801C02E54400254F9E /* Dtmf-4.wav in Resources */,
+				97FC02871C02E54400254F9E /* Dtmf-star.wav in Resources */,
+				97FC027F1C02E54400254F9E /* Sailboat.wav in Resources */,
+				97FC028F1C02E54400254F9E /* ringtone.wav in Resources */,
+				97FC02861C02E54400254F9E /* Dtmf-hash.wav in Resources */,
+				97521CC21C01BD4D008E6817 /* SocialCommunication.xcassets in Resources */,
+				97FC028D1C02E54400254F9E /* offerwall.wav in Resources */,
+				97521CBD1C01BBDF008E6817 /* SCStoryboard.storyboard in Resources */,
+				97FC02791C02E54400254F9E /* holdtheline.wav in Resources */,
+				97FC02921C02E57500254F9E /* ringtone-bg.aif in Resources */,
+				97FC027E1C02E54400254F9E /* Dtmf-3.wav in Resources */,
+				97FC028A1C02E54400254F9E /* error.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23C389CA9A4CF6840A33CD0288501D9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B628183F8CE93769B9A2BFF19DDAD8C2 /* Pods-C2Call-SDK_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3679A25F919875C76ED68D6D66761F0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5F49E5DDD24038D002354711382CD792 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79A92189F876395D78558933A991DAFD /* Pods-C2Call-SDK_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3DB2FD74539B0CA98DD12EBDF6FA015 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97521C7F1C01B9BC008E6817 /* SCUserStatusController.m in Sources */,
+				97521CA71C01BACA008E6817 /* SCFriendListController.m in Sources */,
+				97521CA31C01BAB4008E6817 /* SCBoardController.m in Sources */,
+				97521C871C01B9FF008E6817 /* SCLoginController.m in Sources */,
+				97FC025F1C02E4F400254F9E /* C2CallDataModel 20.xcdatamodel in Sources */,
+				97521CB31C01BB10008E6817 /* SCGroupDetailHeaderController.m in Sources */,
+				97521C8F1C01BA26008E6817 /* SCLaunchScreenController.m in Sources */,
+				0091AC857B2DA29C8F267D4EE6C033C1 /* C2Call-SDK-dummy.m in Sources */,
+				97521C9F1C01BA92008E6817 /* SCComposeMessageController.m in Sources */,
+				97521C8B1C01BA0E008E6817 /* SCRegistrationController.m in Sources */,
+				97521C971C01BA5F008E6817 /* SCDataTableViewController.m in Sources */,
+				D1A7B959F0CB58545804FAFECC0D7C3F /* ReplaceMe.m in Sources */,
+				97521C9B1C01BA7A008E6817 /* SCChatController.m in Sources */,
+				97521CBB1C01BB46008E6817 /* SCWaitIndicatorController.m in Sources */,
+				97521CAB1C01BADA008E6817 /* SCFriendDetailController.m in Sources */,
+				97521C931C01BA43008E6817 /* SCPurchaseController.m in Sources */,
+				97521C831C01B9D4008E6817 /* SCEditStatusController.m in Sources */,
+				97521CB71C01BB28008E6817 /* SCPromptController.m in Sources */,
+				97521CAF1C01BAFC008E6817 /* SCGroupDetailController.m in Sources */,
+				97521C7B1C01B97F008E6817 /* SCUserProfileController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3659AC36F4F768B7B064EC671D320D06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "C2Call-SDK";
+			target = 340ECEA0946FFBCA97DDA80F1C559099 /* C2Call-SDK */;
+			targetProxy = E2CB8CBE28A198C459E8B6889F157128 /* PBXContainerItemProxy */;
+		};
+		49157681708167A955017AA3C8F19F79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "C2Call-SDK-C2Call-SDK";
+			target = FEBE8CF34C1DAA2DE14D9C801D88E761 /* C2Call-SDK-C2Call-SDK */;
+			targetProxy = 704120595B857A54BF4B678A6754CD00 /* PBXContainerItemProxy */;
+		};
+		DE0BC9ADDD7D1DF3FC455664B48C4EB5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "C2Call-SDK";
+			target = 340ECEA0946FFBCA97DDA80F1C559099 /* C2Call-SDK */;
+			targetProxy = 5A6E0C61A9D4BA99BAE4B0D04FE0A5DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03CA91998D6773EC5D02B3DB87B8353E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0B57334D6C23DADAA4F7D802A5760EB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		239BDBA96E8DC36C3FC05F5378E9171D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F5F50254BAB71A137D851965CD63590 /* Pods-C2Call-SDK_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-C2Call-SDK_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_C2Call_SDK_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		38516870D3A08E0EDFE66E9FBEC4F2CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED4D827E8263F8F7D5A0DE8723D2D5A0 /* Pods-C2Call-SDK_Tests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-C2Call-SDK_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_C2Call_SDK_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3D66622455FFC560C0D5A044485CD5C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFDB6FF8E7E2BB057F402769AC28E0CA /* C2Call-SDK.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/C2Call-SDK/C2Call-SDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/C2Call-SDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/C2Call-SDK/C2Call-SDK.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = C2Call_SDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5437970C207570DD2D3FEDB728CB5162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFDB6FF8E7E2BB057F402769AC28E0CA /* C2Call-SDK.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/C2Call-SDK/C2Call-SDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/C2Call-SDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/C2Call-SDK/C2Call-SDK.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = C2Call_SDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		76E1C4AED85A2EA7DF51F280848EB25F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFDB6FF8E7E2BB057F402769AC28E0CA /* C2Call-SDK.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = "C2Call-SDK";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		A7F4AC4639B61747C4AAE9EA847B6D35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFDB6FF8E7E2BB057F402769AC28E0CA /* C2Call-SDK.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = "C2Call-SDK";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		D0E57D9994935407344BB77D3E2CF7E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29FA79162D6D054792ABFFC51DBC47DC /* Pods-C2Call-SDK_Tests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-C2Call-SDK_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_C2Call_SDK_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D3ED4060F50DBB571A931BE18BA77DA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9FA961C919A5A1F4D40277F7214F6E4 /* Pods-C2Call-SDK_Example.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-C2Call-SDK_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_C2Call_SDK_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B57334D6C23DADAA4F7D802A5760EB2 /* Debug */,
+				03CA91998D6773EC5D02B3DB87B8353E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D5FF4A31E80FB637D388F0D89C0E3B4 /* Build configuration list for PBXNativeTarget "C2Call-SDK-C2Call-SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76E1C4AED85A2EA7DF51F280848EB25F /* Debug */,
+				A7F4AC4639B61747C4AAE9EA847B6D35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90656ED17091D8C4B73FDE4B61E4E106 /* Build configuration list for PBXNativeTarget "Pods-C2Call-SDK_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				239BDBA96E8DC36C3FC05F5378E9171D /* Debug */,
+				D3ED4060F50DBB571A931BE18BA77DA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		935ECE256ACE63CACEBE3256A5D4DAAC /* Build configuration list for PBXNativeTarget "Pods-C2Call-SDK_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E57D9994935407344BB77D3E2CF7E3 /* Debug */,
+				38516870D3A08E0EDFE66E9FBEC4F2CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCF47EF681B2E17BA7E127894BA1E39F /* Build configuration list for PBXNativeTarget "C2Call-SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5437970C207570DD2D3FEDB728CB5162 /* Debug */,
+				3D66622455FFC560C0D5A044485CD5C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

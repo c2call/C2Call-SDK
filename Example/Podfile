@@ -3,6 +3,13 @@ use_frameworks!
 
 target 'C2Call-SDK_Example', :exclusive => true do
   pod "C2Call-SDK", :path => "../"
+  pod 'SBJson', '~> 4.0.2'
+  pod 'AWSCore'
+  pod 'AWSS3'
+  pod 'FBSDKCoreKit', '~> 4.6.0'
+  pod 'FBSDKLoginKit', '~> 4.6.0'
+  pod 'Flurry-iOS-SDK/FlurrySDK'
+  pod 'Flurry-iOS-SDK/FlurryAds'
 end
 
 target 'C2Call-SDK_Tests', :exclusive => true do
