@@ -1,6 +1,0 @@
-framework module C2Call_SDK {
-  umbrella header "C2Call-SDK-umbrella.h"
-
-  export *
-  module * { export * }
-}

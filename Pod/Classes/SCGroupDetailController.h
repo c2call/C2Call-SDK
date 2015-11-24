@@ -1,0 +1,1 @@
+../../../SocialCommunication/SCGroupDetailController.h

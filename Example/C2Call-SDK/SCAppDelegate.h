@@ -8,7 +8,9 @@
 
 @import UIKit;
 
-@interface SCAppDelegate : UIResponder <UIApplicationDelegate>
+#import <SocialCommunication/SocialCommunication.h>
+
+@interface SCAppDelegate : C2CallAppDelegate
 
 @property (strong, nonatomic) UIWindow *window;
 

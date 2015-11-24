@@ -1,14 +1,52 @@
 PODS:
-  - C2Call-SDK (0.1.0)
+  - AWSCore (2.3.0)
+  - AWSS3 (2.3.0):
+    - AWSCore (= 2.3.0)
+  - Bolts (1.5.0):
+    - Bolts/AppLinks (= 1.5.0)
+    - Bolts/Tasks (= 1.5.0)
+  - Bolts/AppLinks (1.5.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.5.0)
+  - FBSDKCoreKit (4.6.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.6.0)
+    - FBSDKCoreKit/no-arc (= 4.6.0)
+  - FBSDKCoreKit/arc (4.6.0):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.6.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
+  - FBSDKLoginKit (4.6.0):
+    - FBSDKCoreKit
+  - Flurry-iOS-SDK/FlurryAds (7.3.0):
+    - Flurry-iOS-SDK/FlurrySDK
+  - Flurry-iOS-SDK/FlurrySDK (7.3.0)
+  - SBJson (4.0.2)
+  - SocialCommunication (0.1.0):
+    - AWSCore
+    - AWSS3
+    - FBSDKCoreKit (~> 4.6.0)
+    - FBSDKLoginKit (~> 4.6.0)
+    - Flurry-iOS-SDK/FlurryAds
+    - Flurry-iOS-SDK/FlurrySDK
+    - SBJson (~> 4.0.2)
 
 DEPENDENCIES:
-  - C2Call-SDK (from `../`)
+  - SocialCommunication (from `../`)
 
 EXTERNAL SOURCES:
-  C2Call-SDK:
+  SocialCommunication:
     :path: ../
 
 SPEC CHECKSUMS:
-  C2Call-SDK: d6ea7dd6a20c6a81724b93928dd39022db9ac953
+  AWSCore: dc200c885c9799f9f5d3ab9ec38a9c4b44d680f9
+  AWSS3: 0185482a8136da9c7542a767567ee18106b38bca
+  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
+  FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
+  FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
+  Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
+  SBJson: c18691cc18375b14664ff0fec841f8c4faef1934
+  SocialCommunication: d32ec8dab0267910c425ab6de5efb3aef491b219
 
 COCOAPODS: 0.39.0

@@ -1,0 +1,1 @@
+../../../../../Pod/Classes/MOGroupMember.h

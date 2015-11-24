@@ -84,8 +84,22 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-C2Call-SDK_Tests/C2Call_SDK.framework"
+  install_framework "Pods-C2Call-SDK_Tests/AWSCore.framework"
+  install_framework "Pods-C2Call-SDK_Tests/AWSS3.framework"
+  install_framework "Pods-C2Call-SDK_Tests/Bolts.framework"
+  install_framework "Pods-C2Call-SDK_Tests/FBSDKCoreKit.framework"
+  install_framework "Pods-C2Call-SDK_Tests/FBSDKLoginKit.framework"
+  install_framework "Pods-C2Call-SDK_Tests/Flurry_iOS_SDK.framework"
+  install_framework "Pods-C2Call-SDK_Tests/SBJson.framework"
+  install_framework "Pods-C2Call-SDK_Tests/SocialCommunication.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-C2Call-SDK_Tests/C2Call_SDK.framework"
+  install_framework "Pods-C2Call-SDK_Tests/AWSCore.framework"
+  install_framework "Pods-C2Call-SDK_Tests/AWSS3.framework"
+  install_framework "Pods-C2Call-SDK_Tests/Bolts.framework"
+  install_framework "Pods-C2Call-SDK_Tests/FBSDKCoreKit.framework"
+  install_framework "Pods-C2Call-SDK_Tests/FBSDKLoginKit.framework"
+  install_framework "Pods-C2Call-SDK_Tests/Flurry_iOS_SDK.framework"
+  install_framework "Pods-C2Call-SDK_Tests/SBJson.framework"
+  install_framework "Pods-C2Call-SDK_Tests/SocialCommunication.framework"
 fi

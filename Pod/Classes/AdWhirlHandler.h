@@ -1,0 +1,1 @@
+../../../Classes/AdWhirlHandler.h

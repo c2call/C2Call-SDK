@@ -1,0 +1,77 @@
+{
+  "name": "SocialCommunication",
+  "version": "0.1.0",
+  "summary": "A short description of C2Call-SDK.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/C2Call-SDK",
+  "license": "MIT",
+  "authors": {
+    "Michael Knecht": "Michael.Knecht@c2call.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/C2Call-SDK.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/*",
+  "resource_bundles": {
+    "SocialCommunication": [
+      "Pod/Assets/*.{wav,aiff,aif,xcdatamodeld,storyboard,xcassets}"
+    ]
+  },
+  "public_header_files": "Pod/Classes/*.h",
+  "frameworks": [
+    "UIKit",
+    "Security",
+    "MobileCoreServices",
+    "QuickLook",
+    "AssetsLibrary",
+    "CoreData",
+    "AdSupport",
+    "MediaPlayer",
+    "CoreTelePhony",
+    "CFNetwork",
+    "OpenGLES",
+    "CoreVideo",
+    "QuartzCore",
+    "StoreKit",
+    "MessageUI",
+    "MapKit",
+    "CoreLocation",
+    "iAd",
+    "SystemConfiguration",
+    "AddressBook",
+    "AddressBookUI",
+    "CoreAudio",
+    "AudioToolbox",
+    "AVFoundation",
+    "CoreFoundation",
+    "Accounts"
+  ],
+  "dependencies": {
+    "SBJson": [
+      "~> 4.0.2"
+    ],
+    "AWSCore": [
+
+    ],
+    "AWSS3": [
+
+    ],
+    "FBSDKCoreKit": [
+      "~> 4.6.0"
+    ],
+    "FBSDKLoginKit": [
+      "~> 4.6.0"
+    ],
+    "Flurry-iOS-SDK/FlurrySDK": [
+
+    ],
+    "Flurry-iOS-SDK/FlurryAds": [
+
+    ]
+  }
+}
