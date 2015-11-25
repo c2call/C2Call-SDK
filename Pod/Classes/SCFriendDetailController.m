@@ -177,8 +177,10 @@
     
     CGFloat height = frame.origin.y;
     
-    CGSize sz = [user.userStatus sizeWithFont:userInfoCell.userStatus.font constrainedToSize:CGSizeMake(frame.size.width, 66.)];
-    
+    //CGSize sz = [user.userStatus sizeWithFont:userInfoCell.userStatus.font constrainedToSize:CGSizeMake(frame.size.width, 66.)];
+    CGSize sz = [user.userStatus boundingRectWithSize:CGSizeMake(frame.size.width, 66.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                 attributes:@{NSFontAttributeName:userInfoCell.userStatus.font} context:nil].size;
+
     height += sz.height;
     height += (f2.origin.y - (frame.origin.y + frame.size.height)) + f2.size.height + 3;
     
@@ -318,7 +320,10 @@
     
     if ([elem.userStatus length] > 0) {
         CGRect frame = userStatusFrame;
-        CGSize sz = [elem.userStatus sizeWithFont:userInfoCell.userStatus.font constrainedToSize:CGSizeMake(frame.size.width, 66.)];
+//        CGSize sz = [elem.userStatus sizeWithFont:userInfoCell.userStatus.font constrainedToSize:CGSizeMake(frame.size.width, 66.)];
+        CGSize sz = [elem.userStatus boundingRectWithSize:CGSizeMake(frame.size.width, 66.) options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:@{NSFontAttributeName:userInfoCell.userStatus.font} context:nil].size;
+
         frame.size.height = sz.height;
         userInfoCell.userStatus.frame = frame;
         userInfoCell.userStatus.text = elem.userStatus;
@@ -531,7 +536,7 @@
 {
     MOC2CallUser *elem = [self currentUser];
     
-    DLog(@"cellForRowAtIndexPath : %d/%d", indexPath.section, indexPath.row);
+    DLog(@"cellForRowAtIndexPath : %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     switch (indexPath.section) {
         case 0:
             [self configureUserInfoCell:elem];
@@ -964,7 +969,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }

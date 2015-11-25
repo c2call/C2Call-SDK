@@ -40,7 +40,7 @@ typedef enum {
 
 /** Base Color of the bubble
  */
-@property(nonatomic, strong) UIColor        *baseColor; UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong) UIColor        *baseColor UI_APPEARANCE_SELECTOR;
 
 /** Chat Text of the bubble
  */
@@ -48,11 +48,11 @@ typedef enum {
 
 /** Text Font for Chat Text
  */
-@property(nonatomic, strong) UIFont         *textFont; UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong) UIFont         *textFont UI_APPEARANCE_SELECTOR;
 
 /** Text Color for Chat Text
  */
-@property(nonatomic, strong) UIColor        *textColor; UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong) UIColor        *textColor UI_APPEARANCE_SELECTOR;
 
 /** Draw the text with offset from top
  */
@@ -67,7 +67,7 @@ typedef enum {
     - SC_BUBBLE_IN_IOS7 : iOS7 style bubble
  
  */
-@property(nonatomic) SCBubbleType_In        bubbleTypeIn; UI_APPEARANCE_SELECTOR;
+@property(nonatomic) SCBubbleType_In        bubbleTypeIn UI_APPEARANCE_SELECTOR;
 
 @property(nonatomic, weak) IBOutlet NSLayoutConstraint      *left;
 @property(nonatomic, weak) IBOutlet NSLayoutConstraint      *top;

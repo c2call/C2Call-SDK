@@ -7,7 +7,6 @@
 //
 //
 
-#import <AWSS3/AWSS3.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
@@ -526,11 +525,11 @@
     int currentLength = 0;
     int smsLength = 160;
     if ([text canBeConvertedToEncoding:NSISOLatin1StringEncoding]) {
-        currentLength = [text length];
+        currentLength = (int)[text length];
     } else {
         // Binary SMS have 2 Bytes (8-Bit UTF16 Encoding)
         smsLength = 70;
-        currentLength = [text length];
+        currentLength = (int)[text length];
     }
     
     if (self.richMessageKey) {
@@ -701,7 +700,7 @@
         
     }
     
-    if ([[AVAudioSession sharedInstance] inputIsAvailable]) {
+    if ([AVAudioSession sharedInstance].inputAvailable) {
         [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[UIImage imageNamed:@"ico_mic"] andCompletion:^{
             
             [self recordVoiceMail:^(NSString *key) {

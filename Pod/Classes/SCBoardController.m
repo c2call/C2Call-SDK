@@ -6,7 +6,6 @@
 //  Copyright 2013,2014 C2Call GmbH. All rights reserved.
 //
 //
-#import <AWSS3/AWSS3.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
@@ -21,7 +20,6 @@
 #import "C2CallConstants.h"
 #import "SCBubbleViewIn.h"
 #import "SCBubbleViewOut.h"
-#import "SIPHandler.h"
 #import "SIPConstants.h"
 #import "MessageCell.h"
 #import "MessageCellInStream.h"
@@ -42,11 +40,9 @@
 #import "ContactCellOutStream.h"
 #import "CallCellInStream.h"
 #import "CallCellOutStream.h"
-#import "C2NetworkStatusHandler.h"
 #import "AlertUtil.h"
 #import "DateUtil.h"
 #import "FCLocation.h"
-#import "FCMenuItem.h"
 #import "ImageUtil.h"
 #import "MOC2CallEvent.h"
 #import "MOC2CallUser.h"
@@ -72,6 +68,7 @@
 #import "IOS.h"
 #import "debug.h"
 
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
 
 @interface SCBoardController ()<MFMailComposeViewControllerDelegate, UINavigationControllerDelegate,NSFetchedResultsControllerDelegate, UITextFieldDelegate> {
     UIFont          *cellFont;
@@ -122,7 +119,6 @@
     self.sectionNameKeyPath = @"timeGroup";
     self.useDidChangeContentOnly = YES;
     
-    NSError *error = nil;
     NSFetchRequest *fetchRequest = [[SCDataManager instance] fetchRequestForEventHistory:nil sort:YES];
     
     if (self.targetUserid) {
@@ -380,11 +376,11 @@
     
     
 	@try {
-		int sections = [self.tableView numberOfSections];
+		int sections = (int)[self.tableView numberOfSections];
 		if (sections == 0)
 			return;
 		
-		int rows = [self.tableView numberOfRowsInSection:sections - 1];
+		int rows = (int)[self.tableView numberOfRowsInSection:sections - 1];
 		
 		if (rows == 0)
 			return;
@@ -422,8 +418,8 @@
     double delayInSeconds = 0.05;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        int section = self.tableView.numberOfSections - 1;
-        int row =  [self.tableView numberOfRowsInSection:section] - 1;
+        int section = (int)self.tableView.numberOfSections - 1;
+        int row =  (int)[self.tableView numberOfRowsInSection:section] - 1;
         if (section >= 0 && row >= 0)
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     });
@@ -583,9 +579,12 @@
 {
     CGSize maximumLabelSize = CGSizeMake(220,9999);
     
-	CGSize expectedLabelSize = [elem.text sizeWithFont:font
-                                     constrainedToSize:maximumLabelSize
-                                         lineBreakMode:cellLBM];
+    CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:font} context:nil].size;
+
+    //CGSize expectedLabelSize = [elem.text sizeWithFont:font
+    //                                 constrainedToSize:maximumLabelSize
+    //                                     lineBreakMode:cellLBM];
 	
 	CGFloat sz = expectedLabelSize.height + messageInHeightOffset;
     if (sz < messageInMinHeight)
@@ -599,9 +598,12 @@
 {
     CGSize maximumLabelSize = CGSizeMake(220,9999);
     
-	CGSize expectedLabelSize = [elem.text sizeWithFont:font
-                                     constrainedToSize:maximumLabelSize
-                                         lineBreakMode:cellLBM];
+    CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                       attributes:@{NSFontAttributeName:font} context:nil].size;
+
+    //CGSize expectedLabelSize = [elem.text sizeWithFont:font
+    //                                 constrainedToSize:maximumLabelSize
+    //                                     lineBreakMode:cellLBM];
 	
 	CGFloat sz = expectedLabelSize.height + messageOutHeightOffset;
     if (sz < messageOutMinHeight)
@@ -614,7 +616,7 @@
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	DLog(@"heightForRowAtIndexPath : %d / %d ", indexPath.section, indexPath.row);
+	DLog(@"heightForRowAtIndexPath : %ld / %ld ", (long)indexPath.section, (long)indexPath.row);
     if ([SCDataManager instance].isDataInitialized && [[self.fetchedResultsController fetchedObjects] count] == 0) {
         if (self.activeFilter || self.textFilter) {
             return self.noFilterResultsCell.frame.size.height;
@@ -752,7 +754,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    DLog(@"viewForHeaderInSection : %d", section);
+    DLog(@"viewForHeaderInSection : %ld", (long)section);
     
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
         self.firstHeaderLabel.text = @"";
@@ -871,7 +873,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DLog(@"willDisplayCell : %d, %d", indexPath.section, indexPath.row);
+    DLog(@"willDisplayCell : %ld, %ld", (long)indexPath.section, (long)indexPath.row);
     
     UIView *bv = [self findBubbleView:cell];
     [bv setNeedsLayout];
@@ -1096,10 +1098,12 @@
     CGSize maximumLabelSize = CGSizeMake(220,9999);
     
     //    dispatch_async(dispatch_get_main_queue(), ^(){
-    CGSize expectedLabelSize = [text sizeWithFont:self.textFieldInFont
-                                constrainedToSize:maximumLabelSize
-                                    lineBreakMode:cellLBM];
-    
+    //CGSize expectedLabelSize = [text sizeWithFont:self.textFieldInFont
+    //                            constrainedToSize:maximumLabelSize
+    //                                lineBreakMode:cellLBM];
+    CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:self.textFieldInFont} context:nil].size;
+
     CGRect frame = cell.bubbleView.frame;
     CGRect inset = CGRectZero;
     if ([cell.bubbleView isKindOfClass:[SCBubbleViewIn class]]) {
@@ -1124,9 +1128,12 @@
     CGFloat width = expectedLabelSize.width + diffLeft + diffRight + 16;
     
     if (sendername && cell.headline) {
-        CGSize sendernameSize = [sendername sizeWithFont:self.headerFieldInFont
-                                       constrainedToSize:maximumLabelSize
-                                           lineBreakMode:cellLBM];
+        //CGSize sendernameSize = [sendername sizeWithFont:self.headerFieldInFont
+        //                               constrainedToSize:maximumLabelSize
+        //                                   lineBreakMode:cellLBM];
+        CGSize sendernameSize = [sendername boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                        attributes:@{NSFontAttributeName:self.headerFieldInFont} context:nil].size;
+
         sendernameSize.width += diffHeaderLeft + diffHeaderRight;
         
         if (sendernameSize.width > width) {
@@ -1231,10 +1238,12 @@
     CGSize maximumLabelSize = CGSizeMake(220,9999);
     
     //    dispatch_async(dispatch_get_main_queue(), ^(){
-    CGSize expectedLabelSize = [text sizeWithFont:self.textFieldOutFont
-                                constrainedToSize:maximumLabelSize
-                                    lineBreakMode:cellLBM];
-    
+    //CGSize expectedLabelSize = [text sizeWithFont:self.textFieldOutFont
+    //                            constrainedToSize:maximumLabelSize
+    //                                lineBreakMode:cellLBM];
+    CGSize expectedLabelSize = [text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:self.textFieldOutFont} context:nil].size;
+
     CGRect frame = cell.bubbleView.frame;
     
     CGRect inset = CGRectZero;
@@ -1260,9 +1269,11 @@
     CGFloat width = expectedLabelSize.width + diffLeft + diffRight + 16;
 
     if (sendername && cell.headline) {
-        CGSize sendernameSize = [sendername sizeWithFont:self.headerFieldOutFont
-                                       constrainedToSize:maximumLabelSize
-                                           lineBreakMode:cellLBM];
+        //CGSize sendernameSize = [sendername sizeWithFont:self.headerFieldOutFont
+        //                               constrainedToSize:maximumLabelSize
+        //                                   lineBreakMode:cellLBM];
+        CGSize sendernameSize = [sendername boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                         attributes:@{NSFontAttributeName:self.headerFieldOutFont} context:nil].size;
         sendernameSize.width += diffHeaderLeft + diffHeaderRight;
         
         if (sendernameSize.width > width) {
@@ -2071,6 +2082,7 @@
     
     BOOL failed = NO;
     
+    __weak FileCellInStream *weakcell = cell;
     if ([[C2CallPhone currentPhone] hasObjectForKey:text]) {
         
         [cell.progress setHidden:YES];
@@ -2092,18 +2104,18 @@
                 NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
                 
                 UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Retransmit", @"MenuItem") action:@selector(retransmitAction:)];
-                [cell setRetransmitAction:^{
-                    [cell download:nil];
+                [weakcell setRetransmitAction:^{
+                    [weakcell download:nil];
                 }];
                 [menulist addObject:item];
                 
                 
                 menu.menuItems = menulist;
                 
-                CGRect rect = cell.messageImage.frame;
-                rect = [cell convertRect:rect fromView:cell.messageImage];
-                [menu setTargetRect:rect inView:cell];
-                [cell becomeFirstResponder];
+                CGRect rect = weakcell.messageImage.frame;
+                rect = [weakcell convertRect:rect fromView:weakcell.messageImage];
+                [menu setTargetRect:rect inView:weakcell];
+                [weakcell becomeFirstResponder];
                 [menu setMenuVisible:YES animated:YES];
             }];
             failed = YES;
@@ -2111,7 +2123,7 @@
             [cell.downloadButton setHidden:NO];
             [cell.progress setHidden:YES];
             [cell setTapAction:^{
-                [cell download:cell.downloadButton];
+                [weakcell download:weakcell.downloadButton];
             }];
         }
     }
@@ -2122,17 +2134,17 @@
             NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
             
             UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", @"MenuItem") action:@selector(forwardAction:)];
-            [cell setForwardAction:^{
+            [weakcell setForwardAction:^{
                 [self forwardMessage:text];
             }];
             [menulist addObject:item];
             
             
             menu.menuItems = menulist;
-            CGRect rect = cell.messageImage.frame;
-            rect = [cell convertRect:rect fromView:cell.messageImage];
-            [menu setTargetRect:rect inView:cell];
-            [cell becomeFirstResponder];
+            CGRect rect = weakcell.messageImage.frame;
+            rect = [weakcell convertRect:rect fromView:weakcell.messageImage];
+            [menu setTargetRect:rect inView:weakcell];
+            [weakcell becomeFirstResponder];
             [menu setMenuVisible:YES animated:YES];
         }];
     }
@@ -2160,6 +2172,7 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     cell.headline.text = [NSString stringWithFormat:@"@%@",  sendername];
     
+    __weak FileCellOutStream *weakcell = cell;
     // Special Handling for current submissions
     if ([elem.eventType isEqualToString:@"MessageSubmit"]) {
         
@@ -2169,7 +2182,7 @@
             [cell.iconSubmitted setHidden:NO];
             
             [cell setLongpressAction:^{
-                [self setRetransmitActionForCell:cell withKey:elem.text andUserid:elem.contact];
+                [self setRetransmitActionForCell:weakcell withKey:elem.text andUserid:elem.contact];
             }];
             
             return;
@@ -2203,18 +2216,18 @@
                 NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
                 
                 UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Retransmit", @"MenuItem") action:@selector(retransmitAction:)];
-                [cell setRetransmitAction:^{
-                    [cell download:nil];
+                [weakcell setRetransmitAction:^{
+                    [weakcell download:nil];
                 }];
                 [menulist addObject:item];
                 
                 
                 menu.menuItems = menulist;
                 
-                CGRect rect = cell.messageImage.frame;
-                rect = [cell convertRect:rect fromView:cell.messageImage];
-                [menu setTargetRect:rect inView:cell];
-                [cell becomeFirstResponder];
+                CGRect rect = weakcell.messageImage.frame;
+                rect = [weakcell convertRect:rect fromView:weakcell.messageImage];
+                [menu setTargetRect:rect inView:weakcell];
+                [weakcell becomeFirstResponder];
                 [menu setMenuVisible:YES animated:YES];
             }];
             failed = YES;
@@ -2223,7 +2236,7 @@
             [cell.downloadButton setHidden:NO];
             [cell.progress setHidden:YES];
             [cell setTapAction:^{
-                [cell download:cell.downloadButton];
+                [weakcell download:weakcell.downloadButton];
             }];
         }
     }
@@ -2236,25 +2249,25 @@
             UIMenuItem *item = nil;
             item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", @"MenuItem") action:@selector(forwardAction:)];
             if (hasFile) {
-                [cell setForwardAction:^{
+                [weakcell setForwardAction:^{
                     [self forwardMessage:text];
                 }];
                 [menulist addObject:item];
                 
             } else {
                 UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Retrieve", @"MenuItem") action:@selector(retransmitAction:)];
-                [cell setRetransmitAction:^{
-                    [cell download:nil];
+                [weakcell setRetransmitAction:^{
+                    [weakcell download:nil];
                 }];
                 [menulist addObject:item];
                 
             }
             
             menu.menuItems = menulist;
-            CGRect rect = cell.messageImage.frame;
-            rect = [cell convertRect:rect fromView:cell.messageImage];
-            [menu setTargetRect:rect inView:cell];
-            [cell becomeFirstResponder];
+            CGRect rect = weakcell.messageImage.frame;
+            rect = [weakcell convertRect:rect fromView:weakcell.messageImage];
+            [menu setTargetRect:rect inView:weakcell];
+            [weakcell becomeFirstResponder];
             [menu setMenuVisible:YES animated:YES];
         }];
     }
@@ -2657,7 +2670,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"cellForRowAtIndexPath : %d, %d", indexPath.section, indexPath.row);
+    DLog(@"cellForRowAtIndexPath : %ld, %ld", (long)indexPath.section, (long)indexPath.row);
     
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
         if (self.activeFilter || self.textFilter) {
@@ -2774,13 +2787,13 @@
 	}
 	@catch (NSException * e) {
         [self.tableView reloadData];
-		NSLog(@"2:Exception : cellForRowAtIndexPath %d / %d \n %@", indexPath.section, indexPath.row, e);
+		NSLog(@"2:Exception : cellForRowAtIndexPath %ld / %ld \n %@", (long)indexPath.section, (long)indexPath.row, e);
 		UITableViewCell *dummyCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         dummyCell.contentView.hidden = YES;
         return dummyCell;
 	}
 	@finally {
-		DLog(@"2:Cell Text (%d/%d): %@", indexPath.section, indexPath.row, cell.textfield.text);
+		DLog(@"2:Cell Text (%ld/%ld): %@", (long)indexPath.section, (long)indexPath.row, cell.textfield.text);
 	}
     
 	cell.selected = NO;
@@ -3032,7 +3045,7 @@
 
 -(IBAction)previousMessages:(id)sender
 {
-    int fetchedObectsCount = [[self.fetchedResultsController fetchedObjects] count];
+    int fetchedObectsCount = (int)[[self.fetchedResultsController fetchedObjects] count];
     fetchLimit = MAX(fetchedObectsCount, fetchLimit);
     
     fetchLimit += fetchSize;

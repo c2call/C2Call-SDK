@@ -61,8 +61,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	int row = indexPath.row;
-	int section = indexPath.section;
+	int row = (int)indexPath.row;
+	int section = (int)indexPath.section;
 	switch (section) {
 		case 0:
 			if (row == 0)

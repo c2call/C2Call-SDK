@@ -16,8 +16,8 @@ typedef enum {
 
 @interface SCHorizontalLineView : UIView
 
-@property(nonatomic, strong) UIColor *lineColor; UI_APPEARANCE_SELECTOR;
-@property(nonatomic) CGFloat lineWidth; UI_APPEARANCE_SELECTOR;
-@property(nonatomic) SCHorizontalLinePosition  linePosition; UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong) UIColor *lineColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic) CGFloat lineWidth UI_APPEARANCE_SELECTOR;
+@property(nonatomic) SCHorizontalLinePosition  linePosition UI_APPEARANCE_SELECTOR;
 
 @end

@@ -449,7 +449,7 @@
 
 -(IBAction) inviteContact:(id)sender;
 {
-    int row = [sender tag];
+    int row = (int)[sender tag];
     if (row < [members count]) {
         NSString *member = [members objectAtIndex:row];
         NSString *email = [group emailForGroupMember:member];

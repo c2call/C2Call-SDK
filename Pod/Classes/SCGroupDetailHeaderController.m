@@ -107,7 +107,7 @@
         NSArray *active = [[C2CallPhone currentPhone] activeMembersInCallForGroup:groupid];
         BOOL video = [[C2CallPhone currentPhone] activeVideoCallForGroup:groupid];
         
-        int count = [active count];
+        int count = (int)[active count];
         if (count > 0) {
             if (count == 1) {
                 if (video) {

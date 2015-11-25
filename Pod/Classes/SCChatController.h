@@ -75,19 +75,19 @@
  
     This is an UIAppearance Selector
  */
-@property(nonatomic) CGFloat                                chatInputCornerRadius; UI_APPEARANCE_SELECTOR;
+@property(nonatomic) CGFloat                                chatInputCornerRadius UI_APPEARANCE_SELECTOR;
 
 /** Border color for the UITextView chat input control.
 
  This is an UIAppearance Selector.
  */
-@property(nonatomic, strong) UIColor                        *chatInputBorderColor; UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong) UIColor                        *chatInputBorderColor UI_APPEARANCE_SELECTOR;
 
 /** Border width for the UITextView chat input control.
  
  This is an UIAppearance Selector.
  */
-@property(nonatomic) CGFloat                                chatInputBorderWidth; UI_APPEARANCE_SELECTOR;
+@property(nonatomic) CGFloat                                chatInputBorderWidth UI_APPEARANCE_SELECTOR;
 
 /** Handles the typing event when the remote party is typing.
  

@@ -111,7 +111,7 @@
     NSDate *today = [[NSDate alloc] init];
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setWeek:-1];
+    [offsetComponents setWeekOfYear:-1];
     self.compareDate = [cal dateByAddingComponents:offsetComponents toDate:today options:0];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -730,7 +730,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	DLog(@"Commit Editing for : %d, %d", indexPath.section, indexPath.row);
+	DLog(@"Commit Editing for : %ld, %ld", (long)indexPath.section, (long)indexPath.row);
 	@try {
         MOC2CallUser *elem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         
@@ -789,11 +789,11 @@
         }
     }
     @catch (NSException *exception) {
-        DLog(@"didSelectRowAtIndexPath(%d / %d) : %@", indexPath.section, indexPath.row, exception);
+        DLog(@"didSelectRowAtIndexPath(%ld / %ld) : %@", (long)indexPath.section, (long)indexPath.row, exception);
 #ifdef __C2DEBUG
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
 #endif
-        DLog(@"didSelectRowAtIndexPath : %d / %d", indexPath.section, [sectionInfo numberOfObjects]);
+        DLog(@"didSelectRowAtIndexPath : %ld / %lu", (long)indexPath.section, (unsigned long)[sectionInfo numberOfObjects]);
         
         return;
     }
@@ -1037,7 +1037,7 @@
 
 -(IBAction)showDetail:(id)sender
 {
-    int tag = [sender tag];
+    int tag = (int)[sender tag];
     int section = tag / 1000;
 	int row = tag - (section * 1000);
     
@@ -1059,11 +1059,11 @@
         }
     }
     @catch (NSException *exception) {
-        DLog(@"didSelectRowAtIndexPath(%d / %d) : %@", indexPath.section, indexPath.row, exception);
+        DLog(@"didSelectRowAtIndexPath(%ld / %ld) : %@", (long)indexPath.section, (long)indexPath.row, exception);
 #ifdef __C2DEBUG
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
 #endif
-        DLog(@"didSelectRowAtIndexPath : %d / %d", indexPath.section, [sectionInfo numberOfObjects]);
+        DLog(@"didSelectRowAtIndexPath : %ld / %lu", (long)indexPath.section, (unsigned long)[sectionInfo numberOfObjects]);
         
         return;
     }

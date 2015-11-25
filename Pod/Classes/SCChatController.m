@@ -7,7 +7,6 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import <AWSS3/AWSS3.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AddressBookUI/AddressBookUI.h>
@@ -183,7 +182,7 @@
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
-	DLog(@"willRotateToInterfaceOrientation : %d", interfaceOrientation);
+	DLog(@"willRotateToInterfaceOrientation : %ld", (long)interfaceOrientation);
 
     CGRect frame1 = chatInput.frame;
     
@@ -192,11 +191,16 @@
     
     CGSize maximumLabelSize;
     if (interfaceOrientation == UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight) {
-        maximumLabelSize = [@"\n \n \n \n " sizeWithFont:chatInput.font constrainedToSize:CGSizeMake(frame1.size.width - 16, 999.)];
+        maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - 16, 999.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                      attributes:@{NSFontAttributeName:chatInput.font} context:nil].size;
+        
+        //maximumLabelSize = [@"\n \n \n \n " sizeWithFont:chatInput.font constrainedToSize:CGSizeMake(frame1.size.width - 16, 999.)];
         maximumLabelSize.width = frame1.size.width - 16;
         //maximumLabelSize = CGSizeMake(frame1.size.width - 16,64);
     } else {
-        maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:chatInput.font constrainedToSize:CGSizeMake(frame1.size.width - 16, 999.)];
+        maximumLabelSize = [@"\n \n \n \n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - 16, 999.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                      attributes:@{NSFontAttributeName:chatInput.font} context:nil].size;
+        //maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:chatInput.font constrainedToSize:CGSizeMake(frame1.size.width - 16, 999.)];
         maximumLabelSize.width = frame1.size.width - 16;
         //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
     }
@@ -284,11 +288,16 @@
         }
         
         if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-            maximumLabelSize = [@"\n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
+            maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                          attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+
+            //maximumLabelSize = [@"\n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
             maximumLabelSize.width = frame1.size.width - inset;
             //maximumLabelSize = CGSizeMake(frame1.size.width - 16,64);
         } else {
-            maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
+            maximumLabelSize = [@"\n \n \n \n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                          attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+            //maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
             maximumLabelSize.width = frame1.size.width - inset;
             //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
         }
@@ -308,8 +317,8 @@
     }
     
     if(![textView.text hasSuffix:@"\n"] && hasMaxToolbarSize && [IOS iosVersion] >= 7.) {
-        int pos = textView.selectedRange.location;
-        int len = textView.text.length;
+        int pos = (int)textView.selectedRange.location;
+        int len = (int)textView.text.length;
         NSString *temp = [NSString stringWithFormat:@"%@\n", textView.text];
         textView.text = temp;
         NSRange selected = textView.selectedRange;
@@ -323,7 +332,7 @@
     }
     
         NSRange range = textView.selectedRange;
-        DLog(@"scrollRangeToVisible: %d/%d", range.location, range.length);
+        DLog(@"scrollRangeToVisible: %lu/%lu", (unsigned long)range.location, (unsigned long)range.length);
         [textView scrollRangeToVisible:range];
     
 }
@@ -333,11 +342,11 @@
     int currentLength = 0;
     int smsLength = 160;
     if ([text canBeConvertedToEncoding:NSISOLatin1StringEncoding]) {
-        currentLength = [text length];
+        currentLength = (int)[text length];
     } else {
         // Binary SMS have 2 Bytes (8-Bit UTF16 Encoding)
         smsLength = 70;
-        currentLength = [text length];
+        currentLength = (int)[text length];
     }
     
     int anz = (currentLength / smsLength) + 1;
@@ -348,8 +357,11 @@
 
 -(void) resizeToolbar:(NSString *) newtext textView:(UITextView *)textView maxLabelSize:(CGSize) maximumLabelSize
 {
-    CGSize expectedTextSize = [newtext sizeWithFont:textView.font
-                                  constrainedToSize:maximumLabelSize];
+    CGSize expectedTextSize = [newtext boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+
+    //CGSize expectedTextSize = [newtext sizeWithFont:textView.font
+    //                              constrainedToSize:maximumLabelSize];
     
     CGFloat sz = expectedTextSize.height;
     sz += 16;
@@ -641,7 +653,7 @@
     }
     
     if ([SIPPhone currentPhone].callStatus == SCCallStatusNone) {
-        if ([[AVAudioSession sharedInstance] inputIsAvailable]) {
+        if ([AVAudioSession sharedInstance].inputAvailable) {
             [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[UIImage imageNamed:@"ico_mic"] andCompletion:^{
                 
                 [self recordVoiceMail:^(NSString *key) {

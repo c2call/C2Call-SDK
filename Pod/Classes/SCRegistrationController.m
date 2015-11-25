@@ -19,8 +19,6 @@
 #import "C2CallAppDelegate.h"
 #import "EditCell.h"
 #import "C2CallConstants.h"
-#import "C2CallResults.h"
-#import "C2CallFacebook.h"
 #import "SCPopupMenu.h"
 #import "C2TapImageView.h"
 
@@ -263,7 +261,7 @@
 
 - (NSIndexPath *) nextIndexPath:(NSIndexPath *) indexPath
 {
-    int numOfSections = [self numberOfSectionsInTableView:self.tableView];
+    int numOfSections = (int)[self numberOfSectionsInTableView:self.tableView];
     int nextSection = ((indexPath.section + 1) % numOfSections);
     
     if ((indexPath.row +1) == [self tableView:self.tableView numberOfRowsInSection:indexPath.section]) {
