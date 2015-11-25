@@ -728,7 +728,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## SocialCommunication
 
-Copyright (c) 2015 Michael Knecht <Michael.Knecht@c2call.com>
+Copyright (c) 2015 C2Call GmbH - Germany <info@c2call.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
