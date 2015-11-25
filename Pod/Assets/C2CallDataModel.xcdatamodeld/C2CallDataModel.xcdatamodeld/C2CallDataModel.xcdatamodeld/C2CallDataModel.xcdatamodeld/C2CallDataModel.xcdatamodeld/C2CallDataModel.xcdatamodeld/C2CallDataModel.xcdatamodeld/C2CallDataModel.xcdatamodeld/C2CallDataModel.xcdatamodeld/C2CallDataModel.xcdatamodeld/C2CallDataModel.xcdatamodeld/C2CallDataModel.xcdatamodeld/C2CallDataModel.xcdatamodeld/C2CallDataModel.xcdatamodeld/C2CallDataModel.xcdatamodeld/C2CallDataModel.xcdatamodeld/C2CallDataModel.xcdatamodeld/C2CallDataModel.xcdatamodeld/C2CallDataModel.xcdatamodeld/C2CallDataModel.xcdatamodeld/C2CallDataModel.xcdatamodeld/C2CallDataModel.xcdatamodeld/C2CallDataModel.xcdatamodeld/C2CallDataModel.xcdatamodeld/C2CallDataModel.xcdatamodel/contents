@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="1.0.0" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50d" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MOC2CallEvent" representedClassName="MOC2CallEvent">
+        <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="duration" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="eventId" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="eventType" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="missed" attributeType="Boolean" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" indexed="YES"/>
+        <attribute name="timevalue" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="MOC2CallMessage" representedClassName="MOC2CallMessage">
+        <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="duration" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="eventId" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="eventType" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="messageType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="missed" attributeType="Boolean" syncable="YES"/>
+        <attribute name="senderName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeGroup" attributeType="Date" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" indexed="YES"/>
+        <attribute name="timevalue" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MOC2CallEvent" positionX="106" positionY="-9" width="128" height="180"/>
+        <element name="MOC2CallMessage" positionX="-54" positionY="-9" width="128" height="225"/>
+    </elements>
+</model>
