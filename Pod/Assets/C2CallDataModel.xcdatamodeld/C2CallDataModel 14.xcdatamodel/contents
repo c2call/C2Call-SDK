@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="1.0.11" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MOAddress" representedClassName="MOAddress" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zipcode" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contactUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="contactAddress" inverseEntity="MOC2CallUser" syncable="YES"/>
+        <relationship name="friendUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="friendAddress" inverseEntity="MOC2CallUser" syncable="YES"/>
+    </entity>
+    <entity name="MOC2CallEvent" representedClassName="MOC2CallEvent" syncable="YES">
+        <attribute name="action" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="duration" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="eventId" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="eventType" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="messageType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="missed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="missedDisplay" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="senderName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeGroup" attributeType="Date" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="timevalue" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="lastCall" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOCallHistory" inverseName="callHistory" inverseEntity="MOCallHistory" syncable="YES"/>
+        <relationship name="lastChat" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOChatHistory" inverseName="chatHistory" inverseEntity="MOChatHistory" syncable="YES"/>
+    </entity>
+    <entity name="MOC2CallGroup" representedClassName="MOC2CallGroup" syncable="YES">
+        <attribute name="groupid" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="groupName" attributeType="String" defaultValueString="Group" syncable="YES"/>
+        <attribute name="groupOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="groupMembers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MOGroupMember" inverseName="group" inverseEntity="MOGroupMember" syncable="YES"/>
+        <relationship name="groupUser" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MOC2CallUser" inverseName="group" inverseEntity="MOC2CallUser" syncable="YES"/>
+    </entity>
+    <entity name="MOC2CallUser" representedClassName="MOC2CallUser" syncable="YES">
+        <attribute name="callmeLink" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="confirmed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="confirmid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactid" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="didNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES" preferredClientType="" preferredRecord="">
+            <userInfo/>
+        </attribute>
+        <attribute name="facebook" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="favorite" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendInvite" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="indexAttribute" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" defaultValueString="en" syncable="YES"/>
+        <attribute name="lastActivity" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="lastOnlineDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="online" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="onlineStatus" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="ownNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ownNumberVerified" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recentIndicationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userid" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="userImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userImageDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userImageUpdate" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="userStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userStatusDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="userType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="contactAddress" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MOAddress" inverseName="contactUser" inverseEntity="MOAddress" syncable="YES"/>
+        <relationship name="contactNumbers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MOPhoneNumber" inverseName="contactNumbers" inverseEntity="MOPhoneNumber" syncable="YES"/>
+        <relationship name="friendAddress" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MOAddress" inverseName="friendUser" inverseEntity="MOAddress" syncable="YES"/>
+        <relationship name="friendNumbers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MOPhoneNumber" inverseName="friendNumbers" inverseEntity="MOPhoneNumber" syncable="YES"/>
+        <relationship name="group" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MOC2CallGroup" inverseName="groupUser" inverseEntity="MOC2CallGroup" syncable="YES"/>
+        <relationship name="openIds" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MOOpenId" inverseName="user" inverseEntity="MOOpenId" syncable="YES"/>
+    </entity>
+    <entity name="MOCallHistory" representedClassName="MOCallHistory" syncable="YES">
+        <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="lastEventId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastMissedEvent" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastTimestamp" attributeType="Date" syncable="YES"/>
+        <attribute name="missedEvents" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="callHistory" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="MOC2CallEvent" inverseName="lastCall" inverseEntity="MOC2CallEvent" syncable="YES"/>
+    </entity>
+    <entity name="MOChatHistory" representedClassName="MOChatHistory" syncable="YES">
+        <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="lastEventId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastMissedEvent" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastTimestamp" attributeType="Date" syncable="YES"/>
+        <attribute name="missedEvents" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="chatHistory" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="MOC2CallEvent" inverseName="lastChat" inverseEntity="MOC2CallEvent" syncable="YES"/>
+    </entity>
+    <entity name="MOGroupMember" representedClassName="MOGroupMember" syncable="YES">
+        <attribute name="email" attributeType="String" defaultValueString="member@groupcall.com" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="group" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallGroup" inverseName="groupMembers" inverseEntity="MOC2CallGroup" syncable="YES"/>
+    </entity>
+    <entity name="MOOpenId" representedClassName="MOOpenId" syncable="YES">
+        <attribute name="host" attributeType="String" syncable="YES"/>
+        <attribute name="openId" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="openIds" inverseEntity="MOC2CallUser" syncable="YES"/>
+    </entity>
+    <entity name="MOPhoneNumber" representedClassName="MOPhoneNumber" syncable="YES">
+        <attribute name="allowEdit" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="numberType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumber" attributeType="String" syncable="YES"/>
+        <relationship name="contactNumbers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="contactNumbers" inverseEntity="MOC2CallUser" syncable="YES"/>
+        <relationship name="friendNumbers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="friendNumbers" inverseEntity="MOC2CallUser" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MOAddress" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="MOC2CallEvent" positionX="216" positionY="135" width="128" height="285"/>
+        <element name="MOC2CallGroup" positionX="-47" positionY="450" width="128" height="120"/>
+        <element name="MOC2CallUser" positionX="-315" positionY="396" width="128" height="613"/>
+        <element name="MOCallHistory" positionX="-236" positionY="27" width="128" height="135"/>
+        <element name="MOChatHistory" positionX="450" positionY="144" width="128" height="135"/>
+        <element name="MOGroupMember" positionX="286" positionY="-108" width="128" height="105"/>
+        <element name="MOOpenId" positionX="592" positionY="387" width="128" height="90"/>
+        <element name="MOPhoneNumber" positionX="448" positionY="0" width="128" height="120"/>
+    </elements>
+</model>
