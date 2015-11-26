@@ -1,6 +1,6 @@
 {
   "name": "SocialCommunication",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "summary": "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App",
   "description": "C2Call GmbH has been developing video chat, voice calling and messaging solutions for the computing cloud since 2008.\nOur SDK is available for mobile app developers free of charge. By integrating C2Call's technology into their mobile apps, developers can now have their users communicate across multiple apps, on multiple platforms. App users can then use video chat, rich media messaging, group audio and video calls and share location info with other users.",
   "homepage": "https://www.c2call.com",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/c2call/C2Call-SDK.git",
-    "tag": "1.2.4"
+    "tag": "1.2.5"
   },
   "platforms": {
     "ios": "7.0"
