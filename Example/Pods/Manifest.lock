@@ -23,7 +23,7 @@ PODS:
     - Flurry-iOS-SDK/FlurrySDK
   - Flurry-iOS-SDK/FlurrySDK (7.3.0)
   - SBJson (4.0.2)
-  - SocialCommunication (1.2.5):
+  - SocialCommunication (1.2.6):
     - AWSCore
     - AWSS3
     - FBSDKCoreKit (~> 4.6.0)
@@ -47,6 +47,6 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
   Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
   SBJson: c18691cc18375b14664ff0fec841f8c4faef1934
-  SocialCommunication: dd0c45e2505fd17452efff77fbb67751e042fade
+  SocialCommunication: 4c1494816ea553ee3a8bcaae3c77a22f44916682
 
 COCOAPODS: 0.39.0
