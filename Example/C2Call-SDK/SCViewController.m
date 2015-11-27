@@ -7,6 +7,7 @@
 //
 
 #import "SCViewController.h"
+#import <SocialCommunication/SocialCommunication.h>
 
 @interface SCViewController ()
 
@@ -24,6 +25,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)testcall:(id)sender
+{
+    [[C2CallPhone currentPhone] callVoIP:@"9bc2858f1194dc1c107"];
 }
 
 @end

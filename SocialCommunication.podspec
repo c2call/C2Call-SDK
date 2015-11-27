@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SocialCommunication"
-  s.version          = "1.2.6"
+  s.version          = "1.2.7"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
 
 # This description is used to generate tags and improve search results.
@@ -32,9 +32,10 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/*'
-  s.resource_bundles = {
-    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,xcdatamodeld,storyboard,xcassets}']
-  }
+  s.resources = 'Pod/Assets/*.{wav,aiff,aif,xml,fsh,vsh,png,xcdatamodeld,storyboard}'
+#s.resource_bundles = {
+#    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,xml,fsh,vsh,png,xcdatamodeld,storyboard}']
+#  }
 
   s.public_header_files = 'Pod/Classes/*.h'
   s.frameworks = 'UIKit', 'Security', 'MobileCoreServices', 'QuickLook', 'AssetsLibrary', 'CoreData', 'AdSupport', 'MediaPlayer', 'CoreTelePhony', 'CFNetwork', 'OpenGLES', 'CoreVideo', 'QuartzCore', 'StoreKit', 'MessageUI', 'MapKit', 'CoreLocation', 'iAd', 'SystemConfiguration', 'AddressBook', 'AddressBookUI', 'CoreAudio', 'AudioToolbox', 'AVFoundation', 'CoreFoundation', 'Accounts'

@@ -190,6 +190,14 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
 @property(nonatomic, strong)    UIStoryboard       *customStoryboard;
 
 
+/** References to the C2Call SDK Resource Bundle.
+ 
+ The C2Call SDK Resource Bundle contains all SDK resources.
+ This property is only set when provided as Cocoapods SDK
+ 
+ */
+@property(nonatomic, readonly)  NSBundle           *sdkbundle;
+
 /** Standard UIApplicationDelegate window property.
  */
 @property (strong, nonatomic)   UIWindow *window;

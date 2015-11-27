@@ -79,6 +79,7 @@
 #import "MOOpenId.h"
 #import "MOPhoneNumber.h"
 #import "MOUserData.h"
+#import "NSBundle+SDKBundle.h"
 #import "R1AdList.h"
 #import "RadiumOneBannerView.h"
 #import "RingtoneHandler.h"

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<C xmlns="http://www.example.org/Numberplan" N="Bolivia" C="591"><A N="La Paz" C="2" T="FIX" L="1"/><A N="Santa Cruz" C="3" T="FIX" L="1"/><A N="Tarija" C="4" T="FIX" L="1"/><A N="Viva" C="70" T="MOB" L="0"/><A N="Entel" C="71" T="MOB" L="0"/><A N="Entel" C="72" T="MOB" L="0"/><A N="Telecel" C="77" T="MOB" L="0"/><A N="premium rate" C="900" T="XPR" L="0"/></C>

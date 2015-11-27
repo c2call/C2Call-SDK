@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<C xmlns="http://www.example.org/Numberplan" N="Gibraltar" C="350"><A N="Gibraltar" C="200" T="FIX" L="0"/><A N="Gibtelecom" C="54" T="MOB" L="0"/><A N="Gibtelecom" C="56" T="MOB" L="0"/><A N="Gibtelecom" C="57" T="MOB" L="0"/><A N="Gibtelecom" C="58" T="MOB" L="0"/><A N="premium rate" C="82" T="XPR" L="0"/><A N="premium rate" C="84" T="XPR" L="0"/><A N="premium rate" C="85" T="XPR" L="0"/><A N="premium rate" C="88" T="XPR" L="0"/><A N="premium rate" C="89" T="XPR" L="0"/></C>

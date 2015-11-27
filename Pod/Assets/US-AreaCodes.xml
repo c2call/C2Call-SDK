@@ -1,0 +1,1918 @@
+<?xml version="1.0"?>
+<USAreaCodes>
+  <AC>
+    <AreaCode>201</AreaCode>
+    <Area>NJ</Area>
+    <Text>N New Jersey: Jersey City, Hackensack </Text>
+  </AC>
+  <AC>
+    <AreaCode>202</AreaCode>
+    <Area>DC</Area>
+    <Text>Washington, D.C.</Text>
+  </AC>
+  <AC>
+    <AreaCode>203</AreaCode>
+    <Area>CT</Area>
+    <Text>Connecticut: Fairfield County and New Haven County</Text>
+  </AC>
+  <AC>
+    <AreaCode>204</AreaCode>
+    <Area>MB</Area>
+    <Text>Canada: Manitoba</Text>
+  </AC>
+  <AC>
+    <AreaCode>205</AreaCode>
+    <Area>AL</Area>
+    <Text>Central Alabama </Text>
+  </AC>
+  <AC>
+    <AreaCode>206</AreaCode>
+    <Area>WA</Area>
+    <Text>W Washington state: Seattle and Bainbridge Island </Text>
+  </AC>
+  <AC>
+    <AreaCode>207</AreaCode>
+    <Area>ME</Area>
+    <Text>Maine</Text>
+  </AC>
+  <AC>
+    <AreaCode>208</AreaCode>
+    <Area>ID</Area>
+    <Text>Idaho</Text>
+  </AC>
+  <AC>
+    <AreaCode>209</AreaCode>
+    <Area>CA</Area>
+    <Text>Cent. California: Stockton </Text>
+  </AC>
+  <AC>
+    <AreaCode>210</AreaCode>
+    <Area>TX</Area>
+    <Text>S Texas: San Antonio </Text>
+  </AC>
+  <AC>
+    <AreaCode>211</AreaCode>
+    <Area>--</Area>
+    <Text>Local community info / referral services</Text>
+  </AC>
+  <AC>
+    <AreaCode>212</AreaCode>
+    <Area>NY</Area>
+    <Text>New York City, New York </Text>
+  </AC>
+  <AC>
+    <AreaCode>213</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: Los Angeles </Text>
+  </AC>
+  <AC>
+    <AreaCode>214</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Dallas Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>215</AreaCode>
+    <Area>PA</Area>
+    <Text>SE Pennsylvania: Philadelphia </Text>
+  </AC>
+  <AC>
+    <AreaCode>216</AreaCode>
+    <Area>OH</Area>
+    <Text>Cleveland </Text>
+  </AC>
+  <AC>
+    <AreaCode>217</AreaCode>
+    <Area>IL</Area>
+    <Text>Cent. Illinois: Springfield</Text>
+  </AC>
+  <AC>
+    <AreaCode>218</AreaCode>
+    <Area>MN</Area>
+    <Text>N Minnesota: Duluth</Text>
+  </AC>
+  <AC>
+    <AreaCode>219</AreaCode>
+    <Area>IN</Area>
+    <Text>NW Indiana: Gary </Text>
+  </AC>
+  <AC>
+    <AreaCode>224</AreaCode>
+    <Area>IL</Area>
+    <Text>Northern NE Illinois: Evanston, Waukegan, Northbrook </Text>
+  </AC>
+  <AC>
+    <AreaCode>225</AreaCode>
+    <Area>LA</Area>
+    <Text>Louisiana: Baton Rouge, New Roads, Donaldsonville, Albany, Gonzales, Greensburg, Plaquemine, Vacherie </Text>
+  </AC>
+  <AC>
+    <AreaCode>226</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: SW Ontario: Windsor </Text>
+  </AC>
+  <AC>
+    <AreaCode>228</AreaCode>
+    <Area>MS</Area>
+    <Text>S Mississippi </Text>
+  </AC>
+  <AC>
+    <AreaCode>229</AreaCode>
+    <Area>GA</Area>
+    <Text>SW Georgia: Albany </Text>
+  </AC>
+  <AC>
+    <AreaCode>231</AreaCode>
+    <Area>MI</Area>
+    <Text>W Michigan: Northwestern portion of lower Peninsula</Text>
+  </AC>
+  <AC>
+    <AreaCode>234</AreaCode>
+    <Area>OH</Area>
+    <Text>NE Ohio: Canton, Akron </Text>
+  </AC>
+  <AC>
+    <AreaCode>236</AreaCode>
+    <Area>VA</Area>
+    <Text>Virginia  / Unassigned?</Text>
+  </AC>
+  <AC>
+    <AreaCode>239</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida </Text>
+  </AC>
+  <AC>
+    <AreaCode>240</AreaCode>
+    <Area>MD</Area>
+    <Text>W Maryland: Silver Spring, Frederick, Gaithersburg </Text>
+  </AC>
+  <AC>
+    <AreaCode>242</AreaCode>
+    <Area>--</Area>
+    <Text>Bahamas</Text>
+  </AC>
+  <AC>
+    <AreaCode>246</AreaCode>
+    <Area>--</Area>
+    <Text>Barbados</Text>
+  </AC>
+  <AC>
+    <AreaCode>248</AreaCode>
+    <Area>MI</Area>
+    <Text>Michigan: Oakland County, Pontiac </Text>
+  </AC>
+  <AC>
+    <AreaCode>250</AreaCode>
+    <Area>BC</Area>
+    <Text>Canada: British Columbia </Text>
+  </AC>
+  <AC>
+    <AreaCode>251</AreaCode>
+    <Area>AL</Area>
+    <Text>S Alabama: Mobile and coastal areas, Jackson, Evergreen, Monroeville </Text>
+  </AC>
+  <AC>
+    <AreaCode>252</AreaCode>
+    <Area>NC</Area>
+    <Text>E North Carolina </Text>
+  </AC>
+  <AC>
+    <AreaCode>253</AreaCode>
+    <Area>WA</Area>
+    <Text>Washington: South Tier - Tacoma, Federal Way </Text>
+  </AC>
+  <AC>
+    <AreaCode>254</AreaCode>
+    <Area>TX</Area>
+    <Text>Central Texas </Text>
+  </AC>
+  <AC>
+    <AreaCode>256</AreaCode>
+    <Area>AL</Area>
+    <Text>E and N Alabama </Text>
+  </AC>
+  <AC>
+    <AreaCode>260</AreaCode>
+    <Area>IN</Area>
+    <Text>NE Indiana: Fort Wayne </Text>
+  </AC>
+  <AC>
+    <AreaCode>262</AreaCode>
+    <Area>WI</Area>
+    <Text>SE Wisconsin: counties of Kenosha, Ozaukee, Racine, Walworth, Washington, Waukesha </Text>
+  </AC>
+  <AC>
+    <AreaCode>264</AreaCode>
+    <Area>--</Area>
+    <Text>Anguilla </Text>
+  </AC>
+  <AC>
+    <AreaCode>267</AreaCode>
+    <Area>PA</Area>
+    <Text>SE Pennsylvania: Philadelphia </Text>
+  </AC>
+  <AC>
+    <AreaCode>268</AreaCode>
+    <Area>--</Area>
+    <Text>Antigua and Barbuda </Text>
+  </AC>
+  <AC>
+    <AreaCode>269</AreaCode>
+    <Area>MI</Area>
+    <Text>SW Michigan: Kalamazoo, Saugatuck, Hastings, Battle Creek, Sturgis to Lake Michigan </Text>
+  </AC>
+  <AC>
+    <AreaCode>270</AreaCode>
+    <Area>KY</Area>
+    <Text>W Kentucky: Bowling Green, Paducah </Text>
+  </AC>
+  <AC>
+    <AreaCode>276</AreaCode>
+    <Area>VA</Area>
+    <Text>S and SW Virginia: Bristol, Stuart, Martinsville </Text>
+  </AC>
+  <AC>
+    <AreaCode>278</AreaCode>
+    <Area>MI</Area>
+    <Text>Michigan </Text>
+  </AC>
+  <AC>
+    <AreaCode>281</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Houston Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>283</AreaCode>
+    <Area>OH</Area>
+    <Text>SW Ohio: Cincinnati </Text>
+  </AC>
+  <AC>
+    <AreaCode>284</AreaCode>
+    <Area>--</Area>
+    <Text>British Virgin Islands </Text>
+  </AC>
+  <AC>
+    <AreaCode>289</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: S Cent. Ontario: Greater Toronto Area -- Durham, Halton, Hamilton-Wentworth, Niagara, Peel, York, and southern Simcoe County </Text>
+  </AC>
+  <AC>
+    <AreaCode>301</AreaCode>
+    <Area>MD</Area>
+    <Text>W Maryland: Silver Spring, Frederick, Camp Springs, Prince George's County </Text>
+  </AC>
+  <AC>
+    <AreaCode>302</AreaCode>
+    <Area>DE</Area>
+    <Text>Delaware</Text>
+  </AC>
+  <AC>
+    <AreaCode>303</AreaCode>
+    <Area>CO</Area>
+    <Text>Central Colorado: Denver </Text>
+  </AC>
+  <AC>
+    <AreaCode>304</AreaCode>
+    <Area>WV</Area>
+    <Text>West Virginia</Text>
+  </AC>
+  <AC>
+    <AreaCode>305</AreaCode>
+    <Area>FL</Area>
+    <Text>SE Florida: Miami, the Keys </Text>
+  </AC>
+  <AC>
+    <AreaCode>306</AreaCode>
+    <Area>SK</Area>
+    <Text>Canada: Saskatchewan</Text>
+  </AC>
+  <AC>
+    <AreaCode>307</AreaCode>
+    <Area>WY</Area>
+    <Text>Wyoming</Text>
+  </AC>
+  <AC>
+    <AreaCode>308</AreaCode>
+    <Area>NE</Area>
+    <Text>W Nebraska: North Platte</Text>
+  </AC>
+  <AC>
+    <AreaCode>309</AreaCode>
+    <Area>IL</Area>
+    <Text>W Cent. Illinois: Peoria</Text>
+  </AC>
+  <AC>
+    <AreaCode>310</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: Beverly Hills, West Hollywood, West Los Angeles </Text>
+  </AC>
+  <AC>
+    <AreaCode>311</AreaCode>
+    <Area>--</Area>
+    <Text>Reserved for special applications</Text>
+  </AC>
+  <AC>
+    <AreaCode>312</AreaCode>
+    <Area>IL</Area>
+    <Text>Illinois: Chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>313</AreaCode>
+    <Area>MI</Area>
+    <Text>Michigan: Detroit and suburbs </Text>
+  </AC>
+  <AC>
+    <AreaCode>314</AreaCode>
+    <Area>MO</Area>
+    <Text>SE Missouri: St Louis city and parts of the metro area only </Text>
+  </AC>
+  <AC>
+    <AreaCode>315</AreaCode>
+    <Area>NY</Area>
+    <Text>N Cent. New York: Syracuse</Text>
+  </AC>
+  <AC>
+    <AreaCode>316</AreaCode>
+    <Area>KS</Area>
+    <Text>S Kansas: Wichita </Text>
+  </AC>
+  <AC>
+    <AreaCode>317</AreaCode>
+    <Area>IN</Area>
+    <Text>Cent. Indiana: Indianapolis </Text>
+  </AC>
+  <AC>
+    <AreaCode>318</AreaCode>
+    <Area>LA</Area>
+    <Text>N Louisiana: Shreveport, Ruston, Monroe, Alexandria </Text>
+  </AC>
+  <AC>
+    <AreaCode>319</AreaCode>
+    <Area>IA</Area>
+    <Text>E Iowa: Cedar Rapids </Text>
+  </AC>
+  <AC>
+    <AreaCode>320</AreaCode>
+    <Area>MN</Area>
+    <Text>Cent. Minnesota: Saint Cloud </Text>
+  </AC>
+  <AC>
+    <AreaCode>321</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida: Brevard County, Cape Canaveral area</Text>
+  </AC>
+  <AC>
+    <AreaCode>323</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: Los Angeles </Text>
+  </AC>
+  <AC>
+    <AreaCode>325</AreaCode>
+    <Area>TX</Area>
+    <Text>Central Texas: Abilene, Sweetwater, Snyder, San Angelo </Text>
+  </AC>
+  <AC>
+    <AreaCode>330</AreaCode>
+    <Area>OH</Area>
+    <Text>NE Ohio: Akron, Canton, Youngstown</Text>
+  </AC>
+  <AC>
+    <AreaCode>331</AreaCode>
+    <Area>IL</Area>
+    <Text>W NE Illinois, western suburbs of Chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>334</AreaCode>
+    <Area>AL</Area>
+    <Text>S Alabama: Auburn/Opelika, Montgomery and coastal areas </Text>
+  </AC>
+  <AC>
+    <AreaCode>336</AreaCode>
+    <Area>NC</Area>
+    <Text>Cent. North Carolina: Greensboro, Winston-Salem, High Point </Text>
+  </AC>
+  <AC>
+    <AreaCode>337</AreaCode>
+    <Area>LA</Area>
+    <Text>SW Louisiana: Lake Charles, Lafayette </Text>
+  </AC>
+  <AC>
+    <AreaCode>339</AreaCode>
+    <Area>MA</Area>
+    <Text>Massachusetts: Boston suburbs, to the south and west </Text>
+  </AC>
+  <AC>
+    <AreaCode>340</AreaCode>
+    <Area>VI</Area>
+    <Text>US Virgin Islands </Text>
+  </AC>
+  <AC>
+    <AreaCode>341</AreaCode>
+    <Area>CA</Area>
+    <Text></Text>
+  </AC>
+  <AC>
+    <AreaCode>345</AreaCode>
+    <Area>--</Area>
+    <Text>Cayman Islands</Text>
+  </AC>
+  <AC>
+    <AreaCode>347</AreaCode>
+    <Area>NY</Area>
+    <Text>New York </Text>
+  </AC>
+  <AC>
+    <AreaCode>351</AreaCode>
+    <Area>MA</Area>
+    <Text>Massachusetts: north of Boston to NH, 508, and 781 </Text>
+  </AC>
+  <AC>
+    <AreaCode>352</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida: Gainesville area, Ocala, Crystal River </Text>
+  </AC>
+  <AC>
+    <AreaCode>360</AreaCode>
+    <Area>WA</Area>
+    <Text>W Washington State: Olympia, Bellingham </Text>
+  </AC>
+  <AC>
+    <AreaCode>361</AreaCode>
+    <Area>TX</Area>
+    <Text>S Texas: Corpus Christi </Text>
+  </AC>
+  <AC>
+    <AreaCode>369</AreaCode>
+    <Area>CA</Area>
+    <Text>Solano County </Text>
+  </AC>
+  <AC>
+    <AreaCode>380</AreaCode>
+    <Area>OH</Area>
+    <Text>Ohio: Columbus </Text>
+  </AC>
+  <AC>
+    <AreaCode>385</AreaCode>
+    <Area>UT</Area>
+    <Text>Utah: Salt Lake City Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>386</AreaCode>
+    <Area>FL</Area>
+    <Text>N central Florida: Lake City </Text>
+  </AC>
+  <AC>
+    <AreaCode>401</AreaCode>
+    <Area>RI</Area>
+    <Text>Rhode Island</Text>
+  </AC>
+  <AC>
+    <AreaCode>402</AreaCode>
+    <Area>NE</Area>
+    <Text>E Nebraska: Omaha, Lincoln</Text>
+  </AC>
+  <AC>
+    <AreaCode>403</AreaCode>
+    <Area>AB</Area>
+    <Text>Canada: Southern Alberta </Text>
+  </AC>
+  <AC>
+    <AreaCode>404</AreaCode>
+    <Area>GA</Area>
+    <Text>N Georgia: Atlanta and suburbs </Text>
+  </AC>
+  <AC>
+    <AreaCode>405</AreaCode>
+    <Area>OK</Area>
+    <Text>W Oklahoma: Oklahoma City </Text>
+  </AC>
+  <AC>
+    <AreaCode>406</AreaCode>
+    <Area>MT</Area>
+    <Text>Montana</Text>
+  </AC>
+  <AC>
+    <AreaCode>407</AreaCode>
+    <Area>FL</Area>
+    <Text>Central Florida: Metro Orlando </Text>
+  </AC>
+  <AC>
+    <AreaCode>408</AreaCode>
+    <Area>CA</Area>
+    <Text>Cent. Coastal California: San Jose </Text>
+  </AC>
+  <AC>
+    <AreaCode>409</AreaCode>
+    <Area>TX</Area>
+    <Text>SE Texas: Galveston, Port Arthur, Beaumont </Text>
+  </AC>
+  <AC>
+    <AreaCode>410</AreaCode>
+    <Area>MD</Area>
+    <Text>E Maryland: Baltimore, Annapolis, Chesapeake Bay area, Ocean City </Text>
+  </AC>
+  <AC>
+    <AreaCode>411</AreaCode>
+    <Area>--</Area>
+    <Text>Reserved for special applications</Text>
+  </AC>
+  <AC>
+    <AreaCode>412</AreaCode>
+    <Area>PA</Area>
+    <Text>W Pennsylvania: Pittsburgh </Text>
+  </AC>
+  <AC>
+    <AreaCode>413</AreaCode>
+    <Area>MA</Area>
+    <Text>W Massachusetts: Springfield</Text>
+  </AC>
+  <AC>
+    <AreaCode>414</AreaCode>
+    <Area>WI</Area>
+    <Text>SE Wisconsin: Milwaukee County </Text>
+  </AC>
+  <AC>
+    <AreaCode>415</AreaCode>
+    <Area>CA</Area>
+    <Text>California: San Francisco County and Marin County on the north side of the Golden Gate Bridge, extending north to Sonoma County </Text>
+  </AC>
+  <AC>
+    <AreaCode>416</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: S Cent. Ontario: Toronto </Text>
+  </AC>
+  <AC>
+    <AreaCode>417</AreaCode>
+    <Area>MO</Area>
+    <Text>SW Missouri: Springfield</Text>
+  </AC>
+  <AC>
+    <AreaCode>418</AreaCode>
+    <Area>QC</Area>
+    <Text>Canada: NE Quebec: Quebec</Text>
+  </AC>
+  <AC>
+    <AreaCode>419</AreaCode>
+    <Area>OH</Area>
+    <Text>NW Ohio: Toledo </Text>
+  </AC>
+  <AC>
+    <AreaCode>423</AreaCode>
+    <Area>TN</Area>
+    <Text>E Tennessee, except Knoxville metro area: Chattanooga, Bristol, Johnson City, Kingsport, Greeneville </Text>
+  </AC>
+  <AC>
+    <AreaCode>424</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: Los Angeles </Text>
+  </AC>
+  <AC>
+    <AreaCode>425</AreaCode>
+    <Area>WA</Area>
+    <Text>Washington: North Tier - Everett, Bellevue </Text>
+  </AC>
+  <AC>
+    <AreaCode>430</AreaCode>
+    <Area>TX</Area>
+    <Text>NE Texas: Tyler </Text>
+  </AC>
+  <AC>
+    <AreaCode>432</AreaCode>
+    <Area>TX</Area>
+    <Text>W Texas: Big Spring, Midland, Odessa </Text>
+  </AC>
+  <AC>
+    <AreaCode>434</AreaCode>
+    <Area>VA</Area>
+    <Text>E Virginia: Charlottesville, Lynchburg, Danville, South Boston, and Emporia </Text>
+  </AC>
+  <AC>
+    <AreaCode>435</AreaCode>
+    <Area>UT</Area>
+    <Text>Rural Utah outside Salt Lake City metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>438</AreaCode>
+    <Area>QC</Area>
+    <Text>Canada: SW Quebec: Montreal city </Text>
+  </AC>
+  <AC>
+    <AreaCode>440</AreaCode>
+    <Area>OH</Area>
+    <Text>Ohio: Cleveland metro area, excluding Cleveland </Text>
+  </AC>
+  <AC>
+    <AreaCode>441</AreaCode>
+    <Area>--</Area>
+    <Text>Bermuda </Text>
+  </AC>
+  <AC>
+    <AreaCode>442</AreaCode>
+    <Area>CA</Area>
+    <Text>Far north suburbs of San Diego </Text>
+  </AC>
+  <AC>
+    <AreaCode>443</AreaCode>
+    <Area>MD</Area>
+    <Text>E Maryland: Baltimore, Annapolis, Chesapeake Bay area, Ocean City </Text>
+  </AC>
+  <AC>
+    <AreaCode>450</AreaCode>
+    <Area>QC</Area>
+    <Text>Canada: Southeastern Quebec</Text>
+  </AC>
+  <AC>
+    <AreaCode>456</AreaCode>
+    <Area>--</Area>
+    <Text>Inbound International</Text>
+  </AC>
+  <AC>
+    <AreaCode>464</AreaCode>
+    <Area>IL</Area>
+    <Text>Illinois: south suburbs of Chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>469</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Dallas Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>470</AreaCode>
+    <Area>GA</Area>
+    <Text>Georgia: Greater Atlanta Metropolitan Area </Text>
+  </AC>
+  <AC>
+    <AreaCode>473</AreaCode>
+    <Area>--</Area>
+    <Text>Grenada </Text>
+  </AC>
+  <AC>
+    <AreaCode>475</AreaCode>
+    <Area>CT</Area>
+    <Text>Connecticut: New Haven, Greenwich, southwestern </Text>
+  </AC>
+  <AC>
+    <AreaCode>478</AreaCode>
+    <Area>GA</Area>
+    <Text>Central Georgia: Macon </Text>
+  </AC>
+  <AC>
+    <AreaCode>479</AreaCode>
+    <Area>AR</Area>
+    <Text>NW Arkansas: Fort Smith, Fayetteville, Springdale, Bentonville </Text>
+  </AC>
+  <AC>
+    <AreaCode>480</AreaCode>
+    <Area>AZ</Area>
+    <Text>Arizona: East Phoenix </Text>
+  </AC>
+  <AC>
+    <AreaCode>484</AreaCode>
+    <Area>PA</Area>
+    <Text>SE Pennsylvania: Allentown, Bethlehem, Reading, West Chester, Norristown </Text>
+  </AC>
+  <AC>
+    <AreaCode>500</AreaCode>
+    <Area>--</Area>
+    <Text>Personal Communication Service</Text>
+  </AC>
+  <AC>
+    <AreaCode>501</AreaCode>
+    <Area>AR</Area>
+    <Text>Central Arkansas: Little Rock, Hot Springs, Conway </Text>
+  </AC>
+  <AC>
+    <AreaCode>502</AreaCode>
+    <Area>KY</Area>
+    <Text>N Central Kentucky: Louisville </Text>
+  </AC>
+  <AC>
+    <AreaCode>503</AreaCode>
+    <Area>OR</Area>
+    <Text>Oregon </Text>
+  </AC>
+  <AC>
+    <AreaCode>504</AreaCode>
+    <Area>LA</Area>
+    <Text>E Louisiana: New Orleans metro area </Text>
+  </AC>
+  <AC>
+    <AreaCode>505</AreaCode>
+    <Area>NM</Area>
+    <Text>North central and northwestern New Mexico </Text>
+  </AC>
+  <AC>
+    <AreaCode>506</AreaCode>
+    <Area>NB</Area>
+    <Text>Canada: New Brunswick</Text>
+  </AC>
+  <AC>
+    <AreaCode>507</AreaCode>
+    <Area>MN</Area>
+    <Text>S Minnesota: Rochester, Mankato, Worthington</Text>
+  </AC>
+  <AC>
+    <AreaCode>508</AreaCode>
+    <Area>MA</Area>
+    <Text>Cent. Massachusetts: Framingham</Text>
+  </AC>
+  <AC>
+    <AreaCode>509</AreaCode>
+    <Area>WA</Area>
+    <Text>E and Central Washington state: Spokane, Yakima, Walla Walla, Ellensburg</Text>
+  </AC>
+  <AC>
+    <AreaCode>510</AreaCode>
+    <Area>CA</Area>
+    <Text>California: Oakland, East Bay </Text>
+  </AC>
+  <AC>
+    <AreaCode>511</AreaCode>
+    <Area>--</Area>
+    <Text>Nationwide travel information</Text>
+  </AC>
+  <AC>
+    <AreaCode>512</AreaCode>
+    <Area>TX</Area>
+    <Text>S Texas: Austin </Text>
+  </AC>
+  <AC>
+    <AreaCode>513</AreaCode>
+    <Area>OH</Area>
+    <Text>SW Ohio: Cincinnati </Text>
+  </AC>
+  <AC>
+    <AreaCode>514</AreaCode>
+    <Area>QC</Area>
+    <Text>Canada: SW Quebec: Montreal city </Text>
+  </AC>
+  <AC>
+    <AreaCode>515</AreaCode>
+    <Area>IA</Area>
+    <Text>Cent. Iowa: Des Moines </Text>
+  </AC>
+  <AC>
+    <AreaCode>516</AreaCode>
+    <Area>NY</Area>
+    <Text>New York: Nassau County, Long Island</Text>
+  </AC>
+  <AC>
+    <AreaCode>517</AreaCode>
+    <Area>MI</Area>
+    <Text>Cent. Michigan: Lansing </Text>
+  </AC>
+  <AC>
+    <AreaCode>518</AreaCode>
+    <Area>NY</Area>
+    <Text>NE New York: Albany</Text>
+  </AC>
+  <AC>
+    <AreaCode>519</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: SW Ontario: Windsor </Text>
+  </AC>
+  <AC>
+    <AreaCode>520</AreaCode>
+    <Area>AZ</Area>
+    <Text>SE Arizona: Tucson area </Text>
+  </AC>
+  <AC>
+    <AreaCode>530</AreaCode>
+    <Area>CA</Area>
+    <Text>NE California: Eldorado County area, excluding Eldorado Hills itself: incl cities of Auburn, Chico, Redding, So. Lake Tahoe, Marysville, Nevada City/Grass Valley </Text>
+  </AC>
+  <AC>
+    <AreaCode>540</AreaCode>
+    <Area>VA</Area>
+    <Text>Western and Southwest Virginia: Shenandoah and Roanoke valleys: Fredericksburg, Harrisonburg, Roanoke, Salem, Lexington and nearby areas </Text>
+  </AC>
+  <AC>
+    <AreaCode>541</AreaCode>
+    <Area>OR</Area>
+    <Text>Oregon: Eugene, Medford </Text>
+  </AC>
+  <AC>
+    <AreaCode>551</AreaCode>
+    <Area>NJ</Area>
+    <Text>N New Jersey: Jersey City, Hackensack </Text>
+  </AC>
+  <AC>
+    <AreaCode>555</AreaCode>
+    <Area>--</Area>
+    <Text>Reserved for directory assistance applications</Text>
+  </AC>
+  <AC>
+    <AreaCode>557</AreaCode>
+    <Area>MO</Area>
+    <Text>SE Missouri: St Louis metro area only </Text>
+  </AC>
+  <AC>
+    <AreaCode>559</AreaCode>
+    <Area>CA</Area>
+    <Text>Central California: Fresno </Text>
+  </AC>
+  <AC>
+    <AreaCode>561</AreaCode>
+    <Area>FL</Area>
+    <Text>S. Central Florida: Palm Beach County </Text>
+  </AC>
+  <AC>
+    <AreaCode>562</AreaCode>
+    <Area>CA</Area>
+    <Text>California: Long Beach </Text>
+  </AC>
+  <AC>
+    <AreaCode>563</AreaCode>
+    <Area>IA</Area>
+    <Text>E Iowa: Davenport, Dubuque </Text>
+  </AC>
+  <AC>
+    <AreaCode>564</AreaCode>
+    <Area>WA</Area>
+    <Text>W Washington State: Olympia, Bellingham </Text>
+  </AC>
+  <AC>
+    <AreaCode>567</AreaCode>
+    <Area>OH</Area>
+    <Text>NW Ohio: Toledo </Text>
+  </AC>
+  <AC>
+    <AreaCode>570</AreaCode>
+    <Area>PA</Area>
+    <Text>NE and N Central Pennsylvania: Wilkes-Barre, Scranton </Text>
+  </AC>
+  <AC>
+    <AreaCode>571</AreaCode>
+    <Area>VA</Area>
+    <Text>Northern Virginia: Arlington, McLean, Tysons Corner </Text>
+  </AC>
+  <AC>
+    <AreaCode>573</AreaCode>
+    <Area>MO</Area>
+    <Text>SE Missouri: excluding St Louis metro area, includes Central/East Missouri, area between St. Louis and Kansas City</Text>
+  </AC>
+  <AC>
+    <AreaCode>574</AreaCode>
+    <Area>IN</Area>
+    <Text>N Indiana: Elkhart, South Bend </Text>
+  </AC>
+  <AC>
+    <AreaCode>575</AreaCode>
+    <Area>NM</Area>
+    <Text>New Mexico </Text>
+  </AC>
+  <AC>
+    <AreaCode>580</AreaCode>
+    <Area>OK</Area>
+    <Text>W Oklahoma </Text>
+  </AC>
+  <AC>
+    <AreaCode>585</AreaCode>
+    <Area>NY</Area>
+    <Text>NW New York: Rochester </Text>
+  </AC>
+  <AC>
+    <AreaCode>586</AreaCode>
+    <Area>MI</Area>
+    <Text>Michigan: Macomb County </Text>
+  </AC>
+  <AC>
+    <AreaCode>600</AreaCode>
+    <Area>--</Area>
+    <Text>Canadian Services</Text>
+  </AC>
+  <AC>
+    <AreaCode>601</AreaCode>
+    <Area>MS</Area>
+    <Text>Mississippi: Meridian, Jackson area </Text>
+  </AC>
+  <AC>
+    <AreaCode>602</AreaCode>
+    <Area>AZ</Area>
+    <Text>Arizona: Phoenix </Text>
+  </AC>
+  <AC>
+    <AreaCode>603</AreaCode>
+    <Area>NH</Area>
+    <Text>New Hampshire</Text>
+  </AC>
+  <AC>
+    <AreaCode>604</AreaCode>
+    <Area>BC</Area>
+    <Text>Canada: British Columbia: Greater Vancouver </Text>
+  </AC>
+  <AC>
+    <AreaCode>605</AreaCode>
+    <Area>SD</Area>
+    <Text>South Dakota</Text>
+  </AC>
+  <AC>
+    <AreaCode>606</AreaCode>
+    <Area>KY</Area>
+    <Text>E Kentucky: area east of Frankfort: Ashland </Text>
+  </AC>
+  <AC>
+    <AreaCode>607</AreaCode>
+    <Area>NY</Area>
+    <Text>S Cent. New York: Ithaca, Binghamton</Text>
+  </AC>
+  <AC>
+    <AreaCode>608</AreaCode>
+    <Area>WI</Area>
+    <Text>SW Wisconsin: Madison</Text>
+  </AC>
+  <AC>
+    <AreaCode>609</AreaCode>
+    <Area>NJ</Area>
+    <Text>S New Jersey: Trenton </Text>
+  </AC>
+  <AC>
+    <AreaCode>610</AreaCode>
+    <Area>PA</Area>
+    <Text>SE Pennsylvania: Allentown, Bethlehem, Reading, West Chester, Norristown </Text>
+  </AC>
+  <AC>
+    <AreaCode>611</AreaCode>
+    <Area>--</Area>
+    <Text>Reserved for special applications</Text>
+  </AC>
+  <AC>
+    <AreaCode>612</AreaCode>
+    <Area>MN</Area>
+    <Text>Cent. Minnesota: Minneapolis </Text>
+  </AC>
+  <AC>
+    <AreaCode>613</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: SE Ontario: Ottawa</Text>
+  </AC>
+  <AC>
+    <AreaCode>614</AreaCode>
+    <Area>OH</Area>
+    <Text>SE Ohio: Columbus </Text>
+  </AC>
+  <AC>
+    <AreaCode>615</AreaCode>
+    <Area>TN</Area>
+    <Text>Northern Middle Tennessee: Nashville metro area </Text>
+  </AC>
+  <AC>
+    <AreaCode>616</AreaCode>
+    <Area>MI</Area>
+    <Text>W Michigan: Holland, Grand Haven, Greenville, Grand Rapids, Ionia </Text>
+  </AC>
+  <AC>
+    <AreaCode>617</AreaCode>
+    <Area>MA</Area>
+    <Text>Massachusetts: greater Boston </Text>
+  </AC>
+  <AC>
+    <AreaCode>618</AreaCode>
+    <Area>IL</Area>
+    <Text>S Illinois: Centralia</Text>
+  </AC>
+  <AC>
+    <AreaCode>619</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: San Diego </Text>
+  </AC>
+  <AC>
+    <AreaCode>620</AreaCode>
+    <Area>KS</Area>
+    <Text>S Kansas: Wichita </Text>
+  </AC>
+  <AC>
+    <AreaCode>623</AreaCode>
+    <Area>AZ</Area>
+    <Text>Arizona: West Phoenix </Text>
+  </AC>
+  <AC>
+    <AreaCode>626</AreaCode>
+    <Area>CA</Area>
+    <Text>E S California: Pasadena </Text>
+  </AC>
+  <AC>
+    <AreaCode>627</AreaCode>
+    <Area>CA</Area>
+    <Text>No longer in use [was Napa, Sonoma counties </Text>
+  </AC>
+  <AC>
+    <AreaCode>628</AreaCode>
+    <Area>CA</Area>
+    <Text></Text>
+  </AC>
+  <AC>
+    <AreaCode>630</AreaCode>
+    <Area>IL</Area>
+    <Text>W NE Illinois, western suburbs of Chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>631</AreaCode>
+    <Area>NY</Area>
+    <Text>New York: Suffolk County, Long Island</Text>
+  </AC>
+  <AC>
+    <AreaCode>636</AreaCode>
+    <Area>MO</Area>
+    <Text>Missouri: W St. Louis metro area of St. Louis county, St. Charles County, Jefferson County area south </Text>
+  </AC>
+  <AC>
+    <AreaCode>641</AreaCode>
+    <Area>IA</Area>
+    <Text>Iowa: Mason City, Marshalltown, Creston, Ottumwa </Text>
+  </AC>
+  <AC>
+    <AreaCode>646</AreaCode>
+    <Area>NY</Area>
+    <Text>New York  NYC: Manhattan only</Text>
+  </AC>
+  <AC>
+    <AreaCode>647</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: S Cent. Ontario: Toronto </Text>
+  </AC>
+  <AC>
+    <AreaCode>649</AreaCode>
+    <Area>--</Area>
+    <Text>Turks &amp; Caicos Islands</Text>
+  </AC>
+  <AC>
+    <AreaCode>650</AreaCode>
+    <Area>CA</Area>
+    <Text>California: Peninsula south of San Francisco -- San Mateo County, parts of Santa Clara County </Text>
+  </AC>
+  <AC>
+    <AreaCode>651</AreaCode>
+    <Area>MN</Area>
+    <Text>Cent. Minnesota: St. Paul </Text>
+  </AC>
+  <AC>
+    <AreaCode>660</AreaCode>
+    <Area>MO</Area>
+    <Text>N Missouri </Text>
+  </AC>
+  <AC>
+    <AreaCode>661</AreaCode>
+    <Area>CA</Area>
+    <Text>California: N Los Angeles, Mckittrick, Mojave, Newhall, Oildale, Palmdale, Taft, Tehachapi, Bakersfield, Earlimart, Lancaster </Text>
+  </AC>
+  <AC>
+    <AreaCode>662</AreaCode>
+    <Area>MS</Area>
+    <Text>N Mississippi: Tupelo, Grenada </Text>
+  </AC>
+  <AC>
+    <AreaCode>664</AreaCode>
+    <Area>--</Area>
+    <Text>Montserrat </Text>
+  </AC>
+  <AC>
+    <AreaCode>669</AreaCode>
+    <Area>CA</Area>
+    <Text>Cent. Coastal California: San Jose </Text>
+  </AC>
+  <AC>
+    <AreaCode>670</AreaCode>
+    <Area>MP</Area>
+    <Text>Commonwealth of the Northern Mariana Islands </Text>
+  </AC>
+  <AC>
+    <AreaCode>671</AreaCode>
+    <Area>GU</Area>
+    <Text>Guam</Text>
+  </AC>
+  <AC>
+    <AreaCode>678</AreaCode>
+    <Area>GA</Area>
+    <Text>N Georgia: metropolitan Atlanta </Text>
+  </AC>
+  <AC>
+    <AreaCode>679</AreaCode>
+    <Area>MI</Area>
+    <Text>Michigan: Dearborn area </Text>
+  </AC>
+  <AC>
+    <AreaCode>682</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Fort Worth areas </Text>
+  </AC>
+  <AC>
+    <AreaCode>684</AreaCode>
+    <Area>--</Area>
+    <Text>American Samoa</Text>
+  </AC>
+  <AC>
+    <AreaCode>689</AreaCode>
+    <Area>FL</Area>
+    <Text>Central Florida: Metro Orlando </Text>
+  </AC>
+  <AC>
+    <AreaCode>700</AreaCode>
+    <Area>--</Area>
+    <Text>Interexchange Carrier Services</Text>
+  </AC>
+  <AC>
+    <AreaCode>701</AreaCode>
+    <Area>ND</Area>
+    <Text>North Dakota</Text>
+  </AC>
+  <AC>
+    <AreaCode>702</AreaCode>
+    <Area>NV</Area>
+    <Text>S. Nevada: Clark County, incl Las Vegas </Text>
+  </AC>
+  <AC>
+    <AreaCode>703</AreaCode>
+    <Area>VA</Area>
+    <Text>Northern Virginia: Arlington, McLean, Tysons Corner </Text>
+  </AC>
+  <AC>
+    <AreaCode>704</AreaCode>
+    <Area>NC</Area>
+    <Text>W North Carolina: Charlotte </Text>
+  </AC>
+  <AC>
+    <AreaCode>705</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: NE Ontario: Sault Ste. Marie/N Ontario: N Bay, Sudbury</Text>
+  </AC>
+  <AC>
+    <AreaCode>706</AreaCode>
+    <Area>GA</Area>
+    <Text>N Georgia: Columbus, Augusta </Text>
+  </AC>
+  <AC>
+    <AreaCode>707</AreaCode>
+    <Area>CA</Area>
+    <Text>NW California: Santa Rosa, Napa, Vallejo, American Canyon, Fairfield</Text>
+  </AC>
+  <AC>
+    <AreaCode>708</AreaCode>
+    <Area>IL</Area>
+    <Text>Illinois: southern and western suburbs of Chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>709</AreaCode>
+    <Area>NL</Area>
+    <Text>Canada: Newfoundland and Labrador</Text>
+  </AC>
+  <AC>
+    <AreaCode>710</AreaCode>
+    <Area>--</Area>
+    <Text>US Government</Text>
+  </AC>
+  <AC>
+    <AreaCode>711</AreaCode>
+    <Area>--</Area>
+    <Text>Telecommunications Relay Services</Text>
+  </AC>
+  <AC>
+    <AreaCode>712</AreaCode>
+    <Area>IA</Area>
+    <Text>W Iowa: Council Bluffs</Text>
+  </AC>
+  <AC>
+    <AreaCode>713</AreaCode>
+    <Area>TX</Area>
+    <Text>Mid SE Texas: central Houston </Text>
+  </AC>
+  <AC>
+    <AreaCode>714</AreaCode>
+    <Area>CA</Area>
+    <Text>North and Central Orange County </Text>
+  </AC>
+  <AC>
+    <AreaCode>715</AreaCode>
+    <Area>WI</Area>
+    <Text>N Wisconsin: Eau Claire, Wausau, Superior</Text>
+  </AC>
+  <AC>
+    <AreaCode>716</AreaCode>
+    <Area>NY</Area>
+    <Text>NW New York: Buffalo </Text>
+  </AC>
+  <AC>
+    <AreaCode>717</AreaCode>
+    <Area>PA</Area>
+    <Text>E Pennsylvania: Harrisburg </Text>
+  </AC>
+  <AC>
+    <AreaCode>718</AreaCode>
+    <Area>NY</Area>
+    <Text>New York City, New York </Text>
+  </AC>
+  <AC>
+    <AreaCode>719</AreaCode>
+    <Area>CO</Area>
+    <Text>SE Colorado: Pueblo, Colorado Springs</Text>
+  </AC>
+  <AC>
+    <AreaCode>720</AreaCode>
+    <Area>CO</Area>
+    <Text>Central Colorado: Denver </Text>
+  </AC>
+  <AC>
+    <AreaCode>724</AreaCode>
+    <Area>PA</Area>
+    <Text>SW Pennsylvania </Text>
+  </AC>
+  <AC>
+    <AreaCode>727</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida Tampa Metro: Saint Petersburg, Clearwater </Text>
+  </AC>
+  <AC>
+    <AreaCode>731</AreaCode>
+    <Area>TN</Area>
+    <Text>W Tennessee: outside Memphis metro area </Text>
+  </AC>
+  <AC>
+    <AreaCode>732</AreaCode>
+    <Area>NJ</Area>
+    <Text>Cent. New Jersey: Toms River, New Brunswick, Bound Brook </Text>
+  </AC>
+  <AC>
+    <AreaCode>734</AreaCode>
+    <Area>MI</Area>
+    <Text>SE Michigan: west and south of Detroit -- Ann Arbor, Monroe </Text>
+  </AC>
+  <AC>
+    <AreaCode>737</AreaCode>
+    <Area>TX</Area>
+    <Text>S Texas: Austin </Text>
+  </AC>
+  <AC>
+    <AreaCode>740</AreaCode>
+    <Area>OH</Area>
+    <Text>SE Ohio </Text>
+  </AC>
+  <AC>
+    <AreaCode>747</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: Los Angeles, Agoura Hills, Calabasas, Hidden Hills, and Westlake Village </Text>
+  </AC>
+  <AC>
+    <AreaCode>754</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida: Broward County area, incl Ft. Lauderdale </Text>
+  </AC>
+  <AC>
+    <AreaCode>757</AreaCode>
+    <Area>VA</Area>
+    <Text>E Virginia: Tidewater / Hampton Roads area -- Norfolk, Virginia Beach, Chesapeake, Portsmouth, Hampton, Newport News, Suffolk </Text>
+  </AC>
+  <AC>
+    <AreaCode>758</AreaCode>
+    <Area>--</Area>
+    <Text>St. Lucia </Text>
+  </AC>
+  <AC>
+    <AreaCode>760</AreaCode>
+    <Area>CA</Area>
+    <Text>California: San Diego North County to Sierra Nevada </Text>
+  </AC>
+  <AC>
+    <AreaCode>762</AreaCode>
+    <Area>GA</Area>
+    <Text>N Georgia: Columbus, Augusta </Text>
+  </AC>
+  <AC>
+    <AreaCode>763</AreaCode>
+    <Area>MN</Area>
+    <Text>Minnesota: Minneapolis NW </Text>
+  </AC>
+  <AC>
+    <AreaCode>764</AreaCode>
+    <Area>CA</Area>
+    <Text></Text>
+  </AC>
+  <AC>
+    <AreaCode>765</AreaCode>
+    <Area>IN</Area>
+    <Text>Indiana: outside Indianapolis </Text>
+  </AC>
+  <AC>
+    <AreaCode>767</AreaCode>
+    <Area>--</Area>
+    <Text>Dominica </Text>
+  </AC>
+  <AC>
+    <AreaCode>769</AreaCode>
+    <Area>MS</Area>
+    <Text>Mississippi: Meridian, Jackson area </Text>
+  </AC>
+  <AC>
+    <AreaCode>770</AreaCode>
+    <Area>GA</Area>
+    <Text>Georgia: Atlanta suburbs: outside of I-285 ring road </Text>
+  </AC>
+  <AC>
+    <AreaCode>772</AreaCode>
+    <Area>FL</Area>
+    <Text>S. Central Florida: St. Lucie, Martin, and Indian River counties </Text>
+  </AC>
+  <AC>
+    <AreaCode>773</AreaCode>
+    <Area>IL</Area>
+    <Text>Illinois: city of Chicago, outside the loop </Text>
+  </AC>
+  <AC>
+    <AreaCode>774</AreaCode>
+    <Area>MA</Area>
+    <Text>Cent. Massachusetts: Framingham</Text>
+  </AC>
+  <AC>
+    <AreaCode>775</AreaCode>
+    <Area>NV</Area>
+    <Text>N. Nevada: Reno </Text>
+  </AC>
+  <AC>
+    <AreaCode>778</AreaCode>
+    <Area>BC</Area>
+    <Text>Canada: British Columbia: Greater Vancouver </Text>
+  </AC>
+  <AC>
+    <AreaCode>779</AreaCode>
+    <Area>IL</Area>
+    <Text>NW Illinois: Rockford, Kankakee </Text>
+  </AC>
+  <AC>
+    <AreaCode>780</AreaCode>
+    <Area>AB</Area>
+    <Text>Canada: Northern Alberta, north of Lacombe </Text>
+  </AC>
+  <AC>
+    <AreaCode>781</AreaCode>
+    <Area>MA</Area>
+    <Text>Massachusetts: Boston surburbs, to the north and west </Text>
+  </AC>
+  <AC>
+    <AreaCode>784</AreaCode>
+    <Area>--</Area>
+    <Text>St. Vincent &amp; Grenadines </Text>
+  </AC>
+  <AC>
+    <AreaCode>785</AreaCode>
+    <Area>KS</Area>
+    <Text>N &amp; W Kansas: Topeka </Text>
+  </AC>
+  <AC>
+    <AreaCode>786</AreaCode>
+    <Area>FL</Area>
+    <Text>SE Florida, Monroe County </Text>
+  </AC>
+  <AC>
+    <AreaCode>787</AreaCode>
+    <Area>PR</Area>
+    <Text>Puerto Rico </Text>
+  </AC>
+  <AC>
+    <AreaCode>800</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free </Text>
+  </AC>
+  <AC>
+    <AreaCode>801</AreaCode>
+    <Area>UT</Area>
+    <Text>Utah: Salt Lake City Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>802</AreaCode>
+    <Area>VT</Area>
+    <Text>Vermont</Text>
+  </AC>
+  <AC>
+    <AreaCode>803</AreaCode>
+    <Area>SC</Area>
+    <Text>South Carolina: Columbia, Aiken, Sumter </Text>
+  </AC>
+  <AC>
+    <AreaCode>804</AreaCode>
+    <Area>VA</Area>
+    <Text>E Virginia: Richmond </Text>
+  </AC>
+  <AC>
+    <AreaCode>805</AreaCode>
+    <Area>CA</Area>
+    <Text>S Cent. and Cent. Coastal California: Ventura County, Santa Barbara County: San Luis Obispo, Thousand Oaks, Carpinteria, Santa Barbara, Santa Maria, Lompoc, Santa Ynez Valley / Solvang </Text>
+  </AC>
+  <AC>
+    <AreaCode>806</AreaCode>
+    <Area>TX</Area>
+    <Text>Panhandle Texas: Amarillo, Lubbock</Text>
+  </AC>
+  <AC>
+    <AreaCode>807</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: W Ontario: Thunder Bay region to Manitoba border</Text>
+  </AC>
+  <AC>
+    <AreaCode>808</AreaCode>
+    <Area>HI</Area>
+    <Text>Hawaii</Text>
+  </AC>
+  <AC>
+    <AreaCode>809</AreaCode>
+    <Area>--</Area>
+    <Text>Dominican Republic </Text>
+  </AC>
+  <AC>
+    <AreaCode>810</AreaCode>
+    <Area>MI</Area>
+    <Text>E Michigan: Flint, Pontiac </Text>
+  </AC>
+  <AC>
+    <AreaCode>811</AreaCode>
+    <Area>--</Area>
+    <Text>Reserved for special applications</Text>
+  </AC>
+  <AC>
+    <AreaCode>812</AreaCode>
+    <Area>IN</Area>
+    <Text>S Indiana: Evansville, Cincinnati outskirts in IN, Columbus, Bloomington </Text>
+  </AC>
+  <AC>
+    <AreaCode>813</AreaCode>
+    <Area>FL</Area>
+    <Text>SW Florida: Tampa Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>814</AreaCode>
+    <Area>PA</Area>
+    <Text>Cent. Pennsylvania: Erie</Text>
+  </AC>
+  <AC>
+    <AreaCode>815</AreaCode>
+    <Area>IL</Area>
+    <Text>NW Illinois: Rockford, Kankakee </Text>
+  </AC>
+  <AC>
+    <AreaCode>816</AreaCode>
+    <Area>MO</Area>
+    <Text>N Missouri: Kansas City </Text>
+  </AC>
+  <AC>
+    <AreaCode>817</AreaCode>
+    <Area>TX</Area>
+    <Text>N Cent. Texas: Fort Worth area </Text>
+  </AC>
+  <AC>
+    <AreaCode>818</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: Los Angeles: San Fernando Valley </Text>
+  </AC>
+  <AC>
+    <AreaCode>819</AreaCode>
+    <Area>QC</Area>
+    <Text>NW Quebec: Trois Rivieres, Sherbrooke, Outaouais </Text>
+  </AC>
+  <AC>
+    <AreaCode>822</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free </Text>
+  </AC>
+  <AC>
+    <AreaCode>828</AreaCode>
+    <Area>NC</Area>
+    <Text>W North Carolina: Asheville </Text>
+  </AC>
+  <AC>
+    <AreaCode>829</AreaCode>
+    <Area>--</Area>
+    <Text>Dominican Republic </Text>
+  </AC>
+  <AC>
+    <AreaCode>830</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: region surrounding San Antonio </Text>
+  </AC>
+  <AC>
+    <AreaCode>831</AreaCode>
+    <Area>CA</Area>
+    <Text>California: central coast area from Santa Cruz through Monterey County</Text>
+  </AC>
+  <AC>
+    <AreaCode>832</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Houston </Text>
+  </AC>
+  <AC>
+    <AreaCode>833</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free </Text>
+  </AC>
+  <AC>
+    <AreaCode>835</AreaCode>
+    <Area>PA</Area>
+    <Text>SE Pennsylvania: Allentown, Bethlehem, Reading, West Chester, Norristown </Text>
+  </AC>
+  <AC>
+    <AreaCode>843</AreaCode>
+    <Area>SC</Area>
+    <Text>South Carolina, coastal area: Charleston, Beaufort, Myrtle Beach </Text>
+  </AC>
+  <AC>
+    <AreaCode>844</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free </Text>
+  </AC>
+  <AC>
+    <AreaCode>845</AreaCode>
+    <Area>NY</Area>
+    <Text>New York: Poughkeepsie</Text>
+  </AC>
+  <AC>
+    <AreaCode>847</AreaCode>
+    <Area>IL</Area>
+    <Text>Northern NE Illinois: northwestern suburbs of chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>848</AreaCode>
+    <Area>NJ</Area>
+    <Text>Cent. New Jersey: Toms River, New Brunswick, Bound Brook </Text>
+  </AC>
+  <AC>
+    <AreaCode>850</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida panhandle, from east of Tallahassee to Pensacola </Text>
+  </AC>
+  <AC>
+    <AreaCode>855</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free </Text>
+  </AC>
+  <AC>
+    <AreaCode>856</AreaCode>
+    <Area>NJ</Area>
+    <Text>SW New Jersey: greater Camden area, Mt Laurel </Text>
+  </AC>
+  <AC>
+    <AreaCode>857</AreaCode>
+    <Area>MA</Area>
+    <Text>Massachusetts: greater Boston </Text>
+  </AC>
+  <AC>
+    <AreaCode>858</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: San Diego </Text>
+  </AC>
+  <AC>
+    <AreaCode>859</AreaCode>
+    <Area>KY</Area>
+    <Text>N and Central Kentucky: Lexington</Text>
+  </AC>
+  <AC>
+    <AreaCode>860</AreaCode>
+    <Area>CT</Area>
+    <Text>Connecticut: areas outside of Fairfield and New Haven Counties </Text>
+  </AC>
+  <AC>
+    <AreaCode>862</AreaCode>
+    <Area>NJ</Area>
+    <Text>N New Jersey: Newark Paterson Morristown </Text>
+  </AC>
+  <AC>
+    <AreaCode>863</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida: Lakeland, Polk County </Text>
+  </AC>
+  <AC>
+    <AreaCode>864</AreaCode>
+    <Area>SC</Area>
+    <Text>South Carolina, upstate area: Greenville, Spartanburg </Text>
+  </AC>
+  <AC>
+    <AreaCode>865</AreaCode>
+    <Area>TN</Area>
+    <Text>E Tennessee: Knoxville, Knox and adjacent counties </Text>
+  </AC>
+  <AC>
+    <AreaCode>866</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free</Text>
+  </AC>
+  <AC>
+    <AreaCode>867</AreaCode>
+    <Area>YT</Area>
+    <Text>Canada: Yukon, Northwest Territories, Nunavut </Text>
+  </AC>
+  <AC>
+    <AreaCode>868</AreaCode>
+    <Area>--</Area>
+    <Text>Trinidad and Tobago </Text>
+  </AC>
+  <AC>
+    <AreaCode>869</AreaCode>
+    <Area>--</Area>
+    <Text>St. Kitts &amp; Nevis</Text>
+  </AC>
+  <AC>
+    <AreaCode>870</AreaCode>
+    <Area>AR</Area>
+    <Text>Arkansas: areas outside of west/central AR: Jonesboro, etc</Text>
+  </AC>
+  <AC>
+    <AreaCode>872</AreaCode>
+    <Area>IL</Area>
+    <Text>Illinois: Chicago </Text>
+  </AC>
+  <AC>
+    <AreaCode>876</AreaCode>
+    <Area>--</Area>
+    <Text>Jamaica </Text>
+  </AC>
+  <AC>
+    <AreaCode>877</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free</Text>
+  </AC>
+  <AC>
+    <AreaCode>878</AreaCode>
+    <Area>PA</Area>
+    <Text>Pittsburgh, New Castle </Text>
+  </AC>
+  <AC>
+    <AreaCode>880</AreaCode>
+    <Area>--</Area>
+    <Text>Paid Toll-Free Service</Text>
+  </AC>
+  <AC>
+    <AreaCode>881</AreaCode>
+    <Area>--</Area>
+    <Text>Paid Toll-Free Service</Text>
+  </AC>
+  <AC>
+    <AreaCode>882</AreaCode>
+    <Area>--</Area>
+    <Text>Paid Toll-Free Service</Text>
+  </AC>
+  <AC>
+    <AreaCode>888</AreaCode>
+    <Area>--</Area>
+    <Text>US/Canada toll free</Text>
+  </AC>
+  <AC>
+    <AreaCode>898</AreaCode>
+    <Area>--</Area>
+    <Text>VoIP service</Text>
+  </AC>
+  <AC>
+    <AreaCode>900</AreaCode>
+    <Area>--</Area>
+    <Text>US toll calls -- prices vary with the number called</Text>
+  </AC>
+  <AC>
+    <AreaCode>901</AreaCode>
+    <Area>TN</Area>
+    <Text>W Tennessee: Memphis metro area </Text>
+  </AC>
+  <AC>
+    <AreaCode>902</AreaCode>
+    <Area>NS</Area>
+    <Text>Canada: Nova Scotia, Prince Edward Island</Text>
+  </AC>
+  <AC>
+    <AreaCode>903</AreaCode>
+    <Area>TX</Area>
+    <Text>NE Texas: Tyler </Text>
+  </AC>
+  <AC>
+    <AreaCode>904</AreaCode>
+    <Area>FL</Area>
+    <Text>N Florida: Jacksonville </Text>
+  </AC>
+  <AC>
+    <AreaCode>905</AreaCode>
+    <Area>ON</Area>
+    <Text>Canada: S Cent. Ontario: Greater Toronto Area -- Durham, Halton, Hamilton-Wentworth, Niagara, Peel, York, and southern Simcoe County </Text>
+  </AC>
+  <AC>
+    <AreaCode>906</AreaCode>
+    <Area>MI</Area>
+    <Text>Upper Peninsula Michigan: Sault Ste. Marie, Escanaba, Marquette </Text>
+  </AC>
+  <AC>
+    <AreaCode>907</AreaCode>
+    <Area>AK</Area>
+    <Text>Alaska</Text>
+  </AC>
+  <AC>
+    <AreaCode>908</AreaCode>
+    <Area>NJ</Area>
+    <Text>Cent. New Jersey: Elizabeth, Basking Ridge, Somerville, Bridgewater, Bound Brook</Text>
+  </AC>
+  <AC>
+    <AreaCode>909</AreaCode>
+    <Area>CA</Area>
+    <Text>California: Inland empire: San Bernardino , Riverside</Text>
+  </AC>
+  <AC>
+    <AreaCode>910</AreaCode>
+    <Area>NC</Area>
+    <Text>S Cent. North Carolina: Fayetteville, Wilmington </Text>
+  </AC>
+  <AC>
+    <AreaCode>911</AreaCode>
+    <Area>--</Area>
+    <Text>Emergency</Text>
+  </AC>
+  <AC>
+    <AreaCode>912</AreaCode>
+    <Area>GA</Area>
+    <Text>SE Georgia: Savannah </Text>
+  </AC>
+  <AC>
+    <AreaCode>913</AreaCode>
+    <Area>KS</Area>
+    <Text>Kansas: Kansas City area </Text>
+  </AC>
+  <AC>
+    <AreaCode>914</AreaCode>
+    <Area>NY</Area>
+    <Text>S New York: Westchester County </Text>
+  </AC>
+  <AC>
+    <AreaCode>915</AreaCode>
+    <Area>TX</Area>
+    <Text>W Texas: El Paso </Text>
+  </AC>
+  <AC>
+    <AreaCode>916</AreaCode>
+    <Area>CA</Area>
+    <Text>NE California: Sacramento, Walnut Grove, Lincoln, Newcastle and El Dorado Hills </Text>
+  </AC>
+  <AC>
+    <AreaCode>917</AreaCode>
+    <Area>NY</Area>
+    <Text>New York: New York City </Text>
+  </AC>
+  <AC>
+    <AreaCode>918</AreaCode>
+    <Area>OK</Area>
+    <Text>E Oklahoma: Tulsa</Text>
+  </AC>
+  <AC>
+    <AreaCode>919</AreaCode>
+    <Area>NC</Area>
+    <Text>E North Carolina: Raleigh </Text>
+  </AC>
+  <AC>
+    <AreaCode>920</AreaCode>
+    <Area>WI</Area>
+    <Text>NE Wisconsin: Appleton, Green Bay, Sheboygan, Fond du Lac </Text>
+  </AC>
+  <AC>
+    <AreaCode>925</AreaCode>
+    <Area>CA</Area>
+    <Text>California: Contra Costa area: Antioch, Concord, Pleasanton, Walnut Creek </Text>
+  </AC>
+  <AC>
+    <AreaCode>927</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida: Cellular coverage in Orlando area</Text>
+  </AC>
+  <AC>
+    <AreaCode>928</AreaCode>
+    <Area>AZ</Area>
+    <Text>Central and Northern Arizona: Prescott, Flagstaff, Yuma </Text>
+  </AC>
+  <AC>
+    <AreaCode>931</AreaCode>
+    <Area>TN</Area>
+    <Text>Middle Tennessee: semi-circular ring around Nashville </Text>
+  </AC>
+  <AC>
+    <AreaCode>935</AreaCode>
+    <Area>CA</Area>
+    <Text>S California: San Diego </Text>
+  </AC>
+  <AC>
+    <AreaCode>936</AreaCode>
+    <Area>TX</Area>
+    <Text>SE Texas: Conroe, Lufkin, Nacogdoches, Crockett </Text>
+  </AC>
+  <AC>
+    <AreaCode>937</AreaCode>
+    <Area>OH</Area>
+    <Text>SW Ohio: Dayton </Text>
+  </AC>
+  <AC>
+    <AreaCode>939</AreaCode>
+    <Area>PR</Area>
+    <Text>Puerto Rico </Text>
+  </AC>
+  <AC>
+    <AreaCode>940</AreaCode>
+    <Area>TX</Area>
+    <Text>N Cent. Texas: Denton, Wichita Falls </Text>
+  </AC>
+  <AC>
+    <AreaCode>941</AreaCode>
+    <Area>FL</Area>
+    <Text>SW Florida: Sarasota and Manatee counties </Text>
+  </AC>
+  <AC>
+    <AreaCode>947</AreaCode>
+    <Area>MI</Area>
+    <Text>Michigan: Oakland County </Text>
+  </AC>
+  <AC>
+    <AreaCode>949</AreaCode>
+    <Area>CA</Area>
+    <Text>California: S Coastal Orange County </Text>
+  </AC>
+  <AC>
+    <AreaCode>951</AreaCode>
+    <Area>CA</Area>
+    <Text>California: W Riverside County </Text>
+  </AC>
+  <AC>
+    <AreaCode>952</AreaCode>
+    <Area>MN</Area>
+    <Text>Minnesota: Minneapolis SW, Bloomington </Text>
+  </AC>
+  <AC>
+    <AreaCode>954</AreaCode>
+    <Area>FL</Area>
+    <Text>Florida: Broward County area, incl Ft. Lauderdale </Text>
+  </AC>
+  <AC>
+    <AreaCode>956</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Valley of Texas area</Text>
+  </AC>
+  <AC>
+    <AreaCode>957</AreaCode>
+    <Area>NM</Area>
+    <Text>New Mexico </Text>
+  </AC>
+  <AC>
+    <AreaCode>959</AreaCode>
+    <Area>CT</Area>
+    <Text>Connecticut: Hartford, New London </Text>
+  </AC>
+  <AC>
+    <AreaCode>970</AreaCode>
+    <Area>CO</Area>
+    <Text>N and W Colorado </Text>
+  </AC>
+  <AC>
+    <AreaCode>971</AreaCode>
+    <Area>OR</Area>
+    <Text>Oregon: Metropolitan Portland, Salem/Keizer area, incl Cricket Wireless </Text>
+  </AC>
+  <AC>
+    <AreaCode>972</AreaCode>
+    <Area>TX</Area>
+    <Text>Texas: Dallas Metro </Text>
+  </AC>
+  <AC>
+    <AreaCode>973</AreaCode>
+    <Area>NJ</Area>
+    <Text>N New Jersey: Newark, Paterson, Morristown </Text>
+  </AC>
+  <AC>
+    <AreaCode>975</AreaCode>
+    <Area>MO</Area>
+    <Text>N Missouri: Kansas City </Text>
+  </AC>
+  <AC>
+    <AreaCode>976</AreaCode>
+    <Area>--</Area>
+    <Text>Unassigned</Text>
+  </AC>
+  <AC>
+    <AreaCode>978</AreaCode>
+    <Area>MA</Area>
+    <Text>Massachusetts: north of Boston to NH </Text>
+  </AC>
+  <AC>
+    <AreaCode>979</AreaCode>
+    <Area>TX</Area>
+    <Text>SE Texas: Bryan, College Station, Bay City </Text>
+  </AC>
+  <AC>
+    <AreaCode>980</AreaCode>
+    <Area>NC</Area>
+    <Text>North Carolina: </Text>
+  </AC>
+  <AC>
+    <AreaCode>984</AreaCode>
+    <Area>NC</Area>
+    <Text>E North Carolina: Raleigh </Text>
+  </AC>
+  <AC>
+    <AreaCode>985</AreaCode>
+    <Area>LA</Area>
+    <Text>E Louisiana: SE/N shore of Lake Pontchartrain: Hammond, Slidell, Covington, Amite, Kentwood, area SW of New Orleans, Houma, Thibodaux, Morgan City </Text>
+  </AC>
+  <AC>
+    <AreaCode>989</AreaCode>
+    <Area>MI</Area>
+    <Text>Upper central Michigan: Mt Pleasant, Saginaw </Text>
+  </AC>
+  <AC>
+    <AreaCode>999</AreaCode>
+    <Area>--</Area>
+    <Text>Often used by carriers to indicate that the area code information is unavailable for CNID, even though the rest of the number is present</Text>
+  </AC>
+</USAreaCodes>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<C xmlns="http://www.example.org/Numberplan" N="Zambia" C="260"><A N="Lusaka" C="1" T="FIX" L="1"/><A N="Kitwe" C="2" T="FIX" L="1"/><A N="Choma" C="3" T="FIX" L="1"/><A N="Kasama" C="4" T="FIX" L="1"/><A N="Kabwe" C="5" T="FIX" L="1"/><A N="Chipata" C="6" T="FIX" L="1"/><A N="Mongu" C="7" T="FIX" L="1"/><A N="Solwezi" C="8" T="FIX" L="1"/><A N="Zamtel MTS" C="95" T="MOB" L="0"/><A N="Telecel" C="96" T="MOB" L="0"/><A N="CelTel" C="97" T="MOB" L="0"/></C>
