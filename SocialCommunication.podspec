@@ -31,10 +31,11 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/*'
-  s.resources = 'Pod/Assets/*.{wav,aiff,aif,xml,fsh,vsh,png,xcdatamodeld,storyboard}'
+  s.source_files = ['Pod/Classes/*', 'Pod/Classes/Categories/*']
+#s.resources = { :files => 'Pod/Assets/*.{wav,aiff,aif,xml,fsh,vsh,png,xcdatamodeld,storyboard}', :bundle => 'Main'}
+  s.resources = 'Pod/Assets/*.{wav,aiff,aif,fsh,xml,vsh,png,xcdatamodeld,storyboard,xcassets}'
 #s.resource_bundles = {
-#    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,xml,fsh,vsh,png,xcdatamodeld,storyboard}']
+#    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,fsh, xml,vsh,png,xcdatamodeld,storyboard,xcassets}']
 #  }
 
   s.public_header_files = 'Pod/Classes/*.h'

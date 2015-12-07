@@ -25,6 +25,7 @@
 #import "AlertUtil.h"
 #import "C2TapImageView.h"
 #import "SCPopupMenu.h"
+#import "SCAssetManager.h"
 
 
 #import "debug.h"
@@ -440,6 +441,8 @@
 		callLink = YES;
 	}
     
+    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
+    
     cell.userid = elem.userid;
     cell.highlightBackground = NO;
 
@@ -447,12 +450,12 @@
     switch ([elem.onlineStatus intValue]) {
         case OS_OFFLINE:
             cell.labelDetail.text = NSLocalizedString(@"offline", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = [UIColor darkGrayColor];
             break;
         case OS_ONLINE:
             cell.labelDetail.text = NSLocalizedString(@"online", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_idle"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_idle" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = DEFAULT_IDLECOLOR;
             break;
         case OS_FORWARDED:
@@ -460,17 +463,17 @@
             break;
         case OS_INVISIBLE:
             cell.labelDetail.text = NSLocalizedString(@"offline", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = [UIColor darkGrayColor];
             break;
         case OS_AWAY:
             cell.labelDetail.text = NSLocalizedString(@"offline (away)", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = [UIColor darkGrayColor];
             break;
         case OS_BUSY:
             cell.labelDetail.text = NSLocalizedString(@"offline (busy)", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = [UIColor darkGrayColor];
             break;
         case OS_CALLME:
@@ -513,17 +516,17 @@
             break;
         case OS_IPUSH:
             cell.labelDetail.text = NSLocalizedString(@"online", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_idle"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_idle" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = DEFAULT_IDLECOLOR;
             break;
         case OS_IPUSHCALL:
             cell.labelDetail.text = NSLocalizedString(@"online", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_idle"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_idle" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = DEFAULT_IDLECOLOR;
             break;
         default:
             cell.labelDetail.text = NSLocalizedString(@"offline", @"Cell Label");
-            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline"];
+            cell.onlineStatusIcon.image = [UIImage imageNamed:@"btn_ico_offline" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             cell.labelDetail.textColor = [UIColor darkGrayColor];
             
             
@@ -548,7 +551,7 @@
                 if (userimage) {
                     cell.userImage.image = userimage;
                 } else {
-                    cell.userImage.image = hasGroupCell?groupImage:[UIImage imageNamed:@"btn_ico_avatar_group"];
+                    cell.userImage.image = hasGroupCell?groupImage:[UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
                 }
                 [cell.detailDisclose  addTarget:self action:@selector(showDetail:) forControlEvents:UIControlEventTouchUpInside];
                 cell.detailDisclose.tag = indexPath.section * 1000 + indexPath.row;
@@ -556,7 +559,7 @@
             } else
                 if (callLink) {
                     cell.detailDisclose.hidden = YES;
-                    cell.userImage.image = hasCallLinkCell?callLinkImage:[UIImage imageNamed:@"iphone_call_me_link"];
+                    cell.userImage.image = hasCallLinkCell?callLinkImage:[UIImage imageNamed:@"iphone_call_me_link" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
                     if (![elem.confirmed boolValue]) {
                         cell.labelDetail.text = NSLocalizedString(@"disabled", @"Cell Label");
                     }
@@ -580,13 +583,13 @@
         }
         
         if ([self.compareDate compare:elem.recentIndicationDate] == NSOrderedAscending) {
-            cell.labelDetail.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_new_contact"]];
+            cell.labelDetail.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_new_contact" inBundle:frameWorkBundle compatibleWithTraitCollection:nil]];
             cell.labelDetail.leftViewMode = UITextFieldViewModeAlways;
         }
         
     } else {
         // It's a contact
-        cell.userImage.image = [UIImage imageNamed:@"btn_ico_adressbook_contact"];
+        cell.userImage.image = [UIImage imageNamed:@"btn_ico_adressbook_contact" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         [cell.detailDisclose  addTarget:self action:@selector(showDetail:) forControlEvents:UIControlEventTouchUpInside];
         cell.detailDisclose.tag = indexPath.section * 1000 + indexPath.row;
         cell.accessoryView.tag = indexPath.section * 1000 + indexPath.row;

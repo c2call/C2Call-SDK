@@ -20,9 +20,7 @@
     self.affiliateid = @"1F3E9213F51427D53";
     self.secret = @"04c592fd6e20dfa2c3c5d196369b3105";
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Frameworks/SocialCommunication.framework/SocialCommunication" ofType:@"bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:path];
-    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ico_logout" ofType:@"png"];
     
     NSLog(@"Path: %@", path);
     

@@ -92,6 +92,7 @@
 #import "SCAdTableViewController.h"
 #import "SCAdViewContainer.h"
 #import "SCAffiliateInfo.h"
+#import "SCAssetManager.h"
 #import "SCAudioPlayerController.h"
 #import "SCAudioRecorderController.h"
 #import "SCBoardController.h"

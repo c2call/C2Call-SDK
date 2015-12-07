@@ -30,6 +30,7 @@
 #import "SCUserProfile.h"
 #import "C2CallAppDelegate.h"
 #import "SIPUtil.h"
+#import "SCAssetManager.h"
 
 #import "debug.h"
 
@@ -82,6 +83,7 @@
 -(void) refreshRichMessage
 {
     UIImage *image = nil;
+    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     if ([self.richMessageKey hasPrefix:@"friend://"]) {
         NSURL *friendUrl = [NSURL URLWithString:self.richMessageKey];
@@ -91,9 +93,9 @@
         image = [[C2CallPhone currentPhone] userimageForUserid:userid];
         if (!image) {
             if ([[C2CallPhone currentPhone] isGroupUser:userid]) {
-                image = [UIImage imageNamed:@"btn_ico_avatar_group"];
+                image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             } else {
-                image = [UIImage imageNamed:@"btn_ico_avatar"];
+                image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             }
         }
     } else {
@@ -345,7 +347,8 @@
     BOOL res = [self isValidNumber:textField.text];
     if (res) {
         [self toggleMessageView:YES];
-        self.icon.image = [UIImage imageNamed:@"ico_sms-24x24"];
+        NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
+        self.icon.image = [UIImage imageNamed:@"ico_sms-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         
         [messageField becomeFirstResponder];
     }
@@ -416,14 +419,15 @@
         isKeyboard = NO;
     }
     
+    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     if ([[notification name] isEqualToString:@"SearchTableController:NewMessage"]) {
         self.selectedContact = [notification userInfo];
         [self toggleMessageView:YES];
         self.searchField.text = [self.selectedContact objectForKey:@"Name"];
         if ([[[notification userInfo] objectForKey:@"Type"] isEqualToString:@"SMS"]) {
-            self.icon.image = [UIImage imageNamed:@"ico_sms"];
+            self.icon.image = [UIImage imageNamed:@"ico_sms" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         } else {
-            self.icon.image = [UIImage imageNamed:@"ico_friendcaller-color"];
+            self.icon.image = [UIImage imageNamed:@"ico_friendcaller-color" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         }
         [self.messageField becomeFirstResponder];
     }
@@ -656,9 +660,10 @@
     self.targetUserid = numberOrUserid;
     
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
+    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[UIImage imageNamed:@"ico_image"] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[UIImage imageNamed:@"ico_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
             
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;
@@ -675,7 +680,7 @@
     }
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Take Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[UIImage imageNamed:@"ico_cam-24x24"] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Take Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[UIImage imageNamed:@"ico_cam-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
             
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;
@@ -691,7 +696,7 @@
     }
     
     if ([CLLocationManager locationServicesEnabled]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Submit Location", @"Choice Title") andSubTitle:NSLocalizedString(@"Submit your current location", @"Button") andIcon:[UIImage imageNamed:@"ico_geolocation-24x24"] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Submit Location", @"Choice Title") andSubTitle:NSLocalizedString(@"Submit your current location", @"Button") andIcon:[UIImage imageNamed:@"ico_geolocation-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
             [self requestLocation:^(NSString *key) {
                 self.richMessageKey = key;
                 self.attachmentImage.image = [[C2CallPhone currentPhone] thumbnailForKey:key];
@@ -701,17 +706,17 @@
     }
     
     if ([AVAudioSession sharedInstance].inputAvailable) {
-        [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[UIImage imageNamed:@"ico_mic"] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[UIImage imageNamed:@"ico_mic" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
             
             [self recordVoiceMail:^(NSString *key) {
                 self.richMessageKey = key;
-                self.attachmentImage.image = [UIImage imageNamed:@"ico_voice_msg"];
+                self.attachmentImage.image = [UIImage imageNamed:@"ico_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
             }];
         }];
     }
     
     if ([IOS iosVersion] >= 5.0) {
-        [cv addChoiceWithName:NSLocalizedString(@"Send Contact", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a contact from address book", @"Button") andIcon:[UIImage imageNamed:@"ico_apple_mail"] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Send Contact", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a contact from address book", @"Button") andIcon:[UIImage imageNamed:@"ico_apple_mail" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
             [self showPicker:nil];
         }];
     }
@@ -765,9 +770,10 @@
     
     NSString *path = [[C2CallPhone currentPhone] pathForKey:key];
     [vcardData writeToFile:path atomically:NO];
+    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     self.richMessageKey = key;
-    self.attachmentImage.image = [UIImage imageNamed:@"btn_ico_adressbook_contact"];
+    self.attachmentImage.image = [UIImage imageNamed:@"btn_ico_adressbook_contact" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
     
     if (vcardRef)
         CFRelease(vcardRef);

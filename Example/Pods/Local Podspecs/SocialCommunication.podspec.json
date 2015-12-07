@@ -16,8 +16,11 @@
     "ios": "7.0"
   },
   "requires_arc": true,
-  "source_files": "Pod/Classes/*",
-  "resources": "Pod/Assets/*.{wav,aiff,aif,xml,fsh,vsh,png,xcdatamodeld,storyboard}",
+  "source_files": [
+    "Pod/Classes/*",
+    "Pod/Classes/Categories/*"
+  ],
+  "resources": "Pod/Assets/*.{wav,aiff,aif,fsh,xml,vsh,png,xcdatamodeld,storyboard,xcassets}",
   "public_header_files": "Pod/Classes/*.h",
   "frameworks": [
     "UIKit",

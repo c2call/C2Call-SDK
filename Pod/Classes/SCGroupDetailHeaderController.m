@@ -19,6 +19,7 @@
 #import "SCUserProfile.h"
 #import "C2CallPhone.h"
 #import "SCDataManager.h"
+#import "SCAssetManager.h"
 
 
 #import "debug.h"
@@ -58,7 +59,8 @@
         }];
     } else {
         if (!userImage) {
-            self.imageButton.image = [UIImage imageNamed:@"btn_ico_avatar_group"];
+            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
+            self.imageButton.image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         }
     }
     

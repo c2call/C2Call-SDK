@@ -21,6 +21,8 @@
 #import "SCGroup.h"
 #import "SCUserProfile.h"
 #import "SCDataManager.h"
+#import "SCAssetManager.h"
+
 #import "debug.h"
 
 @interface SCGroupDetailController () {
@@ -348,7 +350,8 @@
 		cell.imageView.image = userpic;
         cell.imageView.contentMode = UIViewContentModeScaleToFill;
 	} else {
-        cell.imageView.image = [UIImage imageNamed:@"btn_ico_avatar"];
+        NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
+        cell.imageView.image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         cell.imageView.contentMode = UIViewContentModeScaleToFill;
     }
     
