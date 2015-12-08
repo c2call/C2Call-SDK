@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'EDC56C57E3D225A81A263A58'
+               BlueprintIdentifier = '9E77C4EB3FA8B334A38084C0'
                BlueprintName = 'C2Call-SDK'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'C2Call_SDK.framework'>
+               BuildableName = 'SocialCommunication.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

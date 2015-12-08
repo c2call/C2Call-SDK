@@ -381,7 +381,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" backgroundImage="btn_takecall_hover.png"/>
+                                                <state key="highlighted" backgroundImage="btn_takecall_hover"/>
                                                 <connections>
                                                     <action selector="takeCall:" destination="zwJ-Ei-B3B" eventType="touchUpInside" id="63v-XZ-rss"/>
                                                 </connections>
@@ -644,8 +644,8 @@
                                             <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="ico_micro_mute.png"/>
-                                        <state key="highlighted" image="ico_micro_mute.png">
+                                        <state key="selected" image="ico_micro_mute"/>
+                                        <state key="highlighted" image="ico_micro_mute">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1865,11 +1865,11 @@ asdfsdfg</string>
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="disabled" title=" " image="ico_encrypted.png">
+                                <state key="disabled" title=" " image="ico_encrypted">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <state key="selected" title=" " image="ico_encrypted.png"/>
-                                <state key="highlighted" title=" " image="ico_encrypted.png"/>
+                                <state key="selected" title=" " image="ico_encrypted"/>
+                                <state key="highlighted" title=" " image="ico_encrypted"/>
                             </button>
                         </subviews>
                         <animations/>
@@ -3542,7 +3542,7 @@ Please try again later.</string>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
-                                        <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="img_star.png" translatesAutoresizingMaskIntoConstraints="NO" id="AmR-sC-54I" userLabel="Image Favorite">
+                                        <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="img_star" translatesAutoresizingMaskIntoConstraints="NO" id="AmR-sC-54I" userLabel="Image Favorite">
                                             <rect key="frame" x="36" y="33" width="16" height="16"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4163,7 +4163,7 @@ Please try again later.</string>
                             <rect key="frame" x="17" y="5" width="29" height="29"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="btn_add_phonenumber.png">
+                            <state key="normal" image="btn_add_phonenumber">
                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -4185,7 +4185,7 @@ Please try again later.</string>
                             <rect key="frame" x="265" y="3" width="29" height="29"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="Edit.png">
+                            <state key="normal" image="Edit">
                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -4773,13 +4773,13 @@ Please try again later.</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="disabled" image="ziffer_1.png">
+                                <state key="disabled" image="ziffer_1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="ziffer_1.png">
+                                <state key="selected" image="ziffer_1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="ziffer_plus_h.png">
+                                <state key="highlighted" image="ziffer_plus_h">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -5064,7 +5064,7 @@ Please try again later.</string>
                                         <state key="normal" image="ico_unencrypted">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="ico_encrypted.png"/>
+                                        <state key="selected" image="ico_encrypted"/>
                                         <connections>
                                             <action selector="toggleSecureMessageButton:" destination="s0q-G4-7tN" eventType="touchUpInside" id="Foz-xk-nrd"/>
                                         </connections>
@@ -5187,7 +5187,7 @@ Please try again later.</string>
                                                     <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ico_stop.png"/>
+                                                <state key="selected" image="ico_stop"/>
                                                 <state key="highlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -5235,7 +5235,7 @@ Please try again later.</string>
                                                     <action selector="toggleExpandCollapse:" destination="SUQ-yd-TYg" eventType="touchUpInside" id="DTZ-XE-LlC"/>
                                                 </connections>
                                             </button>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_broken_video.png" translatesAutoresizingMaskIntoConstraints="NO" id="roE-RI-fb2">
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_broken_video" translatesAutoresizingMaskIntoConstraints="NO" id="roE-RI-fb2">
                                                 <rect key="frame" x="128" y="230" width="65" height="65"/>
                                                 <animations/>
                                             </imageView>
@@ -5304,7 +5304,7 @@ Please try again later.</string>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Video" id="sPI-ek-zoO">
-                        <barButtonItem key="rightBarButtonItem" image="ico_expand.png" id="3n9-2k-1AP">
+                        <barButtonItem key="rightBarButtonItem" image="ico_expand" id="3n9-2k-1AP">
                             <connections>
                                 <action selector="toggleExpandCollapse:" destination="SUQ-yd-TYg" id="B2W-VG-VZq"/>
                             </connections>
@@ -5774,7 +5774,7 @@ Please try again later.</string>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Photo" id="yMf-Yn-pWt">
-                        <barButtonItem key="rightBarButtonItem" image="ico_expand.png" style="plain" id="c0b-kc-kXF">
+                        <barButtonItem key="rightBarButtonItem" image="ico_expand" style="plain" id="c0b-kc-kXF">
                             <connections>
                                 <action selector="toggleExpandCollapse:" destination="m0A-M5-gnE" id="JMe-4c-El0"/>
                             </connections>
@@ -5995,7 +5995,7 @@ Please try again later.</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" title="Stop" image="ico_stop.png"/>
+                                        <state key="selected" title="Stop" image="ico_stop"/>
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -6174,8 +6174,8 @@ Please try again later.</string>
                                                     <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" backgroundImage="btn_send_message_dark_blue.png"/>
-                                                <state key="highlighted" backgroundImage="btn_send_message_dark_blue.png">
+                                                <state key="selected" backgroundImage="btn_send_message_dark_blue"/>
+                                                <state key="highlighted" backgroundImage="btn_send_message_dark_blue">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -6233,7 +6233,7 @@ Please try again later.</string>
                                                 <state key="normal" image="ico_unencrypted_grey">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ico_encrypted_grey.png"/>
+                                                <state key="selected" image="ico_encrypted_grey"/>
                                                 <connections>
                                                     <action selector="toggleSecureMessageButton:" destination="0sJ-qu-8NN" eventType="touchUpInside" id="kWs-n8-rlX"/>
                                                 </connections>
@@ -6784,7 +6784,7 @@ test</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WSJ-Is-lRl">
                                                     <rect key="frame" x="18" y="6" width="88" height="87"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_voice_msg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-yU-isQ">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_voice_msg" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-yU-isQ">
                                                             <rect key="frame" x="0.0" y="0.0" width="88" height="67"/>
                                                             <animations/>
                                                         </imageView>
@@ -6899,7 +6899,7 @@ test</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jzo-sP-t6t">
                                                     <rect key="frame" x="18" y="6" width="88" height="87"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_data.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eg3-OA-9af">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_data" translatesAutoresizingMaskIntoConstraints="NO" id="Eg3-OA-9af">
                                                             <rect key="frame" x="0.0" y="10" width="88" height="67"/>
                                                             <animations/>
                                                         </imageView>
@@ -8448,7 +8448,7 @@ Remove search filter?</string>
                                                 <constraint firstAttribute="height" constant="34" id="c2W-Nz-k0C"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Download" backgroundImage="btn_send_message_grey.png">
+                                            <state key="normal" title="Download" backgroundImage="btn_send_message_grey">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -8525,7 +8525,7 @@ Remove search filter?</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GAb-4T-cQF">
                                                     <rect key="frame" x="18" y="6" width="88" height="87"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_voice_msg.png" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-5a-Ef6">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_voice_msg" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-5a-Ef6">
                                                             <rect key="frame" x="0.0" y="0.0" width="88" height="67"/>
                                                             <animations/>
                                                         </imageView>
@@ -8578,7 +8578,7 @@ Remove search filter?</string>
                                                 <constraint firstAttribute="height" constant="34" id="isN-nD-jbg"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Download" backgroundImage="btn_send_message_grey.png">
+                                            <state key="normal" title="Download" backgroundImage="btn_send_message_grey">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -8753,7 +8753,7 @@ test</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Juz-wf-IDp">
                                                     <rect key="frame" x="18" y="6" width="88" height="87"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_data.png" translatesAutoresizingMaskIntoConstraints="NO" id="dLN-Gm-sud">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_data" translatesAutoresizingMaskIntoConstraints="NO" id="dLN-Gm-sud">
                                                             <rect key="frame" x="0.0" y="10" width="88" height="67"/>
                                                             <animations/>
                                                         </imageView>
@@ -8792,7 +8792,7 @@ test</string>
                                                 <constraint firstAttribute="height" constant="34" id="vWV-5R-gk3"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Download" backgroundImage="btn_send_message_grey.png">
+                                            <state key="normal" title="Download" backgroundImage="btn_send_message_grey">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -8894,7 +8894,7 @@ test</string>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="AddContact2-24x24.png" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-2u-lvV">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="AddContact2-24x24" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-2u-lvV">
                                                     <rect key="frame" x="17" y="24" width="45" height="45"/>
                                                     <animations/>
                                                 </imageView>
@@ -9051,7 +9051,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                    <state key="normal" image="ico_call_blue_50x50.png">
+                                                    <state key="normal" image="ico_call_blue_50x50">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -9070,7 +9070,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                    <state key="normal" image="ico_msg_blue_50x50.png">
+                                                    <state key="normal" image="ico_msg_blue_50x50">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -9089,7 +9089,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                    <state key="normal" image="ico_cam_blue_50x50.png">
+                                                    <state key="normal" image="ico_cam_blue_50x50">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -9110,7 +9110,7 @@ test</string>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="ico_call_in.png" translatesAutoresizingMaskIntoConstraints="NO" id="LHB-On-jPZ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="ico_call_in" translatesAutoresizingMaskIntoConstraints="NO" id="LHB-On-jPZ">
                                                     <rect key="frame" x="19" y="7" width="14" height="14"/>
                                                     <animations/>
                                                 </imageView>
@@ -9169,7 +9169,7 @@ test</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMc-yL-OtE" customClass="SCBubbleViewOut">
                                             <rect key="frame" x="55" y="5" width="225" height="37"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_deliverd.png" translatesAutoresizingMaskIntoConstraints="NO" id="WA4-lb-x5z">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_deliverd" translatesAutoresizingMaskIntoConstraints="NO" id="WA4-lb-x5z">
                                                     <rect key="frame" x="207" y="0.0" width="14" height="14"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -9454,7 +9454,7 @@ test</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9fw-ST-75c">
                                                     <rect key="frame" x="17" y="6" width="88" height="88"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_voice_msg.png" translatesAutoresizingMaskIntoConstraints="NO" id="p3d-pO-cr1">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_voice_msg" translatesAutoresizingMaskIntoConstraints="NO" id="p3d-pO-cr1">
                                                             <rect key="frame" x="0.0" y="0.0" width="88" height="63"/>
                                                             <animations/>
                                                         </imageView>
@@ -9646,7 +9646,7 @@ test</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MmJ-ZA-YET">
                                                     <rect key="frame" x="17" y="6" width="88" height="88"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_data.png" translatesAutoresizingMaskIntoConstraints="NO" id="jYr-vb-N5Y">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_data" translatesAutoresizingMaskIntoConstraints="NO" id="jYr-vb-N5Y">
                                                             <rect key="frame" x="0.0" y="12" width="88" height="63"/>
                                                             <animations/>
                                                         </imageView>
@@ -9752,7 +9752,7 @@ test</string>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="btn_ico_avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="uB4-BA-oqB">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="btn_ico_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="uB4-BA-oqB">
                                                     <rect key="frame" x="12" y="22" width="45" height="45"/>
                                                     <animations/>
                                                 </imageView>
@@ -9825,7 +9825,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="ico_vcard.png" translatesAutoresizingMaskIntoConstraints="NO" id="CcC-WX-a6B">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="ico_vcard" translatesAutoresizingMaskIntoConstraints="NO" id="CcC-WX-a6B">
                                                     <rect key="frame" x="12" y="19" width="45" height="45"/>
                                                     <animations/>
                                                 </imageView>
@@ -9890,7 +9890,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                    <state key="normal" image="ico_call_blue_50x50.png">
+                                                    <state key="normal" image="ico_call_blue_50x50">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -9909,7 +9909,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                    <state key="normal" image="ico_msg_blue_50x50.png">
+                                                    <state key="normal" image="ico_msg_blue_50x50">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -9928,7 +9928,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                    <state key="normal" image="ico_cam_blue_50x50.png">
+                                                    <state key="normal" image="ico_cam_blue_50x50">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -9942,7 +9942,7 @@ test</string>
                                                         <color key="titleColor" cyan="0.44999999000000002" magenta="0.0" yellow="1" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                                     </state>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_footer_phonebook_contacts_01.png" translatesAutoresizingMaskIntoConstraints="NO" id="7ou-U1-47F">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="ico_footer_phonebook_contacts_01" translatesAutoresizingMaskIntoConstraints="NO" id="7ou-U1-47F">
                                                     <rect key="frame" x="9" y="14" width="42" height="42"/>
                                                     <animations/>
                                                 </imageView>
@@ -9951,7 +9951,7 @@ test</string>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="ico_call_out.png" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-qG-A9Z">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="ico_call_out" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-qG-A9Z">
                                                     <rect key="frame" x="64" y="7" width="14" height="14"/>
                                                     <animations/>
                                                 </imageView>
@@ -10720,7 +10720,7 @@ Remove search filter?</string>
                                             <constraint firstAttribute="height" constant="74" id="xfa-TH-UsJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                        <state key="normal" image="ico_sms_white_24x24.png">
+                                        <state key="normal" image="ico_sms_white_24x24">
                                             <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -11047,13 +11047,13 @@ Remove search filter?</string>
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="disabled" image="ziffer_1.png">
+                                                <state key="disabled" image="ziffer_1">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ziffer_1.png">
+                                                <state key="selected" image="ziffer_1">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" image="ziffer_plus_h.png">
+                                                <state key="highlighted" image="ziffer_plus_h">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -11151,7 +11151,7 @@ Remove search filter?</string>
                                                 <state key="selected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" backgroundImage="bg_dialpad_normal_02.png">
+                                                <state key="highlighted" backgroundImage="bg_dialpad_normal_02">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -11216,7 +11216,7 @@ Remove search filter?</string>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Keyboard" image="ico_footer_dialpad_01.png" id="6Hb-oO-Amp"/>
+                    <tabBarItem key="tabBarItem" title="Keyboard" image="ico_footer_dialpad_01" id="6Hb-oO-Amp"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -11281,12 +11281,12 @@ Remove search filter?</string>
                                                     <constraint firstAttribute="height" constant="26" id="yyf-IX-s5U"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                                <state key="normal" image="ico_send_message_white.png" backgroundImage="btn_send_message_blue.png">
+                                                <state key="normal" image="ico_send_message_white" backgroundImage="btn_send_message_blue">
                                                     <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" backgroundImage="btn_send_message_dark_blue.png"/>
-                                                <state key="highlighted" backgroundImage="btn_send_message_dark_blue.png">
+                                                <state key="selected" backgroundImage="btn_send_message_dark_blue"/>
+                                                <state key="highlighted" backgroundImage="btn_send_message_dark_blue">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -11323,7 +11323,7 @@ Remove search filter?</string>
                                                     <constraint firstAttribute="width" constant="34" id="zit-aZ-eLG"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="ico_richmessaging_03.png">
+                                                <state key="normal" image="ico_richmessaging_03">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -11341,10 +11341,10 @@ Remove search filter?</string>
                                                     <constraint firstAttribute="width" constant="20" id="DJL-8q-h9h"/>
                                                     <constraint firstAttribute="height" constant="22" id="uap-IW-sgg"/>
                                                 </constraints>
-                                                <state key="normal" image="ico_unencrypted_grey.png">
+                                                <state key="normal" image="ico_unencrypted_grey">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ico_encrypted_grey.png"/>
+                                                <state key="selected" image="ico_encrypted_grey"/>
                                                 <connections>
                                                     <action selector="toggleSecureMessageButton:" destination="eRc-6Y-kau" eventType="touchUpInside" id="J2M-OU-vT4"/>
                                                 </connections>
@@ -11426,15 +11426,14 @@ Remove search filter?</string>
     </scenes>
     <resources>
         <image name="AddContact2-24x24" width="30" height="30"/>
-        <image name="AddContact2-24x24.png" width="30" height="30"/>
-        <image name="Edit.png" width="20" height="20"/>
+        <image name="Edit" width="20" height="20"/>
         <image name="Edit_blue" width="20" height="20"/>
         <image name="FaceBook-16x16" width="16" height="16"/>
         <image name="MSG_bubble_blue_line" width="1" height="16"/>
         <image name="bg_audio_bar" width="244" height="60"/>
         <image name="bg_current_credits" width="124" height="20"/>
         <image name="bg_dial_numberfield" width="320" height="139"/>
-        <image name="bg_dialpad_normal_02.png" width="93" height="60"/>
+        <image name="bg_dialpad_normal_02" width="93" height="60"/>
         <image name="bg_group_details" width="301" height="94"/>
         <image name="bg_number_info" width="326" height="26"/>
         <image name="bg_prompt" width="319" height="60"/>
@@ -11444,53 +11443,41 @@ Remove search filter?</string>
         <image name="bg_timestamp" width="124" height="20"/>
         <image name="bg_video_groupcall" width="320" height="480"/>
         <image name="bg_video_groupcall_one-568h" width="320" height="568"/>
-        <image name="btn_add_phonenumber.png" width="22" height="22"/>
+        <image name="btn_add_phonenumber" width="22" height="22"/>
         <image name="btn_dial_call_n" width="107" height="65"/>
         <image name="btn_grey _big" width="220" height="32"/>
         <image name="btn_ico_avatar" width="44" height="44"/>
-        <image name="btn_ico_avatar.png" width="44" height="44"/>
         <image name="btn_ico_avatar_group" width="44" height="44"/>
         <image name="btn_ico_call" width="30" height="30"/>
         <image name="btn_ico_online" width="8" height="8"/>
         <image name="btn_ico_video" width="30" height="30"/>
         <image name="btn_ico_video_dark" width="14" height="9"/>
         <image name="btn_send_message_blue" width="44" height="26"/>
-        <image name="btn_send_message_blue.png" width="44" height="26"/>
-        <image name="btn_send_message_dark_blue.png" width="36" height="28"/>
+        <image name="btn_send_message_dark_blue" width="36" height="28"/>
         <image name="btn_send_message_grey" width="66" height="28"/>
-        <image name="btn_send_message_grey.png" width="66" height="28"/>
-        <image name="btn_takecall_hover.png" width="135" height="50"/>
+        <image name="btn_takecall_hover" width="135" height="50"/>
         <image name="btn_video_offer" width="28" height="28"/>
         <image name="flag1" width="32" height="32"/>
         <image name="ico_arrow_left" width="27" height="21"/>
         <image name="ico_arrow_right" width="27" height="21"/>
         <image name="ico_back_kamera" width="43" height="26"/>
         <image name="ico_bookmark" width="10" height="17"/>
-        <image name="ico_broken_video.png" width="65" height="65"/>
+        <image name="ico_broken_video" width="65" height="65"/>
         <image name="ico_call_blue_50x50" width="25" height="25"/>
-        <image name="ico_call_blue_50x50.png" width="25" height="25"/>
         <image name="ico_call_in" width="30" height="20"/>
-        <image name="ico_call_in.png" width="30" height="20"/>
         <image name="ico_call_out" width="30" height="20"/>
-        <image name="ico_call_out.png" width="30" height="20"/>
         <image name="ico_cam_blue_50x50" width="25" height="25"/>
-        <image name="ico_cam_blue_50x50.png" width="25" height="25"/>
         <image name="ico_close" width="13" height="13"/>
         <image name="ico_collapse" width="30" height="30"/>
         <image name="ico_data" width="65" height="65"/>
-        <image name="ico_data.png" width="65" height="65"/>
         <image name="ico_deliverd" width="14" height="14"/>
-        <image name="ico_deliverd.png" width="14" height="14"/>
         <image name="ico_dial" width="30" height="30"/>
         <image name="ico_dial_hover" width="30" height="30"/>
-        <image name="ico_encrypted.png" width="30" height="30"/>
+        <image name="ico_encrypted" width="30" height="30"/>
         <image name="ico_encrypted_grey" width="20" height="20"/>
-        <image name="ico_encrypted_grey.png" width="20" height="20"/>
         <image name="ico_expand" width="30" height="30"/>
-        <image name="ico_expand.png" width="30" height="30"/>
-        <image name="ico_footer_dialpad_01.png" width="25" height="25"/>
+        <image name="ico_footer_dialpad_01" width="25" height="25"/>
         <image name="ico_footer_phonebook_contacts_01" width="30" height="30"/>
-        <image name="ico_footer_phonebook_contacts_01.png" width="30" height="30"/>
         <image name="ico_friendcaller-color" width="24" height="24"/>
         <image name="ico_front_kamera" width="43" height="26"/>
         <image name="ico_group" width="30" height="30"/>
@@ -11498,9 +11485,7 @@ Remove search filter?</string>
         <image name="ico_image" width="30" height="30"/>
         <image name="ico_micro" width="30" height="30"/>
         <image name="ico_micro_mute" width="30" height="30"/>
-        <image name="ico_micro_mute.png" width="30" height="30"/>
         <image name="ico_msg_blue_50x50" width="25" height="25"/>
-        <image name="ico_msg_blue_50x50.png" width="25" height="25"/>
         <image name="ico_msg_cam" width="16" height="9"/>
         <image name="ico_msg_white-20x20" width="20" height="20"/>
         <image name="ico_no_kamera" width="43" height="26"/>
@@ -11509,23 +11494,17 @@ Remove search filter?</string>
         <image name="ico_record" width="17" height="17"/>
         <image name="ico_record_again" width="19" height="22"/>
         <image name="ico_richmessaging_03" width="28" height="28"/>
-        <image name="ico_richmessaging_03.png" width="28" height="28"/>
         <image name="ico_send_message_white" width="30" height="30"/>
-        <image name="ico_send_message_white.png" width="30" height="30"/>
         <image name="ico_settings" width="30" height="30"/>
         <image name="ico_sms-24x24" width="24" height="24"/>
-        <image name="ico_sms_white_24x24.png" width="24" height="24"/>
+        <image name="ico_sms_white_24x24" width="24" height="24"/>
         <image name="ico_stop" width="15" height="15"/>
-        <image name="ico_stop.png" width="15" height="15"/>
         <image name="ico_unencrypted" width="30" height="30"/>
         <image name="ico_unencrypted_grey" width="20" height="20"/>
-        <image name="ico_unencrypted_grey.png" width="20" height="20"/>
         <image name="ico_vcard" width="65" height="65"/>
-        <image name="ico_vcard.png" width="65" height="65"/>
         <image name="ico_voice" width="30" height="30"/>
         <image name="ico_voice_hover" width="30" height="30"/>
         <image name="ico_voice_msg" width="65" height="65"/>
-        <image name="ico_voice_msg.png" width="65" height="65"/>
         <image name="icon_add_contact" width="90" height="60"/>
         <image name="icon_assist" width="90" height="60"/>
         <image name="icon_call" width="34" height="36"/>
@@ -11534,7 +11513,6 @@ Remove search filter?</string>
         <image name="img_certificate" width="101" height="84"/>
         <image name="img_connection_ok" width="22" height="19"/>
         <image name="img_star" width="23" height="23"/>
-        <image name="img_star.png" width="23" height="23"/>
         <image name="iphone_call_me_link" width="44" height="44"/>
         <image name="lupe" width="27" height="27"/>
         <image name="popover3" width="216" height="110"/>
@@ -11549,9 +11527,9 @@ Remove search filter?</string>
         <image name="z7" width="90" height="60"/>
         <image name="z8" width="90" height="60"/>
         <image name="z9" width="90" height="60"/>
-        <image name="ziffer_1.png" width="86" height="52"/>
+        <image name="ziffer_1" width="86" height="52"/>
         <image name="ziffer_plus" width="90" height="60"/>
-        <image name="ziffer_plus_h.png" width="107" height="69"/>
+        <image name="ziffer_plus_h" width="107" height="69"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1u2-TG-LS5"/>

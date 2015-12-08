@@ -64,7 +64,7 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6D102A1C3AF6F5BE4660A61F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6E2ECA72C7ECFC63EC2D270C /* Pods-C2Call-SDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		79749036E99E7ACDA374666A /* SocialCommunication.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SocialCommunication.podspec; path = ../SocialCommunication.podspec; sourceTree = "<group>"; };
+		79749036E99E7ACDA374666A /* C2Call-SDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "C2Call-SDK.podspec"; path = "../C2Call-SDK.podspec"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9767791F1C07A954003BDBF0 /* ico_logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_logout.png; sourceTree = "<group>"; };
 		976779201C07A954003BDBF0 /* ico_logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_logout@2x.png"; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				79749036E99E7ACDA374666A /* SocialCommunication.podspec */,
+				79749036E99E7ACDA374666A /* C2Call-SDK.podspec */,
 				58F848F07B8079D4D1F25693 /* README.md */,
 				6D102A1C3AF6F5BE4660A61F /* LICENSE */,
 			);

@@ -1,6 +1,8 @@
 cp -r "../SocialCommunication/SCStoryboard.storyboard" "Pod/Assets/SCStoryboard.storyboard"
 rm -rf Pod/Assets/C2CallDataModel.xcdatamodeld
 cp -r "../c2callcore/C2CallDataModel.xcdatamodeld" "Pod/Assets/C2CallDataModel.xcdatamodeld"
+rm -rf Pod/Assets/SocialCommunication.xcassets
+cp -r "../SocialCommunication/SocialCommunication.xcassets" "Pod/Assets"
 cp "../BusyTone.wav" "Pod/Assets/BusyTone.wav"
 cp "../callme.wav" "Pod/Assets/callme.wav"
 cp "../Dtmf-0.wav" "Pod/Assets/Dtmf-0.wav"
