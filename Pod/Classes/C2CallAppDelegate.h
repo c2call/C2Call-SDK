@@ -258,6 +258,15 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
  */
 - (void)showHint:(NSString *) message withNotificationType:(SCNotificationType) notificationType;
 
+/** Callback to Present a dialog for payment required actions
+ 
+ The parameter type indicates whether is a call or message action.
+ Overwrite this method to present a specific action to the user here.
+ 
+ @param type - "Call" or "Message"
+ */
+- (void) showPaymentRequiredForType:(NSString *) type;
+
 /** Handle custom SIP Events.
  
  Always call super class with unhandled events

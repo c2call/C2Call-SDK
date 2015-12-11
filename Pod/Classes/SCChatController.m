@@ -41,7 +41,7 @@
     CGFloat             resizeOffset, minToolbarHeight;
     CGFloat             currentKeyboardSize;
 
-    BOOL                isGroupChat, isSMS, isKeyboard, hasMaxToolbarSize, hasTabBar;
+    BOOL                isGroupChat, isSMS, isKeyboard, hasMaxToolbarSize, hasTabBar, keyboardAnimation, didAppear;
 }
 
 @end
@@ -150,10 +150,6 @@
         }
     }
 
-    if (startEdit) {
-        [self.chatInput becomeFirstResponder];
-    }
-
     [self refreshSecureMessageButton];
     if ([IOS iosVersion] >= 7.) {
         CGFloat inset =[self encryptButtonInset];
@@ -172,10 +168,23 @@
     hasTabBar = !self.tabBarController.tabBar.isHidden;
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    didAppear = YES;
+    if (startEdit) {
+        startEdit = NO;
+        [self.chatInput becomeFirstResponder];
+    }
+
+}
+
 -(void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
+    didAppear = NO;
     if ([self.chatInput isFirstResponder]) {
         [self.chatInput resignFirstResponder];
     }
@@ -240,6 +249,11 @@
 
     w1 += 4;
     return w1 - 8;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
+{
+    return didAppear;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -459,7 +473,7 @@
     if ([[notification name] isEqualToString:@"UIKeyboardWillShowNotification"]) {
         CGFloat keyboardSize = [self keyboardSize:notification];
         
-        if (keyboardSize == currentKeyboardSize)
+        if (keyboardSize == currentKeyboardSize || !didAppear)
             return;
         
         CGRect frame = self.toolbarView.frame;
@@ -478,20 +492,28 @@
         frame.size.height -= diff;
         
         currentKeyboardSize = keyboardSize;
-
+        
         if (self.toolbarBottomContraint) {
             DLog(@"keyboardWillShow : %f", diff);
             self.toolbarBottomContraint.constant += diff;
             [self.toolbarView setNeedsUpdateConstraints];
-            [UIView animateWithDuration:0.22 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            if (didAppear) {
+                [UIView animateWithDuration:0.22 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                    [self.toolbarView layoutIfNeeded];
+                } completion:^(BOOL finished) {
+                }];
+            } else {
                 [self.toolbarView layoutIfNeeded];
-            } completion:^(BOOL finished) {
-            }];
+            }
         } else {
-            [UIView animateWithDuration:0.22 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            if (didAppear) {
+                [UIView animateWithDuration:0.22 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                    self.toolbarView.frame = frame;
+                } completion:^(BOOL finished) {
+                }];
+            } else {
                 self.toolbarView.frame = frame;
-            } completion:^(BOOL finished) {
-            }];
+            }
         }
         
     }
@@ -518,16 +540,25 @@
             DLog(@"keyboardWillHide : %f", kbHeight);
             self.toolbarBottomContraint.constant -= kbHeight;
             [self.toolbarView setNeedsUpdateConstraints];
-            [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
-                //self.toolbarView.frame = frame;
+            
+            if (didAppear) {
+                [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                    //self.toolbarView.frame = frame;
+                    [self.toolbarView layoutIfNeeded];
+                } completion:^(BOOL finished) {
+                }];
+            } else {
                 [self.toolbarView layoutIfNeeded];
-            } completion:^(BOOL finished) {
-            }];
+            }
         } else {
-            [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            if (didAppear) {
+                [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                    self.toolbarView.frame = frame;
+                } completion:^(BOOL finished) {
+                }];
+            } else {
                 self.toolbarView.frame = frame;
-            } completion:^(BOOL finished) {
-            }];
+            }
         }
     }
     

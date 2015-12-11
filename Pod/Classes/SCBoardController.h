@@ -295,4 +295,7 @@ The BoardController shows MOC2CallEvent Items (Chat History and Call History) in
  */
 -(void) setRetransmitActionForCell:(MessageCell *) cell withKey:(NSString *) key andUserid:(NSString *) userid;
 
+/** Scroll to bottom of the chat
+ */
+-(void) scrollToBottom;
 @end
