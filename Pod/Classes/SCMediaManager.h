@@ -20,6 +20,8 @@
 
  */
 
+@class GPUImageFilter;
+
 @interface SCMediaManager : NSObject<AVCaptureVideoDataOutputSampleBufferDelegate>
 
 /** @name Properties */
@@ -48,6 +50,32 @@
  */
 @property(nonatomic) BOOL useExternalVideoCapture;
 
+/** Enable/Disable GPUImage Video Capture
+ C2Call API supports GPUImage Filtering for Video Capture. 
+ With this feature enabled, GPUImageFilters can be applied to the video feed before sending it to the remote party.
+ Other features like screen sharing, video recording will be disabled when using this feature.
+ This property must be set before the call starts.
+ 
+ The GPUImage library must be linked to the App, otherwise setting this property has no effect
+ 
+ @see setGPUImageFilter:
+ 
+ */
+@property(nonatomic) BOOL useGPUImageVideoCapture;
+
+/** Set a GPUImageFilter for video processing
+ 
+ nil will remove a previously set filter.
+ Setting a filter will automatically set useGPUImageVideoCapture = YES;
+ 
+ Filter can be changed during a call if useGPUImageVideoCapture was YES before the call started.
+ 
+ @param filter - The GPUImage Filter to be applied to all video frames
+ @return YES - If GPU Image is available / NO if GPUImage library is not added to the project
+ */
+-(BOOL) setGPUImageFilter:(nullable GPUImageFilter *) filter;
+
+
 /** Add a VideoDataOutput Delegate to the current capture session.
  
  If the capture session is already running, the delegate will be simply added and called for every available video frame;
@@ -72,7 +100,10 @@
  */
 -(BOOL) hasRearCamera;
 
-
+/** Set current video caputre session preset
+ @param sessionPreset - Video Capture Session Preset
+ */
+-(void) setVideoCaptureSessionPreset:(NSString *) sessionPreset;
 
 /** Switch between cameras
  
@@ -243,6 +274,11 @@
 @param enable - The orientation
 */
 -(void) setOrientation:(AVCaptureVideoOrientation) orientation;
+
+/** For internal use only
+ @param frameRate - The FrameRate
+ */
+-(void) setFrameRate:(int) frameRate;
 
 /** Capture the current preview image
  
