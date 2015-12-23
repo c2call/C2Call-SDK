@@ -66,6 +66,9 @@ cp "../Classes/DDXMLNode.h" "Pod/Classes/DDXMLNode.h"
 mkdir -p Pod/Classes/Categories
 cp "../Classes/Categories/NSString+DDXML.h" "Pod/Classes/Categories/NSString+DDXML.h"
 cp "../Classes/Categories/NSString+DDXML.m" "Pod/Classes/Categories/NSString+DDXML.m"
+cp "../c2callcore/NSData+AES128.h" "Pod/Classes/Categories/"
+cp "../c2callcore/NSData+AES128.m" "Pod/Classes/Categories/"
+cp "../c2callcore/Crypto.h" "Pod/Classes"
 cp "../Classes/debug.h" "Pod/Classes/debug.h"
 cp "../Classes/EAGLView.h" "Pod/Classes/EAGLView.h"
 cp "../Classes/EAGLViewController.h" "Pod/Classes/EAGLViewController.h"
@@ -458,5 +461,5 @@ cp ../np-998.xml Pod/Assets
 cp ../Classes/myshader.fsh Pod/Assets
 cp ../Classes/myshader.vsh Pod/Assets
 cp ../libvpx.a Libraries/
-cp ../Classes/G729/libg729b.a Libraries/
+#cp ../Classes/G729/libg729b.a Libraries/
 cp ../Classes/libopus.a Libraries/

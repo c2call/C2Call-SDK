@@ -256,6 +256,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Michael Knecht";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 83K7KLG278;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -525,7 +528,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				ENABLE_BITCODE = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "C2Call-SDK/C2Call-SDK-Prefix.pch";
 				INFOPLIST_FILE = "C2Call-SDK/C2Call-SDK-Info.plist";
@@ -534,18 +539,10 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-read_only_relocs",
-					suppress,
 					"-framework",
 					"\"AWSCore\"",
 					"-framework",
 					"\"AWSS3\"",
-					"-framework",
-					"\"Bolts\"",
-					"-framework",
-					"\"FBSDKCoreKit\"",
-					"-framework",
-					"\"FBSDKLoginKit\"",
 					"-framework",
 					"\"Flurry_iOS_SDK\"",
 					"-framework",
@@ -555,6 +552,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -566,7 +564,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				ENABLE_BITCODE = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "C2Call-SDK/C2Call-SDK-Prefix.pch";
 				INFOPLIST_FILE = "C2Call-SDK/C2Call-SDK-Info.plist";
@@ -575,18 +575,10 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-read_only_relocs",
-					suppress,
 					"-framework",
 					"\"AWSCore\"",
 					"-framework",
 					"\"AWSS3\"",
-					"-framework",
-					"\"Bolts\"",
-					"-framework",
-					"\"FBSDKCoreKit\"",
-					"-framework",
-					"\"FBSDKLoginKit\"",
 					"-framework",
 					"\"Flurry_iOS_SDK\"",
 					"-framework",
@@ -596,6 +588,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

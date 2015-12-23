@@ -52,6 +52,6 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.preserve_paths = 'Libraries/*.a'
   s.vendored_libraries = 'Libraries/*.a'
   s.libraries = 'xml2', 'z', 'sqlite3', 'stdc++'
-s.xcconfig = { 'HEADER_SEARCH_PATHS' => "/usr/include/libxml2"}
-#                 'OTHER_LDFLAGS' => '-read_only_relocs suppress'}
+s.xcconfig = { 'HEADER_SEARCH_PATHS' => "/usr/include/libxml2",
+                 'OTHER_LDFLAGS' => '-read_only_relocs suppress'}
 end

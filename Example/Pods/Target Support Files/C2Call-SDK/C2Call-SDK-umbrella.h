@@ -26,6 +26,7 @@
 #import "ContactCellInStream.h"
 #import "ContactCellOut.h"
 #import "ContactCellOutStream.h"
+#import "Crypto.h"
 #import "CustomEventsBannerView.h"
 #import "DateUtil.h"
 #import "DDXML.h"
