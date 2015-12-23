@@ -77,7 +77,6 @@
     "stdc++"
   ],
   "xcconfig": {
-    "HEADER_SEARCH_PATHS": "/usr/include/libxml2",
-    "OTHER_LDFLAGS": "-read_only_relocs suppress"
+    "HEADER_SEARCH_PATHS": "/usr/include/libxml2"
   }
 }
