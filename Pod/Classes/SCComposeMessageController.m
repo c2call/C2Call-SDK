@@ -34,7 +34,7 @@
 
 #import "debug.h"
 
-@interface SCComposeMessageController ()<UITextFieldDelegate, UITextViewDelegate, ABPeoplePickerNavigationControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
+@interface SCComposeMessageController () {
     int                 imageQuality;
     BOOL                isKeyboard, showMessageView;
 }

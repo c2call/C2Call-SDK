@@ -21,7 +21,7 @@
  For SMS/Text messages the number of characters counts, number of SMS and shows the price per SMS for this destination.
  
 */
-@interface SCComposeMessageController : UIViewController
+@interface SCComposeMessageController : UIViewController<UITextFieldDelegate, UITextViewDelegate, ABPeoplePickerNavigationControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 /** @name outlets */
 /** Searches Table for search results. */

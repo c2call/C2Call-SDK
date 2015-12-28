@@ -9,7 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
-#import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CoreLocation.h>
 #import "UIViewController+SCCustomViewController.h"
 
@@ -34,7 +33,7 @@
 
 #import "debug.h"
 
-@interface SCChatController ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ABPeoplePickerNavigationControllerDelegate> {
+@interface SCChatController () {
 
     NSTimeInterval      lastTypeEvent, lastTypeEventReceived;
 

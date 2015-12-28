@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 
 /** Presents the standard C2Call SDK Rich Media/Text Chat Controller.
  
@@ -15,7 +16,7 @@
 
 @class SCBoardController, SCFlexibleToolbarView;
 
-@interface SCChatController : UIViewController
+@interface SCChatController : UIViewController<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
 
 /** @name Outlets */
 /** Label Number of SMS. 
