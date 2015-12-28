@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "C2Call-SDK"
-  s.version          = "1.3-beta5"
+  s.version          = "1.3-beta6"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
 #s.module_name      = "C2CallSDK"
   s.header_dir       = "SocialCommunication"
@@ -52,6 +52,8 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.preserve_paths = 'Libraries/*.a'
   s.vendored_libraries = 'Libraries/*.a'
   s.libraries = 'xml2', 'z', 'sqlite3', 'stdc++'
-s.xcconfig = { 'HEADER_SEARCH_PATHS' => "/usr/include/libxml2",
-                 'OTHER_LDFLAGS' => '-read_only_relocs suppress'}
+
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => "/usr/include/libxml2",
+                 'OTHER_LDFLAGS[arch=i386]' => '-read_only_relocs suppress $(OTHER_LDFLAGS)',
+                 'OTHER_LDFLAGS[arch=x86_64]' => '-read_only_relocs suppress $(OTHER_LDFLAGS)'}
 end
