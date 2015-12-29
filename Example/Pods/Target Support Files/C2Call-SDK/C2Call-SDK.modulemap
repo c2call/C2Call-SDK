@@ -1,0 +1,6 @@
+framework module SocialCommunication {
+  umbrella header "C2Call-SDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

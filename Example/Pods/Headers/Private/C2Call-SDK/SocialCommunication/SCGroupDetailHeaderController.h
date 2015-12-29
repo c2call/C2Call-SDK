@@ -1,0 +1,1 @@
+../../../../../../Pod/Classes/SCGroupDetailHeaderController.h

@@ -1,0 +1,9 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = /usr/include/libxml2
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/AWSCore.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/AWSS3.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Flurry_iOS_SDK.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SBJson.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SocialCommunication.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "AWSCore" -framework "AWSS3" -framework "Flurry_iOS_SDK" -framework "SBJson" -framework "SocialCommunication"
+OTHER_LDFLAGS[arch=i386] = -read_only_relocs suppress $(OTHER_LDFLAGS)
+OTHER_LDFLAGS[arch=x86_64] = -read_only_relocs suppress $(OTHER_LDFLAGS)
+PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-C2Call-SDK_Example
+PODS_ROOT = ${SRCROOT}/Pods

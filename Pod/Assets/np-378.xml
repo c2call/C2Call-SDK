@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<C xmlns="http://www.example.org/Numberplan" N="San Marino" C="378"><A N="San Marino" C="0" T="FIX" L="0"/><A N="San Marino" C="5" T="IP" L="0"/><A N="-" C="6" T="MOB" L="0"/><A N="Telenet S.r.l." C="61" T="MOB" L="0"/><A N="San Marino Telecom S.p.A." C="66" T="MOB" L="0"/><A N="premium rate" C="7" T="XPR" L="0"/></C>

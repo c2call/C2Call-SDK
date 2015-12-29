@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<C xmlns="http://www.example.org/Numberplan" N="Congo, DR" C="243"><A N="Kinshasa" C="1" T="FIX" L="1"/><A N="Lubumbashi" C="2" T="FIX" L="1"/><A N="Bandundu" C="3" T="FIX" L="1"/><A N="Province Orientale" C="5" T="FIX" L="1"/><A N="Kivu" C="6" T="FIX" L="1"/><A N="Congolese" C="68" T="MOB" L="0"/><A N="Supercell" C="80" T="MOB" L="0"/><A N="Congolese" C="81" T="MOB" L="0"/><A N="Congolese" C="88" T="MOB" L="0"/><A N="Congolese" C="89" T="MOB" L="0"/><A N="Sait-Télécom" C="98" T="MOB" L="0"/><A N="Celtel" C="99" T="MOB" L="0"/></C>

@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<countries>
+    <country name="USA" iso="us">
+        <code>+1</code>
+    </country>
+	<country name="Canada" iso="ca">
+        <code>+1</code>
+    </country>
+    <country name="Bahamas" iso="bs">
+        <code>+1242</code>
+    </country>
+    <country name="Barbados" iso="bb">
+        <code>+1246</code>
+    </country>
+    <country name="Anguilla" iso="ai">
+        <code>+1264</code>
+    </country>
+    <country name="Antigua and Barbuda" iso="ag">
+        <code>+1268</code>
+    </country>
+    <country name="British Virgin Islands" iso="vg">
+        <code>+1284</code>
+    </country>
+    <country name="American Virgin Islands" iso="vi">
+        <code>+1340</code>
+    </country>
+    <country name="Cayman Islands" iso="ky">
+        <code>+1345</code>
+    </country>
+    <country name="Bermuda" iso="bm">
+        <code>+1441</code>
+    </country>
+    <country name="Grenada" iso="gd">
+        <code>+1473</code>
+    </country>
+    <country name="Turks and Caicos Islands" iso="tc">
+        <code>+1649</code>
+    </country>
+    <country name="Montserrat" iso="gd">
+        <code>+1664</code>
+    </country>
+    <country name="Northern Mariana Islands" iso="mp">
+        <code>+1670</code>
+    </country>
+    <country name="Guam" iso="gu">
+        <code>+1671</code>
+    </country>
+    <country name="American Samoa" iso="as">
+        <code>+1684</code>
+    </country>
+    <country name="Saint Lucia" iso="lc">
+        <code>+1758</code>
+    </country>
+    <country name="Dominica" iso="dm">
+        <code>+1767</code>
+    </country>
+    <country name="Saint Vincent and the Grenadines" iso="vc">
+        <code>+1784</code>
+    </country>
+    <country name="Puerto Rico" iso="pr">
+        <code>+1787</code>
+    </country>
+    <country name="Midway Islands" iso="um-71">
+        <code>+1808</code>
+    </country>
+    <country name="Dominican Republic" iso="do">
+        <code>+1809</code>
+    </country>
+    <country name="Trinidad" iso="tt">
+        <code>+1868</code>
+    </country>
+    <country name="Tobago" iso="tt">
+        <code>+1868</code>
+    </country>
+    <country name="Saint Kitts and Nevis" iso="kn">
+        <code>+1869</code>
+    </country>
+    <country name="Jamaica" iso="jm">
+        <code>+1876</code>
+    </country>
+    <country name="Egypt" iso="eg">
+        <code>+20</code>
+    </country>
+    <country name="Morocco" iso="ma">
+        <code>+212</code>
+    </country>
+    <country name="Algeria" iso="dz">
+        <code>+213</code>
+    </country>
+    <country name="Tunisia" iso="tn">
+        <code>+216</code>
+    </country>
+    <country name="Libya" iso="ly">
+        <code>+218</code>
+    </country>
+    <country name="Gambia, The" iso="gm">
+        <code>+220</code>
+    </country>
+    <country name="Senegal" iso="sn">
+        <code>+221</code>
+    </country>
+    <country name="Mauritania" iso="mr">
+        <code>+222</code>
+    </country>
+    <country name="Mali" iso="ml">
+        <code>+223</code>
+    </country>
+    <country name="Guinea" iso="gn">
+        <code>+224</code>
+    </country>
+    <country name="Cote d'Ivoire" iso="ci">
+        <code>+225</code>
+    </country>
+    <country name="Burkina Faso" iso="bf">
+        <code>+226</code>
+    </country>
+    <country name="Niger" iso="ne">
+        <code>+227</code>
+    </country>
+    <country name="Togo" iso="tg">
+        <code>+228</code>
+    </country>
+    <country name="Benin" iso="bj">
+        <code>+229</code>
+    </country>
+    <country name="Mauritius" iso="mu">
+        <code>+230</code>
+    </country>
+    <country name="Liberia" iso="lr">
+        <code>+231</code>
+    </country>
+    <country name="Sierra Leone" iso="sl">
+        <code>+232</code>
+    </country>
+    <country name="Ghana" iso="gh">
+        <code>+233</code>
+    </country>
+    <country name="Nigeria" iso="ng">
+        <code>+234</code>
+    </country>
+    <country name="Chad" iso="td">
+        <code>+235</code>
+    </country>
+    <country name="Central African Republic" iso="cf">
+        <code>+236</code>
+    </country>
+    <country name="Cameroon" iso="cm">
+        <code>+237</code>
+    </country>    
+    <country name="Cape Verde" iso="cv">
+        <code>+238</code>
+    </country>    
+    <country name="Sao Tome and Principe" iso="st">
+        <code>+239</code>
+    </country>    
+    <country name="Equatorial Guinea" iso="gq">
+        <code>+240</code>
+    </country>    
+    <country name="Gabon" iso="ga">
+        <code>+241</code>
+    </country>    
+    <country name="Congo, Republic of the" iso="">
+        <code>+242</code>
+    </country>    
+    <country name="Congo, Democratic Republic of the" iso="cd">
+        <code>+243</code>
+    </country>    
+    <country name="Angola" iso="ao">
+        <code>+244</code>
+    </country>    
+    <country name="Guinea-Bissau" iso="gw">
+        <code>+245</code>
+    </country>
+    <country name="Chagos-Archipel (Diego-Garcia)" iso="">
+        <code>+246</code>
+    </country>
+    <country name="Ascension" iso="ac">
+        <code>+247</code>
+    </country>
+    <country name="Seychelles" iso="sc">
+        <code>+248</code>
+    </country>    
+    <country name="Sudan" iso="sd">
+        <code>+249</code>
+    </country>    
+    <country name="Rwanda" iso="rw">
+        <code>+250</code>
+    </country>    
+    <country name="Ethiopia" iso="et">
+        <code>+251</code>
+    </country>    
+    <country name="Somalia" iso="so">
+        <code>+252</code>
+    </country>    
+    <country name="Djibouti" iso="dj">
+        <code>+253</code>
+    </country>    
+    <country name="Kenya" iso="ke">
+        <code>+254</code>
+    </country>    
+    <country name="Tanzania" iso="tz">
+        <code>+255</code>
+    </country>    
+    <country name="Uganda" iso="ug">
+        <code>+256</code>
+    </country>    
+    <country name="Burundi" iso="bi">
+        <code>+257</code>
+    </country>    
+    <country name="Mozambique" iso="mz">
+        <code>+258</code>
+    </country>    
+    <country name="Zambia" iso="zm">
+        <code>+260</code>
+    </country>    
+    <country name="Madagascar" iso="mg">
+        <code>+261</code>
+    </country>
+    <country name="Reunion" iso="re">
+        <code>+262</code>
+    </country>
+    <country name="Zimbabwe" iso="zw">
+        <code>+263</code>
+    </country>    
+    <country name="Namibia" iso="na">
+        <code>+264</code>
+    </country>    
+    <country name="Malawi" iso="mw">
+        <code>+265</code>
+    </country>    
+    <country name="Lesotho" iso="ls">
+        <code>+266</code>
+    </country>    
+    <country name="Botswana" iso="bw">
+        <code>+267</code>
+    </country>    
+    <country name="Swaziland" iso="sz">
+        <code>+268</code>
+    </country>    
+    <country name="Comoros" iso="km">
+        <code>+2697</code>
+    </country>    
+    <country name="South Africa" iso="za">
+        <code>+27</code>
+    </country>
+    <country name="St. Helena" iso="sh">
+        <code>+290</code>
+    </country>
+    <country name="Eritrea" iso="er">
+        <code>+291</code>
+    </country>
+    <country name="Aruba" iso="aw">
+        <code>+297</code>
+    </country>
+    <country name="Faroe Islands" iso="fo">
+        <code>+298</code>
+    </country>
+    <country name="Greenland" iso="gl">
+        <code>+299</code>
+    </country>    
+    <country name="Greece" iso="gr">
+        <code>+30</code>
+    </country>    
+    <country name="Netherlands" iso="nl">
+        <code>+31</code>
+    </country>    
+    <country name="Belgium" iso="be">
+        <code>+32</code>
+    </country>    
+    <country name="France" iso="fr">
+        <code>+33</code>
+    </country>    
+    <country name="Spain" iso="es">
+        <code>+34</code>
+    </country>
+    <country name="Gibraltar" iso="gi">
+        <code>+350</code>
+    </country>
+    <country name="Portugal" iso="pt">
+        <code>+351</code>
+    </country>    
+    <country name="Luxembourg" iso="lu">
+        <code>+352</code>
+    </country>    
+    <country name="Ireland" iso="ie">
+        <code>+353</code>
+    </country>    
+    <country name="Iceland" iso="is">
+        <code>+354</code>
+    </country>    
+    <country name="Albania" iso="al">
+        <code>+355</code>
+    </country>    
+    <country name="Malta" iso="mt">
+        <code>+356</code>
+    </country>    
+    <country name="Cyprus" iso="cy">
+        <code>+357</code>
+    </country>    
+    <country name="Finland" iso="fi">
+        <code>+358</code>
+    </country>    
+    <country name="Bulgaria" iso="bg">
+        <code>+359</code>
+    </country>    
+    <country name="Hungary" iso="hu">
+        <code>+36</code>
+    </country>    
+    <country name="Lithuania" iso="lt">
+        <code>+370</code>
+    </country>    
+    <country name="Latvia" iso="lv">
+        <code>+371</code>
+    </country>    
+    <country name="Estonia" iso="ee">
+        <code>+372</code>
+    </country>    
+    <country name="Moldova" iso="md">
+        <code>+373</code>
+    </country>    
+    <country name="Armenia" iso="am">
+        <code>+374</code>
+    </country>    
+    <country name="Belarus" iso="by">
+        <code>+375</code>
+    </country>    
+    <country name="Andorra" iso="ad">
+        <code>+376</code>
+    </country>    
+    <country name="Monaco" iso="mc">
+        <code>+377</code>
+    </country>    
+    <country name="San Marino" iso="sm">
+        <code>+378</code>
+    </country>    
+    <country name="Ukraine" iso="ua">
+        <code>+380</code>
+    </country>    
+    <country name="Kosovo" iso="rs-km">
+        <code>+381</code>
+    </country>
+    <country name="Serbia" iso="rs">
+        <code>+381</code>
+    </country> 
+    <country name="Montenegro" iso="me">
+        <code>+382</code>
+    </country>   
+    <country name="Croatia" iso="hr">
+        <code>+385</code>
+    </country>    
+    <country name="Slovenia" iso="si">
+        <code>+386</code>
+    </country>    
+    <country name="Bosnia and Herzegovina" iso="ba">
+        <code>+387</code>
+    </country>    
+    <country name="Macedonia" iso="mk">
+        <code>+389</code>
+    </country>    
+    <country name="Holy See (Vatican City)" iso="va">
+        <code>+3906</code>
+    </country>    
+    <country name="Italy" iso="it">
+        <code>+39</code>
+    </country>    
+    <country name="Romania" iso="ro">
+        <code>+40</code>
+    </country>    
+    <country name="Switzerland" iso="ch">
+        <code>+41</code>
+    </country>    
+    <country name="Czechia" iso="cz">
+        <code>+420</code>
+    </country>    
+    <country name="Slovakia" iso="sk">
+        <code>+421</code>
+    </country>    
+    <country name="Liechtenstein" iso="li">
+        <code>+423</code>
+    </country>    
+    <country name="Austria" iso="at">
+        <code>+43</code>
+    </country>    
+    <country name="United Kingdom" iso="gb">
+        <code>+44</code>
+    </country>    
+    <country name="Denmark" iso="dk">
+        <code>+45</code>
+    </country>    
+    <country name="Sweden" iso="se">
+        <code>+46</code>
+    </country>    
+    <country name="Norway" iso="no">
+        <code>+47</code>
+    </country>    
+    <country name="Poland" iso="pl">
+        <code>+48</code>
+    </country>    
+    <country name="Germany" iso="de">
+        <code>+49</code>
+    </country>
+    <country name="Falkland Islands (Islas Malvinas)" iso="fk">
+        <code>+500</code>
+    </country>
+    <country name="Belize" iso="bz">
+        <code>+501</code>
+    </country>    
+    <country name="Guatemala" iso="gt">
+        <code>+502</code>
+    </country>    
+    <country name="El Salvador" iso="sv">
+        <code>+503</code>
+    </country>    
+    <country name="Honduras" iso="hn">
+        <code>+504</code>
+    </country>    
+    <country name="Nicaragua" iso="ni">
+        <code>+505</code>
+    </country>    
+    <country name="Costa Rica" iso="cr">
+        <code>+506</code>
+    </country>    
+    <country name="Panama" iso="pa">
+        <code>+507</code>
+    </country>
+    <country name="St. Pierre and Miquelon" iso="pm">
+        <code>+508</code>
+    </country>
+    <country name="Haiti" iso="ht">
+        <code>+509</code>
+    </country>    
+    <country name="Peru" iso="pe">
+        <code>+51</code>
+    </country>    
+    <country name="Mexico" iso="mx">
+        <code>+52</code>
+    </country>    
+    <country name="Cuba" iso="cu">
+        <code>+53</code>
+    </country>    
+    <country name="Argentina" iso="ar">
+        <code>+54</code>
+    </country>    
+    <country name="Brazil" iso="br">
+        <code>+55</code>
+    </country>    
+    <country name="Chile" iso="cl">
+        <code>+56</code>
+    </country>    
+    <country name="Colombia" iso="co">
+        <code>+57</code>
+    </country>    
+    <country name="Venezuela" iso="ve">
+        <code>+58</code>
+    </country>
+    <country name="Guadeloupe" iso="gp">
+        <code>+590</code>
+    </country>
+    <country name="Bolivia" iso="bo">
+        <code>+591</code>
+    </country>    
+    <country name="Guyana" iso="gy">
+        <code>+592</code>
+    </country>    
+    <country name="Ecuador" iso="ec">
+        <code>+593</code>
+    </country>
+    <country name="French Guiana" iso="gf">
+        <code>+594</code>
+    </country>
+    <country name="Paraguay" iso="py">
+        <code>+595</code>
+    </country>
+    <country name="Martinique" iso="mq">
+        <code>+596</code>
+    </country>
+    <country name="Suriname" iso="sr">
+        <code>+597</code>
+    </country>    
+    <country name="Uruguay" iso="uy">
+        <code>+598</code>
+    </country>
+    <country name="Netherlands Antilles" iso="an">
+        <code>+599</code>
+    </country>
+    <country name="Malaysia" iso="my">
+        <code>+60</code>
+    </country>    
+    <country name="Australia" iso="au">
+        <code>+61</code>
+    </country>    
+    <country name="Indonesia" iso="id">
+        <code>+62</code>
+    </country>    
+    <country name="Philippines" iso="ph">
+        <code>+63</code>
+    </country>    
+    <country name="New Zealand" iso="nz">
+        <code>+64</code>
+    </country>
+    <country name="Pitcairn Islands" iso="pn">
+        <code>+649</code>
+    </country>
+    <country name="Singapore" iso="sg">
+        <code>+65</code>
+    </country>    
+    <country name="Thailand" iso="th">
+        <code>+66</code>
+    </country>
+    <country name="East Timor" iso="tp">
+        <code>+670</code>
+    </country>
+    <country name="Antarctic, Norfolk Island" iso="nf">
+        <code>+672</code>
+    </country>
+    <country name="Brunei" iso="bn">
+        <code>+673</code>
+    </country>    
+    <country name="Nauru" iso="nr">
+        <code>+674</code>
+    </country>    
+    <country name="Papua New Guinea" iso="pg">
+        <code>+675</code>
+    </country>    
+    <country name="Tonga" iso="to">
+        <code>+676</code>
+    </country>    
+    <country name="Solomon Islands" iso="sb">
+        <code>+677</code>
+    </country>    
+    <country name="Vanuatu" iso="vu">
+        <code>+678</code>
+    </country>    
+    <country name="Fiji" iso="fj">
+        <code>+679</code>
+    </country>    
+    <country name="Palau" iso="pw">
+        <code>+680</code>
+    </country>
+    <country name="Wallis and Futuna" iso="wf">
+        <code>+681</code>
+    </country>
+    <country name="Cook Islands" iso="ck">
+        <code>+682</code>
+    </country>
+    <country name="Niue" iso="nu">
+        <code>+683</code>
+    </country>
+    <country name="Samoa" iso="ws">
+        <code>+685</code>
+    </country>    
+    <country name="Kiribati" iso="ki">
+        <code>+686</code>
+    </country>
+    <country name="New Caledonia" iso="nc">
+        <code>+687</code>
+    </country>
+    <country name="Tuvalu" iso="tv">
+        <code>+688</code>
+    </country>
+    <country name="French Polynesia" iso="pf">
+        <code>+689</code>
+    </country>
+    <country name="Tokelau" iso="tk">
+        <code>+690</code>
+    </country>
+    <country name="Micronesia, Federated States of" iso="fm">
+        <code>+691</code>
+    </country>    
+    <country name="Marshall Islands" iso="mh">
+        <code>+692</code>
+    </country>    
+    <country name="Kazakhstan" iso="kz">
+        <code>+7</code>
+    </country>    
+    <country name="Russia" iso="ru">
+        <code>+7</code>
+    </country>    
+    <country name="Japan" iso="jp">
+        <code>+81</code>
+    </country>    
+    <country name="Korea, South" iso="kr">
+        <code>+82</code>
+    </country>    
+    <country name="Vietnam" iso="vn">
+        <code>+84</code>
+    </country>    
+    <country name="Korea, North" iso="kp">
+        <code>+850</code>
+    </country>
+    <country name="Hong Kong" iso="hk">
+        <code>+852</code>
+    </country>
+    <country name="Macao" iso="mo">
+        <code>+853</code>
+    </country>
+    <country name="Cambodia" iso="kh">
+        <code>+855</code>
+    </country>    
+    <country name="Laos" iso="la">
+        <code>+856</code>
+    </country>    
+    <country name="China" iso="cn">
+        <code>+86</code>
+    </country>    
+    <country name="Bangladesh" iso="bd">
+        <code>+880</code>
+    </country>  
+    <country name="Taiwan" iso="tw">
+        <code>+886</code>
+    </country>    
+    <country name="Turkey" iso="tr">
+        <code>+90</code>
+    </country>    
+    <country name="India" iso="in">
+        <code>+91</code>
+    </country>    
+    <country name="Pakistan" iso="pk">
+        <code>+92</code>
+    </country>    
+    <country name="Afghanistan" iso="af">
+        <code>+93</code>
+    </country>    
+    <country name="Sri Lanka" iso="lk">
+        <code>+94</code>
+    </country>    
+    <country name="Myanmar" iso="mm">
+        <code>+95</code>
+    </country>    
+    <country name="Maldives" iso="mv">
+        <code>+960</code>
+    </country>    
+    <country name="Lebanon" iso="lb">
+        <code>+961</code>
+    </country>    
+    <country name="Jordan" iso="jo">
+        <code>+962</code>
+    </country>    
+    <country name="Syria" iso="sy">
+        <code>+963</code>
+    </country>    
+    <country name="Iraq" iso="iq">
+        <code>+964</code>
+    </country>    
+    <country name="Kuwait" iso="kw">
+        <code>+965</code>
+    </country>    
+    <country name="Saudi Arabia" iso="sa">
+        <code>+966</code>
+    </country>    
+    <country name="Yemen" iso="ye">
+        <code>+967</code>
+    </country>    
+    <country name="Oman" iso="om">
+        <code>+968</code>
+    </country>    
+    <country name="United Arab Emirates" iso="ae">
+        <code>+971</code>
+    </country>    
+    <country name="Israel" iso="il">
+        <code>+972</code>
+    </country>    
+    <country name="Bahrain" iso="bh">
+        <code>+973</code>
+    </country>    
+    <country name="Qatar" iso="qa">
+        <code>+974</code>
+    </country>    
+    <country name="Bhutan" iso="bt">
+        <code>+975</code>
+    </country>    
+    <country name="Mongolia" iso="mn">
+        <code>+976</code>
+    </country>    
+    <country name="Nepal" iso="np">
+        <code>+977</code>
+    </country>    
+    <country name="Iran" iso="ir">
+        <code>+98</code>
+    </country>    
+    <country name="Tajikistan" iso="tj">
+        <code>+992</code>
+    </country>    
+    <country name="Turkmenistan" iso="tm">
+        <code>+993</code>
+    </country>    
+    <country name="Azerbaijan" iso="az">
+        <code>+99412</code>
+    </country>    
+    <country name="Georgia" iso="ge">
+        <code>+995</code>
+    </country>    
+    <country name="Kyrgyzstan" iso="kg">
+        <code>+996</code>
+    </country>    
+    <country name="Uzbekistan" iso="uz">
+        <code>+998</code>
+    </country> 
+</countries>
