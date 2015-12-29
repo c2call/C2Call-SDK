@@ -320,6 +320,14 @@
  */
 -(NSDictionary *) getDecodedVideoFrame;
 
+/** Initialize the default audio session
+ */
+-(void) regularAudioSession;
+
+/** Initialize the recording audio session
+ */
+-(void) recordingAudioSession;
+
 /** @name Static Methods */
 /** Returns a share instance of SCMediaManager.
  
