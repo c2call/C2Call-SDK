@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48DC0CF010E331A39C1DEE9C /* Pods_C2Call_SDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4722641AD18D8772A4913D2 /* Pods_C2Call_SDK_Example.framework */; };
+		2FC9CAEA7140F28C46D6662A /* Pods_C2Call_SDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E7A051BC9A9ABCDBAE81B5 /* Pods_C2Call_SDK_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -16,7 +16,6 @@
 		6003F59E195388D20070C39A /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* SCAppDelegate.m */; };
 		6003F5A7195388D20070C39A /* SCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* SCViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
-		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
@@ -25,7 +24,10 @@
 		976779211C07A954003BDBF0 /* ico_logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9767791F1C07A954003BDBF0 /* ico_logout.png */; };
 		976779221C07A954003BDBF0 /* ico_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 976779201C07A954003BDBF0 /* ico_logout@2x.png */; };
 		977A257B1C1430B20077C455 /* SocialCommunication.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977A257A1C1430B20077C455 /* SocialCommunication.xcassets */; };
-		B3015F2FFFEEE4D27A2FB895 /* Pods_C2Call_SDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3788C2D88C6DDDFED0B0F3 /* Pods_C2Call_SDK_Tests.framework */; };
+		97C546E91C39B485007BAD68 /* VCFriendListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C546E41C39B485007BAD68 /* VCFriendListController.m */; };
+		97C546EA1C39B485007BAD68 /* VCCallHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C546E61C39B485007BAD68 /* VCCallHistoryController.m */; };
+		97C546EB1C39B485007BAD68 /* VCLogoutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C546E81C39B485007BAD68 /* VCLogoutController.m */; };
+		B554B7DEFC67B3EB351D4DDC /* Pods_C2Call_SDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E5204802199CF3A79D4B94 /* Pods_C2Call_SDK_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,10 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		169AB32C67B76762654511D9 /* Pods-C2Call-SDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		1D3788C2D88C6DDDFED0B0F3 /* Pods_C2Call_SDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1039903FD0FE695B6275347C /* Pods-C2Call-SDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		48A1BD530FCD4B278FDE7AB0 /* Pods-C2Call-SDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		5646A7EF4876F845C637A1B0 /* Pods-C2Call-SDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		58F848F07B8079D4D1F25693 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		5C1D58ECC4AFF6627759D4C9 /* Pods-C2Call-SDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* C2Call-SDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C2Call-SDK_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -57,20 +59,25 @@
 		6003F5A6195388D20070C39A /* SCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* C2Call-SDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "C2Call-SDK_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		64E7A051BC9A9ABCDBAE81B5 /* Pods_C2Call_SDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D102A1C3AF6F5BE4660A61F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		6E2ECA72C7ECFC63EC2D270C /* Pods-C2Call-SDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		74486E36CD454D40929C4202 /* Pods-C2Call-SDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		79749036E99E7ACDA374666A /* C2Call-SDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "C2Call-SDK.podspec"; path = "../C2Call-SDK.podspec"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9767791F1C07A954003BDBF0 /* ico_logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_logout.png; sourceTree = "<group>"; };
 		976779201C07A954003BDBF0 /* ico_logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_logout@2x.png"; sourceTree = "<group>"; };
 		977A257A1C1430B20077C455 /* SocialCommunication.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SocialCommunication.xcassets; path = ../../Pod/Assets/SocialCommunication.xcassets; sourceTree = "<group>"; };
-		D4722641AD18D8772A4913D2 /* Pods_C2Call_SDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA6B8D5C6D8EA83CEC464870 /* Pods-C2Call-SDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		97C546E31C39B485007BAD68 /* VCFriendListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCFriendListController.h; sourceTree = "<group>"; };
+		97C546E41C39B485007BAD68 /* VCFriendListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCFriendListController.m; sourceTree = "<group>"; };
+		97C546E51C39B485007BAD68 /* VCCallHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCCallHistoryController.h; sourceTree = "<group>"; };
+		97C546E61C39B485007BAD68 /* VCCallHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCCallHistoryController.m; sourceTree = "<group>"; };
+		97C546E71C39B485007BAD68 /* VCLogoutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCLogoutController.h; sourceTree = "<group>"; };
+		97C546E81C39B485007BAD68 /* VCLogoutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCLogoutController.m; sourceTree = "<group>"; };
+		B1E5204802199CF3A79D4B94 /* Pods_C2Call_SDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +88,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				48DC0CF010E331A39C1DEE9C /* Pods_C2Call_SDK_Example.framework in Frameworks */,
+				B554B7DEFC67B3EB351D4DDC /* Pods_C2Call_SDK_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,10 +96,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				B3015F2FFFEEE4D27A2FB895 /* Pods_C2Call_SDK_Tests.framework in Frameworks */,
+				2FC9CAEA7140F28C46D6662A /* Pods_C2Call_SDK_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,9 +132,8 @@
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
-				6003F5AF195388D20070C39A /* XCTest.framework */,
-				D4722641AD18D8772A4913D2 /* Pods_C2Call_SDK_Example.framework */,
-				1D3788C2D88C6DDDFED0B0F3 /* Pods_C2Call_SDK_Tests.framework */,
+				B1E5204802199CF3A79D4B94 /* Pods_C2Call_SDK_Example.framework */,
+				64E7A051BC9A9ABCDBAE81B5 /* Pods_C2Call_SDK_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -138,6 +143,12 @@
 			children = (
 				6003F59C195388D20070C39A /* SCAppDelegate.h */,
 				6003F59D195388D20070C39A /* SCAppDelegate.m */,
+				97C546E31C39B485007BAD68 /* VCFriendListController.h */,
+				97C546E41C39B485007BAD68 /* VCFriendListController.m */,
+				97C546E51C39B485007BAD68 /* VCCallHistoryController.h */,
+				97C546E61C39B485007BAD68 /* VCCallHistoryController.m */,
+				97C546E71C39B485007BAD68 /* VCLogoutController.h */,
+				97C546E81C39B485007BAD68 /* VCLogoutController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* SCViewController.h */,
 				6003F5A6195388D20070C39A /* SCViewController.m */,
@@ -194,10 +205,10 @@
 		65E153F02980D2C972A8339D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6E2ECA72C7ECFC63EC2D270C /* Pods-C2Call-SDK_Example.debug.xcconfig */,
-				5C1D58ECC4AFF6627759D4C9 /* Pods-C2Call-SDK_Example.release.xcconfig */,
-				169AB32C67B76762654511D9 /* Pods-C2Call-SDK_Tests.debug.xcconfig */,
-				FA6B8D5C6D8EA83CEC464870 /* Pods-C2Call-SDK_Tests.release.xcconfig */,
+				48A1BD530FCD4B278FDE7AB0 /* Pods-C2Call-SDK_Example.debug.xcconfig */,
+				74486E36CD454D40929C4202 /* Pods-C2Call-SDK_Example.release.xcconfig */,
+				5646A7EF4876F845C637A1B0 /* Pods-C2Call-SDK_Tests.debug.xcconfig */,
+				1039903FD0FE695B6275347C /* Pods-C2Call-SDK_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -405,9 +416,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97C546EB1C39B485007BAD68 /* VCLogoutController.m in Sources */,
+				97C546E91C39B485007BAD68 /* VCFriendListController.m in Sources */,
 				6003F59E195388D20070C39A /* SCAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SCViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				97C546EA1C39B485007BAD68 /* VCCallHistoryController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,7 +537,7 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E2ECA72C7ECFC63EC2D270C /* Pods-C2Call-SDK_Example.debug.xcconfig */;
+			baseConfigurationReference = 48A1BD530FCD4B278FDE7AB0 /* Pods-C2Call-SDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -534,23 +548,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "C2Call-SDK/C2Call-SDK-Prefix.pch";
 				INFOPLIST_FILE = "C2Call-SDK/C2Call-SDK-Info.plist";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = ExampleApp;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-framework",
-					"\"AWSCore\"",
-					"-framework",
-					"\"AWSS3\"",
-					"-framework",
-					"\"Flurry_iOS_SDK\"",
-					"-framework",
-					"\"SBJson\"",
-					"-framework",
-					"\"SocialCommunication\"",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.c2call.sdk.samplecode.SDK-VideoChat-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -559,7 +560,7 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C1D58ECC4AFF6627759D4C9 /* Pods-C2Call-SDK_Example.release.xcconfig */;
+			baseConfigurationReference = 74486E36CD454D40929C4202 /* Pods-C2Call-SDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -570,23 +571,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "C2Call-SDK/C2Call-SDK-Prefix.pch";
 				INFOPLIST_FILE = "C2Call-SDK/C2Call-SDK-Info.plist";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = ExampleApp;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-framework",
-					"\"AWSCore\"",
-					"-framework",
-					"\"AWSS3\"",
-					"-framework",
-					"\"Flurry_iOS_SDK\"",
-					"-framework",
-					"\"SBJson\"",
-					"-framework",
-					"\"SocialCommunication\"",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.c2call.sdk.samplecode.SDK-VideoChat-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -595,7 +583,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 169AB32C67B76762654511D9 /* Pods-C2Call-SDK_Tests.debug.xcconfig */;
+			baseConfigurationReference = 5646A7EF4876F845C637A1B0 /* Pods-C2Call-SDK_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -618,7 +606,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA6B8D5C6D8EA83CEC464870 /* Pods-C2Call-SDK_Tests.release.xcconfig */;
+			baseConfigurationReference = 1039903FD0FE695B6275347C /* Pods-C2Call-SDK_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -14,15 +14,48 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Test Accounts:
-    // CallAPI1@gmail.com / Password : 123456
-    // CallAPI2@gmail.com / Password : 123456
+    // VideoChat1@gmail.com / Password : 123456
+    // VideoChat2@gmail.com / Password : 123456
+    // VideoChat3@gmail.com / Password : 123456
+    // VideoChat4@gmail.com / Password : 123456
+    // VideoChat5@gmail.com / Password : 123456
+    // VideoChat6@gmail.com / Password : 123456
+    
+    // IMPORTANT :
+    // 2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    // myshader.vsh
+    // myshader.fsh
+    // Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+    // The video call does not work in this case.
+    // It should be in there already, but will be automatically removed when replacing SocialCommunication.ressources. So it has to be added again then.
     
     self.affiliateid = @"1F3E9213F51427D53";
-    self.secret = @"04c592fd6e20dfa2c3c5d196369b3105";
+    self.secret = @"27ed87e8356390b50c7c20fc5029b55b";
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ico_logout" ofType:@"png"];
+#ifdef __DEBUG
+    self.useSandboxMode = YES;
+#endif
     
-    NSLog(@"Path: %@", path);
+    // Customize Message Sounds
+    // [RingtoneHandler defaultHandler].messageOut = nil; // Switch sound off
+    // [RingtoneHandler defaultHandler].messageOut = [[C2SystemSound alloc] initWithRessource:@"MySound" ofType:@"wav"];
+    
+    // iOS8 VoIP Push Support
+    // In order to enable iOS8 VoIP Push Support please do the following steps:
+    // 1. Create a VoIP Push Certificate in your Apple Developer Account
+    // 2. Download the VoIP Certificate and import it into your KeyChain
+    // 3. Select the imported Certificate in your KeyChain including the private key (expand the ">" and select both)
+    // 4. Export the Certificate as .p12 File (use a password)
+    // 5. Import the .p12 file in your Apps section in C2Call DevArea
+    // 6. Add PushKit Framework to your App
+    // 7. Set Deployment Target to iOS8
+    // 8. Validate that your Architecture includes ARM64 (required by PushKit)
+    // 9. Add import statement
+    // #import <PushKit/PushKit.h>
+    // 10. Uncomment the following lines of Code here:
+    // self.usePushKit = YES;
+    // self.pushKitPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+    
     
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
@@ -53,17 +86,23 @@
 {
     [super applicationDidBecomeActive:application];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    
-    UIImage *ico = [UIImage imageNamed:@"btn_ico_call"];
-    
-    NSLog(@"Image: %@", ico);
-    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [super applicationWillTerminate:application];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)showHint:(NSString *) message withNotificationType:(SCNotificationType) notificationType
+{
+    if (notificationType == SC_NOTIFICATIONTYPE_REWARD) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reward" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 @end
