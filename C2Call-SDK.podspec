@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "C2Call-SDK"
-  s.version          = "1.3-beta12"
+  s.version          = "1.3-beta13"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
 #s.module_name      = "C2CallSDK"
   s.header_dir       = "SocialCommunication"
@@ -35,7 +35,7 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.requires_arc = true
 
   s.source_files = ['Pod/Classes/*', 'Pod/Classes/Categories/*']
-  s.resources = 'Pod/Assets/*.{wav,aiff,aif,fsh,xml,vsh,png,xcdatamodeld,storyboard,xcassets}'
+  s.resources = 'Pod/Assets/*.{wav,aiff,aif,fsh,xml,vsh,xib,png,xcdatamodeld,storyboard,xcassets}'
 #s.resource_bundles = {
 #    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,fsh, xml,vsh,png,xcdatamodeld,storyboard,xcassets}']
 #  }

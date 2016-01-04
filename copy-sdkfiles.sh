@@ -460,6 +460,11 @@ cp ../np-996.xml Pod/Assets
 cp ../np-998.xml Pod/Assets
 cp ../Classes/myshader.fsh Pod/Assets
 cp ../Classes/myshader.vsh Pod/Assets
+cp ../Classes/SearchTableCell.xib Pod/Assets
+cp ../Classes/GroupActiveMemberController.xib Pod/Assets
+cp ../Classes/GroupActiveMemberCell.xib Pod/Assets
+cp ../Classes/EAGLViewController.xib Pod/Assets
+cp ../Classes/AdWhirl/internal/AdWhirlWebBrowser.xib Pod/Assets
 cp ../libvpx.a Libraries/
 #cp ../Classes/G729/libg729b.a Libraries/
 cp ../Classes/libopus.a Libraries/
