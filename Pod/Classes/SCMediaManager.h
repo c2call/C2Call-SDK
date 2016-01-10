@@ -26,15 +26,15 @@
 
 /** @name Properties */
 /** Returns the current active video capture device (front or rear camera) */
-@property(nonatomic, readonly) AVCaptureDevice      *videoCaptureDevice;
+@property(nonatomic, readonly, nullable) AVCaptureDevice    *videoCaptureDevice;
 
 /** Returns the current active video capture session */
-@property(nonatomic, readonly) AVCaptureSession     *videoCaptureSession;
+@property(nonatomic, readonly, nullable) AVCaptureSession     *videoCaptureSession;
 
 @property(nonatomic, readonly) AVCaptureDevicePosition cameraPosition;
 
 /** Soundfile path for hold the line announcement when the call is interrupted */
-@property(nonatomic, strong)  NSString *holdTheLineSoundFilePath;
+@property(nonatomic, strong, nullable)  NSString *holdTheLineSoundFilePath;
 
 /** Donot use hold the line announcement when the call is interrupted */
 @property(nonatomic) BOOL disableHoldTheLineAnnouncement;
@@ -88,7 +88,7 @@
  @param delegate - The AVCaptureVideoDataOutputSampleBufferDelegate
  @return YES if delegate has been added, NO if max delegates have been reached.
  */
--(BOOL) addVideoDataOutputDelegate:(id<AVCaptureVideoDataOutputSampleBufferDelegate>) delegate;
+-(BOOL) addVideoDataOutputDelegate:(nonnull id<AVCaptureVideoDataOutputSampleBufferDelegate>) delegate;
 
 /** Is front camera available.
  @return YES / NO
@@ -103,7 +103,7 @@
 /** Set current video caputre session preset
  @param sessionPreset - Video Capture Session Preset
  */
--(void) setVideoCaptureSessionPreset:(NSString *) sessionPreset;
+-(void) setVideoCaptureSessionPreset:(nonnull NSString *) sessionPreset;
 
 /** Switch between cameras
  
@@ -117,7 +117,7 @@
 /** Returns the previewLayer.
  @return The camera preview layler.
  */
--(AVCaptureVideoPreviewLayer *) previewLayer;
+-(nullable AVCaptureVideoPreviewLayer *) previewLayer;
 
 /** @name Media Background Sound Handling */
 /** Start Background Audio during a call
@@ -128,7 +128,7 @@
  @param soundfilePath - Path to the sound file 
  @param loop - Repeat endless
  */
--(void) startBackgroundAudio:(NSString *) soundfilePath loopAudio:(BOOL) loop;
+-(void) startBackgroundAudio:(nonnull NSString *) soundfilePath loopAudio:(BOOL) loop;
 
 /** Stop Background Audio
 */
@@ -176,7 +176,7 @@
  
  @param delegate - The delegate to remove.
  */
--(void) stopVideoCaptureForDelegate:(id) delegate;
+-(void) stopVideoCaptureForDelegate:(nonnull id) delegate;
 
 /** Remove all delegates and stop the capture session.
  */
@@ -186,7 +186,7 @@
  
  @param shareView The view to be shared
  */
--(void) startScreenSharingForView:(UIView *) shareView;
+-(void) startScreenSharingForView:(nonnull UIView *) shareView;
 
 /** Stop active screenSharing session
  
@@ -203,20 +203,20 @@
  
  @param handler - The completion handler will be called with the mediaKey as parameter after completion
  */
--(void) stopMediaRecordingWithCompletionHandler:(void (^)(NSString *mediaKey))handler;
+-(void) stopMediaRecordingWithCompletionHandler:(nullable void (^)(NSString * _Nullable mediaKey))handler;
 
 
 /** Start Recording of the current VoIP Audio Stream
  
  @param mediaType - Either AVFileTypeAppleM4A or AVFileTypeWAVE is supported
  */
--(void) startAudioRecording:(NSString *) mediaType;
+-(void) startAudioRecording:(nonnull NSString *) mediaType;
 
 /** Stop recording of the current VoIP Audio Stream
  
  @param handler - The completion handler will be called with the mediaKey as parameter after completion
  */
--(void) stopAudioRecordingWithCompletionHandler:(void (^)(NSString *mediaKey))handler;
+-(void) stopAudioRecordingWithCompletionHandler:(nullable void (^)(NSString * _Nullable mediaKey))handler;
 
 
 /** Start ScreenCapture Recording of the provided UIView
@@ -228,14 +228,14 @@
  @param useAudio - Capture Audio from the microphone
  
  */
--(void) startScreenCaptureForView:(UIView *) captureView usingAudio:(BOOL) useAudio;
+-(void) startScreenCaptureForView:(nonnull UIView *) captureView usingAudio:(BOOL) useAudio;
 
 /** Stop recording of the current screen capture session
  
  @param handler - The completion handler will be called with the mediaKey as parameter after completion
  */
 
--(void) stopScreenCaptureWithCompletionHandler:(void (^)(NSString *mediaKey))handler;
+-(void) stopScreenCaptureWithCompletionHandler:(nullable void (^)(NSString * _Nullable mediaKey))handler;
 
 /** Disable Audio / Video output while a capture session is running
  
@@ -286,7 +286,7 @@
  
  @param handler - The completion handler
  */
--(void) capturePreviewImageWithCompletionHandler:(void (^)(UIImage *image, NSError *error))handler;
+-(void) capturePreviewImageWithCompletionHandler:(nullable void (^)(UIImage * _Nullable image, NSError * _Nullable error))handler;
 
 
 /** Experimental, for internal use only
@@ -301,7 +301,7 @@
  @param rotate - [0 .. 3] : rotate image 0, 90, 180 and 270 degrees
  */
 
--(void) encodeAndTransferYUV:(UInt8 *) yPtr u:(UInt8 *)uPtr v:(UInt8 *)vPtr width:(int) width height:(int) height rotate:(int) rotate;
+-(void) encodeAndTransferYUV:(nonnull UInt8 *) yPtr u:(nonnull UInt8 *)uPtr v:(nonnull UInt8 *)vPtr width:(int) width height:(int) height rotate:(int) rotate;
 
 /** Returns the next decoded video frame in YUV420 format
  
@@ -318,7 +318,7 @@
  
  @return dictionary with frame data or nil
  */
--(NSDictionary *) getDecodedVideoFrame;
+-(nullable NSDictionary *) getDecodedVideoFrame;
 
 /** Initialize the default audio session
  */
@@ -333,7 +333,7 @@
  
  @return The media manager.
  */
-+(SCMediaManager *) instance;
++(nonnull SCMediaManager *) instance;
 
 /** Set the Default CaptureSession Preset
  
@@ -342,6 +342,6 @@
  
  @param preset - AVCaptureSessionPreset
  */
-+(void) setDefaultCaptureSessionPreset:(NSString *) preset;
++(void) setDefaultCaptureSessionPreset:(nonnull NSString *) preset;
 
 @end

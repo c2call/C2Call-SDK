@@ -584,6 +584,8 @@
     
     CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{NSFontAttributeName:font} context:nil].size;
+    expectedLabelSize.width = ceilf(expectedLabelSize.width);
+    expectedLabelSize.height = ceilf(expectedLabelSize.height);
 
     //CGSize expectedLabelSize = [elem.text sizeWithFont:font
     //                                 constrainedToSize:maximumLabelSize
@@ -603,6 +605,8 @@
     
     CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
                        attributes:@{NSFontAttributeName:font} context:nil].size;
+    expectedLabelSize.width = ceilf(expectedLabelSize.width);
+    expectedLabelSize.height = ceilf(expectedLabelSize.height);
 
     //CGSize expectedLabelSize = [elem.text sizeWithFont:font
     //                                 constrainedToSize:maximumLabelSize
@@ -1108,6 +1112,8 @@
     //                                lineBreakMode:cellLBM];
     CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{NSFontAttributeName:self.textFieldInFont} context:nil].size;
+    expectedLabelSize.width = ceilf(expectedLabelSize.width);
+    expectedLabelSize.height = ceilf(expectedLabelSize.height);
 
     CGRect frame = cell.bubbleView.frame;
     CGRect inset = CGRectZero;
@@ -1248,6 +1254,8 @@
     //                                lineBreakMode:cellLBM];
     CGSize expectedLabelSize = [text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:self.textFieldOutFont} context:nil].size;
+    expectedLabelSize.width = ceilf(expectedLabelSize.width);
+    expectedLabelSize.height = ceilf(expectedLabelSize.height);
 
     CGRect frame = cell.bubbleView.frame;
     
@@ -1279,6 +1287,9 @@
         //                                   lineBreakMode:cellLBM];
         CGSize sendernameSize = [sendername boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
                                                          attributes:@{NSFontAttributeName:self.headerFieldOutFont} context:nil].size;
+        sendernameSize.width = ceilf(sendernameSize.width);
+        sendernameSize.height = ceilf(sendernameSize.height);
+
         sendernameSize.width += diffHeaderLeft + diffHeaderRight;
         
         if (sendernameSize.width > width) {

@@ -78,7 +78,7 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-	DLog(@"productsRequest:didReceiveResponse : %d/%d", [response.products count], [response.invalidProductIdentifiers count]);
+	DLog(@"productsRequest:didReceiveResponse : %lu/%lu", [response.products count], (unsigned long)[response.invalidProductIdentifiers count]);
 	[[C2CallAppDelegate appDelegate] waitIndicatorStop];
 	self.productsResponse = response;
     
@@ -92,7 +92,7 @@
 - (void)requestDidFinish:(SKRequest *)request;
 {
 	[[C2CallAppDelegate appDelegate] waitIndicatorStop];
-	DLog(@"requestDidFinish : %d", [productsResponse.products count]);
+	DLog(@"requestDidFinish : %lu", (unsigned long)[productsResponse.products count]);
     
 }
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error;

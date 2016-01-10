@@ -58,6 +58,9 @@
 -(void) setRetransmitAction:(void (^)()) _retransmitAction;
 -(void) setOpenLocationAction:(void (^)()) _openLocationAction;
 
+-(void) handleTap:(UITapGestureRecognizer *)sender;
+-(void) handleLongpress:(UILongPressGestureRecognizer *)sender;
+
 -(void) reset;
 -(void) dispose;
 

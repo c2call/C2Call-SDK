@@ -791,7 +791,6 @@
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
                          didSelectPerson:(ABRecordRef)person
 {
-    [self peoplePickerNavigationController:peoplePicker shouldContinueAfterSelectingPerson:person];
 }
 
 

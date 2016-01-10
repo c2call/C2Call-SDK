@@ -16,5 +16,7 @@
 
 -(void) addAction:(void (^)(id sender))_action forControlEvent:(UIControlEvents) event;
 -(void) addAction:(void (^)(id sender))_action;
+-(void) removeAction;
+-(void) removeActionForControlEvent:(UIControlEvents) event;
 
 @end

@@ -180,6 +180,8 @@
     //CGSize sz = [user.userStatus sizeWithFont:userInfoCell.userStatus.font constrainedToSize:CGSizeMake(frame.size.width, 66.)];
     CGSize sz = [user.userStatus boundingRectWithSize:CGSizeMake(frame.size.width, 66.) options:NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{NSFontAttributeName:userInfoCell.userStatus.font} context:nil].size;
+    sz.width = ceilf(sz.width);
+    sz.height = ceilf(sz.height);
 
     height += sz.height;
     height += (f2.origin.y - (frame.origin.y + frame.size.height)) + f2.size.height + 3;
@@ -323,6 +325,8 @@
 //        CGSize sz = [elem.userStatus sizeWithFont:userInfoCell.userStatus.font constrainedToSize:CGSizeMake(frame.size.width, 66.)];
         CGSize sz = [elem.userStatus boundingRectWithSize:CGSizeMake(frame.size.width, 66.) options:NSStringDrawingUsesLineFragmentOrigin
                                                attributes:@{NSFontAttributeName:userInfoCell.userStatus.font} context:nil].size;
+        sz.width = ceilf(sz.width);
+        sz.height = ceilf(sz.height);
 
         frame.size.height = sz.height;
         userInfoCell.userStatus.frame = frame;

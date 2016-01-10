@@ -202,13 +202,18 @@
     if (interfaceOrientation == UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight) {
         maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - 16, 999.) options:NSStringDrawingUsesLineFragmentOrigin
                                                       attributes:@{NSFontAttributeName:chatInput.font} context:nil].size;
-        
+        maximumLabelSize.width = ceilf(maximumLabelSize.width);
+        maximumLabelSize.height = ceilf(maximumLabelSize.height);
+
         //maximumLabelSize = [@"\n \n \n \n " sizeWithFont:chatInput.font constrainedToSize:CGSizeMake(frame1.size.width - 16, 999.)];
         maximumLabelSize.width = frame1.size.width - 16;
         //maximumLabelSize = CGSizeMake(frame1.size.width - 16,64);
     } else {
         maximumLabelSize = [@"\n \n \n \n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - 16, 999.) options:NSStringDrawingUsesLineFragmentOrigin
                                                       attributes:@{NSFontAttributeName:chatInput.font} context:nil].size;
+        maximumLabelSize.width = ceilf(maximumLabelSize.width);
+        maximumLabelSize.height = ceilf(maximumLabelSize.height);
+
         //maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:chatInput.font constrainedToSize:CGSizeMake(frame1.size.width - 16, 999.)];
         maximumLabelSize.width = frame1.size.width - 16;
         //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
@@ -304,6 +309,8 @@
         if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
             maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
                                                           attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+            maximumLabelSize.width = ceilf(maximumLabelSize.width);
+            maximumLabelSize.height = ceilf(maximumLabelSize.height);
 
             //maximumLabelSize = [@"\n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
             maximumLabelSize.width = frame1.size.width - inset;
@@ -311,6 +318,9 @@
         } else {
             maximumLabelSize = [@"\n \n \n \n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
                                                           attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+            maximumLabelSize.width = ceilf(maximumLabelSize.width);
+            maximumLabelSize.height = ceilf(maximumLabelSize.height);
+
             //maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
             maximumLabelSize.width = frame1.size.width - inset;
             //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
@@ -373,6 +383,8 @@
 {
     CGSize expectedTextSize = [newtext boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+    expectedTextSize.width = ceilf(expectedTextSize.width);
+    expectedTextSize.height = ceilf(expectedTextSize.height);
 
     //CGSize expectedTextSize = [newtext sizeWithFont:textView.font
     //                              constrainedToSize:maximumLabelSize];
@@ -782,7 +794,6 @@
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
                          didSelectPerson:(ABRecordRef)person
 {
-    [self peoplePickerNavigationController:peoplePicker shouldContinueAfterSelectingPerson:person];
 }
 
 

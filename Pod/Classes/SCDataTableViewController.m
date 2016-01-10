@@ -132,7 +132,7 @@
     }
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    DLog(@"x : %d / %d", section, [sectionInfo numberOfObjects]);
+    DLog(@"x : %ld / %d", (long)section, (int) [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
     
 }
@@ -202,7 +202,7 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DLog(@"didSelectRowAtIndexPath : %d / %d", indexPath.section, indexPath.row);
+    DLog(@"didSelectRowAtIndexPath : %ld / %ld", (long)indexPath.section, (long)indexPath.row);
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
@@ -210,7 +210,7 @@
     if (self.useDidChangeContentOnly)
         return;
 
-    DLog(@"SCDataTable:didChangeObject : %@ / %d / %d", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"), indexPath.row, type);
+    DLog(@"SCDataTable:didChangeObject : %@ / %ld / %lu", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"), (long)indexPath.row, (unsigned long)type);
     UITableView *tableView = self.tableView;
     
     @try {
