@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "C2Call-SDK"
-  s.version          = "1.3-beta16"
+  s.version          = "1.3"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
 #s.module_name      = "C2CallSDK"
   s.header_dir       = "SocialCommunication"
@@ -42,13 +42,13 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
 
   s.public_header_files = 'Pod/Classes/*.h'
   s.frameworks = 'UIKit', 'Security', 'MobileCoreServices', 'QuickLook', 'AssetsLibrary', 'CoreData', 'AdSupport', 'MediaPlayer', 'CoreTelePhony', 'CFNetwork', 'OpenGLES', 'CoreVideo', 'QuartzCore', 'StoreKit', 'MessageUI', 'MapKit', 'CoreLocation', 'iAd', 'SystemConfiguration', 'AddressBook', 'AddressBookUI', 'CoreAudio', 'AudioToolbox', 'AVFoundation', 'CoreFoundation', 'Accounts'
-  s.dependency 'SBJson', '~> 4.0.2'
-  s.dependency 'AWSCore'
-  s.dependency 'AWSS3'
-#s.dependency 'FBSDKCoreKit', '~> 4.6.0'
-#s.dependency 'FBSDKLoginKit', '~> 4.6.0'
-  s.dependency 'Flurry-iOS-SDK/FlurrySDK'
-  s.dependency 'Flurry-iOS-SDK/FlurryAds'
+  s.dependency 'SBJson', '~> 4.0'
+  s.dependency 'AWSCore', '~> 2.3'
+  s.dependency 'AWSS3', '~> 2.3'
+#s.dependency 'FBSDKCoreKit', '~> 4.6'
+#s.dependency 'FBSDKLoginKit', '~> 4.6'
+  s.dependency 'Flurry-iOS-SDK/FlurrySDK', '~> 7.3'
+  s.dependency 'Flurry-iOS-SDK/FlurryAds', '~> 7.3'
 
   s.preserve_paths = 'Libraries/*.a'
   s.vendored_libraries = 'Libraries/*.a'

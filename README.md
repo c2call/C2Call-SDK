@@ -339,7 +339,24 @@ if (![[C2CallPhone currentPhone] hasObjectForKey:message]) {
 [[SCBubbleViewOut appearance] setBubbleTypeOut:SC_BUBBLE_OUT_WHAZZUPP];
 ```
 
+#### Other Supported Frameworks
+
+C2Call-SDK has build-in support for additional frameworks like Facebook SDK and GPUImage in order to use specific functionalities like Facebook Login or GPUImage Filters on video calls.
+However, those Frameworks are weakly linked into C2Call-SDK and there is no direct dependency defined.
+In order to use the functionality (Facebook Login / GPUImage filters) just manually add the following pods to your Podfile:
+
+Facebook SDK
+
+    pod 'FBSDKCoreKit', '~> 4.9.0'
+    pod 'FBSDKLoginKit', '~> 4.9.0'
+
+GPUImage SDK
+
+   pod 'GPUImage', '~> 0.1.7'
+
+
 **Please visit our forum for support or any feedback.**
+
 
 ## Installation
 
