@@ -63,6 +63,37 @@
  */
 @property(nonatomic) BOOL useGPUImageVideoCapture;
 
+/** Enable/Disable GPUImage Video Preview
+ C2Call API supports GPUImage Filtering for Video Capture.
+ With this feature enabled, the remote party will receive the actual video image after processing the 
+ applied GPUImage filters. However, the sender does not see the processed images in his video preview view
+ by default as the iOS preview is showing the camera picture directly from the hardware.
+ Enable GPUImageVideoPreview will replace the iOS standard preview view with a software preview view
+ showing the video image after filter processing. SCVideoCallController and SCGroupVideoCallController
+ will automatically show this software preview then.
+ 
+ The GPUImage library must be linked to the App, otherwise setting this property has no effect.
+ Please use the Cocoapods GPUImage:
+ 
+    pod search GPUImage
+ 
+ @see useGPUImageVideoCapture:
+ @see setGPUImageFilter:
+ 
+ */
+@property(nonatomic) BOOL useGPUImagePreview;
+
+/** Access the GPUImageVideoPreview 
+ This method returns the software GPUImage Video Preview when useGPUImagePreview is enabled, for direct access
+ and programatic use.
+
+ The GPUImage library must be linked to the App, otherwise setting this property has no effect
+
+ @return CALayer rendering the GPUImage filtered video preview
+ */
+-(nullable CALayer  *) getGPUImagePreviewLayer;
+
+
 /** Set a GPUImageFilter for video processing
  
  nil will remove a previously set filter.

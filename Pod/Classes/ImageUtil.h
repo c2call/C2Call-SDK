@@ -20,5 +20,9 @@
 +(UIImage*) thumbnailFromLocation:(FCLocation *) loc;
 +(UIImage*) imageFromLocation:(FCLocation *) loc;
 +(UIImage*) getSubImageFrom: (UIImage*) img WithRect: (CGRect) rect;
-+(UIImage*)fixImage:(UIImage*)img withQuality:(UIImagePickerControllerQualityType) quality;
++(UIImage*) fixImage:(UIImage*)img withQuality:(UIImagePickerControllerQualityType) quality;
++(UIImage*) imageFromRGBAData:(NSData*) rgba withSize:(CGSize) sz;
++(UIImage*) imageFromRGBAData:(NSData*) rgba withSize:(CGSize) sz orientation:(UIInterfaceOrientation) orientation;
++(UIImage *)rotateImage:(UIImage *)image onDegrees:(float)degrees;
+
 @end

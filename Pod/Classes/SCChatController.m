@@ -782,18 +782,23 @@
 - (BOOL)peoplePickerNavigationController:
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-	
-    [[C2CallPhone currentPhone] submitVCard:person withMessage:nil toTarget:self.targetUserid withCompletionHandler:^(BOOL success, NSString *richMediaKey, NSError *error) {
-        
-        //[self dismissViewControllerAnimated:YES completion:NULL];
-    }];
     
+    if ([IOS iosVersion] < 9.0) {
+        [[C2CallPhone currentPhone] submitVCard:person withMessage:nil toTarget:self.targetUserid withCompletionHandler:^(BOOL success, NSString *richMediaKey, NSError *error) {
+            
+        }];
+    }
     return NO;
 }
 
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
                          didSelectPerson:(ABRecordRef)person
 {
+    if ([IOS iosVersion] >= 9.0) {
+        [[C2CallPhone currentPhone] submitVCard:person withMessage:nil toTarget:self.targetUserid withCompletionHandler:^(BOOL success, NSString *richMediaKey, NSError *error) {
+            
+        }];
+    }
 }
 
 

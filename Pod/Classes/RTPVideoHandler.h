@@ -105,7 +105,7 @@
 @property(nonatomic) int                        rotateFlag, connectionQuality;
 @property(nonatomic, readonly) int currentCamera;
 @property(nonatomic, strong) AVCaptureInput     *frontCamera, *backCamera;
-@property(nonatomic, strong) AVCaptureVideoPreviewLayer  *previewLayer;
+@property(nonatomic, strong) CALayer  *previewLayer;
 @property(nonatomic, strong) id<VideoHandlerDelegate, NSObject> delegate;
 @property(nonatomic) BOOL disposed;
 
