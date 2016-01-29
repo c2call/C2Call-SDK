@@ -1,0 +1,1214 @@
+C2Call Social Communication SDK V 1.3.1 Release Notes
+This Version is the first C2Call SDK based on Cocoapods
+SDK Files are not longer included and have to be installed via pod install from now on.
+Please check out the sample code and read the Readme.txt.
+
+Always find the latest SDK Version via:
+
+pod search C2Call-SDK
+
+New Features:
+- Added "Please hold the line" announcement, when a call is interrupted by an incoming call
+- Added Background Sounds for VoIP Calls (Enterprise Feature)
+- Added GPUImage Filter Support for Video Calls (Enterprise Feature)
+- Added Audio Recording support for Voice Calls (Enterprise Feature)
+- Added Extended Calling Features (Enterprise Feature):
+	- CallingPlan Support (Unlimited Calls to Mobile and PSTN Networks)  
+	- SmartDial Support (Avoid roaming charges by doing local calls to international numbers)
+	- WebCall Support (Connect 2 real phone numbers in a call to avoid data traffic)
+- Enabled Bitcode Support 
+- All SDK image resources are now available as xcasset
+- Support for Facebook Login using latest Facebook API
+- Integration of latest Amazon AWS SDK
+
+
+Bugfixes:
+- Fix for SCDatatableViewController search bug
+- Fix for SCChatController and SCComposeMessageController
+- Cleanup for several warnings introduced with the latest iOS9 BaseSDK
+ 
+
+IMPORTANT NOTE:
+iOS9 requires the following additions to your Info.plist file
+
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>amazonaws.com</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+        <key>amazonaws.com.cn</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+
+#######################
+C2Call Social Communication SDK V 1.2.2 B10 Release Notes
+iOS9 Version - This SDK has been compiled and build on XCode7 with optimizations and fixes for iOS9
+
+New Features:
+- Hold the line annoucement when a VoIP/Video call is interrupted by an incoming call
+    For the announcement the following new APIs are available:
+    // Set your own announcement
+    [SCMediaManager instance].holdTheLineSoundFilePath = <Your Sound File>;
+    // Disable announcement
+    [SCMediaManager instance].disableHoldTheLineAnnouncement = YES / NO;
+
+Bugfixes:
+- SCChatController - hide keyboard before select photo/video
+
+
+IMPORTANT NOTE:
+iOS9 requires the following additions to your Info.plist file
+
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>amazonaws.com</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+        <key>amazonaws.com.cn</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 20.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+#################
+
+C2Call Social Communication SDK V 1.2.1 B168 Release Notes
+iOS9 Version - This SDK has been compiled and build on XCode7 with optimizations and fixes for iOS9
+
+ATTENTION: iOS9 requires the following additions to your Info.plist file
+
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>amazonaws.com</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+        <key>amazonaws.com.cn</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+
+Bugfixes:
+- Fix for Background Thread UI modification when sending picutes or videos
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 20.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+##############
+C2Call Social Communication SDK V 1.2.1 B167 Release Notes
+iOS9 Version - This SDK has been compiled and build on XCode7 with optimizations and fixes for iOS9
+
+ATTENTION: iOS9 requires the following additions to your Info.plist file
+
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>amazonaws.com</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+        <key>amazonaws.com.cn</key>
+        <dict>
+            <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+            <string>TLSv1.0</string>
+            <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+
+New Features:
+- Support for iOS9
+- Added Verify Number using PINCall (force PIN call instead of PIN SMS)
+- New C2CallDataModel Version 20
+- Force CallerId verification before using SMS or PSTN calls
+  Register for SC_CALLERIDVERFICATION_REQUIRED notification to present SCVerifyNumberController
+- SCFriendList register for notification now stores multiple registrations
+
+Bugfixes:
+- Flurry crash reporting is now working correctly
+- VCard Download
+- Fixes for VoIP Push Notification Handling
+- Fixes for remove Chat History
+- Fixes don't show chat from tab on a bubble in a private chat
+- Fix for voicemail recorder
+- Fix for isGroupUser
+- Fix for Queueing Remote Push Notifications after App start until the SIPHandler is initialized
+- many more
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 20.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+C2Call Social Communication SDK V 1.2.1 B73 Release Notes
+
+New Features:
+- Added support for Multiple DIDs in Friend Info
+- New C2CallDataModel Version 20
+
+Bugfixes:
+- Fix for SCAddressBookController (Company Contacts)
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 20.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+
+C2Call Social Communication SDK V 1.2.1 B70 Release Notes
+
+New Features:
+- Added showGroupChat convenience method for UIViewController+CustomViewController category
+- Added GBP currency support
+- SCStoryboard.storyboard now with autolayout constraints for all screen sizes
+
+Bugfixes:
+- Fix for VideoController camera switch
+- Fix for SCPopupMenu support for iOS8 transparency background
+- Fix for activeDids method in SCUserProfile
+- SCDataTableViewController fixes for searchBar
+
+Others:
+- Removed SCStoryboard6.storyboard as iOS6 is not longer supported
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 19.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+C2Call Social Communication SDK V 1.2.1 B40 Release Notes
+
+New Features:
+- Added Support for GBP Curreny (Dedicated Server only)
+- iOS8 VoIP Push Support (now working correctly - only with iOS Versions 8.1.1  and later)
+- Added call costs and SMS costs to MOC2CallEvent
+- Added submitPasswordMail method (only for dedicated server)
+
+Bugfixes:
+- Fix for numberVerificationForRegister
+- Fix for Bluetooth
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 19.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+#######################
+
+C2Call Social Communication SDK V 1.2.0 B188 Release Notes
+Hotfix for B180
+
+Bugfixes:
+- Fix for SocialCommunication.ressources folder. Due to an Xcode bug, the necessary nib files haven been copied into the the folder.
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 18.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+
+C2Call Social Communication SDK V 1.2.0 B180 Release Notes
+ATTENTION: Please see IMPORTANT Note, a new data model has been added (version 18)
+
+Experimental Features:
+- Added G.729 codec (this must be enabled explicitely and the codec must be licensend from the patent owners)
+- Added Braintree Payment API (for enterprise customers with dedicated server only)
+
+Bugfixes:
+- Fix for SCVerifyNumberController country flag
+- Fix for video call crash in background
+- Fix for SCAddressbookController search
+- Several stability issues and improvements
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 18.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+
+
+C2Call Social Communication SDK V 1.2.0 B160 Release Notes
+This SDK Version is focussing on support for the new iOS8 and the new iPhone 6/6+ devices.
+ATTENTION: Please see IMPORTANT Note, a new data model has been added (version 18)
+
+This SDK is a maintenance update.
+
+Bugfixes:
+- Fixed Background Bug: Application has active assertions beyond permitted time
+- Several stability issues and improvements
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 18.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+C2Call Social Communication SDK V 1.2.0 B155 Release Notes
+This SDK Version is focussing on support for the new iOS8 and the new iPhone 6/6+ devices.
+ATTENTION: Please see IMPORTANT Note, a new data model has been added (version 18)
+
+This SDK is a maintenance update.
+
+Bugfixes:
+- Several fixes for stability issues
+- Fix for SCBoardController
+- Fix for Logout crash
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 18.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+
+
+
+C2Call Social Communication SDK V 1.2.0 B100 Release Notes
+This SDK Version is focussing on support for the new iOS8 and the new iPhone 6/6+ devices.
+ATTENTION: Please see IMPORTANT Note, a new data model has been added (version 18)
+
+This SDK is a maintenance update.
+
+Bugfixes:
+- Crash on video call for iPhone5 devices.
+- Fixed layout constraints issues with SCGroupVideoController
+- Fix in SCAddressbookController
+- Several smaller fixes
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 18.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+C2Call Social Communication SDK V 1.2.0 B64 Release Notes
+This SDK Version is focussing on support for the new iOS8 and the new iPhone 6/6+ devices.
+ATTENTION: Please see IMPORTANT Note, a new data model has been added (version 18)
+
+What's new:
+- Support for new Architectures: ARM64 and ARMV7s
+Several new iOS Frameworks require support for ARM64 Architectureon iPhone 6/6+ devices. Therefore the C2Call SDK has been build now with full support for 64-Bit.
+
+- Support for iOS 8 VoIP Push
+Currently the support for iOS8 VoIP Push is still experimental as there seams to be a bug in the new PushKit Framework.
+The provided push tokens can only be used in sanbox environment.
+In order to enable iOS8 VoIP Push Support please do the following steps:
+1. Create a VoIP Push Certificate in your Apple Developer Account
+2. Download the VoIP Certificate and import it into your KeyChain
+3. Select the imported Certificate in your KeyChain including the private key (expand the ">" and select both)
+4. Export the Certificate as .p12 File (use a password)
+5. Import the .p12 file in your Apps section in C2Call DevArea
+6. Add PushKit Framework to your App
+7. Set Deployment Target to iOS8
+8. Validate that your Architecture includes ARM64 (required by PushKit)
+9. Add import statement
+#import <PushKit/PushKit.h>
+10. Add the following lines of Code to your applicationDidFinishLanchning:withOptions: method:
+    self.usePushKit = YES;
+    self.pushKitPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+
+- Enhanced support for DIDs
+When using one or more C2Call DIDs (e.g. US Phone number) the SDK provides now API calls to set the active number (own number or DID) for a call or sending an SMS.
+
+- All frameworks and SDKs used by C2Call SDK have been updated to the latest versions
+- iTunesConnect upload wraning have been removed
+- The SDK uses now SBJson 3.2.0
+- Several Bugfixes for iOS8 (video call is now working with iPhone 6/6+)
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 18.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+myshader.vsh
+myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+USING LOCATION MESSAGES
+Important, in order to use SCLocationSubmitController and SCLocationViewerController,
+please add NSLocationWhenInUseUsageDescription in your Info.plist
+It's required to get access to location services
+
+
+C2Call Social Communication SDK V 1.1.1 B51 Release Notes
+- Several Bugfixes
+    - SCBoardController fix for serveral issues
+    - SCDialPadController fixed autolayout contrains issues
+    - Fix for address book transfer. Newer iOS versions are adding additional separator characters to the phone numbers. These characters will now be removed for address book matching.
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 17.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+C2Call Social Communication SDK V 1.1.1 B28 Release Notes
+New Features:
+- Partitial SourceCode release of the most important SDK ViewController components
+- New API Calls
+    - C2CallPhone: shareMessageOnFacebook
+    - C2CallPhone: activeMembersInCallForGroup
+    - C2CallPhone: activeVideoCallForGroup
+    - C2CallPhone: isGroupUser
+    - C2CallPhone: canEncryptMessageForTarget
+    - C2CallPhone: queryPriceForNumber
+    - C2CallPhone: setDefaultCountryCode
+    - C2CallPhone: setDefaultAreaCode
+    - C2CallPhone: loadGroupHistory
+    - C2CallPhone: downloadStatusForKey
+    - C2CallPhone: failedDownloadStatusForKey
+    - C2CallPhone: getApplicationCredits
+    - C2CallPhone: redeemVoucher
+    - C2CallPhone: redeemApplicationVoucher
+    - C2CallPhone: chargeApplicationCredit
+    - SIPPhone: isValidNumber
+    - SCUserProfile: useFacebook
+    - SCDataManager: recentContacts
+- Several Bugfixes
+    - SCBoardController fix for serveral issues
+    - SCFriendListController fix for several issues
+    - SCChatController is typing event 
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 17.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+
+C2Call Social Communication SDK V 1.1.0 Release Notes
+New Features:
+- Secure Messaging based on Public/Private Key encryption (Enterprise Accounts only)
+    - All Text Messages and Attachments will be encrypted in person to person chats and in group chats
+    - Please see https://www.c2call.com/features/secure-messaging.html
+    - Please also see Sample Code SDK-SecureChat Sample 
+- ScreenSharing / ScreenRecording (Enterprise Accounts only)
+    - SCMediaManager startScreenSharingForView / startMediaRecording / startScreenCaptureForView
+- Storing additional Meta Data for Users and Groups
+    - SCUserProfile setUserdata:forKey / userDataForKey methods
+    - SCGroup setGroupdata:forKey / groupDataForKey methods
+- New Login API
+    - C2CallPhone loginWithUser:andPassword:withCompletionHandler:
+- Support for external Video Capture in video calling sessions to support tools like GPUImage
+    - SCMediaManager useExternalVideoCapture
+- RGBA support for VideoCaptureOutputDelegate
+- Exposed Interfaces for EAGLViewController / EAGLView with access to OpenGL context and Framebuffer
+- Exposed Headerfiles for Chat Tableview cells
+- Extended CoreData Schema
+
+
+Bugfixes:
+    - SCRegistrationController fix for select country
+    - Several bugfixes and stability enhancements
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 17.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+
+C2Call Social Communication SDK V 1.0.0 Release Notes
+New Features:
+- Personal Status Message for users (SCUserStatusController / SCEditStatusController).
+- Show Friends Status Messages in Friendlist and FriendDetails
+- Online status now simplified (offline, online, online (active))
+    - offline - The device is not connected
+    - online - The device is connected, the app is in background
+    - online (active) - The device is connected, the user is active in the app
+- New UserImage API
+    - [SCUserProfile currentUser].userImage
+    - [[SCUserProfile currentUser] setUserImage:withCompletionHandler]
+    - [[C2CallPhone currentPhone] largeUserImageForUserid:];
+- Extended Message API    
+    - [[SCDataManager instance] markAsRead:(MOC2CallEvent *)]
+    - [[SCDataManager instance] totalMissedMessages]
+    - [[SCDataManager instance] totalMissedCalls]
+    - [[SCDataManager instance] missedCallsForContact:];
+    - [[SCDataManager instance] resetMissedCallsForContact:];
+- Extended Group Information
+    - MOC2CallEvent has now a property "originalSender" which carries the userid of the original sender in a group message
+    - MOGroupMember has a new property "userid"
+- New ViewController Components
+    - SCUserStatusController 
+    - SCEditStatusController
+    - SCUserImageController
+- Extended Database Schema
+
+Bugfixes:
+    - Support for Keyboard Toolbars in SCChatController (for example Chinese Keyboard Toolbars)
+    - Fixes for Addressbook handling
+    - Fixes for several crash scenarios
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 15.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+
+C2Call Social Communication SDK V 0.9.10 (Beta) Release Notes
+- Improved Audio Streaming and error correction for HD Voice 
+- Optimizations for iPhone4 on iOS7 video calls.
+- Register with Phone Number Validation API
+- Fix for Video Calls on iPhone 5s, iPad Air and iPad Mini with Retina Display
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 13.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+3. When updating from an older version of the SDK, please check your Framework Search Path in the Build Settings and remove any path component linking to an older version of the SDK. Otherwise you might still use the old version, as XCode is linking frameworks in the order of the Framework Search Path.
+
+
+C2Call Social Communication SDK V 0.9.9 (Beta) Release Notes
+IMPORTANT for Build 41
+- Support for Opus Codec for HD Audio. Significantly improved audio quality in VoIP and video calls.
+
+IMPORTANT for Build 30
+The SCStoryboard7.storyboard, which used to the the storyboard for iOS7 with autolayout has now been renamed to SCStoryboard.storyboard.
+The old non-autolayout storyboard has been renamed to SCStoryboard6.storyboard. It will not longer be updated with the next SDK releases.
+Please update your App to support autolayout.
+
+New Features:
+- Support for tunneling of UDP packets via single port 80 TCP connection.
+Typically VoIP communication will be done via UDP connection-less data transmission for SIP and RTP packets.
+Sometimes, in public WIFI or coprporate WIFI enviroments, the Firewall blocks UDP data which doesn't allow the connection to the C2Call service.
+As fallback, the SDK will now establish a TCP Tunnel over port 80 and transmit all UDP data through this tunnel connection. 
+The tunnel will add additional delay on a connection, but at least the connection will be available under such difficult firewall conditions.
+- SIPPhone : New Methods
+    +(void) setUDPTunnelHost:(NSString *) tunnelHost andPort:(int) tunnelPort;
+    Static Method, to set a different defualt Tunnel Server and Port (must be a C2Call SDK complient Tunnel Server)
+    +(void) setForceTunnel:(BOOL) force;
+    Force a Tunnel Connection (for Testing only, not for Production)
+    +(void) setDisableTunnel:(BOOL) disable;
+    Disable the Tunnel. The SDK will not try to establish a tunnel, in case the normal connection fails.
+    -(BOOL) isUDPTunnelActive;
+    Tunnel Status
+    -(BOOL) forceTunnel;
+    Is tunnel forced.
+
+Bugfixes (Fixed Bugs reported by Forum users):
+
+- Flurry logging methods should always be called on the C2CallAppDelegate. (NoOffers-RadiumOne and NoOffers-SponsorPay)
+- Lowering the the SDK's memory footprint.
+- Async vs sync HTTP requests.([C2CallConnection getAffiliateInfo] or [FlurryAdList imageForAd])
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 13.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+C2Call Social Communication SDK V 0.9.8 (Beta) Release Notes
+This SDK Version now supports the new iOS7. 
+With iOS7 Storyboard and Autolayout will become mandatory for Apps which are supposed to look good on iOS6 and iOS7.
+Therefore, we did the migration to autolayout for all C2Call SDK Storyboard components and also for all Sample Apps.
+
+New Features:
+- Support for iOS7
+- Support for Autolayout 
+
+Bug Fixes:
+- Several Bug-Fixes and compatibility issue for iOS7
+
+In order to keep backwards compatibility with non-autolayout Apps, the SCStoryboard now comes in 2 versions:
+
+- SCStoryboard.storyboard  : Old non-autolayout storyboard. Will be automatically loaded on iOS6 devices.
+- SCStoryboard7.storyboard : New iOS7/XCode5 compliant autolayout based Storyboard. Will be automatically loaded on iOS7 devices.
+
+In order to migrate existing Apps to iOS7/autolayout please do the folowing:
+
+1. Switch your Main.storyboard file to autolayout
+2. Copy the new SocialCommunication.framework and SocialCommunication.resources into your project.
+3. Replace any C2Call SDK components copied in your Main.storyboard, with the corresponding components from SCStoryboard7.storyboard.
+4. Restore any missing Storyboard Segues 
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 13.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+C2Call Social Communication SDK V 0.9.7 (Beta) Release Notes
+New Features:
+- SCMediaManager capturePreviewImageWithCompletionHandler: is now capturing images without camera shutter sound effect
+- C2CallAppDelegate : New Methods
+    -(UILocalNotification *) callNotificationForUserid:(NSString *) userid displayName:(NSString *) displayName videoCall:(BOOL) isVideoCall;
+    Customize Notification Message for inbound call in background
+    -(UILocalNotification *) missedCallNotificationForUserid:(NSString *) userid displayName:(NSString *) displayName;
+    Customize Notification Message for missed call in background
+    -(void) showPrompt:(NSString *) prompt tmo:(NSTimeInterval) tmo;
+    Shows the online status prompt when connected to the service
+    -(void) showIncomingCall;
+    Presents the SCInboundCallController on incoming call. Overwrite this Method to present your own controller.
+    -(void) showCallStatus;
+    Presents the SCCallStatusController on call connected event. Overwrite this Method to present your own controller.
+
+- SCVideoCallController - "Wants Full Screen" setting now enables statusbar hiding (Full Screen = YES - Hides StatusBar)
+
+- SCFriendList : New Class for FriendList management
+    -(BOOL) registerForInitializationCompletion:(void (^)(BOOL success, NSError *error)) handler;
+    Register a Block Handler for initialization completion
+    -(void) registerForAddedFriends:(void (^)(MOC2CallUser *user)) handler;
+    Register a Block Handler to get informed about new friends
+    -(void) registerForRemovedFriends:(void (^)(MOC2CallUser *user)) handler;
+    Register a Block Handler to get informed about removed friends
+    -(void) registerForUpdatedFriends:(void (^)(MOC2CallUser *user)) handler;
+    Register a Block Handler to get informed about any update to a friend
+    -(NSArray *) listFriendsEmail;
+    Returns a list of email addresses of all friends.
+    -(NSArray *) listFriendsUserids;
+    Returns a list of userids of all friends.
+    -(NSArray *) listFriendsInfo;
+    Returns a list of NSDictionary info elements of all friends.
+    +(SCFriendList *) instance;
+    Returns a shared instance of SCFriendList
+
+- SIPPhone : New Properties
+    - callStatus
+    - isCaller
+    - videoCall
+
+- SIPPhone : New Methods
+    -(void) submitEvent:(NSString *)event withMessage:(NSString *)msg toUser:(NSString *) userid;
+    An Event Message is supposed to be an internal notification from app to app to submit status information or other information which shouldn't be displayed to the user directly or stored in the database.
+    +(void) setDefaultOfflineStatus:(SipOnlineStatusT) status;
+    Offline status in background or when application will exit
+
+- C2CallPhone : New Methods
+    -(void) setConnectionTimeout:(NSTimeInterval)connectionTimeout;
+    Set the timeout in seconds, when the connection will be dropped, because no packets are received any longer
+    -(void) setVideoStallingTimeout:(NSTimeInterval)timeout;
+    Set the timeout intervall for a notification,  when video packets are not longer received.
+    It will send the following NSNotification:
+        C2Call:VideoStalling - No video packet received for the last timeout seconds
+        C2Call:VideoResume - No video packet received for the last timeout seconds
+    -(void) setConnectionStallingTimeout:(NSTimeInterval)timeout;
+    Set the timeout intervall for a notification,  when packets are not longer received.
+    It will send the following NSNotification:
+        C2Call:ConnectionStalling - No packet received for the last timeout seconds
+        C2Call:ConnectionResume - No packet received for the last timeout seconds
+
+- SCVideoCallController : New Properties
+    - useLetterBoxFormat
+    Shows the remote video in letterbox format in case the aspect ratio does not fit the screen
+
+Bug Fixes:
+    - Several smaller bugfixes
+    - Removed old DataModel Versions to get rid of most warnings
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+A NEW DATAMODEL VERSION HAS BEEN ADDED:
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 12.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+C2Call Social Communication SDK V 0.9.6 (Beta) Release Notes
+New Features:
+- The SDK internal Reachability class has been renamed into SCReachability in order to avoid conflicts with existing Apps using their own Reachability class
+- The SDK is using internally SBJson and Amazon AWS Framework. Both have been updated to the latest release.
+- A version of the SDK without SBJson and AWS Framework linked is now available under Framework.nolibs. 3rdparty libraries required by this nolibs Framework can be found under 3rdpartylibs/required-
+- Added to support to embedd SCVideoCallController as child controller into any UIViewController
+- SCVideoController now offers a captureScreen method to capture an image of the remote party video stream.
+- C2CallAppDelegate got the following new properties:
+    - useApplicationBadge - Enable / Disable missed events count in the Application Badge
+    - useOnlineStatusPrompt - Enable / Disable the online status prompt
+- C2CallAppDelegate got the following Methods:
+    - showIncomingCall - Present the SCInboundCallController
+    - showCallStatus - Present the SCCallStatusController
+    Overwrite those methods in case you want to use your own controller here.
+- SCVideoCallController got the following new method:
+    -(void) setCompletionHandler:(void (^)())handler;
+    Do a specific handling on video call completion
+- SCMediaManager : 
+    - capturePreviewImageWithCompletionHandler:(void (^)(UIImage *image, NSError *error))handler;
+    Capture a still image recorded by the camera during a video call.
+    -(void) disableMediaOutput:(BOOL) disable;
+    Disable Audio / Video output while a capture session is running
+    -(void) disableVideoOutput:(BOOL) disable;
+    Disable Video output while a capture session is running
+    -(void) disableAudioOutput:(BOOL) disable;
+    Disable Audio output while a capture session is running
+- C2CallPhone :
+    -(void) setConnectionTimeout:(NSTimeInterval)connectionTimeout
+    HangUp after connection is stalling for timeout seconds
+    -(void) setVideoStallingTimeout:(NSTimeInterval)timeout
+    It will send the following NSNotification:
+    C2Call:VideoStalling - No video packet received for the last timeout seconds
+    C2Call:VideoResume - video packet received after stalling event
+    -(void) setConnectionStallingTimeout:(NSTimeInterval)timeout
+     It will send the following NSNotification:
+    C2Call:ConnectionStalling - No packet received for the last timeout seconds
+    C2Call:ConnectionResume - packet received after stalling event
+
+
+Bug Fixes:
+- Video Image was mirrored 
+- UI freeze for a 0.5 seconds on video device rotation
+- Allow your own previewLayer handling in a video call by setting SCVideoCallController previewView outlet to nil
+- Fix for AdSpace handling if AdSpace set to off in the DevArea.    
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 11.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+C2Call Social Communication SDK V 0.9.5 (Beta) Release Notes
+New Features:
+- SCPasswordMailController - Sends a password mail in case the use forgot his password
+- SCKeypadController - Allows to send touch tones during a call. SCKeypadController is now connected to SCCallStatusController.
+
+Bug Fixes:
+- SCOfferwallController - Lazy Image loading
+- VoIP and Video Calls are now available on 3G/4G
+- SCPopupMenu - Fix for some customization issues
+- Fix for some GUI freezing issues. Please report if GUI freezing still happens from time to time.
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 11.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+C2Call Social Communication SDK V 0.9.4 (Beta) Release Notes
+New Features:
+- Facebook Login/Register (for Professional Users only)
+    // SampleCode :
+    [[C2CallAppDelegate appDelegate] startUsingFacebookLogin];
+
+- New Low-Level Register User API (for Professional Users only)
+    // SampleCode:
+    NSDictionary *itsme = [NSDictionary dictionaryWithObjectsAndKeys:@"Georg", @"Firstname", @"Simple", @"Lastname", @"Georg.Simple@gmail.com", @"EMail", nil];
+    
+    [[C2CallPhone currentPhone] registerUser:itsme 
+                                withCompletionHandler:^(BOOL success, NSString *result) {
+        NSLog(@"Success : %d / %@", success, result);
+
+		if (success) {
+        	[[C2CallPhone currentPhone] startC2CallPhone];
+		}
+    }];
+
+- New Low-Level Create Group API (for Professional Users only)
+    // SampleCode:
+    #import <SocialCommunication/UIViewController+SCCustomViewController.h>
+    ...
+    -(IBAction)createGroup:(id)sender
+    {
+        [[C2CallPhone currentPhone] createGroup:@"That's my Simple Group" 
+                                    withMembers:[NSArray arrayWithObjects:@"ebb4fe4a13fe7c0fd51", @"56489fa913fe7c49497", nil] 
+                                    withCompletionHandler:^(BOOL success, NSString *groupId, NSString *result) {
+            
+            if (success) {
+                [self showGroupDetailForGroupid:groupId];
+            }
+        }];
+    }
+
+- New Low-Level API for Call specific information (C2CallPhone : activeMembersInGroupCall, remotePartyInActiveCall, displayNameForRemotePartyInActiveCall)
+
+- SCFriendListController - The filter options got a new option for Friends Only filter
+
+Bug Fixes:
+- Fix in SCUserSelectionController search for member caused a crash
+- [[C2CallPhone currentPhone] callVideo:<target>] didn't work for group calls, this is fixed now.
+
+Facebook Integration:
+The Facebook SDK is not part of the C2Call SDK. In order to use Facebook Login, please oder a professional account, download and install the latest Facebook SDK for iOS and add it to your project. The WhazzUpp sample App has been updated to use the Facebook Login, but the Facebook SDK is not part of the project yet and needs to be added manually.
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 11.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+
+
+C2Call Social Communication SDK V 0.9.3 (Beta) Release Notes
+New Features:
+- New SCPurchaseController allows to simply integrate Apple In-App purchase for purchasing call credits.
+In order to use In-App purchase, please follow the Apple StoreKit guide. The SCPurchaseController uses the SCStoreObserver class to process In-App purchase transactions.
+The correct initalization of SCStoreObserver class is required to use the SCPurchaseController.
+Step to initialize the SCStoreObserver:
+
+1. Create your App in iTunes Connect
+2. After creating the App, go to "Manage In-App purchase" and create one or more consumable product items
+3. In XCode open your AppDelegate class and add the following lines to applicationDidFinishLoading:withOptions:
+    SCStoreObserver *observer = [SCStoreObserver new];
+    // Use addConsumableProduct for any product you create
+    [observer addConsumableProduct:@"<Your Product ID>" creditValue:<Credit Value for the User in Cent> currency:SC_CURRENCY_USD];
+4. All products will automatically appear in SCPurchaseController for purchase.
+5. In case of purchasing a product, the user will receive the defined credit value in his account. Those credit will be deducted from the developers master account. Therefore, the master account must have always enough credit to cover any purchase transactions.
+
+- New customization options for SCChatController and SCBoardController. The actually message bubbles can now be customized in shape and color using UIAppearance API 
+Please refer to the class reference documentation of SCBubbleViewIn and SCBubbleViewOut
+We currently provide 4 different bubble shapes and will add more in the near future
+In order to customize the bubbles, please add the following lines in your AppDelegate applicationDidFinishLaunching:withOptions:
+
+    // Set the Bubble Shape to iOS7 style
+    [[SCBubbleViewIn appearance] setBubbleTypeIn:SC_BUBBLE_IN_IOS7];
+    [[SCBubbleViewOut appearance] setBubbleTypeOut:SC_BUBBLE_OUT_IOS7];
+
+    // Set the bubble color
+    [[SCBubbleViewOut appearance] setBaseColor:[UIColor colorWithRed:89./255. green:166./255. blue:249./255. alpha:0.69]];
+    [[SCBubbleViewIn appearance] setBaseColor:[UIColor colorWithRed:89./255. green:166./255. blue:249./255. alpha:0.69]];
+
+    The following new shapes are available:
+    - SC_BUBBLE_IN_DEFAULT : Standard bubble similar to the bubble shape used by Facebook iOS app
+    - SC_BUBBLE_IN_HANGOUT : Bubble Shape similar to Google Hangout iOS App
+    - SC_BUBBLE_IN_WHAZZUPP : Bubble Shape similar to a popular messenger
+    - SC_BUBBLE_IN_IOS7 : iOS7 style bubble
+
+
+- Add great photo effects to your photos before sending them. Apply stickers, frames and color effects to your photos with only a single line of code.
+
+In order to use photo effects in your app, you need to prepare your app with the following additional steps
+
+1. Add R1PhotoEffectsSDK.a from the SDK Folder 3rdpartylibs/photoeffects to your project
+2. Add CoreText Framework to your project
+3. Add the following linker options to "other Linker Flags" : -ObjC
+4. In our AppDelegate set the following property:
+    self.usePhotoEffects = SC_PHOTO_USERCHOICE;
+
+    3 values are possible here:
+        - SC_PHOTO_NOEFFECTS : No effects will be applied
+        - SC_PHOTO_APPLYEFFECTS : Always apply photo effects when sending a picture message
+        - SC_PHOTO_USERCHOICE : A popup menu allows the user to choose whether he wants to applay a photo effect, after capturing an image.
+
+    This affects the default behavior of our Chat Components and of the following methods:
+    
+    -(void) captureImageFromAlbumWithQuality:(UIImagePickerControllerQualityType)quality andCompleteAction:(void (^)(NSString *key)) completion
+    -(void) captureImageFromCameraWithQuality:(UIImagePickerControllerQualityType)quality andCompleteAction:(void (^)(NSString *key)) completion;
+    -(void) captureMediaFromImagePicker:(UIImagePickerController *) imagePicker andCompleteAction:(void (^)(NSString *key)) completion;
+
+    If you want to directly control the photo capture with effects, use the following new methods:
+    
+    -(void) captureImageFromAlbumWithQuality:(UIImagePickerControllerQualityType)quality andCompleteAction:(void (^)(NSString *key)) completion usingPhotoEffects:(SCPhotoEffects) useEffects;
+    -(void) captureImageFromCameraWithQuality:(UIImagePickerControllerQualityType)quality andCompleteAction:(void (^)(NSString *key)) completion usingPhotoEffects:(SCPhotoEffects) useEffects;
+    -(void) captureMediaFromImagePicker:(UIImagePickerController *) imagePicker andCompleteAction:(void (^)(NSString *key)) completion usingPhotoEffects:(SCPhotoEffects) useEffects;
+    
+    Just have a try. All sample code apps using image capture have been updated to offer using photo effects.
+
+Bug Fixes:
+- Fixed a bug in video call: the picture was turned upside down when rotating to landscape 
+- Fixed many smaller issues
+
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 11.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+
+
+C2Call Social Communication SDK V 0.9.2 (Beta) Release Notes
+
+- New SCMediaManager class available which allows to hook into the video capture session during a video call, for additional video frame processing.
+- Bug fixes for Group Video Chat and Video Chat controller
+- Additional Sample Code: SDK-Video Chat Sample, this sample shows a video call and a group video call example.
+
+IMPORTANT NOTE:
+When adding SocialCommunication.resources, two additional steps have to be done:
+
+1. Seek for C2CallDataModel and select the current data model as: C2CallDataModel 11.xcdatamodel
+Sometimes, the wrong C2CallDataModel is pre-selected, which causes a crash.
+
+2. Please manually add the following files to your "Copy Bundle Resources" section in your Application Target Build Phases:
+    myshader.vsh
+    myshader.fsh
+Just seek for myshader and drag&drop it into your "Copy Bundle Resources" section. This is important as the files will not be copied into your Application Bundle by default at compile time.
+The video call does not work in this case.
+
+
+
+C2Call Social Communication SDK V 0.9.1 (Beta) Release Notes
+
+The current release is the first release of our public beta.
+
+The SDK comes with following functionality.
+
+Leading Communication Features:
+  - Calls to Landline & Mobile Phone Networks
+  - Free Voice over IP & Video Calls
+  - Free Group Voice & Video Chats
+  - Instant Messaging & Rich Media Messaging
+  - SMS/Text Messaging
+
+Drag and Drop GUI Components:
+  - Smart Dialer
+  - Messaging Board
+  - Registration/ Login Controls
+  - Call Handling Controls
+  - Addressbook
+  - Friends & Favorites
+
+Monetization
+  - Integrated APIs of Leading Ad Network Provider (Flurry, Aarki, Sponsorpay, RadiumOne)
+  - Predefine Ad Spaces
+  - OfferWall for In-App currency rewards
+
+More cool Features
+  - Online Presence
+  - Automatic FriendFinder / Addressbook transfer
+  - Virtual US Phone Numbers (DID Numbers)
+  - Encrypted communication
+  - Low Level API access
+
+Although this SDK is in early beta status, the C2Call technology behind is based C2Call's FriendCaller service with more than 11 Million users.
+Therefore all core services like VoIP und Video calls, Instant Messaging is proven technology for many Years now.
+Nevertheless, all GUI components have been completely rewritten for this SDK so that they follow the latest iOS standard based on iOS SDK 6.0 and iOS Storyboard.
+This ensures an easy switch to iOS 7 which will be support as one of the next steps in our beta cycle.
+
+All GUI components can be customized by copying single components from our SCStoryboard (the storyboard shipped with the SDK) into your main storyboard.
+For copying we recommend to always copy all connected components from a block.
+The customization of those components should be done then in your Main Storyboard by modifying the GUI and sub classing the component View Controller classes.
+
+To start with the SDK, do the following:
+
+1. Register a developer account at http://sdk.c2call.com
+2. Download the SDK and the sample code
+3. Get familiar with the documentation and the sample code.
+4. Build the sample code and run it.
+5. Create your own App. Use the video tutorial and the start-up guide to prepare your project.
+6. Register the App in the C2Call Developer Area and pick your Affiliate ID / Secret to enter in your App Delegate
+7. Start building...
+
+For call notifications and messages in background, C2Call uses Apple Push Notifications.
+Please create you developer and distribution Push Certificate in the Apple Developer Portal and upload it to your C2Call Developer Area in order to receive push notifications.
+
+
+Known issues:
+- The API isn't complete yet. 
+- The GUI Components didn't get a real field test yet.
+- The design of the GUI components is not final yet.
+- When adding the SocialCommunication.framework to a project, the Core Data C2CallDataModel does not pre-select the latest data model (C2CallDataModel11.xcdatamodel). This causes a crash when receiving messages. Please manually select the correct data model then.

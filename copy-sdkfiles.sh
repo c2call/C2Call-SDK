@@ -468,3 +468,4 @@ cp ../Classes/AdWhirl/internal/AdWhirlWebBrowser.xib Pod/Assets
 cp ../libvpx.a Libraries/
 #cp ../Classes/G729/libg729b.a Libraries/
 cp ../Classes/libopus.a Libraries/
+cp ../SocialCommunication/Release-Notes.txt .
