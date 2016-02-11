@@ -25,7 +25,7 @@ In order to build your own App based on C2Call-SDK, create a new application in 
 
 https://www.c2call.com/en/how-it-works/ios-sdk.html
 
-With Cocoapods SDK, no additional steps for integrating the SDK are necessary.
+With CocoaPods SDK, no additional steps for integrating the SDK are necessary.
 Just add C2Call-SDK to your Podfile, run pod install and start implementation.
 
 The C2Call-SDK reference documentation can be found here:
