@@ -860,6 +860,7 @@
 		12B5BD6F56F6E1D717AEFA92C2F61C0A /* AWSSTSModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AWSSTSModel.h; path = AWSCore/STS/AWSSTSModel.h; sourceTree = "<group>"; };
 		137B47B21131BECD95685A4D36CC87C8 /* AWSCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AWSCore.h; path = AWSCore/AWSCore.h; sourceTree = "<group>"; };
 		13A6B847694BB80B66EEBE2B697B4568 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/QuickLook.framework; sourceTree = DEVELOPER_DIR; };
+		13E3A27F82106E2508AB1DBDCD271CAB /* libFlurryAds_7.5.1.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurryAds_7.5.1.a; path = FlurryAds/libFlurryAds_7.5.1.a; sourceTree = "<group>"; };
 		13F149504B6B738F802844427C2E6F30 /* SBJson4StreamTokeniser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SBJson4StreamTokeniser.m; path = src/main/objc/SBJson4StreamTokeniser.m; sourceTree = "<group>"; };
 		1409888925E26234E3DC0F89915484BC /* SCGroupDetailHeaderController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SCGroupDetailHeaderController.h; sourceTree = "<group>"; };
 		1413F0FCF5CDBB6731B2C6C7C805FB93 /* C2CallDataModel 13.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = "C2CallDataModel 13.xcdatamodel"; sourceTree = "<group>"; };
@@ -912,7 +913,6 @@
 		24E15A4134E342056F2D3EE07654CD0D /* Pods-C2Call-SDK_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-C2Call-SDK_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		2589D8CFB46BB2CDF6E9AD7F7FFB4B41 /* SCVerifyNumberController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SCVerifyNumberController.h; sourceTree = "<group>"; };
 		25A7EEFA0A61541E4E8C7BC2914B2410 /* TrialpayBannerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TrialpayBannerView.h; sourceTree = "<group>"; };
-		25FD623B706E633DDC0A7B28AE39E43F /* libFlurryAds_7.3.0.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurryAds_7.3.0.a; path = FlurryAds/libFlurryAds_7.3.0.a; sourceTree = "<group>"; };
 		260373C2645F4667363B9A889C21999E /* SCUserStatusController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SCUserStatusController.h; sourceTree = "<group>"; };
 		267167CE35F043A82729694F8C179E35 /* SCLaunchScreenController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SCLaunchScreenController.h; sourceTree = "<group>"; };
 		26FA25BFEB32C61AF7A64280A564005C /* np-679.xml */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = "np-679.xml"; sourceTree = "<group>"; };
@@ -1000,7 +1000,6 @@
 		42619D41BDDF25917A8DA8A70F4CC31A /* SBJson4StreamWriterState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SBJson4StreamWriterState.h; path = src/main/objc/SBJson4StreamWriterState.h; sourceTree = "<group>"; };
 		42B62EE0D7403062B62EEE5A11A2D89B /* np-992.xml */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = "np-992.xml"; sourceTree = "<group>"; };
 		42C9B97ECCF843BFD4AD0AAE806ADDEA /* AlertUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AlertUtil.h; sourceTree = "<group>"; };
-		434D069C3A2E09B1DF898C5905D65346 /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_7.3.0.a; path = Flurry/libFlurry_7.3.0.a; sourceTree = "<group>"; };
 		44851A0D865998F67A0738A39760368C /* ImageCellOutStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ImageCellOutStream.h; sourceTree = "<group>"; };
 		44ADB5E10BE1D873D64FE1415252F4F6 /* np-853.xml */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = "np-853.xml"; sourceTree = "<group>"; };
 		44AF55A22143C46D7A7A6B215DEA4980 /* np-223.xml */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = "np-223.xml"; sourceTree = "<group>"; };
@@ -1010,6 +1009,7 @@
 		468D978B602E6E95C37C23B29737ADE7 /* AWSS3.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AWSS3.xcconfig; sourceTree = "<group>"; };
 		46B2E2CC19B297DD4BA19FAADBC4048F /* AWSCognitoIdentityService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AWSCognitoIdentityService.h; path = AWSCore/CognitoIdentity/AWSCognitoIdentityService.h; sourceTree = "<group>"; };
 		46D40861A68469B15A1D4215A905A0A9 /* C2Call-SDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "C2Call-SDK-dummy.m"; sourceTree = "<group>"; };
+		470CC5E59CFB94D8F9527D52437CB818 /* libFlurry_7.5.1.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_7.5.1.a; path = Flurry/libFlurry_7.5.1.a; sourceTree = "<group>"; };
 		475947BD9AA2886EA39CB2F66442FDD5 /* ScreenControls.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ScreenControls.h; sourceTree = "<group>"; };
 		476B7B3BB7C8B4E2582DC0ADA8E2ABBB /* np-991.xml */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = "np-991.xml"; sourceTree = "<group>"; };
 		483E8E903C8CD5E8D17E9EDD434B972B /* np-218.xml */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = "np-218.xml"; sourceTree = "<group>"; };
@@ -1656,14 +1656,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08EE25CE7E40F0E39AB71F2A4448020D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				434D069C3A2E09B1DF898C5905D65346 /* libFlurry_7.3.0.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		1A4CF3075A809A3988E5CD1A542E7C61 /* Pods-C2Call-SDK_Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1697,7 +1689,7 @@
 				F6A61596B7E9A06FDE412A70ABA44C7E /* FlurryAdNativeStyle.h */,
 				459D17D5C3CA79E56C29F2767E9EFE4C /* FlurryAds.h */,
 				4DB079CC87F171FD02F68289D74E6C57 /* FlurryAdTargeting.h */,
-				B32A5055B88FCF309CE13E0D8F217CA6 /* Frameworks */,
+				6C1E7103302350B6B3B5586188EC82EF /* Frameworks */,
 			);
 			name = FlurryAds;
 			sourceTree = "<group>";
@@ -2021,12 +2013,20 @@
 			path = AWSS3;
 			sourceTree = "<group>";
 		};
+		6C1E7103302350B6B3B5586188EC82EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13E3A27F82106E2508AB1DBDCD271CAB /* libFlurryAds_7.5.1.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6DCC4A66D78386E21116B2E1A2673247 /* FlurrySDK */ = {
 			isa = PBXGroup;
 			children = (
 				21C79198AF859969D37E737D60A62548 /* Empty.m */,
 				A0FD4EF18F68824B1836137BC9487158 /* Flurry.h */,
-				08EE25CE7E40F0E39AB71F2A4448020D /* Frameworks */,
+				A8A5432A0C1C607F914FC3270325CCCA /* Frameworks */,
 			);
 			name = FlurrySDK;
 			sourceTree = "<group>";
@@ -2549,6 +2549,14 @@
 			path = Pod;
 			sourceTree = "<group>";
 		};
+		A8A5432A0C1C607F914FC3270325CCCA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				470CC5E59CFB94D8F9527D52437CB818 /* libFlurry_7.5.1.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AD559F393BACCF4E304B0F591B121162 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2567,14 +2575,6 @@
 			);
 			name = "C2Call-SDK";
 			path = ../..;
-			sourceTree = "<group>";
-		};
-		B32A5055B88FCF309CE13E0D8F217CA6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				25FD623B706E633DDC0A7B28AE39E43F /* libFlurryAds_7.3.0.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D2FD8D37AEBE41ED811ACF2668E3B692 /* Resources */ = {
