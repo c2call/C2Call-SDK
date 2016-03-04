@@ -165,6 +165,10 @@
     [super viewWillAppear:animated];
 
     hasTabBar = !self.tabBarController.tabBar.isHidden;
+    
+    if ([self.chatInput.text length] == 0) {
+        [self initialToolbarSize];
+    }
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -198,7 +202,8 @@
     if (frame1.size.width == 0)
         return;
     
-    CGSize maximumLabelSize;
+    CGSize maximumLabelSize = [self maximumLabelSize:self.chatInput];
+    /*
     if (interfaceOrientation == UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight) {
         maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - 16, 999.) options:NSStringDrawingUsesLineFragmentOrigin
                                                       attributes:@{NSFontAttributeName:chatInput.font} context:nil].size;
@@ -218,6 +223,7 @@
         maximumLabelSize.width = frame1.size.width - 16;
         //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
     }
+    */
     
     NSString *text = chatInput.text;
     if ([text hasSuffix:@"\n"]) {
@@ -297,34 +303,7 @@
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"text-%@", self.targetUserid]];
         }
         
-        CGRect frame1 = textView.frame;
-        CGSize maximumLabelSize;
-        
-        CGFloat inset = 16;
-        if ([IOS iosVersion] >= 7.) {
-            UIEdgeInsets edges = self.chatInput.textContainerInset;
-            inset = edges.left + edges.right;
-        }
-        
-        if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-            maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
-                                                          attributes:@{NSFontAttributeName:textView.font} context:nil].size;
-            maximumLabelSize.width = ceilf(maximumLabelSize.width);
-            maximumLabelSize.height = ceilf(maximumLabelSize.height);
-
-            //maximumLabelSize = [@"\n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
-            maximumLabelSize.width = frame1.size.width - inset;
-            //maximumLabelSize = CGSizeMake(frame1.size.width - 16,64);
-        } else {
-            maximumLabelSize = [@"\n \n \n \n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
-                                                          attributes:@{NSFontAttributeName:textView.font} context:nil].size;
-            maximumLabelSize.width = ceilf(maximumLabelSize.width);
-            maximumLabelSize.height = ceilf(maximumLabelSize.height);
-
-            //maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
-            maximumLabelSize.width = frame1.size.width - inset;
-            //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
-        }
+        CGSize maximumLabelSize = [self maximumLabelSize:textView];
         
         [self resizeToolbar:newtext textView:textView maxLabelSize:maximumLabelSize];
     }
@@ -332,6 +311,47 @@
     }
     
     return YES;
+}
+
+-(CGSize) maximumLabelSize:(UITextView *)textView
+{
+    CGRect frame1 = textView.frame;
+    CGSize maximumLabelSize;
+    
+    CGFloat inset = 16;
+    if ([IOS iosVersion] >= 7.) {
+        UIEdgeInsets edges = self.chatInput.textContainerInset;
+        inset = edges.left + edges.right;
+    }
+    
+    if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
+        maximumLabelSize = [@"\n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                      attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+        maximumLabelSize.width = ceilf(maximumLabelSize.width);
+        maximumLabelSize.height = ceilf(maximumLabelSize.height);
+        
+        //maximumLabelSize = [@"\n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
+        maximumLabelSize.width = frame1.size.width - inset;
+        //maximumLabelSize = CGSizeMake(frame1.size.width - 16,64);
+    } else {
+        maximumLabelSize = [@"\n \n \n \n \n \n \n " boundingRectWithSize:CGSizeMake(frame1.size.width - inset, 999.) options:NSStringDrawingUsesLineFragmentOrigin
+                                                               attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+        maximumLabelSize.width = ceilf(maximumLabelSize.width);
+        maximumLabelSize.height = ceilf(maximumLabelSize.height);
+        
+        //maximumLabelSize = [@"\n \n \n \n \n \n \n " sizeWithFont:textView.font constrainedToSize:CGSizeMake(frame1.size.width - inset, 999.)];
+        maximumLabelSize.width = frame1.size.width - inset;
+        //maximumLabelSize = CGSizeMake(frame1.size.width - 16,128);
+    }
+    
+    return maximumLabelSize;
+    
+}
+
+-(void) initialToolbarSize
+{
+    CGSize maxsz = [self maximumLabelSize:self.chatInput];
+    [self resizeToolbar:@" " textView:self.chatInput maxLabelSize:maxsz];
 }
 
 -(void) textViewDidChange:(UITextView *)textView
@@ -416,6 +436,8 @@
     if (sz < minToolbarHeight)
         sz = minToolbarHeight;
     
+    BOOL wasScrolling = textView.scrollEnabled;
+    textView.scrollEnabled = NO;
     
     //dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.toolbarView resizeToolbar:sz]) {
@@ -444,13 +466,16 @@
         [numSMS setHidden:YES];
     }
     
+    textView.scrollEnabled = wasScrolling;
 }
 
 -(void) resetTextInput
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.chatInput.text = nil;
-        [self.toolbarView resizeToolbar:minToolbarHeight];
+        
+        //[self.toolbarView resizeToolbar:minToolbarHeight];
+        [self initialToolbarSize];
         [numChars setHidden:YES];
         [numSMS setHidden:YES];
     });

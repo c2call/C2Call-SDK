@@ -30,5 +30,6 @@
 -(void) setTitle:(NSString *) _title;
 -(void) setSubTitle:(NSString *) _subtitle;
 -(NSString *) locationUrl;
+-(NSURL *) storeLocationAsVCard;
 
 @end

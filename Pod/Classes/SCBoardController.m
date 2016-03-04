@@ -1083,11 +1083,19 @@
         NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
         
         UIMenuItem *item = nil;
+        /*
         item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", @"MenuItem") action:@selector(forwardAction:)];
         [cell setForwardAction:^{
             [self forwardMessage:text];
         }];
         [menulist addObject:item];
+         */
+        item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", @"MenuItem") action:@selector(shareAction:)];
+        [cell setShareAction:^{
+            [self shareRichMessageForKey:text];
+        }];
+        [menulist addObject:item];
+
         
         item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"MenuItem") action:@selector(copyAction:)];
         [cell setCopyAction:^{
@@ -1225,9 +1233,16 @@
         NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
         
         UIMenuItem *item = nil;
+        /*
         item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", @"MenuItem") action:@selector(forwardAction:)];
         [cell setForwardAction:^{
             [self forwardMessage:text];
+        }];
+         [menulist addObject:item];
+         */
+        item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", @"MenuItem") action:@selector(shareAction:)];
+        [cell setShareAction:^{
+            [self shareRichMessageForKey:text];
         }];
         [menulist addObject:item];
         
@@ -1806,9 +1821,9 @@
         UIMenuController *menu = [UIMenuController sharedMenuController];
         NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
         
-        UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", @"MenuItem") action:@selector(forwardAction:)];
-        [cell setForwardAction:^{
-            [self forwardMessage:text];
+        UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", @"MenuItem") action:@selector(shareAction:)];
+        [cell setShareAction:^{
+            [self shareRichMessageForKey:text];
         }];
         [menulist addObject:item];
         
@@ -1860,9 +1875,9 @@
         UIMenuController *menu = [UIMenuController sharedMenuController];
         NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
         
-        UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", @"MenuItem") action:@selector(forwardAction:)];
-        [cell setForwardAction:^{
-            [self forwardMessage:text];
+        UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", @"MenuItem") action:@selector(shareAction:)];
+        [cell setShareAction:^{
+            [self shareRichMessageForKey:text];
         }];
         [menulist addObject:item];
         
@@ -3094,6 +3109,95 @@
 
 #pragma mark Message Actions
 
+-(BOOL) canShareWithApps:(NSString *) key
+{
+    SCRichMediaType mt = [[C2CallPhone currentPhone] mediaTypeForKey:key];
+    
+    UIActivityViewController *activityViewController = nil;
+    
+    switch (mt) {
+        case SCMEDIATYPE_TEXT:
+        case SCMEDIATYPE_IMAGE:
+        case SCMEDIATYPE_USERIMAGE:
+        case SCMEDIATYPE_VIDEO:
+        case SCMEDIATYPE_VOICEMAIL:
+        case SCMEDIATYPE_FILE:
+        case SCMEDIATYPE_VCARD:
+        //case SCMEDIATYPE_LOCATION:
+            return YES;
+        default:
+            return NO;
+    }
+
+}
+
+-(void) shareWithApps:(NSString*) key
+{
+    SCRichMediaType mt = [[C2CallPhone currentPhone] mediaTypeForKey:key];
+    
+    UIActivityViewController *activityViewController = nil;
+    
+    switch (mt) {
+        case SCMEDIATYPE_TEXT:
+        {
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[key] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_IMAGE:
+        {
+            NSURL *mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:key];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_USERIMAGE:
+        {
+            NSURL *mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:key];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_VIDEO:
+        {
+            NSURL *mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:key];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_VOICEMAIL:
+        {
+            NSURL *mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:key];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_FILE:
+        {
+            NSURL *mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:key];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_VCARD:
+        {
+            NSURL *mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:key];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_FRIEND:
+            break;
+        case SCMEDIATYPE_LOCATION:{
+            FCLocation *loc = [[FCLocation alloc] initWithKey:key];
+            NSURL *mediaUrl = [loc storeLocationAsVCard];
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[mediaUrl] applicationActivities:nil];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if (activityViewController) {
+        [self presentViewController:activityViewController animated:YES completion:^{
+            
+        }];
+    }
+}
+
 -(void) shareEmail:(NSString *) key
 {
     if (![MFMailComposeViewController canSendMail]) {
@@ -3120,10 +3224,16 @@
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
     NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
-    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via FriendCaller", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
         [self forwardMessage:key];
     }];
-    
+
+    if ([self canShareWithApps:key]) {
+        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_action" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+            [self shareWithApps:key];
+        }];
+    }
+
     
     [cv addCancelWithName:NSLocalizedString(@"Cancel", @"Button") andCompletion:^{
     }];
@@ -3137,13 +3247,15 @@
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
     NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
-    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via FriendCaller", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
         [self forwardMessage:key];
     }];
     
-    [cv addChoiceWithName:NSLocalizedString(@"Email", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via Email", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_email" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
-        [self shareEmail:key];
-    }];
+    if ([self canShareWithApps:key]) {
+        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_action" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+            [self shareWithApps:key];
+        }];
+    }
     
     [cv addCancelWithName:NSLocalizedString(@"Cancel", @"Button") andCompletion:^{
     }];
