@@ -188,6 +188,13 @@ typedef enum {
  */
 @property(nonatomic, strong) NSString       *loginSession;
 
+/** registerStatus
+ 
+ Numeric return value only available after after registration
+ */
+@property(nonatomic, readonly) NSInteger    registerStatus;
+
+
 /**---------------------------------------------------------------------------------------
  * @name C2CallPhone lifecycle handling
  *  ---------------------------------------------------------------------------------------
