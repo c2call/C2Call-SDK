@@ -295,6 +295,29 @@ typedef enum {
  * @name Other Methods
  *  ---------------------------------------------------------------------------------------
  */
+
+/** Check if user exists for a given email address
+ 
+ This method can be used before login in order to check whether a given email address would be a new user 
+ or an existing user.
+ 
+ @param email Email address to check
+ @return YES - User exists / NO - User does not exist
+ */
+-(BOOL) existingUser:(nonnull NSString *) email;
+
+/** Check if user exists for a given phone number
+ 
+ This method can be used before login in order to check whether a given phone number would be a new user
+ or an existing user.
+ This method can only be used on dedicated server installations where a phone number of a user must be system wide unique.
+ 
+ @param phone Phone number to check
+ @return Email address of the user if exists else nil
+ */
+-(nullable NSString *) userForPhoneNumber:(nonnull NSString *) phone;
+
+
 /** Get the name for a given userid.
 
  This method returns the Firstname / Lastname or Email address for a given user ID.

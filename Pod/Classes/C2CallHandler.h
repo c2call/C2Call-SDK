@@ -235,6 +235,8 @@
 -(NSDate *) getLastOnlineStatusForUser:(NSString *) userid;
 -(NSString *) requestBTClientToken;
 -(NSDictionary *) addBrainTreeCredit:(NSString *)value currency:(NSString *)currency nonce:(NSString *) nonce channel:(NSString *) channel;
+-(BOOL) existingUser:(NSString *) email;
+-(NSString *) userForCallerid:(NSString *) callerid;
 
 -(DDXMLDocument *) didInfo:(int) didnum;
 -(DDXMLDocument *) didTarifInfo;
