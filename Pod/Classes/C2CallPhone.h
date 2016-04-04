@@ -118,15 +118,15 @@ typedef enum {
  */
 /** C2CallPhone delegate.
  */
-@property(weak, nonatomic) id<C2CallPhoneDelegate>    delegate;
+@property(weak, nonatomic, nullable) id<C2CallPhoneDelegate>    delegate;
 
 /** SIPPhone instantiated by C2CallPhone.
  */
-@property(nonatomic, strong) SIPPhone                   *sipphone;
+@property(nonatomic, strong, nullable) SIPPhone                   *sipphone;
 
 /** Start-up properties.
  */
-@property(nonatomic, strong) NSDictionary               *properties;
+@property(nonatomic, strong, nonnull) NSDictionary               *properties;
 
 /** Is login completed after start-up.
  */
@@ -168,25 +168,25 @@ typedef enum {
 
 /** AffiliateId available in C2Call SDK Developer Area.
  */
-@property(nonatomic, readonly) NSString               *affiliateId;
+@property(nonatomic, readonly, nonnull) NSString               *affiliateId;
 
 /** Current SessionId
  */
-@property(nonatomic, readonly) NSString               *sessionId;
+@property(nonatomic, readonly, nullable) NSString               *sessionId;
 
 
 
 /** Application Secret available in C2Call SDK Developer Area.
  */
-@property(nonatomic, readonly) NSString               *secret;
+@property(nonatomic, readonly, nonnull) NSString               *secret;
 
 /** Auto-Login Token (Enterprise Customers only)
  */
-@property(nonatomic, strong) NSString *loginToken;
+@property(nonatomic, strong, nullable) NSString *loginToken;
 
 /** Auto-Login Session (Enterprise Customers only)
  */
-@property(nonatomic, strong) NSString       *loginSession;
+@property(nonatomic, strong, nullable) NSString       *loginSession;
 
 /** registerStatus
  
@@ -207,7 +207,7 @@ typedef enum {
  @param properties A dictionary of properties
  @return C2CallPhone instance
  */
--(id) initWithProperties:(NSDictionary *) properties;
+-(nullable id) initWithProperties:(nonnull NSDictionary *) properties;
 
 /** Initializes Affiliate Data.
  
@@ -326,13 +326,13 @@ typedef enum {
  @param userid C2Call Userid of registered user.
  @return Name of the user
  */
--(NSString *) nameForUserid:(NSString *) userid;
+-(nullable NSString *) nameForUserid:(nonnull NSString *) userid;
 
 /** Check whether a given userid is actually a group.
  
  @return YES / NO
 */
--(BOOL) isGroupUser:(NSString *) userid;
+-(BOOL) isGroupUser:(nonnull NSString *) userid;
 
 /** Register Apple Push Notification Token.
  
@@ -341,7 +341,7 @@ typedef enum {
  It's not recommended to call this method manually.
  
  */
--(void) registerAPS:(NSData *)token;
+-(void) registerAPS:(nonnull NSData *)token;
 
 /** Set the Application Badge Number with current number of missed events.
  
@@ -369,7 +369,7 @@ typedef enum {
  @param number - Phone number in international format
  */
 
--(void) callNumber:(NSString *) number;
+-(void) callNumber:(nonnull NSString *) number;
 
 /** Call another C2Call Service user or group via VoIP call.
  
@@ -387,7 +387,7 @@ typedef enum {
  
  @param callee - C2Call Userid or Email Address of a registered user
  */
--(void) callVoIP:(NSString *) callee;
+-(void) callVoIP:(nonnull NSString *) callee;
 
 /** Call another C2Call Service user or group via Video call.
  
@@ -400,7 +400,7 @@ typedef enum {
  
  @param callee - C2Call Userid or Email Address of a registered user
  */
--(void) callVideo:(NSString *) callee;
+-(void) callVideo:(nonnull NSString *) callee;
 
 /** Call another C2Call Service user or group via Video call.
  
@@ -414,7 +414,7 @@ typedef enum {
  @param callee - C2Call Userid or Email Address of a registered user
  @param isGroupCall - Specify whether it's a group call.
  */
--(void) callVideo:(NSString *) callee groupCall:(BOOL) isGroupCall;
+-(void) callVideo:(nonnull NSString *) callee groupCall:(BOOL) isGroupCall;
 
 /** Accept an incoming call.
  
@@ -465,7 +465,7 @@ typedef enum {
  
  @return Active CallerId
  */
--(NSString *) activeCallerId;
+-(nullable NSString *) activeCallerId;
 
 /** connectionTimeout set the timeout in seconds, when the connection will be dropped,
  because no packets are received any longer.
@@ -513,32 +513,32 @@ typedef enum {
 /** Provides a list of Userid's for the current active members in a Group Call.
  @return List of userids
  */
--(NSArray *) activeMembersInGroupCall;
+-(nullable NSArray *) activeMembersInGroupCall;
 
 /** Provides a list of Userid's for the current active members in a Group Call.
  
  @param groupid - groupid of the group
  @return List of userids
  */
--(NSArray *) activeMembersInCallForGroup:(NSString *) groupid;
+-(nullable NSArray *) activeMembersInCallForGroup:(nonnull NSString *) groupid;
 
 /** Return the video status of an active group call
  
  @param groupid - groupid of the group
  @return YES: Video call / NO: Audio call
  */
--(BOOL) activeVideoCallForGroup:(NSString *) groupid;
+-(BOOL) activeVideoCallForGroup:(nonnull NSString *) groupid;
 
 
 /** Provides Userid or Phone Number of the remote party in the current active call.
  @return Userid or Phone Number
  */
--(NSString *) remotePartyInActiveCall;
+-(nullable NSString *) remotePartyInActiveCall;
 
 /** Provides the Display Name of the remote party in the current active call
  @return Display Name of Remote Party
  */
--(NSString *) displayNameForRemotePartyInActiveCall;
+-(nullable NSString *) displayNameForRemotePartyInActiveCall;
 
 /** @name User / Group Management */
 
@@ -559,7 +559,7 @@ typedef enum {
  @param forcePinCall - YES / Use a pin call instead of SMS. NO / Use SMS if possible else use PIN call
  
 */
--(void) numberVerificationForRegister:(NSString *) number withPinMessage:(NSString *) pinMessage forcePinCall:(BOOL) force withCompletionHandler:(void (^)(BOOL success))handler;
+-(void) numberVerificationForRegister:(nonnull NSString *) number withPinMessage:(nullable NSString *) pinMessage forcePinCall:(BOOL) force withCompletionHandler:(nullable void (^)(BOOL success))handler;
 
 /** Register a new User
  
@@ -599,7 +599,7 @@ typedef enum {
  @param handler - The completion handler. Will be called with a success parameter and a result string.
  
  */
--(void) registerUser:(NSDictionary *) registration  withCompletionHandler:(void (^)(BOOL success, NSString *result))handler;
+-(void) registerUser:(nonnull NSDictionary *) registration  withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable result))handler;
 
 /** Login existing user 
  
@@ -618,7 +618,7 @@ typedef enum {
  @return YES - Login initiated, completion handler will be called, NO - error in parameters
  
  */
--(BOOL) loginWithUser:(NSString *)email andPassword:(NSString *) password withCompletionHandler:(void (^)(BOOL success, int resultCode, NSString *resultMessage))handler;
+-(BOOL) loginWithUser:(nonnull NSString *)email andPassword:(nonnull NSString *) password withCompletionHandler:(nullable void (^)(BOOL success, int resultCode, NSString * _Nullable resultMessage))handler;
 
 /** Login existing user with temporary loginToken
  
@@ -638,7 +638,7 @@ typedef enum {
  @return YES - Login initiated, completion handler will be called, NO - error in parameters
  
  */
--(BOOL) loginWithToken:(NSString *)token andCompletionHandler:(void (^)(BOOL success, int resultCode, NSString *resultMessage))handler;
+-(BOOL) loginWithToken:(nonnull NSString *)token andCompletionHandler:(nullable void (^)(BOOL success, int resultCode, NSString * _Nullable resultMessage))handler;
 
 /** Login existing user with sessionid
  
@@ -658,7 +658,7 @@ typedef enum {
  @return YES - Login initiated, completion handler will be called, NO - error in parameters
  
  */
--(BOOL) loginWithSession:(NSString *)session andCompletionHandler:(void (^)(BOOL success, int resultCode, NSString *resultMessage))handler;
+-(BOOL) loginWithSession:(nonnull NSString *)session andCompletionHandler:(nullable void (^)(BOOL success, int resultCode, NSString * _Nullable resultMessage))handler;
 
 /** Send Password Email
 
@@ -666,7 +666,7 @@ typedef enum {
  This method is only available to customers with dedicated SDK server.
  @param email - email address
  */
--(void) submitPasswordEMail:(NSString *) email;
+-(void) submitPasswordEMail:(nonnull NSString *) email;
 
 /** Get the last time the user was active in the app
  
@@ -675,7 +675,7 @@ typedef enum {
  @param userid - Userid of the user
  @return The last online timestamp as date
  */
--(NSDate *) lastTimeOnlineForUser:(NSString *) userid;
+-(nullable NSDate *) lastTimeOnlineForUser:(nonnull NSString *) userid;
 
 /** Get the last time the user was active in the app
  
@@ -685,7 +685,7 @@ typedef enum {
  @param userid - Userid of the user
  @return The last online timestamp as date
  */
--(NSString *) lastTimeOnlineForUserAsString:(NSString *) userid;
+-(nullable NSString *) lastTimeOnlineForUserAsString:(nonnull NSString *) userid;
 
 /** Enable Public/Private Key Encryption for message communication
  
@@ -699,7 +699,7 @@ typedef enum {
  
  @return YES - encrytion will be enabled, completion handler will be called. NO - encryption cannot be enabled or is already enabled, the completion handler will not be called.
  */
--(BOOL) enableEncryptionWithCompletionHandler:(void (^)(BOOL success))handler;
+-(BOOL) enableEncryptionWithCompletionHandler:(nullable void (^)(BOOL success))handler;
 
 /** Disable encrytion and removed public/private key-pair.
  
@@ -708,7 +708,7 @@ typedef enum {
  @return YES - encrytion will be dis-abled, completion handler will be called. NO - encryption cannot be disabled or is already disabled, the completion handler will not be called.
  */
 
--(BOOL) disableEncryptionWithCompletionHandler:(void (^)(BOOL success))handler;
+-(BOOL) disableEncryptionWithCompletionHandler:(nullable void (^)(BOOL success))handler;
 
 /** Is encryption enabled for this account on this device
  
@@ -735,7 +735,7 @@ typedef enum {
  
  @return YES encryption is enabled, NO else.
  */
--(BOOL) canEncryptMessageForTarget:(NSString *) targetUserid;
+-(BOOL) canEncryptMessageForTarget:(nonnull NSString *) targetUserid;
 
 /** Is the local certificate valid for this account
 
@@ -772,7 +772,7 @@ typedef enum {
  @param handler - The completion handler. Will be called with a success parameter the groupid and a result string.
 
  */
--(void) createGroup:(NSString *) groupName withMembers:(NSArray *) members withCompletionHandler:(void (^)(BOOL success, NSString *groupId, NSString *result))handler;
+-(void) createGroup:(nonnull NSString *) groupName withMembers:(nonnull NSArray *) members withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable groupId, NSString * _Nullable result))handler;
 
 /** Create a CallMe Link for the specified group
  
@@ -786,7 +786,7 @@ typedef enum {
  @param groupid - groupid for the group
  @return NSDictionary
  */
--(NSDictionary *) createGroupLinkForGroup:(NSString *) groupid;
+-(nullable NSDictionary *) createGroupLinkForGroup:(nonnull NSString *) groupid;
 
 /** Enable Group Encryption 
  
@@ -806,7 +806,7 @@ typedef enum {
  
  @return YES - encrytion will be enabled, completion handler will be called. NO - group encryption cannot be enabled, the completion handler will not be called.
  */
--(BOOL) enableEncryptionForGroup:(NSString *) groupid withCompletionHandler:(void (^)(BOOL success, NSSet *encryptedMembers))handler;
+-(BOOL) enableEncryptionForGroup:(nonnull NSString *) groupid withCompletionHandler:(nullable void (^)(BOOL success, NSSet * _Nullable encryptedMembers))handler;
 
 /** Re-distribute public/private key-pair to the group members
  
@@ -819,7 +819,7 @@ typedef enum {
  @return YES - keys will be re-distributed, completion handler will be called. NO - error, the completion handler will not be called.
  
  */
--(BOOL) refreshKeysForGroup:(NSString *) groupid withCompletionHandler:(void (^)(BOOL didUpdate, NSSet *encryptedMembers))handler;
+-(BOOL) refreshKeysForGroup:(nonnull NSString *) groupid withCompletionHandler:(nullable void (^)(BOOL didUpdate, NSSet * _Nullable encryptedMembers))handler;
 
 /** List of encryption enabled group members
  
@@ -829,14 +829,14 @@ typedef enum {
  
  @return List of userids
  */
--(NSSet *) encryptionEnabledGroupMembersForGroup:(NSString *) groupid;
+-(nullable NSSet *) encryptionEnabledGroupMembersForGroup:(nonnull NSString *) groupid;
 
 /** Encryption Status of a Group
  
  @param groupid - The group
  @return YES - Encryption enabled for Group / NO - Encrytion dis-abled for group
  */
--(BOOL) encryptedGroup:(NSString*) groupid;
+-(BOOL) encryptedGroup:(nonnull NSString*) groupid;
 
 /** Dis-able group encryption
  
@@ -848,7 +848,7 @@ typedef enum {
  @return YES - remove key-pair, completion handler will be called. NO - error, the completion handler will not be called.
  
  */
--(BOOL) disableEncryptionForGroup:(NSString *) groupid withCompletionHandler:(void (^)(BOOL success))handler;
+-(BOOL) disableEncryptionForGroup:(nonnull NSString *) groupid withCompletionHandler:(nullable void (^)(BOOL success))handler;
 
 /** Import Public/Private Keypair from QR-Code Scan
  
@@ -859,7 +859,7 @@ typedef enum {
  @return YES - Key-Pair successfully imported
  
  */
--(BOOL) importKeyPairFromQRCode:(NSString *) keypair;
+-(BOOL) importKeyPairFromQRCode:(nonnull NSString *) keypair;
 
 /** Get a QR-Code Image from the current public/private key-pair.
  
@@ -867,7 +867,7 @@ typedef enum {
  @return The QR-Code image or nil if no key are available.
  
  */
--(UIImage *) exportQRCodeFromKeyPairWithDimensions:(int) dimensions;
+-(nullable UIImage *) exportQRCodeFromKeyPairWithDimensions:(int) dimensions;
 
 
 /**---------------------------------------------------------------------------------------
@@ -887,7 +887,7 @@ typedef enum {
  @param message - The message
  @param target - C2Call Userid or email address
  */
--(void) submitMessage:(NSString *) message toUser:(NSString *) target;
+-(void) submitMessage:(nonnull NSString *) message toUser:(nonnull NSString *) target;
 
 /** Is secure messaging available for target user
  
@@ -897,7 +897,7 @@ typedef enum {
  
  @return YES - message can be sent encrypted, NO otherwise
  */
--(BOOL) canSubmitEncryptedToUser:(NSString *) userid;
+-(BOOL) canSubmitEncryptedToUser:(nonnull NSString *) userid;
 
 /** Submits an SMS/Text message.
  
@@ -915,7 +915,7 @@ typedef enum {
  @param message - The message
  @param number - Receiver number in international format
  */
--(void) submitMessage:(NSString *) message toNumber:(NSString *) number;
+-(void) submitMessage:(nonnull NSString *) message toNumber:(nonnull NSString *) number;
 
 // Rich Media Message Functions
 /**---------------------------------------------------------------------------------------
@@ -937,7 +937,7 @@ typedef enum {
  @param handler - The completion handler called after submitting the message.
  
  */
--(void) submitVideo:(NSURL *) mediaUrl withMessage:(NSString *) message toTarget:(NSString *) target withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
+-(void) submitVideo:(nonnull NSURL *) mediaUrl withMessage:(nullable NSString *) message toTarget:(nonnull NSString *) target withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error))handler;
 
 /** Submits an image to a registered user.
  
@@ -955,7 +955,7 @@ typedef enum {
  @param handler - The completion handler called after submitting the message.
  
  */
--(void) submitImage:(UIImage *) originalImage withQuality:(UIImagePickerControllerQualityType) imageQuality andMessage:(NSString *) message toTarget:(NSString *) target withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey , NSError *error))handler;
+-(void) submitImage:(nonnull UIImage *) originalImage withQuality:(UIImagePickerControllerQualityType) imageQuality andMessage:(nullable NSString *) message toTarget:(nonnull NSString *) target withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable richMediaKey , NSError * _Nullable error))handler;
 
 /** Submits an audio file to a registered user.
  
@@ -972,7 +972,7 @@ typedef enum {
  @param handler - The completion handler called after submitting the message.
  
  */
--(void) submitAudio:(NSURL *) mediaUrl withMessage:(NSString *) message toTarget:(NSString *) target withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
+-(void) submitAudio:(nonnull NSURL *) mediaUrl withMessage:(nullable NSString *) message toTarget:(nonnull NSString *) target withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error))handler;
 
 /** Submits an file to a registered user.
  
@@ -989,7 +989,7 @@ typedef enum {
  @param handler - The completion handler called after submitting the message.
  
  */
--(void) submitFile:(NSURL *) fileUrl withMessage:(NSString *) message toTarget:(NSString *) target withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
+-(void) submitFile:(nonnull NSURL *) fileUrl withMessage:(nullable NSString *) message toTarget:(nonnull NSString *) target withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error))handler;
 
 /** Submits a VCARD file to a registered user.
  
@@ -1006,7 +1006,7 @@ typedef enum {
  @param handler - The completion handler called after submitting the message.
  
  */
--(void) submitVCard:(ABRecordRef) person withMessage:(NSString *) message toTarget:(NSString *) target withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
+-(void) submitVCard:(nonnull ABRecordRef) person withMessage:(nullable NSString *) message toTarget:(nonnull NSString *) target withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error))handler;
 
 /** Submits a Friend Contact to a registered user.
  
@@ -1023,7 +1023,7 @@ typedef enum {
  @param handler - The completion handler called after submitting the message.
  
  */
--(void) submitFriend:(NSString *) useridOrEMail withMessage:(NSString *) message toTarget:(NSString *) target withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
+-(void) submitFriend:(nonnull NSString *) useridOrEMail withMessage:(nullable NSString *) message toTarget:(nonnull NSString *) target withCompletionHandler:(nullable void (^)(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error))handler;
 
 /** Submits a Rich Media Message to a registered user.
  
@@ -1040,7 +1040,7 @@ typedef enum {
  @return success / failure
  
  */
--(BOOL) submitRichMessage:(NSString *) richMessageKey message:(NSString *) messageText toTarget:(NSString *) target;
+-(BOOL) submitRichMessage:(nonnull NSString *) richMessageKey message:(nullable NSString *) messageText toTarget:(nonnull NSString *) target;
 
 /** Submits a Rich Media Message to a registered user.
  
@@ -1058,7 +1058,7 @@ typedef enum {
  @return success / failure
  
  */
--(BOOL) submitRichMessage:(NSString *) richMessageKey message:(NSString *) messageText toTarget:(NSString *) target preferEncrytion:(BOOL)sendEncrypted;
+-(BOOL) submitRichMessage:(nonnull NSString *) richMessageKey message:(nullable NSString *) messageText toTarget:(nonnull NSString *) target preferEncrytion:(BOOL)sendEncrypted;
 
 /** Share a Rich Media Message on facebook.
  
@@ -1069,7 +1069,7 @@ typedef enum {
  @param richMediaKey - The rich media attachment
  @return YES - Message has been shared / NO - No facebook login or wrong attachment
 */
--(BOOL) shareMessageOnFacebook:(NSString *) message usingAttachment:(NSString *) mediaKey;
+-(BOOL) shareMessageOnFacebook:(nonnull NSString *) message usingAttachment:(nullable NSString *) mediaKey;
 
 // Rich Media Object Functions
 /**---------------------------------------------------------------------------------------
@@ -1095,7 +1095,7 @@ typedef enum {
  @return success / failure
  
  */
--(BOOL) retrieveObjectForKey:(NSString *)key completion:(void (^)(BOOL finished))completion;
+-(BOOL) retrieveObjectForKey:(nonnull NSString *)key completion:(nullable void (^)(BOOL finished))completion;
 
 /** Check whether a rich media file for a given rich media key is locally available on the device.
  
@@ -1104,7 +1104,7 @@ typedef enum {
  @return YES - Available / NO - Not available (use retrieveObjectForKey:completion:)
  
  */
--(BOOL) hasObjectForKey:(NSString *) key;
+-(BOOL) hasObjectForKey:(nonnull NSString *) key;
 
 /** Check whether a rich media file for a given rich media key is currently downloading.
  
@@ -1113,7 +1113,7 @@ typedef enum {
  @return YES - Download in progress / NO - No Download
  
  */
--(BOOL) downloadStatusForKey:(NSString *) key;
+-(BOOL) downloadStatusForKey:(nonnull NSString *) key;
 
 /** Check whether a download of a rich media file for a given rich media key has failed.
  
@@ -1122,7 +1122,7 @@ typedef enum {
  @return YES - Last download failed / NO
  
  */
--(BOOL) failedDownloadStatusForKey:(NSString *) key;
+-(BOOL) failedDownloadStatusForKey:(nonnull NSString *) key;
 
 /** UIImage for a given rich media key.
  
@@ -1131,7 +1131,7 @@ typedef enum {
  @return Referenced Image
  
  */
--(UIImage *) imageForKey:(NSString *) key;
+-(nullable UIImage *) imageForKey:(nonnull NSString *) key;
 
 /** Gets the user image for a given userId.
  
@@ -1142,7 +1142,7 @@ typedef enum {
  @return Referenced Image
  
  */
--(UIImage *) userimageForUserid:(NSString *) userid;
+-(nullable UIImage *) userimageForUserid:(nonnull NSString *) userid;
 
 /** Gets the larger user image for a given userId.
  
@@ -1154,7 +1154,7 @@ typedef enum {
  @return Referenced Image
  
  */
--(UIImage *) largeUserImageForUserid:(NSString *) userid;
+-(nullable UIImage *) largeUserImageForUserid:(nonnull NSString *) userid;
 
 
 /** NSURL for a given rich media key.
@@ -1164,7 +1164,7 @@ typedef enum {
  @return Referenced Url
  
  */
--(NSURL *) mediaUrlForKey:(NSString *) key;
+-(nullable NSURL *) mediaUrlForKey:(nonnull NSString *) key;
 
 /** Local file system path for rich media key
  
@@ -1173,7 +1173,7 @@ typedef enum {
  @return Referenced Path
  
  */
--(NSString *) pathForKey:(NSString *) key;
+-(nullable NSString *) pathForKey:(nonnull NSString *) key;
 
 /** Return the duration for a media object if available.
  
@@ -1184,7 +1184,7 @@ typedef enum {
  @return duration as string
  
  */
--(NSString *) durationForKey:(NSString *) key;
+-(nullable NSString *) durationForKey:(nonnull NSString *) key;
 
 /** Return the meta data for a media object if available
  
@@ -1195,7 +1195,7 @@ typedef enum {
  @return duration as string
  
  */
--(NSDictionary *) metaInfoForKey:(NSString *) key;
+-(nullable NSDictionary *) metaInfoForKey:(nonnull NSString *) key;
 
 
 /** Return the mime type for a given mediakey
@@ -1205,7 +1205,7 @@ typedef enum {
  @return mimetype
  
  */
--(NSString *) contentTypeForKey:(NSString *) mediaKey;
+-(nullable NSString *) contentTypeForKey:(nonnull NSString *) mediaKey;
 
 
 /** Return the file name for a given media key
@@ -1215,7 +1215,7 @@ typedef enum {
  @return filename
  
  */
--(NSString *) nameForKey:(NSString *) mediaKey;
+-(nullable NSString *) nameForKey:(nonnull NSString *) mediaKey;
 
 /** Thumbnail Image for a given rich media key.
  
@@ -1226,7 +1226,7 @@ typedef enum {
  @return Thumbnail Image
  
  */
--(UIImage *) thumbnailForKey:(NSString *) key;
+-(nullable UIImage *) thumbnailForKey:(nonnull NSString *) key;
 
 /** Helper Function to discover the media type of an incoming message.
  
@@ -1248,7 +1248,7 @@ typedef enum {
  @return SCRichMediaType
  
  */
--(SCRichMediaType) mediaTypeForKey:(NSString *) key;
+-(SCRichMediaType) mediaTypeForKey:(nonnull NSString *) key;
 
 /** Save an image or video to photo album.
  
@@ -1259,7 +1259,7 @@ typedef enum {
  @return YES: OK / NO: Invalid Media Object
  
  */
--(BOOL) saveToAlbum:(NSString *) mediaKey withCompletionHandler:(void (^)(NSURL *assetURL, NSError *error)) handler;
+-(BOOL) saveToAlbum:(nonnull NSString *) mediaKey withCompletionHandler:(nullable void (^)(NSURL * _Nullable assetURL, NSError * _Nullable error)) handler;
 
 // Friend Finder
 /**---------------------------------------------------------------------------------------
@@ -1279,7 +1279,7 @@ typedef enum {
  
  @param numberOrEMailAddress - phone number (international format) or email address
  */
--(void) findFriend:(NSString *) numberOrEMailAddress;
+-(void) findFriend:(nonnull NSString *) numberOrEMailAddress;
 
 /** Find a list of friends and add found friends to the users friendlist.
  
@@ -1294,7 +1294,7 @@ typedef enum {
  
  @param listOfNumberOrEMailAddresses - an array of phone numbers (international format) or email addresses
  */
--(void) findFriends:(NSArray *) listOfNumberOrEMailAddresses;
+-(void) findFriends:(nonnull NSArray *) listOfNumberOrEMailAddresses;
 
 /** Reload the friendlist from server
  */
@@ -1311,7 +1311,7 @@ typedef enum {
  
  @param groupid - Groupid of the group
  */
--(void) loadGroupHistory:(NSString *) groupid;
+-(void) loadGroupHistory:(nonnull NSString *) groupid;
 
 /** Load the Group History from Server for days
  
@@ -1321,7 +1321,7 @@ typedef enum {
  @param groupid - Groupid of the group
  @param days - Number of days to retrieve the group messages for.
  */
--(void) loadGroupHistory:(NSString *) groupid forDays:(int) days;
+-(void) loadGroupHistory:(nonnull NSString *) groupid forDays:(int) days;
 
 /** Reload the Call History from Server
  */
@@ -1350,7 +1350,7 @@ typedef enum {
  @return The user information as dictionary
  
  */
--(NSDictionary *) getUserInfoForUserid:(NSString *) userid;
+-(nullable NSDictionary *) getUserInfoForUserid:(nonnull NSString *) userid;
 
 /** Transfers the iOS address book to automatically find friends.
  
@@ -1382,7 +1382,7 @@ typedef enum {
  @isSMS - YES : Query the prices for sending SMS / NO : query the price for phone calls
  */
 
--(void) queryPriceForNumber:(NSString *) number isSMS:(BOOL) isSMS;
+-(void) queryPriceForNumber:(nonnull NSString *) number isSMS:(BOOL) isSMS;
 
 
 /** Adds Credit to the users account to use paid services like PSTN calls or SMS/Text messages.
@@ -1400,7 +1400,7 @@ typedef enum {
  @param receipt - Receipt from Apple InApp Purchase or nil
  
  */
--(BOOL) addCredit:(NSString *)valueInCent currency:(NSString *) currency transactionid:(NSString *) tid receipt:(NSData *) receipt;
+-(BOOL) addCredit:(nonnull NSString *)valueInCent currency:(nonnull NSString *) currency transactionid:(nonnull NSString *) tid receipt:(nullable NSData *) receipt;
 
 /** Request Braintree Client Token
     
@@ -1408,7 +1408,7 @@ typedef enum {
  
     @return client token
  */
--(NSString *) requestBTClientToken;
+-(nullable NSString *) requestBTClientToken;
 
 /** Add Credit using Braintree Payment 
  
@@ -1421,7 +1421,7 @@ typedef enum {
  
  @return NSDictionary with transaction result
  */
--(NSDictionary *) addBrainTreeCredit:(NSString *)value currency:(NSString *)currency nonce:(NSString *) nonce channel:(NSString *) channel;
+-(nullable NSDictionary *) addBrainTreeCredit:(nonnull NSString *)value currency:(nonnull NSString *)currency nonce:(nonnull NSString *) nonce channel:(nonnull NSString *) channel;
 
 
 /** Get C2Call credits for the current user
@@ -1442,7 +1442,7 @@ typedef enum {
  @param forceRefresh - Force requesting the current credits from the server
  @return The credit dictionary or nil if no application credit is available.
  */
--(NSDictionary *) getUserCredits:(BOOL) forceRefresh;
+-(nullable NSDictionary *) getUserCredits:(BOOL) forceRefresh;
 
 /** Get application credits for the current user
  
@@ -1461,7 +1461,7 @@ typedef enum {
  
  @return The credit dictionary or nil if no application credit is available.
  */
--(NSDictionary *) getApplicationCredits;
+-(nullable NSDictionary *) getApplicationCredits;
 
 /** Redeem a voucher for C2Call Credit
 
@@ -1470,7 +1470,7 @@ typedef enum {
  @param voucher - Voucher Code to redeem
  @return YES - success / NO - failure
  */
--(BOOL) redeemVoucher:(NSString *) voucher;
+-(BOOL) redeemVoucher:(nonnull NSString *) voucher;
 
 /** Redeem a voucher for Application Credit
  
@@ -1479,7 +1479,7 @@ typedef enum {
  @param voucher - Voucher Code to redeem
  @return YES - success / NO - failure
  */
--(BOOL) redeemApplicationVoucher:(NSString *) voucher;
+-(BOOL) redeemApplicationVoucher:(nonnull NSString *) voucher;
 
 /** Charge the user for a service provided by the Application
  
@@ -1489,7 +1489,7 @@ typedef enum {
  @param tid - Application definable transactionid, should be unique
  @return YES - success / NO - failure
  */
--(BOOL) chargeApplicationCredit:(double) value forTransactionId:(NSString *) tid;
+-(BOOL) chargeApplicationCredit:(double) value forTransactionId:(nonnull NSString *) tid;
 
 /** Return the URL for C2Call Phone Number Service
  
@@ -1497,7 +1497,7 @@ typedef enum {
  
  @return URL for C2Call Number service
  */
--(NSString *) urlForC2CallNumber;
+-(nullable NSString *) urlForC2CallNumber;
 
 /**---------------------------------------------------------------------------------------
  * @name Enterprise Project Methods
@@ -1513,7 +1513,7 @@ typedef enum {
  @param description - Description
  @return Number for Smart Dial Service
  */
--(NSString *) getSmartDialNumber:(NSString *) country number:(NSString *) number description:(NSString *) description;
+-(nullable NSString *) getSmartDialNumber:(nonnull NSString *) country number:(nonnull NSString *) number description:(nonnull NSString *) description;
 
 /** Request a Web Callback Service
  
@@ -1523,7 +1523,7 @@ typedef enum {
  @param number2 - Second Number
  @return CallbackId of the WebCall. Use this to cancel a request
  */
--(NSString *) requestWebCallbackForNumber:(NSString *) number1 number2:(NSString *) number2;
+-(nullable NSString *) requestWebCallbackForNumber:(nonnull NSString *) number1 number2:(nonnull NSString *) number2;
 
 /** Cancel a Web Callback Service
  
@@ -1533,7 +1533,7 @@ typedef enum {
  @return YES - succes / NO - error
  */
 
--(BOOL) cancelWebCallback:(NSString *) callbackId;
+-(BOOL) cancelWebCallback:(nonnull NSString *) callbackId;
 
 /** List of Countries for Smart Dial Access Numbers
  
@@ -1541,7 +1541,7 @@ typedef enum {
  
  @return Array of Countries
  */
--(NSArray *) getCountriesForAccessNumbers;
+-(nullable NSArray *) getCountriesForAccessNumbers;
 
 /** List of Tollfree AccessNumbers
  
@@ -1550,7 +1550,7 @@ typedef enum {
  @return Dictionary of Country (key) / Access Number (value)
  */
 
--(NSDictionary *) getTollfreeAccessNumbers;
+-(nullable NSDictionary *) getTollfreeAccessNumbers;
 
 /** List of Calling Plans available for User
  
@@ -1565,7 +1565,7 @@ typedef enum {
  @return Array of Dictionaries
  */
 
--(NSArray *) getCallingPlans;
+-(nullable NSArray *) getCallingPlans;
 
 
 /**---------------------------------------------------------------------------------------
@@ -1578,14 +1578,14 @@ typedef enum {
  
  */
 
-+(C2CallPhone *) currentPhone;
++(nullable C2CallPhone *) currentPhone;
 
 /** Set the default country code
  The default country code will be used to convert a local number into international number format
  
  @param cc - The Country Code (e.g. "+1")
  */
-+(void) setDefaultCountryCode:(NSString *)cc;
++(void) setDefaultCountryCode:(nonnull NSString *)cc;
 
 /** Set the default area code
  The default area code will be used to convert a local number into international number format
@@ -1593,6 +1593,6 @@ typedef enum {
  @param ac - The Area Code (e.g. "408")
  */
 
-+(void) setDefaultAreaCode:(NSString *)ac;
++(void) setDefaultAreaCode:(nonnull NSString *)ac;
 
 @end
