@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "C2Call-SDK"
-  s.version          = "1.3.4"
+  s.version          = "1.4.0"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
 #s.module_name      = "C2CallSDK"
   s.header_dir       = "SocialCommunication"
@@ -31,7 +31,7 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.documentation_url = "http://sdkdocs.ios.c2call.com"
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = ['Pod/Classes/*', 'Pod/Classes/Categories/*']

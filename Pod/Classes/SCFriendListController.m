@@ -219,6 +219,8 @@
     });
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 -(void) reloadTableView
 {
@@ -228,6 +230,7 @@
         [self.searchDisplayController.searchResultsTableView reloadData];
     }
 }
+#pragma clang diagnostic pop
 
 -(void) refetchResults
 {
@@ -754,7 +757,11 @@
     
     UITableViewCell *cell = [tv cellForRowAtIndexPath:indexPath];
     if ([cell.reuseIdentifier isEqualToString:@"SCNoRecordsCell"]) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         [self.searchDisplayController setActive:NO animated:YES];
+#pragma GCC diagnostic pop
+        
         [self removeAllFilter:self];
         return;
     }
@@ -1145,6 +1152,9 @@
 
 #pragma mark UISearchDisplayController Delegate Methods
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     if ([searchString length] > 0) {
@@ -1190,5 +1200,6 @@
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)_tableView
 {
 }
+#pragma GCC diagnostic pop
 
 @end

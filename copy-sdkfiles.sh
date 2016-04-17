@@ -61,7 +61,7 @@ cp "../Classes/DDXML.h" "Pod/Classes/DDXML.h"
 cp "../Classes/DDXMLDocument.h" "Pod/Classes/DDXMLDocument.h"
 cp "../Classes/DDXMLElement.h" "Pod/Classes/DDXMLElement.h"
 cp "../Classes/Additions/DDXMLElementAdditions.h" "Pod/Classes/DDXMLElementAdditions.h"
-cp "../Classes/Additions/DDXMLElementAdditions.m" "Pod/Classes/DDXMLElementAdditions.m"
+#cp "../Classes/Additions/DDXMLElementAdditions.m" "Pod/Classes/DDXMLElementAdditions.m"
 cp "../Classes/DDXMLNode.h" "Pod/Classes/DDXMLNode.h"
 mkdir -p Pod/Classes/Categories
 cp "../Classes/Categories/NSString+DDXML.h" "Pod/Classes/Categories/NSString+DDXML.h"

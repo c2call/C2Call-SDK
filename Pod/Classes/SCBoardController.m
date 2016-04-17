@@ -3113,8 +3113,6 @@
 {
     SCRichMediaType mt = [[C2CallPhone currentPhone] mediaTypeForKey:key];
     
-    UIActivityViewController *activityViewController = nil;
-    
     switch (mt) {
         case SCMEDIATYPE_TEXT:
         case SCMEDIATYPE_IMAGE:
