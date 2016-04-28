@@ -108,6 +108,13 @@
  */
 -(int) missedCallsForContact:(NSString *) contact;
 
+/** Get the number of missed messages for a specific contact
+ 
+ @param contact - Userid of the contact.
+ @return Number of missed messages
+ */
+-(int) missedMessagesForContact:(NSString *) contact;
+
 /** Returns the list of the last 20 contacts the user has been in touch with
  
  @return Array of userids

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0sJ-qu-8NN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0sJ-qu-8NN">
     <dependencies>
         <deployment version="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -5372,7 +5372,7 @@ Please try again later.</string>
             <objects>
                 <tableViewController storyboardIdentifier="SCLocationSubmitController" extendedLayoutIncludesOpaqueBars="YES" id="96a-aL-xp4" customClass="SCLocationSubmitController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="EoZ-Xb-RDW">
-                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="WHf-GH-pLm">
@@ -5469,11 +5469,11 @@ Please try again later.</string>
                         <viewControllerLayoutGuide type="bottom" id="gdF-nM-aJX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="AIx-fM-MkP">
-                        <rect key="frame" x="0.0" y="44" width="320" height="475"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wrY-NA-DsS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                             </imageView>
                             <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="bg_audio_bar" translatesAutoresizingMaskIntoConstraints="NO" id="v5H-xv-sZ2">
                                 <rect key="frame" x="38" y="200" width="244" height="60"/>
@@ -5493,7 +5493,7 @@ Please try again later.</string>
                                 </accessibility>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBu-PM-AME" userLabel="editView">
-                                <rect key="frame" x="0.0" y="390" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="370" width="320" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoe-C9-jBS" userLabel="btnRecordAgain">
                                         <rect key="frame" x="163" y="7" width="122" height="30"/>
@@ -5574,7 +5574,7 @@ Please try again later.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8g1-KY-9nu" userLabel="startView">
-                                <rect key="frame" x="0.0" y="390" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="370" width="320" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2f-t3-453" userLabel="btnRecord">
                                         <rect key="frame" x="52" y="18" width="216" height="43"/>
@@ -10613,13 +10613,13 @@ Remove search filter?</string>
         <image name="ziffer_plus_h" width="107" height="69"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="dYh-Uy-CrV"/>
+        <segue reference="hDv-Zp-8lC"/>
         <segue reference="y6p-gl-6ga"/>
+        <segue reference="sdM-v2-Wtr"/>
+        <segue reference="vNd-Un-nVZ"/>
         <segue reference="1u2-TG-LS5"/>
         <segue reference="UPE-Al-XWo"/>
-        <segue reference="vNd-Un-nVZ"/>
-        <segue reference="GNG-di-A0l"/>
-        <segue reference="p96-wb-qOH"/>
-        <segue reference="TfF-kn-Iej"/>
         <segue reference="cXP-qr-CSY"/>
     </inferredMetricsTieBreakers>
 </document>
