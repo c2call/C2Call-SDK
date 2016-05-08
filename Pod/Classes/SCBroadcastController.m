@@ -23,14 +23,28 @@
 {
     [super prepareForReuse];
     
-    self.contentView.alpha = 1.0;
+    //self.contentView.alpha = 1.0;
     
-    __weak UIView *weakview = self.contentView;
+}
+
+-(void) triggerFadeOut:(CGFloat) timer withCompleteHandler:(void (^)()) completion;
+{
+    //__weak UIView *weakview = self.contentView;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timer * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion();
+        }
+        
+        /*
         [UIView animateWithDuration:0.5 animations:^{
             weakview.alpha = 0.;
+        } completion:^(BOOL finished) {
+            if (completion) {
+                completion();
+            }
         }];
+         */
     });
 }
 
@@ -42,14 +56,28 @@
 {
     [super prepareForReuse];
     
-    self.contentView.alpha = 1.0;
+    //self.contentView.alpha = 1.0;
     
-    __weak UIView *weakview = self.contentView;
+}
+
+-(void) triggerFadeOut:(CGFloat) timer withCompleteHandler:(void (^)()) completion;
+{
+    //__weak UIView *weakview = self.contentView;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:0.5 animations:^{
-            weakview.alpha = 0.;
-        }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timer * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion();
+        }
+        
+        /*
+         [UIView animateWithDuration:0.5 animations:^{
+         weakview.alpha = 0.;
+         } completion:^(BOOL finished) {
+         if (completion) {
+         completion();
+         }
+         }];
+         */
     });
 }
 
@@ -65,6 +93,10 @@
 
 @property (nonatomic, strong) UIFont                        *textFieldInFont, *textFieldOutFont;
 @property (nonatomic, strong) UIFont                        *headerFieldInFont, *headerFieldOutFont;
+@property (nonatomic, strong) SCBroadcastCellIn             *broadcastCellIn;
+@property (nonatomic, strong) SCBroadcastCellOut            *broadcastCellOut;
+@property (atomic, strong) NSMutableArray                   *chat;
+@property (atomic, strong) NSString                         *lastEvent;
 
 @property (nonatomic, strong) NSCache                       *smallImageCache;
 
@@ -79,9 +111,9 @@
         return nil;
     
     self.sectionNameKeyPath = nil;
-    self.useDidChangeContentOnly = NO;
+    self.useDidChangeContentOnly = YES;
     
-    NSFetchRequest *fetchRequest = [[SCDataManager instance] fetchRequestForEventHistory:nil sort:YES];
+    NSFetchRequest *fetchRequest = [[SCDataManager instance] fetchRequestForEventHistory:nil sort:NO];
     
     NSPredicate *predicate = nil;
     
@@ -90,6 +122,9 @@
     [fetchRequest setPredicate:predicate];
     
     // Set the batch size to a suitable number.
+    [fetchRequest setFetchLimit:8];
+    
+    /*
     [fetchRequest setFetchBatchSize:self.fetchLimit >= 0? self.fetchLimit:0];
     
     int offset = 0;
@@ -98,8 +133,16 @@
     }
     
     showPreviousMessageButton = offset > 0;
+    */
     
     return fetchRequest;
+}
+
+-(id) copyCell:(id) cell
+{
+    NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:cell];
+    cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
+    return cell;
 }
 
 -(void) refreshTable
@@ -125,10 +168,12 @@
     double delayInSeconds = 0.05;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        int section = (int)self.tableView.numberOfSections - 1;
-        int row =  (int)[self.tableView numberOfRowsInSection:section] - 1;
-        if (section >= 0 && row >= 0)
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        if (self.tableView.numberOfSections > 0) {
+            int section = (int)self.tableView.numberOfSections - 1;
+            int row =  (int)[self.tableView numberOfRowsInSection:section] - 1;
+            if (section >= 0 && row >= 0)
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
     });
 }
 
@@ -154,13 +199,13 @@
         DLog(@"Error : %@", error);
     }
     
-    [self refreshTable];
+    //[self refreshTable];
 }
 
 -(void) resetLimits
 {
-    self.fetchLimit = 8;
-    self.fetchSize = 8;
+    self.fetchLimit = 6;
+    self.fetchSize = 6;
 }
 
 - (UIView *)findFirstResponder:(UIView *) startView
@@ -380,6 +425,10 @@
     
     self.tableView.estimatedRowHeight = 76;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.chat = [NSMutableArray arrayWithCapacity:10];
+    
+    self.broadcastCellIn = [self.tableView dequeueReusableCellWithIdentifier:@"SCBroadcastCellIn"];
+    self.broadcastCellOut = [self.tableView dequeueReusableCellWithIdentifier:@"SCBroadcastCellOut"];
     
     // Initialize Font for TextBubble
     MessageCell *cell = (MessageCell *)[self.tableView dequeueReusableCellWithIdentifier:@"MessageCellInStream"];
@@ -430,6 +479,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self scrollToBottom];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -457,6 +507,32 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     cell.senderName.text = sendername;
     cell.messageText.text = text;
+
+    // Cell re-use for new content
+    if (!cell.eventId || ![cell.eventId isEqualToString:elem.eventId]) {
+        cell.eventId = [elem.eventId copy];
+        cell.contentView.alpha = 1.0;
+        
+        __weak SCBroadcastController *weakself = self;
+        [cell triggerFadeOut:6. withCompleteHandler:^{
+            [weakself.tableView beginUpdates];
+            NSUInteger idx = [weakself.chat indexOfObject:cell];
+            [weakself.chat removeObject:cell];
+            
+            if([weakself.chat count] > 0)
+            {
+                [weakself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            else
+            {
+                [weakself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                //[weakself.tableView  deleteSections:[NSIndexSet indexSetWithIndex:0]
+                //          withRowAnimation:UITableViewRowAnimationFade];
+            }
+            [weakself.tableView endUpdates];
+            
+        }];
+    }
 }
 
 -(void) configureMessageCellOut:(__weak SCBroadcastCellOut *) cell forEvent:(MOC2CallEvent *) elem atIndexPath:(NSIndexPath *) indexPath
@@ -468,6 +544,30 @@
     sendername = [NSString stringWithFormat:@"@%@",  sendername];
     cell.senderName.text = sendername;
     cell.messageText.text = text;
+    
+    // Cell re-use for new content
+    if (!cell.eventId || ![cell.eventId isEqualToString:elem.eventId]) {
+        cell.eventId = [elem.eventId copy];
+        cell.contentView.alpha = 1.0;
+        
+        __weak SCBroadcastController *weakself = self;
+        [cell triggerFadeOut:6. withCompleteHandler:^{
+            [weakself.tableView beginUpdates];
+            NSUInteger idx = [weakself.chat indexOfObject:cell];
+            [weakself.chat removeObject:cell];
+            
+            if([weakself.chat count] > 0)
+            {
+                [weakself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            else
+            {
+                [weakself.tableView  deleteSections:[NSIndexSet indexSetWithIndex:0]                                   withRowAnimation:UITableViewRowAnimationFade];
+            }
+            [weakself.tableView endUpdates];
+        }];
+    }
+
 }
 
 -(void) configureCell:(MessageCell *) cell atIndexPath:(NSIndexPath *) indexPath
@@ -491,40 +591,83 @@
     
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.chat count];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DLog(@"cellForRowAtIndexPath : %ld, %ld", (long)indexPath.section, (long)indexPath.row);
-    
-    MessageCell *cell = nil;
-    @try {
-        // Handle Section HeaderCell
-        MOC2CallEvent *elem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
-        NSString *cellIdentifier = [self identifierForElement:elem];
-        
-        DLog(@"Cell with identifier : %@", cellIdentifier);
-        
-        cell = (MessageCell *) [tv dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        
-        if (!cell) {
-            DLog(@"Error : Cell with identifier : %@", cellIdentifier);
+ 
+    id obj = [self.chat objectAtIndex:indexPath.row];
+    if ([obj isKindOfClass:[MOC2CallEvent class]]) {
+        MOC2CallEvent *elem = obj;
+        if ([elem.eventType isEqualToString:@"MessageIn"]) {
+            SCBroadcastCellIn *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SCBroadcastCellIn" forIndexPath:[NSIndexPath indexPathForRow:[self.chat count] inSection:0]];
+            [self configureMessageCellIn:cell forEvent:elem atIndexPath:nil];
+            [self.chat replaceObjectAtIndex:indexPath.row withObject:cell];
+            return cell;
+        } else {
+            SCBroadcastCellOut *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SCBroadcastCellOut" forIndexPath:[NSIndexPath indexPathForRow:[self.chat count] inSection:0]];
+            [self configureMessageCellOut:cell forEvent:elem atIndexPath:nil];
+            [self.chat replaceObjectAtIndex:indexPath.row withObject:cell];
+            return cell;
         }
+    } else {
+        UITableViewCell *cell = obj;
         
-        [self configureCell:cell atIndexPath:indexPath];
+        return cell;
     }
-    @catch (NSException * e) {
-        [self.tableView reloadData];
-        NSLog(@"2:Exception : cellForRowAtIndexPath %ld / %ld \n %@", (long)indexPath.section, (long)indexPath.row, e);
-        UITableViewCell *dummyCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        dummyCell.contentView.hidden = YES;
-        return dummyCell;
-    }
-    @finally {
-        DLog(@"2:Cell Text (%ld/%ld): %@", (long)indexPath.section, (long)indexPath.row, cell.textfield.text);
-    }
-    
-    cell.selected = NO;
-    return cell;
     
 }
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    //    if (!isVisible)
+    //        return;
+    [super controllerDidChangeContent:controller];
+    
+    if (!self.lastEvent || [self.chat count] == 0) {
+        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+            [self.tableView beginUpdates];
+            MOC2CallEvent *elem = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+            [self.chat insertObject:elem atIndex:[self.chat count]];
+            self.lastEvent = [elem.eventId copy];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+            [self.tableView endUpdates];
+
+        }
+    } else {
+        [self.tableView beginUpdates];
+        NSArray *list = [[self.fetchedResultsController fetchedObjects] copy];
+        NSMutableArray *addlist = [NSMutableArray arrayWithCapacity:10];
+        for (MOC2CallEvent *elem in list) {
+            if ([elem.eventId isEqualToString:self.lastEvent]) {
+                break;
+            }
+            [addlist insertObject:elem atIndex:[addlist count]];
+        }
+        
+        NSMutableArray *addrows = [NSMutableArray arrayWithCapacity:10];
+        for (MOC2CallEvent *elem in addlist) {
+            [addrows addObject:[NSIndexPath indexPathForRow:[self.chat count] inSection:0]];
+            [self.chat insertObject:elem atIndex:[self.chat count]];
+            
+            self.lastEvent = [elem.eventId copy];
+        }
+        [self.tableView insertRowsAtIndexPaths:addrows withRowAnimation:UITableViewRowAnimationBottom];
+        [self.tableView endUpdates];
+        
+    }
+    
+    //[self scrollToBottom];
+    
+}
+
 
 @end

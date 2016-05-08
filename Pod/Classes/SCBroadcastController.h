@@ -17,7 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *senderName;
 @property (weak, nonatomic) IBOutlet UILabel *messageText;
+@property (nonatomic, strong) NSString      *eventId;
 
+-(void) triggerFadeOut:(CGFloat) timer withCompleteHandler:(void (^)()) completion;
 
 @end
 
@@ -26,6 +28,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *senderName;
 @property (weak, nonatomic) IBOutlet UILabel *messageText;
+@property (nonatomic, strong) NSString      *eventId;
+
+-(void) triggerFadeOut:(CGFloat) timer withCompleteHandler:(void (^)()) completion;
 
 @end
 
