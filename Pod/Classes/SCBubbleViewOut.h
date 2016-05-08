@@ -16,7 +16,8 @@ typedef enum {
     SC_BUBBLE_OUT_HANGOUT,
     SC_BUBBLE_OUT_WHAZZUPP,
     SC_BUBBLE_OUT_IOS7,
-    SC_BUBBLE_OUT_SIMPLE
+    SC_BUBBLE_OUT_SIMPLE,
+    SC_BUBBLE_OUT_BROADCAST,
 } SCBubbleType_Out;
 
 /** This class renders the bubble for an outbound message in the SCBoardController.
@@ -49,6 +50,10 @@ typedef enum {
  */
 @property(nonatomic, strong) NSString       *chatText;
 
+/** Header Text of the bubble
+ */
+@property(nonatomic, strong) NSString       *headerText;
+
 /** Text Font for Chat Text
  */
 @property(nonatomic, strong) UIFont         *textFont UI_APPEARANCE_SELECTOR;
@@ -57,9 +62,20 @@ typedef enum {
  */
 @property(nonatomic, strong) UIColor        *textColor UI_APPEARANCE_SELECTOR;
 
+/** Text Font for Header Text
+ */
+@property(nonatomic, strong) UIFont         *headerFont UI_APPEARANCE_SELECTOR;
+
+/** Text Color for Header Text
+ */
+@property(nonatomic, strong) UIColor        *headerColor UI_APPEARANCE_SELECTOR;
+
 /** Draw the text with offset from top
  */
 @property(nonatomic, strong) NSNumber       *textOffsetTop;
+
+
+@property(nonatomic, strong) UIImage        *userImage;
 
 /** Bubble Style
  
