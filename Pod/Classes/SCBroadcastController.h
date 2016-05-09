@@ -12,7 +12,9 @@
 
 @class MOC2CallUser, MessageCell, MOC2CallEvent;
 
-@interface SCBroadcastCellIn : UITableViewCell
+@interface SCBroadcastCellIn : UITableViewCell {
+    BOOL _triggerSet;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *senderName;
@@ -23,7 +25,9 @@
 
 @end
 
-@interface SCBroadcastCellOut : UITableViewCell
+@interface SCBroadcastCellOut : UITableViewCell {
+    BOOL _triggerSet;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *senderName;

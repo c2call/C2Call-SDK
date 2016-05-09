@@ -135,6 +135,8 @@ cp "../SocialCommunication/SCBroadcastController.h" "Pod/Classes/SCBroadcastCont
 cp "../SocialCommunication/SCBroadcastController.m" "Pod/Classes/SCBroadcastController.m"
 cp "../SocialCommunication/SCBroadcastChatController.h" "Pod/Classes/SCBroadcastChatController.h"
 cp "../SocialCommunication/SCBroadcastChatController.m" "Pod/Classes/SCBroadcastChatController.m"
+cp "../SocialCommunication/SCIntrinsicTableView.h" "Pod/Classes/SCIntrinsicTableView.h"
+cp "../SocialCommunication/SCIntrinsicTableView.m" "Pod/Classes/SCIntrinsicTableView.m"
 cp "../SocialCommunication/SCBrowserViewController.h" "Pod/Classes/SCBrowserViewController.h"
 cp "../SocialCommunication/SCBubbleViewIn.h" "Pod/Classes/SCBubbleViewIn.h"
 cp "../SocialCommunication/SCBubbleViewOut.h" "Pod/Classes/SCBubbleViewOut.h"

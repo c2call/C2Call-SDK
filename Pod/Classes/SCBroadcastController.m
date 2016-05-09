@@ -29,22 +29,27 @@
 
 -(void) triggerFadeOut:(CGFloat) timer withCompleteHandler:(void (^)()) completion;
 {
-    //__weak UIView *weakview = self.contentView;
+    if (_triggerSet)
+        return;
+    _triggerSet = YES;
+    
+    __weak UIView *weakview = self.contentView;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timer * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (completion) {
-            completion();
-        }
+        //if (completion) {
+        //    completion();
+        //}
         
-        /*
+        
         [UIView animateWithDuration:0.5 animations:^{
             weakview.alpha = 0.;
         } completion:^(BOOL finished) {
             if (completion) {
                 completion();
             }
+            _triggerSet = NO;
         }];
-         */
+        
     });
 }
 
@@ -62,22 +67,27 @@
 
 -(void) triggerFadeOut:(CGFloat) timer withCompleteHandler:(void (^)()) completion;
 {
-    //__weak UIView *weakview = self.contentView;
+    if (_triggerSet)
+        return;
+    _triggerSet = YES;
+
+    __weak UIView *weakview = self.contentView;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timer * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (completion) {
-            completion();
-        }
+        //if (completion) {
+        //    completion();
+        //}
         
-        /*
-         [UIView animateWithDuration:0.5 animations:^{
-         weakview.alpha = 0.;
-         } completion:^(BOOL finished) {
-         if (completion) {
-         completion();
-         }
-         }];
-         */
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            weakview.alpha = 0.;
+        } completion:^(BOOL finished) {
+            if (completion) {
+                completion();
+            }
+            _triggerSet = NO;
+        }];
+        
     });
 }
 
@@ -96,7 +106,9 @@
 @property (nonatomic, strong) SCBroadcastCellIn             *broadcastCellIn;
 @property (nonatomic, strong) SCBroadcastCellOut            *broadcastCellOut;
 @property (atomic, strong) NSMutableArray                   *chat;
+@property (atomic) NSInteger                                visibleCells;
 @property (atomic, strong) NSString                         *lastEvent;
+
 
 @property (nonatomic, strong) NSCache                       *smallImageCache;
 
@@ -329,7 +341,6 @@
         
         // "scroll" to top taking inset into account
         [self.tableView setContentOffset:CGPointMake(0, -height) animated:NO];
-        
     }
 }
 
@@ -515,21 +526,14 @@
         
         __weak SCBroadcastController *weakself = self;
         [cell triggerFadeOut:6. withCompleteHandler:^{
-            [weakself.tableView beginUpdates];
-            NSUInteger idx = [weakself.chat indexOfObject:cell];
-            [weakself.chat removeObject:cell];
+            weakself.visibleCells--;
             
-            if([weakself.chat count] > 0)
-            {
-                [weakself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            // In case no visible cells, clear and reload
+            if (weakself.visibleCells <= 0) {
+                weakself.chat = [NSMutableArray arrayWithCapacity:100];
+                weakself.visibleCells = 0;
+                [weakself.tableView reloadData];
             }
-            else
-            {
-                [weakself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-                //[weakself.tableView  deleteSections:[NSIndexSet indexSetWithIndex:0]
-                //          withRowAnimation:UITableViewRowAnimationFade];
-            }
-            [weakself.tableView endUpdates];
             
         }];
     }
@@ -552,19 +556,14 @@
         
         __weak SCBroadcastController *weakself = self;
         [cell triggerFadeOut:6. withCompleteHandler:^{
-            [weakself.tableView beginUpdates];
-            NSUInteger idx = [weakself.chat indexOfObject:cell];
-            [weakself.chat removeObject:cell];
+            weakself.visibleCells--;
             
-            if([weakself.chat count] > 0)
-            {
-                [weakself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            // In case no visible cells, clear and reload
+            if (weakself.visibleCells <= 0) {
+                weakself.chat = [NSMutableArray arrayWithCapacity:100];
+                weakself.visibleCells = 0;
+                [weakself.tableView reloadData];
             }
-            else
-            {
-                [weakself.tableView  deleteSections:[NSIndexSet indexSetWithIndex:0]                                   withRowAnimation:UITableViewRowAnimationFade];
-            }
-            [weakself.tableView endUpdates];
         }];
     }
 
@@ -639,11 +638,11 @@
             [self.chat insertObject:elem atIndex:[self.chat count]];
             self.lastEvent = [elem.eventId copy];
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+            self.visibleCells++;
             [self.tableView endUpdates];
 
         }
     } else {
-        [self.tableView beginUpdates];
         NSArray *list = [[self.fetchedResultsController fetchedObjects] copy];
         NSMutableArray *addlist = [NSMutableArray arrayWithCapacity:10];
         for (MOC2CallEvent *elem in list) {
@@ -660,8 +659,13 @@
             
             self.lastEvent = [elem.eventId copy];
         }
-        [self.tableView insertRowsAtIndexPaths:addrows withRowAnimation:UITableViewRowAnimationBottom];
-        [self.tableView endUpdates];
+        
+        if ([addrows count] > 0) {
+            [self.tableView beginUpdates];
+            [self.tableView insertRowsAtIndexPaths:addrows withRowAnimation:UITableViewRowAnimationBottom];
+            self.visibleCells += [addrows count];
+            [self.tableView endUpdates];
+        }
         
     }
     
