@@ -338,9 +338,9 @@
         // difference between content and table heights. +1 accounts for last row separator
         dispatch_async(dispatch_get_main_queue(), ^{
             CGFloat height = MAX(self.tableView.frame.size.height - self.tableView.contentSize.height, 0) + 1;
-
+            
             self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
-
+            
             // "scroll" to top taking inset into account
             [self.tableView setContentOffset:CGPointMake(0, -height) animated:NO];
         });
@@ -415,15 +415,15 @@
         if ([[notification name] isEqualToString:@"TransferCompleted"]) {
             [self refreshTable];
         }
-
+        
         if ([[notification name] isEqualToString:@"C2CallDataManager:initData"]) {
             if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
                 MOC2CallEvent *elem = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
                 self.lastEvent = [elem.timevalue copy];
             }
         }
-
-
+        
+        
         
     }
     @catch (NSException * e) {
@@ -496,7 +496,7 @@
     [nc addObserver:self selector:@selector(handleNotificationEvent:) name:@"TransferCompleted" object:nil];
     [nc addObserver:self selector:@selector(handleNotificationEvent:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     [nc addObserver:self selector:@selector(handleNotificationEvent:) name:@"C2CallDataManager:initData" object:nil];
-
+    
     
     //[self startObservingContentSizeChanges];
     self.tableView.transform = CGAffineTransformMakeRotation(-M_PI);
@@ -630,14 +630,14 @@
     
     id obj = nil;
     @synchronized (_mutex) {
-       obj = [self.chat objectAtIndex:indexPath.row];
+        obj = [self.chat objectAtIndex:indexPath.row];
     }
     if ([obj isKindOfClass:[MOC2CallEvent class]]) {
         MOC2CallEvent *elem = obj;
         if ([elem.eventType isEqualToString:@"MessageIn"]) {
             SCBroadcastCellIn *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SCBroadcastCellIn" forIndexPath:[NSIndexPath indexPathForRow:[self.chat count] inSection:0]];
             cell.transform = CGAffineTransformMakeRotation(M_PI);
-
+            
             [self configureMessageCellIn:cell forEvent:elem atIndexPath:nil];
             @synchronized (_mutex) {
                 [self.chat replaceObjectAtIndex:indexPath.row withObject:cell];
@@ -709,7 +709,7 @@
                     self.lastEvent = [elem.timevalue copy];
                 }
             }
-        
+            
             if ([addrows count] > 0) {
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:addrows withRowAnimation:UITableViewRowAnimationNone];

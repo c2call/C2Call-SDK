@@ -7,7 +7,9 @@
 //
 
 #import "SCBroadcastChatController.h"
-#import "SCBroadcastController.m"
+#import "SCBroadcastController.h"
+#import "SCBroadcastVideoController.h"
+#import "C2CallPhone.h"
 
 @implementation SCBroadcastChatController
 
@@ -41,6 +43,12 @@
         self.broadcast = segue.destinationViewController;
         self.broadcast.broadcastGroupId = self.broadcastGroupId;
     }
+    
+    if ([segue.destinationViewController isKindOfClass:[SCBroadcastVideoController class]]) {
+        self.broadcastVideo = segue.destinationViewController;
+        self.broadcastVideo.broadcastGroupId = self.broadcastGroupId;
+    }
+
 }
 
 
@@ -100,7 +108,39 @@
     }
     
     
-} 
+}
+
+
+- (IBAction)hideKeyboard:(id)sender {
+    if ([self.messageTextView isFirstResponder]) {
+        [self.messageTextView resignFirstResponder];
+    }
+}
+
+- (IBAction)callBroadcast:(id)sender {
+    if (self.broadcastGroupId){
+        [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
+    }
+}
+
+- (IBAction)sendMessage:(id)sender {
+    if (self.broadcastGroupId && [self.messageTextView.text length] > 0){
+        [[C2CallPhone currentPhone] submitMessage:self.messageTextView.text toUser:self.broadcastGroupId];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.messageTextView.text = nil;
+            
+            if ([self.messageTextView isFirstResponder]) {
+                [self.messageTextView resignFirstResponder];
+            }
+        });
+    }
+
+}
+
+- (IBAction)hangUp:(id)sender {
+    [[C2CallPhone currentPhone] hangUp];
+}
 
 
 @end

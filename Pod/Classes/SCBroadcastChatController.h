@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class SCBroadcastController;
+@class SCBroadcastController, SCBroadcastVideoController;
 
 @interface SCBroadcastChatController : UIViewController
 
@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton               *submitButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint     *innerViewBottomContraint;
 
-@property (weak, nonatomic) SCBroadcastController   *broadcast;
+@property (weak, nonatomic) SCBroadcastController           *broadcast;
+@property (weak, nonatomic) SCBroadcastVideoController      *broadcastVideo;
 
 @property (nonatomic, strong) NSString *broadcastGroupId;
 
