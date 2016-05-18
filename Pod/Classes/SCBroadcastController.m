@@ -97,6 +97,7 @@
 @interface SCBroadcastController () {
     BOOL            showPreviousMessageButton;
     BOOL            scrollToBottom;
+    BOOL            didLoad;
     
     CFAbsoluteTime  lastContentChange;
     NSString        *_mutex;
@@ -432,6 +433,16 @@
     
 }
 
+-(void) setBroadcastGroupId:(NSString *)broadcastGroupId
+{
+    _broadcastGroupId = broadcastGroupId;
+    
+    if (didLoad) {
+        if (!self.fetchedResultsController && [SCDataManager instance].isDataInitialized) {
+            [self updateFetchRequest];
+        }
+    }
+}
 
 -(void) awakeFromNib
 {
@@ -447,6 +458,7 @@
     DLog(@"SCBroadcastController:viewDidLoad : %@", self.broadcastGroupId);
     
     _mutex = @"MUTEX";
+    didLoad = YES;
     
     self.tableView.estimatedRowHeight = 76;
     self.tableView.rowHeight = UITableViewAutomaticDimension;

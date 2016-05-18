@@ -8,9 +8,9 @@ PODS:
     - Flurry-iOS-SDK/FlurryAds (~> 7.3)
     - Flurry-iOS-SDK/FlurrySDK (~> 7.3)
     - SBJson (~> 4.0)
-  - Flurry-iOS-SDK/FlurryAds (7.6.0):
+  - Flurry-iOS-SDK/FlurryAds (7.6.3):
     - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (7.6.0)
+  - Flurry-iOS-SDK/FlurrySDK (7.6.3)
   - SBJson (4.0.2)
 
 DEPENDENCIES:
@@ -24,7 +24,7 @@ SPEC CHECKSUMS:
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
   C2Call-SDK: 69938d56a996c048f9a75625d46ae7d0d582fe5b
-  Flurry-iOS-SDK: 9822fe709195f0e3ae3e52c785eee9ff651ff648
+  Flurry-iOS-SDK: 5ea9c76a73ce16bff005d21a4f0b539d2c15d97d
   SBJson: c18691cc18375b14664ff0fec841f8c4faef1934
 
 COCOAPODS: 0.39.0

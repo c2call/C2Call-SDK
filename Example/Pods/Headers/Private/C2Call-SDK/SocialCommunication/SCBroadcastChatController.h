@@ -1,0 +1,1 @@
+../../../../../../Pod/Classes/SCBroadcastChatController.h

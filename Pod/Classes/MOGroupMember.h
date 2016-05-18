@@ -2,21 +2,23 @@
 //  MOGroupMember.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 04.12.13.
+//  Created by Michael Knecht on 14/05/16.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MOC2CallGroup;
+@class MOC2CallBroadcast, MOC2CallGroup;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface MOGroupMember : NSManagedObject
 
-@property (nonatomic, retain) NSString * email;
-@property (nonatomic, retain) NSString * firstname;
-@property (nonatomic, retain) NSString * lastname;
-@property (nonatomic, retain) NSString * userid;
-@property (nonatomic, retain) MOC2CallGroup *group;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "MOGroupMember+CoreDataProperties.h"

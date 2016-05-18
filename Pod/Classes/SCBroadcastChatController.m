@@ -28,13 +28,13 @@
     l.cornerRadius = 8.;
     l.masksToBounds = YES;
     l.borderColor = [[UIColor lightGrayColor] CGColor];
-
-
+    
+    
 }
 
 - (void)dealloc
 {
-     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -48,7 +48,7 @@
         self.broadcastVideo = segue.destinationViewController;
         self.broadcastVideo.broadcastGroupId = self.broadcastGroupId;
     }
-
+    
 }
 
 
@@ -98,7 +98,7 @@
         self.innerViewBottomContraint.constant = 0;
         [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
-        }];        
+        }];
     }
     
     if ([[notification name] isEqualToString:@"UIKeyboardDidShowNotification"]) {
@@ -135,7 +135,7 @@
             }
         });
     }
-
+    
 }
 
 - (IBAction)hangUp:(id)sender {
