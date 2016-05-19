@@ -72,10 +72,20 @@
  The MOC2CallGroup Object represents a group.
  All relevant information on the group is available through MOC2CallGroup Object. The data is read only; changes to the object will be discarded on next data synchronisation with the server.
  
- @param eventId - EventId of the object
+ @param groupid - EventId of the object
  @return The event object or nil
  */
 -(MOC2CallGroup *) groupForGroupid:(NSString *) groupid;
+
+/** Gets the MOC2CallBroadcast Object for a broadcastId.
+ 
+ The MOC2CallBroadcast Object represents a Broadcast Group.
+ All relevant information on the broadcast group is available through MOC2CallBroadcast Object. The data is read only; changes to the object will be discarded on next data synchronisation with the server.
+ 
+ @param bcastid - broadcastId of the object
+ @return The event object or nil
+ */
+-(MOC2CallBroadcast *) broadcastForBroadcastid:(NSString *) bcastid;
 
 /** Mark an MOC2CallEvent as read
  

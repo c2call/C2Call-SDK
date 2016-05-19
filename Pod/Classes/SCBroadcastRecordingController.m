@@ -13,7 +13,7 @@
 #import "C2CallPhone.h"
 #import "SCMediaManager.h"
 
-@interface SCBroadcastRecordingController () {
+@interface SCBroadcastRecordingController ()<UIGestureRecognizerDelegate> {
     BOOL        _toggleView;
 }
 
@@ -27,6 +27,10 @@
 {
     [super viewDidLoad];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleBroadcastStatusController:)];
+    tap.delegate = self;
+    [self.view addGestureRecognizer:tap];
+    self.view.userInteractionEnabled = YES;
     
 }
 
@@ -67,7 +71,7 @@
     if ([segue.destinationViewController isKindOfClass:[SCBroadcastStartController class]]) {
         self.broadcastStartController = (SCBroadcastStartController *) segue.destinationViewController;
         self.broadcastStartController.recordingController = self;
-        self.broadcastStatusController.view.alpha = 1.;
+        self.broadcastStartController.view.alpha = 1.;
     }
 }
 
@@ -116,6 +120,22 @@
             _toggleView = NO;
         }];
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+{
+    if ([touch.view isEqual:self.view]) {
+        return YES;
+    }
+    
+
+    
+    return NO;
 }
 
 @end
