@@ -11189,19 +11189,19 @@ Remove search filter?</string>
                                     <outletCollection property="gestureRecognizers" destination="zsC-eD-98q" appends="YES" id="Pg1-rE-hsC"/>
                                 </connections>
                             </view>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7i-rY-FiT" userLabel="ChatController">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <connections>
+                                    <segue destination="S0N-Ry-2Pf" kind="embed" id="Xzs-Oh-JTX"/>
+                                </connections>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8d-tf-KvJ" userLabel="StartController">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <connections>
                                     <segue destination="xAB-Qf-3TH" kind="embed" id="eZM-hz-Ynf"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7i-rY-FiT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <connections>
-                                    <segue destination="S0N-Ry-2Pf" kind="embed" id="Xzs-Oh-JTX"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L4-TB-xSa" userLabel="StatusController">
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L4-TB-xSa" userLabel="StatusController">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <connections>
                                     <segue destination="5BD-sX-g97" kind="embed" id="ZJF-d0-gCK"/>
@@ -11251,7 +11251,10 @@ Remove search filter?</string>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What are you looking at...?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G7Y-cB-HvY">
                                 <rect key="frame" x="16" y="40" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="broadcastNameChanged:" destination="xAB-Qf-3TH" eventType="editingDidEndOnExit" id="dvD-fE-BOW"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itn-ZI-cmO">
                                 <rect key="frame" x="106" y="500" width="109" height="30"/>

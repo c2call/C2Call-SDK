@@ -17,6 +17,8 @@
     BOOL        _toggleView;
 }
 
+@property (nonatomic, weak) AVCaptureVideoPreviewLayer *preview;
+
 @end
 
 @implementation SCBroadcastRecordingController
@@ -32,20 +34,19 @@
 {
     [super viewDidLayoutSubviews];
     
-    if ([self.view.layer.sublayers count] == 0) {
+    
+    if (!self.preview) {
         AVCaptureVideoPreviewLayer *preview = [SCMediaManager instance].previewLayer;
         
         if (preview) {
             preview.frame = self.view.bounds;
             [self.view.layer addSublayer:preview];
+            self.preview = preview;
         }
     } else {
-        AVCaptureVideoPreviewLayer *preview = (AVCaptureVideoPreviewLayer *)self.view.layer.sublayers[0];
-        
-        if (preview) {
-            preview.frame = self.view.bounds;
-        }
+        self.preview.frame = self.view.bounds;
     }
+    
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

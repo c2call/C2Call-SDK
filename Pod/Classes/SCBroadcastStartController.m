@@ -40,6 +40,9 @@
 }
 
 
+- (IBAction)broadcastNameChanged:(id)sender {
+    [sender resignFirstResponder];
+}
 
 - (IBAction)startVideo:(id)sender {
     
