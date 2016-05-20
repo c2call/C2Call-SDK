@@ -18,6 +18,7 @@
 }
 
 @property (nonatomic, weak) AVCaptureVideoPreviewLayer *preview;
+@property (weak, nonatomic) IBOutlet UIView *videoView;
 
 @end
 
@@ -32,6 +33,11 @@
     [self.view addGestureRecognizer:tap];
     self.view.userInteractionEnabled = YES;
     
+    self.broadcastStatusController.view.superview.hidden = YES;
+    self.broadcastStartController.view.superview.hidden = NO;
+    self.broadcastStatusController.view.alpha = 0.;
+    self.broadcastStartController.view.alpha = 1.;
+
 }
 
 -(void) viewDidLayoutSubviews
@@ -41,16 +47,24 @@
     
     if (!self.preview) {
         AVCaptureVideoPreviewLayer *preview = [SCMediaManager instance].previewLayer;
+        preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
         
         if (preview) {
-            preview.frame = self.view.bounds;
-            [self.view.layer addSublayer:preview];
+            preview.frame = self.videoView.layer.bounds;
+            [self.videoView.layer addSublayer:preview];
             self.preview = preview;
         }
     } else {
-        self.preview.frame = self.view.bounds;
+        self.preview.frame = self.videoView.layer.bounds;
     }
     
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    
+    [[SCMediaManager instance] startVideoCapture];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -65,13 +79,11 @@
     if ([segue.destinationViewController isKindOfClass:[SCBroadcastStatusController class]]) {
         self.broadcastStatusController = (SCBroadcastStatusController *) segue.destinationViewController;
         self.broadcastStatusController.recordingController = self;
-        self.broadcastStatusController.view.alpha = 0.;
     }
     
     if ([segue.destinationViewController isKindOfClass:[SCBroadcastStartController class]]) {
         self.broadcastStartController = (SCBroadcastStartController *) segue.destinationViewController;
         self.broadcastStartController.recordingController = self;
-        self.broadcastStartController.view.alpha = 1.;
     }
 }
 
@@ -84,7 +96,9 @@
 -(void) startBroadcasting
 {
     [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
-    self.broadcastStartController.view.alpha = 0.;
+    
+    self.broadcastStartController.view.superview.hidden = YES;
+    self.broadcastStatusController.view.superview.hidden = NO;
 }
 
 -(void) stopBroadcasting
@@ -108,6 +122,8 @@
     _toggleView = YES;
     
     if (self.broadcastStatusController.view.alpha == 0.) {
+        [self.view bringSubviewToFront:self.broadcastStatusController.view];
+        
         [UIView animateWithDuration:0.5 animations:^{
             self.broadcastStatusController.view.alpha = 1.0;
         } completion:^(BOOL finished) {
@@ -129,13 +145,16 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
 {
-    if ([touch.view isEqual:self.view]) {
-        return YES;
+    
+    if (self.broadcastStatusController.view.superview.hidden) {
+        return NO;
     }
     
-
+    if ([touch.view isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
     
-    return NO;
+    return YES;
 }
 
 @end

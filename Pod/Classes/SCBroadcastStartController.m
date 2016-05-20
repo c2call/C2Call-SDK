@@ -11,6 +11,7 @@
 #import "SCBroadcastRecordingController.h"
 #import "SCUserSelectionController.h"
 #import "C2CallPhone.h"
+#import "SCMediaManager.h"
 
 @interface SCBroadcastStartController ()
 
@@ -54,6 +55,13 @@
             [self.recordingController startBroadcasting];
         }
     }];
+}
+- (IBAction)toggleCamera:(UIButton *)cameraButton {
+    if (cameraButton.selected) {
+        [[SCMediaManager instance] switchCamera:AVCaptureDevicePositionFront];
+    } else {
+        [[SCMediaManager instance] switchCamera:AVCaptureDevicePositionBack];
+    }
 }
 
 - (IBAction)closeController:(id)sender {
