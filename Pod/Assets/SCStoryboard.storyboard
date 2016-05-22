@@ -10931,6 +10931,9 @@ Remove search filter?</string>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ERz-S1-XBJ" kind="push" id="bzR-D0-xJb"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="kPh-qy-WoT" style="IBUITableViewCellStyleDefault" id="oVk-Xt-dOs">
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
@@ -10961,6 +10964,80 @@ Remove search filter?</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BiK-Zg-L81" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-423" y="13628"/>
+        </scene>
+        <!--My Broadcasts Controller-->
+        <scene sceneID="AGr-JV-gYi">
+            <objects>
+                <tableViewController storyboardIdentifier="SCMyBroadcastsController" id="ERz-S1-XBJ" customClass="SCMyBroadcastsController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rhh-JH-Cq6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SCMyBroadcastCell" rowHeight="59" id="YXf-GJ-PPg" customClass="SCMyBroadcastCell">
+                                <rect key="frame" x="0.0" y="28" width="320" height="59"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YXf-GJ-PPg" id="dmI-na-6SF">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="58"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aq8-DI-wWc">
+                                            <rect key="frame" x="8" y="8" width="42" height="42"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="aq8-DI-wWc" secondAttribute="height" multiplier="1:1" id="jYH-rg-Bum"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="21"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCb-N4-vn8">
+                                            <rect key="frame" x="58" y="8" width="221" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJK-tC-XJq">
+                                            <rect key="frame" x="58" y="36" width="221" height="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="gCb-N4-vn8" firstAttribute="leading" secondItem="aq8-DI-wWc" secondAttribute="trailing" constant="8" id="EIb-eQ-vbD"/>
+                                        <constraint firstItem="aq8-DI-wWc" firstAttribute="top" secondItem="dmI-na-6SF" secondAttribute="topMargin" id="M05-qS-o9J"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="aq8-DI-wWc" secondAttribute="bottom" id="Nmy-ie-ZSR"/>
+                                        <constraint firstItem="gJK-tC-XJq" firstAttribute="bottom" secondItem="dmI-na-6SF" secondAttribute="bottomMargin" id="Ory-6F-1Vi"/>
+                                        <constraint firstItem="gJK-tC-XJq" firstAttribute="trailing" secondItem="dmI-na-6SF" secondAttribute="trailingMargin" id="SLU-e1-s9f"/>
+                                        <constraint firstItem="gCb-N4-vn8" firstAttribute="trailing" secondItem="dmI-na-6SF" secondAttribute="trailingMargin" id="Z6W-Lk-Cwp"/>
+                                        <constraint firstItem="aq8-DI-wWc" firstAttribute="leading" secondItem="dmI-na-6SF" secondAttribute="leadingMargin" id="amL-be-vHN"/>
+                                        <constraint firstItem="gCb-N4-vn8" firstAttribute="top" secondItem="dmI-na-6SF" secondAttribute="topMargin" id="bp9-vO-l9X"/>
+                                        <constraint firstItem="gJK-tC-XJq" firstAttribute="leading" secondItem="aq8-DI-wWc" secondAttribute="trailing" constant="8" id="cbp-2Y-DFf"/>
+                                        <constraint firstItem="gJK-tC-XJq" firstAttribute="top" secondItem="gCb-N4-vn8" secondAttribute="bottom" constant="7" id="qrx-YO-Wiv"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="broadcastDetail" destination="gJK-tC-XJq" id="zwP-LM-ngf"/>
+                                    <outlet property="broadcastImage" destination="aq8-DI-wWc" id="VDA-wg-TrW"/>
+                                    <outlet property="broadcastName" destination="gCb-N4-vn8" id="6Sx-Nu-8bd"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ERz-S1-XBJ" id="63k-jo-vhx"/>
+                            <outlet property="delegate" destination="ERz-S1-XBJ" id="soq-cw-3mV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="t2P-SR-uEI"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="88"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GNp-7E-GzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-31" y="13628"/>
         </scene>
         <!--ScreenControls-->
         <scene sceneID="BHi-nm-H0P">
