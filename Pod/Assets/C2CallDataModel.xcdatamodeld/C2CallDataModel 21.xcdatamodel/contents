@@ -132,7 +132,7 @@
         <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="broadcast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallBroadcast" inverseName="members" inverseEntity="MOC2CallBroadcast" syncable="YES"/>
-        <relationship name="group" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallGroup" inverseName="groupMembers" inverseEntity="MOC2CallGroup" syncable="YES"/>
+        <relationship name="group" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallGroup" inverseName="groupMembers" inverseEntity="MOC2CallGroup" syncable="YES"/>
     </entity>
     <entity name="MOOpenId" representedClassName="MOOpenId" syncable="YES">
         <attribute name="host" attributeType="String" syncable="YES"/>
@@ -156,16 +156,16 @@
     </entity>
     <elements>
         <element name="MOAddress" positionX="0" positionY="0" width="128" height="133"/>
+        <element name="MOC2CallBroadcast" positionX="7" positionY="-556" width="128" height="313"/>
         <element name="MOC2CallEvent" positionX="16" positionY="177" width="128" height="343"/>
         <element name="MOC2CallGroup" positionX="-2" positionY="-178" width="128" height="133"/>
         <element name="MOC2CallUser" positionX="-693" positionY="86" width="128" height="658"/>
         <element name="MOCallHistory" positionX="-333" positionY="-162" width="128" height="135"/>
         <element name="MOChatHistory" positionX="394" positionY="-180" width="128" height="135"/>
         <element name="MODidNumber" positionX="-441" positionY="389" width="128" height="88"/>
-        <element name="MOGroupMember" positionX="232" positionY="-261" width="128" height="133"/>
+        <element name="MOGroupMember" positionX="232" positionY="-261" width="128" height="135"/>
         <element name="MOOpenId" positionX="412" positionY="81" width="128" height="90"/>
         <element name="MOPhoneNumber" positionX="817" positionY="204" width="128" height="120"/>
         <element name="MOUserData" positionX="-450" positionY="45" width="128" height="133"/>
-        <element name="MOC2CallBroadcast" positionX="7" positionY="-556" width="128" height="313"/>
     </elements>
 </model>
