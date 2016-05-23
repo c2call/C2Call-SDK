@@ -37,6 +37,22 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self callBroadcast:nil];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
+        [[C2CallPhone currentPhone] hangUp];
+    }
+}
+
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.destinationViewController isKindOfClass:[SCBroadcastController class]]) {

@@ -50,7 +50,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary *userInfo =[[C2CallPhone currentPhone] getUserInfoForUserid:owner];
-        NSString *imagekey = userInfo[@"ImageLarge"];
+        NSString *imagekey = userInfo[@"ImageSmall"];
         NSString *bcastImageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:bcastid];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -62,13 +62,13 @@
                 NSString *firstname = userInfo[@"Firstname"];
                 NSString *name = userInfo[@"Lastname"];
                 
-                if ([c2user.displayName length] > 0) {
+                if (c2user.displayName) {
                     displayName = c2user.displayName;
                 } else if ([firstname length] > 0 &&  [name length] > 0) {
                     displayName = [NSString stringWithFormat:@"%@ %@", firstname, name];
-                } else if ([firstname length] > 0) {
+                } else if (firstname) {
                     displayName = firstname;
-                } else if ([name length] > 0) {
+                } else if (name) {
                     displayName = name;
                 }
                 self.userName.text = displayName;
