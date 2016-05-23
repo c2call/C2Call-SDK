@@ -1185,6 +1185,15 @@ typedef enum {
  */
 -(nullable UIImage *) imageForKey:(nonnull NSString *) key;
 
+/** Gets the user image mediaKey for a given userId.
+ 
+ @param userid of the user (friend)
+ 
+ @return Referenced ImageKey
+ 
+ */
+-(NSString *) userimageKeyForUserid:(NSString *) userid;
+
 /** Gets the user image for a given userId.
  
  To get a user image, the user must be a confirmed friend.
