@@ -51,6 +51,9 @@
 /** The broadcast group description */
 @property(nonatomic, strong)  NSString *groupDescription;
 
+/** The broadcast recorded media file */
+@property(nonatomic, strong)  NSString *mediaUrl;
+
 
 /** Instantiate the broadcast with groupid
  

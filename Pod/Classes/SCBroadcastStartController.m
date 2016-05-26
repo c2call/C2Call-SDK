@@ -140,7 +140,13 @@
     
     startingBroadcast = YES;
     
-    [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Starting Broadcast" andWaitMessage:nil];
+    if ([self.broadcastName isFirstResponder]) {
+        [self.broadcastName resignFirstResponder];
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.infoView.alpha = 1.0;
+    }];
     
     NSDictionary *proerties = @{@"UseLocation" : @(YES)};
     if (self.locationKey) {
@@ -155,19 +161,17 @@
         proerties = @{@"Longitude": [@(self.currentLocation.coordinate.longitude) stringValue], @"Latitude": [@(self.currentLocation.coordinate.latitude) stringValue]};
     }
     
+    __weak SCBroadcastStartController *weakself = self;
     [[C2CallPhone currentPhone] createBroadcast:self.broadcastName.text withProperties:proerties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {
-       
-        [[C2CallAppDelegate appDelegate] waitIndicatorStop];
         
         if (success) {
-            
             [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
-                
+            
                 if (image) {
                     SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
                     [bcast setGroupImage:image withCompletionHandler:^(BOOL finished) {
-                        self.recordingController.broadcastGroupId = bcastId;
-                        [self.recordingController startBroadcasting];
+                        weakself.recordingController.broadcastGroupId = bcastId;
+                        [weakself.recordingController startBroadcasting];
                     }];
                 }
             }];

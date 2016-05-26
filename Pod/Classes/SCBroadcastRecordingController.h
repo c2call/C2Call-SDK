@@ -23,4 +23,6 @@
 -(void) stopBroadcasting;
 -(void) closeBroadcasting;
 
+-(UIImage *) capturePreviewImage;
+
 @end

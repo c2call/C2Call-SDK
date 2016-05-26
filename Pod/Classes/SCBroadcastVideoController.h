@@ -14,7 +14,6 @@
 @interface SCBroadcastVideoController : UIViewController<VideoHandlerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView                 *innerView;
-@property(nonatomic, strong) IBOutlet ScreenControls        *screenControls;
 
 @property (nonatomic, strong) NSString                      *broadcastGroupId;
 

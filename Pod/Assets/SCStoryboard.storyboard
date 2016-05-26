@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0sJ-qu-8NN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0sJ-qu-8NN">
     <dependencies>
         <deployment version="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1350,10 +1350,6 @@ asdfsdfg</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbX-Lc-DdR">
                                 <rect key="frame" x="32" y="162" width="256" height="156"/>
                                 <subviews>
-                                    <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="popover_new" translatesAutoresizingMaskIntoConstraints="NO" id="uVc-bb-Goy">
-                                        <rect key="frame" x="20" y="23" width="216" height="110"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </imageView>
                                     <activityIndicatorView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qwK-Sa-17u">
                                         <rect key="frame" x="110" y="60" width="37" height="37"/>
                                         <color key="color" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1370,6 +1366,10 @@ asdfsdfg</string>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="popover_new" translatesAutoresizingMaskIntoConstraints="NO" id="uVc-bb-Goy">
+                                        <rect key="frame" x="20" y="23" width="216" height="110"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -3051,14 +3051,14 @@ Please try again later.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="USA / Canada" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o33-mN-6e9">
-                                                    <rect key="frame" x="60" y="0.0" width="225" height="43"/>
+                                                    <rect key="frame" x="62" y="0.0" width="223" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="flag1" id="2nX-W6-ruF">
-                                                    <rect key="frame" x="15" y="11" width="30" height="20"/>
+                                                    <rect key="frame" x="15" y="5" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -10504,7 +10504,7 @@ Remove search filter?</string>
             </objects>
             <point key="canvasLocation" x="-55" y="5071"/>
         </scene>
-        <!--Broadcast Info Controller-->
+        <!--Broadcasts-->
         <scene sceneID="ATm-mv-Doy">
             <objects>
                 <viewController storyboardIdentifier="SCBroadcastInfoController" id="tY6-jM-onN" customClass="SCBroadcastInfoController" sceneMemberID="viewController">
@@ -10516,7 +10516,7 @@ Remove search filter?</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_video.png" translatesAutoresizingMaskIntoConstraints="NO" id="KOY-Ww-YXa">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ico_video.png" translatesAutoresizingMaskIntoConstraints="NO" id="KOY-Ww-YXa">
                                 <rect key="frame" x="100" y="28" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="ELh-mj-Cyx"/>
@@ -10524,7 +10524,7 @@ Remove search filter?</string>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJ7-BW-dtI" customClass="SCFlatButton">
-                                <rect key="frame" x="96" y="173" width="129" height="30"/>
+                                <rect key="frame" x="86" y="173" width="149" height="28"/>
                                 <color key="backgroundColor" red="0.20000000300000001" green="0.60000002379999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                 <state key="normal" title="Start Broadcasting">
@@ -10535,20 +10535,20 @@ Remove search filter?</string>
                                 </connections>
                             </button>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" image="btn_ico_video" translatesAutoresizingMaskIntoConstraints="NO" id="Hpd-Hr-QfP">
-                                <rect key="frame" x="16" y="212" width="20" height="20"/>
+                                <rect key="frame" x="16" y="210" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="636-Vu-EFr"/>
                                     <constraint firstAttribute="height" constant="20" id="WNh-mR-hFg"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="15 Broadcasts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjA-pl-XAa">
-                                <rect key="frame" x="44" y="215" width="86" height="16"/>
+                                <rect key="frame" x="44" y="212" width="86" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zvq-ub-m6R">
-                                <rect key="frame" x="0.0" y="257" width="320" height="88"/>
+                                <rect key="frame" x="0.0" y="255" width="320" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="3VD-Bn-rzS"/>
                                 </constraints>
@@ -10572,6 +10572,8 @@ Remove search filter?</string>
                             <constraint firstItem="UJ7-BW-dtI" firstAttribute="centerX" secondItem="RCv-3v-HK7" secondAttribute="centerX" id="rFD-1n-DV6"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Broadcasts" id="PRq-5R-cYm"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="broadcastInfo" destination="jjA-pl-XAa" id="WwQ-EE-d0P"/>
                     </connections>
@@ -10644,17 +10646,17 @@ Remove search filter?</string>
             </objects>
             <point key="canvasLocation" x="-423" y="13628"/>
         </scene>
-        <!--My Broadcasts Controller-->
+        <!--My Broadcasts-->
         <scene sceneID="AGr-JV-gYi">
             <objects>
-                <tableViewController storyboardIdentifier="SCMyBroadcastsController" id="ERz-S1-XBJ" customClass="SCMyBroadcastsController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SCMyBroadcastsController" title="My Broadcasts" id="ERz-S1-XBJ" customClass="SCMyBroadcastsController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rhh-JH-Cq6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SCMyBroadcastCell" rowHeight="59" id="YXf-GJ-PPg" customClass="SCMyBroadcastCell">
-                                <rect key="frame" x="0.0" y="28" width="320" height="59"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="59"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YXf-GJ-PPg" id="dmI-na-6SF">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="58"/>
@@ -10711,30 +10713,34 @@ Remove search filter?</string>
                             <outlet property="delegate" destination="ERz-S1-XBJ" id="soq-cw-3mV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="t2P-SR-uEI"/>
+                    <navigationItem key="navigationItem" title="My Broadcasts" id="t2P-SR-uEI"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="ZHU-gO-hGG" kind="push" identifier="SCVideoPlayerControllerSegue" id="zEx-XF-ANj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNp-7E-GzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-356" y="14033"/>
+            <point key="canvasLocation" x="-423" y="14033"/>
         </scene>
-        <!--Broadcasts Around Me Controller-->
+        <!--Live Broadcasts-->
         <scene sceneID="f50-fB-aad">
             <objects>
-                <tableViewController storyboardIdentifier="SCBroadcastsAroundMeController" id="mq8-gX-dZN" customClass="SCBroadcastsAroundMeController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SCBroadcastsAroundMeController" title="Live Broadcasts" id="mq8-gX-dZN" customClass="SCBroadcastsAroundMeController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="266" sectionHeaderHeight="28" sectionFooterHeight="28" id="j1s-m2-2Oy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SCBroadcastCell" rowHeight="266" id="QM3-gH-uXV" customClass="SCBroadcastCell">
-                                <rect key="frame" x="0.0" y="28" width="320" height="266"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="266"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QM3-gH-uXV" id="qjN-5z-M2o">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="265"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wad-nS-Nb2" userLabel="broadcastImage">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_video" translatesAutoresizingMaskIntoConstraints="NO" id="Wad-nS-Nb2" userLabel="broadcastImage">
                                             <rect key="frame" x="0.0" y="5" width="320" height="255"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P2k-g5-9wf">
@@ -10779,7 +10785,7 @@ Remove search filter?</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" cyan="0.55000000000000004" magenta="0.19764690101146698" yellow="0.00052393681835383177" black="0.00052393681835383177" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                            <color key="backgroundColor" cyan="0.55000000000000004" magenta="0.19764690101146698" yellow="0.00052393681835383177" black="0.00052393681835383177" alpha="0.40204522357723577" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="hCV-Sa-TAn" secondAttribute="trailing" constant="20" id="07E-2i-lFe"/>
                                                 <constraint firstItem="Ngg-bg-CVs" firstAttribute="leading" secondItem="ON5-Ds-ufA" secondAttribute="trailing" constant="8" id="1gm-yC-N7K"/>
@@ -10808,7 +10814,7 @@ Remove search filter?</string>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qb2-M7-PIm" userLabel="onlineUsers">
                                             <rect key="frame" x="289" y="18" width="18" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.027450980390000001" green="0.33333333329999998" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -10842,7 +10848,8 @@ Remove search filter?</string>
                             <outlet property="delegate" destination="mq8-gX-dZN" id="aG9-pU-DEk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4XJ-Ae-ZoW"/>
+                    <navigationItem key="navigationItem" title="Live Broadcasts " id="4XJ-Ae-ZoW"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="shY-zn-z6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -11000,15 +11007,41 @@ Remove search filter?</string>
                                     <constraint firstItem="OFj-bO-OT7" firstAttribute="centerY" secondItem="Eka-gf-AMh" secondAttribute="centerY" id="qsj-SO-fI9"/>
                                 </constraints>
                             </view>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvU-JT-3M5">
+                                <rect key="frame" x="36" y="344" width="248" height="123"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Video stream will be started..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KxQ-Ta-sNs">
+                                        <rect key="frame" x="11" y="25" width="227" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.1647058824" green="0.51372549020000002" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="X2o-FF-EbJ">
+                                        <rect key="frame" x="106" y="66" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="KxQ-Ta-sNs" firstAttribute="leading" secondItem="uvU-JT-3M5" secondAttribute="leading" constant="10" id="Bly-Xk-Wub"/>
+                                    <constraint firstItem="X2o-FF-EbJ" firstAttribute="top" secondItem="KxQ-Ta-sNs" secondAttribute="bottom" constant="20" id="BnO-ge-YuS"/>
+                                    <constraint firstItem="X2o-FF-EbJ" firstAttribute="centerX" secondItem="uvU-JT-3M5" secondAttribute="centerX" id="RA3-IR-vyN"/>
+                                    <constraint firstItem="KxQ-Ta-sNs" firstAttribute="top" secondItem="uvU-JT-3M5" secondAttribute="top" constant="25" id="UUI-Dj-fW4"/>
+                                    <constraint firstAttribute="bottom" secondItem="X2o-FF-EbJ" secondAttribute="bottom" constant="20" id="jQG-V1-zHe"/>
+                                    <constraint firstAttribute="trailing" secondItem="KxQ-Ta-sNs" secondAttribute="trailing" constant="10" id="yjH-cR-Xhw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Itn-ZI-cmO" firstAttribute="centerX" secondItem="Wel-HG-rUq" secondAttribute="centerX" id="00w-OV-Ohj"/>
+                            <constraint firstItem="uvU-JT-3M5" firstAttribute="leading" secondItem="Wel-HG-rUq" secondAttribute="leadingMargin" constant="20" id="839-ld-Usy"/>
                             <constraint firstItem="G7Y-cB-HvY" firstAttribute="top" secondItem="p5C-ma-Jqq" secondAttribute="bottom" constant="60" id="C2u-qB-0OW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uvU-JT-3M5" secondAttribute="trailing" constant="20" id="Ee6-3F-k2r"/>
                             <constraint firstItem="PVh-8s-7J4" firstAttribute="leading" secondItem="Wel-HG-rUq" secondAttribute="leadingMargin" id="TFg-PQ-dEX"/>
                             <constraint firstItem="Eka-gf-AMh" firstAttribute="centerX" secondItem="Wel-HG-rUq" secondAttribute="centerX" id="Tyi-Bc-AuY"/>
                             <constraint firstItem="G7Y-cB-HvY" firstAttribute="leading" secondItem="Wel-HG-rUq" secondAttribute="leadingMargin" id="dRS-6j-qpG"/>
                             <constraint firstItem="Eka-gf-AMh" firstAttribute="top" secondItem="G7Y-cB-HvY" secondAttribute="bottom" constant="40" id="k4a-2A-H4P"/>
+                            <constraint firstItem="uvU-JT-3M5" firstAttribute="top" secondItem="Itn-ZI-cmO" secondAttribute="bottom" constant="108" id="n2w-Bc-ORp"/>
                             <constraint firstItem="Itn-ZI-cmO" firstAttribute="top" secondItem="Eka-gf-AMh" secondAttribute="bottom" constant="8" id="nFv-bA-aKF"/>
                             <constraint firstItem="PVh-8s-7J4" firstAttribute="top" secondItem="p5C-ma-Jqq" secondAttribute="bottom" constant="8" id="qS8-wr-Hxz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="G7Y-cB-HvY" secondAttribute="trailing" id="sg1-Zy-Zuv"/>
@@ -11017,6 +11050,7 @@ Remove search filter?</string>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="broadcastName" destination="G7Y-cB-HvY" id="UOQ-SB-FWR"/>
+                        <outlet property="infoView" destination="uvU-JT-3M5" id="fJZ-CD-npX"/>
                         <outlet property="locationButton" destination="tux-OT-qu9" id="ivb-IU-dnh"/>
                         <outlet property="membersButton" destination="F6l-6U-hOF" id="vgI-m1-wlZ"/>
                         <outlet property="startButton" destination="Itn-ZI-cmO" id="vc1-2K-mjC"/>
@@ -11165,7 +11199,7 @@ Remove search filter?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0tC-EP-3yY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="631" y="13749"/>
+            <point key="canvasLocation" x="776" y="13825"/>
         </scene>
         <!--Your Location-->
         <scene sceneID="eZI-Za-1Gd">
@@ -11382,17 +11416,8 @@ Remove search filter?</string>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" text="Label asfd sadf asdfasdf asdf " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXm-vd-gdJ">
-                                                    <rect key="frame" x="8" y="0.0" width="196" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="0ZQ-93-hCY"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="Label  asfasdf asdf asdf af " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDC-JW-Ame">
-                                                    <rect key="frame" x="8" y="21" width="196" height="43"/>
+                                                    <rect key="frame" x="8" y="0.0" width="196" height="64"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -11400,16 +11425,13 @@ Remove search filter?</string>
                                             </subviews>
                                             <color key="backgroundColor" red="0.2156862745" green="0.68627450980000004" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstItem="eDC-JW-Ame" firstAttribute="top" secondItem="jO3-iZ-3Gc" secondAttribute="top" id="5hd-1V-aon"/>
                                                 <constraint firstAttribute="trailing" secondItem="ly9-4Z-doU" secondAttribute="trailing" id="Ddb-O6-UeT"/>
                                                 <constraint firstItem="ly9-4Z-doU" firstAttribute="leading" secondItem="eDC-JW-Ame" secondAttribute="trailing" constant="8" id="DwP-Xh-dDb"/>
                                                 <constraint firstAttribute="bottom" secondItem="eDC-JW-Ame" secondAttribute="bottom" constant="4" id="GUD-Ay-2dG"/>
-                                                <constraint firstItem="ly9-4Z-doU" firstAttribute="leading" secondItem="YXm-vd-gdJ" secondAttribute="trailing" constant="8" id="KPe-hq-gvP"/>
                                                 <constraint firstAttribute="bottom" secondItem="ly9-4Z-doU" secondAttribute="bottom" id="TUL-SZ-cKh"/>
-                                                <constraint firstItem="YXm-vd-gdJ" firstAttribute="leading" secondItem="jO3-iZ-3Gc" secondAttribute="leading" constant="8" id="bXy-Cj-l55"/>
                                                 <constraint firstItem="ly9-4Z-doU" firstAttribute="top" secondItem="jO3-iZ-3Gc" secondAttribute="top" id="hga-gd-cJM"/>
-                                                <constraint firstItem="eDC-JW-Ame" firstAttribute="top" secondItem="YXm-vd-gdJ" secondAttribute="bottom" id="oAu-Gy-XSi"/>
                                                 <constraint firstItem="eDC-JW-Ame" firstAttribute="leading" secondItem="jO3-iZ-3Gc" secondAttribute="leading" constant="8" id="pXw-wd-t9h"/>
-                                                <constraint firstItem="YXm-vd-gdJ" firstAttribute="top" secondItem="jO3-iZ-3Gc" secondAttribute="top" id="qJV-rD-CzO"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -11429,7 +11451,6 @@ Remove search filter?</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="messageText" destination="eDC-JW-Ame" id="bES-ur-sNV"/>
-                                    <outlet property="senderName" destination="YXm-vd-gdJ" id="WIa-6D-ajp"/>
                                     <outlet property="userImage" destination="ly9-4Z-doU" id="Ix5-uc-px1"/>
                                 </connections>
                             </tableViewCell>
@@ -11599,23 +11620,13 @@ Remove search filter?</string>
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghx-ea-fDs">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
-                                <connections>
-                                    <segue destination="93h-3z-1uy" kind="embed" id="UeN-2L-yaz"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Fk3-K5-Jih" secondAttribute="trailing" id="7TY-4i-Tck"/>
-                            <constraint firstAttribute="trailing" secondItem="Ghx-ea-fDs" secondAttribute="trailing" id="AN2-dE-2CX"/>
-                            <constraint firstItem="Ghx-ea-fDs" firstAttribute="leading" secondItem="yth-JI-rTi" secondAttribute="leading" id="DNK-hC-YUJ"/>
                             <constraint firstItem="df7-Sg-gWA" firstAttribute="top" secondItem="Fk3-K5-Jih" secondAttribute="bottom" id="OWI-UB-f1p"/>
                             <constraint firstItem="Fk3-K5-Jih" firstAttribute="leading" secondItem="yth-JI-rTi" secondAttribute="leading" id="PIY-EK-fvo"/>
                             <constraint firstItem="Fk3-K5-Jih" firstAttribute="top" secondItem="yXH-KE-1RJ" secondAttribute="bottom" id="Trs-ox-OjY"/>
-                            <constraint firstItem="df7-Sg-gWA" firstAttribute="top" secondItem="Ghx-ea-fDs" secondAttribute="bottom" id="cQn-bs-SnV"/>
-                            <constraint firstItem="Ghx-ea-fDs" firstAttribute="top" secondItem="yXH-KE-1RJ" secondAttribute="bottom" id="d4E-8V-iO9"/>
                         </constraints>
                     </view>
                     <connections>
@@ -11833,6 +11844,140 @@ Remove search filter?</string>
             </objects>
             <point key="canvasLocation" x="1750" y="12451"/>
         </scene>
+        <!--Video-->
+        <scene sceneID="jqa-Og-wSS">
+            <objects>
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="ZHU-gO-hGG" customClass="SCVideoPlayerController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QqU-Hm-5Cq"/>
+                        <viewControllerLayoutGuide type="bottom" id="bFk-oi-R6T"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2ls-d4-9eo" userLabel="PlayerContentView">
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqi-bN-aQ2" userLabel="videoView" customClass="SCVideoView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2q-64-off" userLabel="controlsView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gN4-qH-fcb" userLabel="playButton">
+                                                <rect key="frame" x="139" y="244" width="41" height="35"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="FJc-2Q-vYJ"/>
+                                                    <constraint firstAttribute="width" constant="41" id="aVK-iH-Wft"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                                <state key="normal" image="ico_play">
+                                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="selected" image="ico_stop"/>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="play:" destination="ZHU-gO-hGG" eventType="touchUpInside" id="VKb-Wr-Z9F"/>
+                                                </connections>
+                                            </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg_current_credits" translatesAutoresizingMaskIntoConstraints="NO" id="rWK-OB-Uwl">
+                                                <rect key="frame" x="20" y="21" width="124" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="3td-rM-9sm"/>
+                                                    <constraint firstAttribute="width" constant="124" id="MCH-8k-wa0"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTi-F4-WwB">
+                                                <rect key="frame" x="30" y="20" width="106" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="106" id="Gkm-LL-37j"/>
+                                                    <constraint firstAttribute="height" constant="21" id="efr-cg-UsC"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_broken_video" translatesAutoresizingMaskIntoConstraints="NO" id="ddP-IG-AlW">
+                                                <rect key="frame" x="128" y="230" width="65" height="65"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="rWK-OB-Uwl" firstAttribute="top" secondItem="w2q-64-off" secondAttribute="top" constant="21" id="0Ea-hq-6Lx"/>
+                                            <constraint firstAttribute="centerY" secondItem="gN4-qH-fcb" secondAttribute="centerY" id="6XJ-sd-so4"/>
+                                            <constraint firstAttribute="centerX" secondItem="ddP-IG-AlW" secondAttribute="centerX" id="Axu-cR-QYv"/>
+                                            <constraint firstAttribute="centerY" secondItem="ddP-IG-AlW" secondAttribute="centerY" id="GEy-sv-uNU"/>
+                                            <constraint firstItem="hTi-F4-WwB" firstAttribute="leading" secondItem="w2q-64-off" secondAttribute="leading" constant="30" id="LvL-HO-ygG"/>
+                                            <constraint firstItem="rWK-OB-Uwl" firstAttribute="leading" secondItem="w2q-64-off" secondAttribute="leading" constant="20" id="Rlg-Vp-sJ2"/>
+                                            <constraint firstItem="hTi-F4-WwB" firstAttribute="top" secondItem="w2q-64-off" secondAttribute="top" constant="20" id="bHr-ct-bbF"/>
+                                            <constraint firstAttribute="centerX" secondItem="gN4-qH-fcb" secondAttribute="centerX" id="ony-Yt-40o"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="w2q-64-off" secondAttribute="trailing" id="3jC-6S-5zS"/>
+                                    <constraint firstItem="w2q-64-off" firstAttribute="top" secondItem="tqi-bN-aQ2" secondAttribute="top" id="5xb-N6-lyM"/>
+                                    <constraint firstAttribute="bottom" secondItem="w2q-64-off" secondAttribute="bottom" id="S3L-Fc-nMh"/>
+                                    <constraint firstItem="w2q-64-off" firstAttribute="leading" secondItem="tqi-bN-aQ2" secondAttribute="leading" id="l4p-uL-Yhh"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="controlsView" destination="w2q-64-off" id="mXS-bq-A8f"/>
+                                    <outlet property="imageBroken" destination="ddP-IG-AlW" id="dvJ-eV-3hL"/>
+                                    <outletCollection property="gestureRecognizers" destination="pwf-TH-cUg" appends="YES" id="1BK-dY-BcX"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShN-S6-h3I" userLabel="loadingView">
+                                <rect key="frame" x="110" y="212" width="100" height="100"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lVG-yk-nme">
+                                        <rect key="frame" x="32" y="32" width="37" height="37"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="lVG-yk-nme" secondAttribute="centerY" id="Bfp-Hx-s8g"/>
+                                    <constraint firstAttribute="centerX" secondItem="lVG-yk-nme" secondAttribute="centerX" id="Dsy-3X-8IL"/>
+                                    <constraint firstAttribute="height" constant="100" id="ErU-O8-f8x"/>
+                                    <constraint firstAttribute="width" constant="100" id="SWq-Oc-FVC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="ShN-S6-h3I" secondAttribute="centerX" id="6wl-VO-W8w"/>
+                            <constraint firstItem="tqi-bN-aQ2" firstAttribute="leading" secondItem="2ls-d4-9eo" secondAttribute="leading" id="SXD-8c-eZQ"/>
+                            <constraint firstItem="bFk-oi-R6T" firstAttribute="top" secondItem="tqi-bN-aQ2" secondAttribute="bottom" id="WbO-f9-xns"/>
+                            <constraint firstAttribute="trailing" secondItem="tqi-bN-aQ2" secondAttribute="trailing" id="XC2-12-NUW"/>
+                            <constraint firstItem="tqi-bN-aQ2" firstAttribute="top" secondItem="QqU-Hm-5Cq" secondAttribute="bottom" id="lTa-2q-toQ"/>
+                            <constraint firstAttribute="centerY" secondItem="ShN-S6-h3I" secondAttribute="centerY" id="xNj-CP-K2D"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Video" id="7Lw-OF-Tw9"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="expandView" destination="tqi-bN-aQ2" id="8DA-su-7TJ"/>
+                        <outlet property="loadingView" destination="ShN-S6-h3I" id="ltr-no-b4h"/>
+                        <outlet property="playButton" destination="gN4-qH-fcb" id="2us-XO-Wn8"/>
+                        <outlet property="playerView" destination="tqi-bN-aQ2" id="AHt-9w-aOp"/>
+                        <outlet property="timeLabel" destination="hTi-F4-WwB" id="t8t-MU-SPQ"/>
+                    </connections>
+                </viewController>
+                <tapGestureRecognizer id="pwf-TH-cUg">
+                    <connections>
+                        <action selector="toggleControls:" destination="ZHU-gO-hGG" id="mbB-6b-0vg"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gxs-Lf-aRO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="410" y="14033"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddContact2-24x24" width="30" height="30"/>
@@ -11867,7 +12012,7 @@ Remove search filter?</string>
         <image name="btn_send_message_grey" width="66" height="28"/>
         <image name="btn_takecall_hover" width="135" height="50"/>
         <image name="btn_video_offer" width="28" height="28"/>
-        <image name="flag1" width="30" height="20"/>
+        <image name="flag1" width="32" height="32"/>
         <image name="ico_arrow_left" width="27" height="21"/>
         <image name="ico_arrow_right" width="27" height="21"/>
         <image name="ico_avatar.png" width="30" height="30"/>
@@ -11891,7 +12036,7 @@ Remove search filter?</string>
         <image name="ico_expand" width="30" height="30"/>
         <image name="ico_footer_dialpad_01" width="25" height="25"/>
         <image name="ico_footer_phonebook_contacts_01" width="30" height="30"/>
-        <image name="ico_friendcaller-color" width="29" height="29"/>
+        <image name="ico_friendcaller-color" width="24" height="24"/>
         <image name="ico_front_kamera" width="43" height="26"/>
         <image name="ico_geolocation-24x24" width="30" height="30"/>
         <image name="ico_group" width="30" height="30"/>
@@ -11904,7 +12049,7 @@ Remove search filter?</string>
         <image name="ico_msg_white-20x20" width="20" height="20"/>
         <image name="ico_no_kamera" width="43" height="26"/>
         <image name="ico_play" width="11" height="16"/>
-        <image name="ico_read" width="15" height="15"/>
+        <image name="ico_read" width="14" height="14"/>
         <image name="ico_record" width="17" height="17"/>
         <image name="ico_record_again" width="19" height="22"/>
         <image name="ico_richmessaging_03" width="28" height="28"/>
@@ -11916,6 +12061,7 @@ Remove search filter?</string>
         <image name="ico_unencrypted" width="30" height="30"/>
         <image name="ico_unencrypted_grey" width="20" height="20"/>
         <image name="ico_vcard" width="65" height="65"/>
+        <image name="ico_video" width="65" height="65"/>
         <image name="ico_video.png" width="65" height="65"/>
         <image name="ico_voice" width="30" height="30"/>
         <image name="ico_voice_hover" width="30" height="30"/>

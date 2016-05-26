@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *locationButton;
 @property (weak, nonatomic) IBOutlet UIButton *membersButton;
+@property (weak, nonatomic) IBOutlet UIView *infoView;
 
 @property (weak, nonatomic) SCBroadcastRecordingController *recordingController;
 

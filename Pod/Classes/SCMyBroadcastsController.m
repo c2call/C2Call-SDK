@@ -8,10 +8,24 @@
 
 #import "SCMyBroadcastsController.h"
 #import "MOC2CallBroadcast.h"
+#import "SCVideoPlayerController.h"
+#import "SCBroadcast.h"
 
 static NSDateFormatter *dateTime = nil;
 
 @implementation SCMyBroadcastCell
+
+-(void) prepareForReuse
+{
+    [super prepareForReuse];
+    
+    self.broadcastid = nil;
+    self.broadcast = nil;
+    self.broadcastName.text = @"";
+    self.broadcastDetail.text = @"";
+    self.broadcastImage.image = nil;
+}
+
 
 -(void) configureCell:(MOC2CallBroadcast *) broadcast
 {
@@ -79,6 +93,35 @@ static NSDateFormatter *dateTime = nil;
 {
     MOC2CallBroadcast *bcast = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [cell configureCell:bcast];
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SCMyBroadcastCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    SCBroadcast *bcast = cell.broadcast;
+    if (!bcast) {
+        bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:cell.broadcastid retrieveFromServer:NO];
+        cell.broadcast = bcast;
+    }
+    
+    NSString *mediaUrl = bcast.mediaUrl;
+    
+    if (mediaUrl && [[C2CallPhone currentPhone] hasObjectForKey:mediaUrl]) {
+        [self performSegueWithIdentifier:@"SCVideoPlayerControllerSegue" sender:cell];
+    }
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[SCVideoPlayerController class]] && [sender isKindOfClass:[SCMyBroadcastCell class]]) {
+        SCVideoPlayerController *vpc = (SCVideoPlayerController *) segue.destinationViewController;
+        SCMyBroadcastCell *cell = (SCMyBroadcastCell *) sender;
+        
+        if ([[C2CallPhone currentPhone] hasObjectForKey:cell.broadcast.mediaUrl]) {
+            vpc.mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:cell.broadcast.mediaUrl];
+        }
+    }
 }
 
 @end

@@ -12,9 +12,13 @@
 #import "SCBroadcastStatusController.h"
 #import "C2CallPhone.h"
 #import "SCMediaManager.h"
+#import "SCBroadcast.h"
+#import "debug.h"
 
 @interface SCBroadcastRecordingController ()<UIGestureRecognizerDelegate> {
     BOOL        _toggleView;
+    
+    BOOL        mediaRecordingStarted;
 }
 
 @property (nonatomic, weak) AVCaptureVideoPreviewLayer *preview;
@@ -23,6 +27,11 @@
 @end
 
 @implementation SCBroadcastRecordingController
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 -(void) viewDidLoad
 {
@@ -37,7 +46,15 @@
     self.broadcastStartController.view.superview.hidden = NO;
     self.broadcastStatusController.view.alpha = 0.;
     self.broadcastStartController.view.alpha = 1.;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastConnected:) name:@"SCBroadcastConnected" object:nil];
+    
+}
 
+-(void) broadcastConnected:(NSNotification *) notification
+{
+    [[SCMediaManager instance] startMediaRecording];
+    mediaRecordingStarted = YES;
 }
 
 -(void) viewDidLayoutSubviews
@@ -104,7 +121,28 @@
 -(void) stopBroadcasting
 {
     [[C2CallPhone currentPhone] hangUp];
-    [self closeBroadcasting];
+    
+    if (mediaRecordingStarted) {
+        [[SCMediaManager instance] stopMediaRecordingWithCompletionHandler:^(NSString * _Nullable mediaKey) {
+            
+            if (mediaKey) {
+                
+                SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:self.broadcastGroupId retrieveFromServer:YES];
+                bcast.mediaUrl = mediaKey;
+                [bcast saveBroadcast];
+                
+                NSURL *url = [[C2CallPhone currentPhone] mediaUrlForKey:mediaKey];
+                
+                NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:nil];
+                DLog(@"File Attributes: %@", attr);
+                [[C2CallPhone currentPhone] submitRichMessage:mediaKey message:nil toTarget:self.broadcastGroupId];
+                [self closeBroadcasting];
+            }
+            
+        }];
+    } else {
+        [self closeBroadcasting];
+    }
 }
 
 -(void) closeBroadcasting
@@ -155,6 +193,21 @@
     }
     
     return YES;
+}
+
+-(UIImage *) capturePreviewImage
+{
+    if (self.preview) {
+        UIView *snapView = [self.videoView snapshotViewAfterScreenUpdates:YES];
+        UIGraphicsBeginImageContext(snapView.bounds.size);
+        [snapView drawViewHierarchyInRect:snapView.bounds afterScreenUpdates:NO];
+        UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return img;
+    }
+    
+    return nil;
 }
 
 @end

@@ -35,6 +35,7 @@
     
     NSString *bcastid = self.broadcastid;
     NSString *owner = [bcast.groupOwner copy];
+    NSString *locationName = bcast.locationName? [bcast.locationName copy]: @"";
     
     UIImage *bcastImage = [[C2CallPhone currentPhone] userimageForUserid:self.broadcastid];
     if (bcastImage) {
@@ -50,7 +51,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary *userInfo =[[C2CallPhone currentPhone] getUserInfoForUserid:owner];
-        NSString *imagekey = userInfo[@"ImageSmall"];
+        NSString *imagekey = userInfo[@"ImageLarge"];
         NSString *bcastImageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:bcastid];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -62,17 +63,17 @@
                 NSString *firstname = userInfo[@"Firstname"];
                 NSString *name = userInfo[@"Lastname"];
                 
-                if (c2user.displayName) {
+                if ([c2user.displayName length] > 0) {
                     displayName = c2user.displayName;
                 } else if ([firstname length] > 0 &&  [name length] > 0) {
                     displayName = [NSString stringWithFormat:@"%@ %@", firstname, name];
-                } else if (firstname) {
+                } else if ([firstname length] > 0) {
                     displayName = firstname;
-                } else if (name) {
+                } else if ([name length] > 0) {
                     displayName = name;
                 }
                 self.userName.text = displayName;
-                self.userStatus.text = [c2user.online boolValue]? @"online" : @"";
+                self.userStatus.text = locationName;
             }
         });
 
