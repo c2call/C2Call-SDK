@@ -1097,6 +1097,26 @@ typedef enum {
  */
 -(BOOL) retrieveObjectForKey:(nonnull NSString *)key completion:(nullable void (^)(BOOL finished))completion;
 
+/** Upload rich media object to server
+ 
+ Upload a locally stored rich media object to the server.
+ 
+ @param url - Local file url
+ @param prefix - Name prefix
+ @param completion - Completion handler when the upload job is done
+ @return YES - Uploading / NO - Upload failed completion handler will not be called
+ */
+-(BOOL) uploadFileObjectWithUrl:(nonnull NSURL *) url withPrefix:(nullable NSString *) prefix completion:(void (^)(BOOL finished, NSString *mediaKey, NSError *error ))handler;
+
+/** Retrieve remote size of object
+ 
+ @param key - rich message key of the media file
+ 
+ @return >= 0 : Size of object < 0 : Object not available
+ */
+
+-(int) remoteSizeForKey:(nonnull NSString *) key;
+
 /** Check whether a rich media file for a given rich media key is locally available on the device.
  
  @param key - rich message key of the media file
