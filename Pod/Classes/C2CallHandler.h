@@ -58,7 +58,6 @@
 	NSMutableDictionary *userPictures;
     NSMutableDictionary *priceCache;
 	NSMutableDictionary *groupMap;
-    NSMutableDictionary *broadcastMap;
 	
 	BOOL			started, userPictureUpdateRunning;
 	BOOL			initialization;
@@ -114,7 +113,7 @@
 
 @property(strong) SIPTimer			*renewTimer;
 @property(strong) NSData			*deviceToken;
-@property(strong) NSMutableDictionary *friendMap, *userPictures, *priceCache, *groupMap, *broadcastMap, *contactMap;
+@property(strong) NSMutableDictionary *friendMap, *userPictures, *priceCache, *groupMap, *contactMap;
 @property(nonatomic, weak) SCAffiliateInfo  *affiliateInfo;
 @property(nonatomic, strong) NSDictionary   *sessionInfo, *didInfo;
 @property(nonatomic) BOOL           ownNumberVerified, callMeLinkActive;
@@ -217,14 +216,6 @@
 -(DDXMLElement *) getFriendCallerGroup:(NSString *)groupid;
 -(void) handleGroupCallEvent:(SIPRequest *) request;
 -(BOOL) isGroupUser:(NSString *) userid;
-
--(DDXMLElement *) createBroadcastGroupWithSynchonousRequest:(NSString *) groupName groupType:(NSString *)groupType properties:(NSDictionary *)properties withFriends:(NSArray *) groupMember;
--(DDXMLElement *) getBroadcastGroup:(NSString *)groupid;
--(BOOL) deleteBroadcastGroup:(NSString *)groupid;
--(BOOL) joinBroadcastGroup:(NSString *)groupid;
--(BOOL) updateBroadcastGroup:(DDXMLElement *)group;
--(DDXMLDocument *) listBroadcasts:(BOOL) onlyLifeBroadcasts afterDate:(NSDate *) afterDate withLimit:(int) limit;
-
 -(BOOL) removeMsg:(NSString *) msgid;
 -(BOOL) recallMessge:(NSString *) msgid remoteUser:(NSString *) remoteUser;
 -(NSString *) messageUrlForKey:(NSString *) key;

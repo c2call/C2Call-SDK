@@ -46,7 +46,7 @@
  @param userid - C2Call Userid 
  @return The user object or nil
  */
--(nullable MOC2CallUser *) userForUserid:(nonnull NSString *) userid;
+-(MOC2CallUser *) userForUserid:(NSString *) userid;
 
 /** Gets the MOC2CallUser Object for an email address.
  The MOC2CallUser Object represents a friend, a group or a special user (CallMe Link, Test Call, etc).
@@ -55,7 +55,7 @@
  @param email - Email address of the user object
  @return The user object or nil
  */
--(nullable MOC2CallUser *) userForEmail:(nonnull NSString *) email;
+-(MOC2CallUser *) userForEmail:(NSString *) email;
 
 /** Gets the MOC2CallEvent Object for an eventId.
  
@@ -65,27 +65,17 @@
  @param eventId - EventId of the object
  @return The event object or nil
  */
--(nullable MOC2CallEvent *) eventForEventId:(nonnull NSString *) eventId;
+-(MOC2CallEvent *) eventForEventId:(NSString *) eventId;
 
 /** Gets the MOC2CallGroup Object for a groupid.
  
  The MOC2CallGroup Object represents a group.
  All relevant information on the group is available through MOC2CallGroup Object. The data is read only; changes to the object will be discarded on next data synchronisation with the server.
  
- @param groupid - EventId of the object
+ @param eventId - EventId of the object
  @return The event object or nil
  */
--(nullable MOC2CallGroup *) groupForGroupid:(nonnull NSString *) groupid;
-
-/** Gets the MOC2CallBroadcast Object for a broadcastId.
- 
- The MOC2CallBroadcast Object represents a Broadcast Group.
- All relevant information on the broadcast group is available through MOC2CallBroadcast Object. The data is read only; changes to the object will be discarded on next data synchronisation with the server.
- 
- @param bcastid - broadcastId of the object
- @return The event object or nil
- */
--(nullable MOC2CallBroadcast *) broadcastForBroadcastid:(nonnull NSString *) bcastid;
+-(MOC2CallGroup *) groupForGroupid:(NSString *) groupid;
 
 /** Mark an MOC2CallEvent as read
  
@@ -97,7 +87,7 @@
  @return YES : In MOC2CallEvent is of type MessageIn and status is unread else NO
  */
 
--(BOOL) markAsRead:(nonnull MOC2CallEvent *) event;
+-(BOOL) markAsRead:(MOC2CallEvent *) event;
 
 /** Get the number of total missed messages
 
@@ -116,26 +106,26 @@
  @param contact - Userid of the contact.
  @return Number of missed calls
  */
--(int) missedCallsForContact:(nonnull NSString *) contact;
+-(int) missedCallsForContact:(NSString *) contact;
 
 /** Get the number of missed messages for a specific contact
  
  @param contact - Userid of the contact.
  @return Number of missed messages
  */
--(int) missedMessagesForContact:(nonnull NSString *) contact;
+-(int) missedMessagesForContact:(NSString *) contact;
 
 /** Returns the list of the last 20 contacts the user has been in touch with
  
  @return Array of userids
  */
--(nullable NSArray *) recentContacts;
+-(NSArray *) recentContacts;
 
 /** Manually reset the missed calls indication for a contact
  
  @param contact - Userid of the contact. 
  */
--(void) resetMissedCallsForContact:(nonnull NSString *) contact;
+-(void) resetMissedCallsForContact:(NSString *) contact;
 
 /** Save additional phone numbers for a friend contact
  
@@ -143,7 +133,7 @@
  @param numberType - Valid types are : "NT_WORK", "NT_MOBILE", "NT_HOME", "NT_OTHER"
  @param contact - email address of the friend contact
  */
--(void) setNumber:(nonnull NSString *) number ofType:(nonnull NSString *) numberType forContact:(nonnull NSString *) contact;
+-(void) setNumber:(NSString *) number ofType:(NSString *) numberType forContact:(NSString *) contact;
 
 /** Removes a NSManagedObject from the Database.
  
@@ -177,14 +167,14 @@
  @param managedObject - Either one of the descibed objects above.
  @return YES - success / NO - failure
  */
--(BOOL) removeDatabaseObject:(nonnull NSManagedObject *) managedObject;
+-(BOOL) removeDatabaseObject:(NSManagedObject *) managedObject;
 
 /** Removes a submitted message from the senders and the receivers message history
 
  @param msgobject - The message object to recall.
  @return YES - success / NO - failure
 */
--(BOOL) recallMessage:(nonnull MOC2CallEvent *) msgobject;
+-(BOOL) recallMessage:(MOC2CallEvent *) msgobject;
 
 /** Gets a predefined NSFetchRequest for a Chat History.
  
@@ -192,7 +182,7 @@
  
  @param sortAscending YES - Fetch MOChatHistory objects in the order of the oldest chat first / NO - Latest Chat first
  */
--(nonnull NSFetchRequest *) fetchRequestForChatHistory:(BOOL) sortAscending;
+-(NSFetchRequest *) fetchRequestForChatHistory:(BOOL) sortAscending;
 
 /** Gets a predefined NSFetchRequest for a Call History.
  
@@ -200,7 +190,7 @@
 
  @param sortAscending YES - Fetch MOCallHistory objects in the order of the oldest call first / NO - Latest call first
 */
--(nonnull NSFetchRequest *) fetchRequestForCallHistory:(BOOL) sortAscending;
+-(NSFetchRequest *) fetchRequestForCallHistory:(BOOL) sortAscending;
 
 /** Gets a predefined NSFetchRequest for a list of MOC2CallEvent objects of the specific contact.
  
@@ -208,7 +198,7 @@
  
  @param sortAscending YES - Oldest Event first / NO - Latest Event first
  */
--(nonnull NSFetchRequest *) fetchRequestForEventHistory:(nonnull NSString *) userid sort:(BOOL) sortAscending;
+-(NSFetchRequest *) fetchRequestForEventHistory:(NSString *) userid sort:(BOOL) sortAscending;
 
 
 /** Gets a predefined NSFetchRequest for a list of MOC2CallUser objects (list of all friends and groups).
@@ -217,23 +207,7 @@
  
  @param sortByFirstname YES - Sort by Firstname / NO - Sort by Lastname
  */
--(nonnull NSFetchRequest *) fetchRequestForFriendlist:(BOOL) sortByFirstname;
-
-/** Gets a predefined NSFetchRequest for a list the current users of MOC2CallBroadcast objects
- 
- @param sortAscending YES - Oldest Boradcast first / NO - Latest Event first
- */
-
--(nonnull NSFetchRequest *) fetchRequestForMyBroadcasts:(BOOL) sortAscending;
-
-/** Gets a predefined NSFetchRequest for a list the of MOC2CallBroadcast objects (not the users own)
- 
- @param onlyLifeBroadcasts - Show only broadcasts which are currently live
- @param fromDate - List broadcasts after fromDate, may be null for all broadcasts
- @param sortAscending YES - Oldest Boradcast first / NO - Latest Event first
- */
-
--(nonnull NSFetchRequest *) fetchRequestForBroadcasts:(BOOL) onlyLifeBroadcasts fromDate:(nullable NSDate *) fromDate sort:(BOOL) sortAscending;
+-(NSFetchRequest *) fetchRequestForFriendlist:(BOOL) sortByFirstname;
 
 /** Gets a predefined NSFetchRequest an MOC2CallUser object
  
@@ -243,7 +217,7 @@
  
  @return NSFetchedRequest
  */
--(nonnull NSFetchRequest *) fetchRequestForUserWithObjectId:(nonnull NSManagedObjectID *) objid;
+-(NSFetchRequest *) fetchRequestForUserWithObjectId:(NSManagedObjectID *) objid;
 
 /** Sets a fetch size limit on a given fetch request.
  
@@ -259,7 +233,7 @@
  @param fetchRequest - The fetchRequest to limit
  
  */
--(int) setFetchLimit:(int) fetchLimit forFetchRequest:(nonnull NSFetchRequest *) fetchRequest;
+-(int) setFetchLimit:(int) fetchLimit forFetchRequest:(NSFetchRequest *) fetchRequest;
 
 /** Requests a NSFetchedResultsController for the C2Call SDK Database with a given fetchRequest.
  
@@ -273,13 +247,13 @@
  Pre-computed section info is cached to a private directory under this name. If Core Data finds a cache stored with this name, it is checked to see if it matches the fetchRequest. If it does, the cache is loaded directly—this avoids the overhead of computing the section and index information. If the cached information doesn’t match the request, the cache is deleted and recomputed when the fetch happens.
  
  */
--(nullable NSFetchedResultsController *) fetchedResultsControllerWithFetchRequest:(nonnull NSFetchRequest *)fetchRequest sectionNameKeyPath:(nullable NSString *)sectionNameKeyPath cacheName:(nullable NSString *)name;
+-(NSFetchedResultsController *) fetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest sectionNameKeyPath:(NSString *)sectionNameKeyPath cacheName:(NSString *)name;
 
 /** Current Instance of SCDataManager.
  
  @return Current Instance of SCDataManager
  */
-+(nonnull SCDataManager *) instance;
++(SCDataManager *) instance;
 
 /** Is CoreData initialized already.
  

@@ -94,13 +94,6 @@ Please return one of the pre-defined fetchRequest from SCDataManager here:
  */
 -(void) initFetchedResultsController;
 
-/** Update Fetch Request
- 
- Call this method if the fetchRequest has been changed or setup after ViewController initialization.
- 
- */
--(void) updateFetchRequest;
-
 /** Configure your UITableViewCell subclass.
  
  This abstract method must be overwritten in a SCDataTableViewController subclass.

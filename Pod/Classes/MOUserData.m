@@ -2,17 +2,21 @@
 //  MOUserData.m
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 14/05/16.
+//  Created by Michael Knecht on 19.02.14.
 //
 //
 
 #import "MOUserData.h"
-#import "MOC2CallBroadcast.h"
 #import "MOC2CallGroup.h"
 #import "MOC2CallUser.h"
 
+
 @implementation MOUserData
 
-// Insert code here to add functionality to your managed object subclass
+@dynamic key;
+@dynamic value;
+@dynamic public;
+@dynamic group;
+@dynamic friend;
 
 @end

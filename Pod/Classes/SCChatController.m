@@ -183,6 +183,18 @@
 
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    didAppear = YES;
+    if (startEdit) {
+        startEdit = NO;
+        [self.chatInput becomeFirstResponder];
+    }
+
+}
+
 -(void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

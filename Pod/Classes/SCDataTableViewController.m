@@ -43,7 +43,8 @@
 {
     if ([[notification name] isEqualToString:@"C2CallDataManager:initData"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateFetchRequest];
+            [self initFetchedResultsController];
+            [self.tableView reloadData];
         });
     }
 }
@@ -89,13 +90,6 @@
     
 }
 
--(void) updateFetchRequest
-{
-    if ([SCDataManager instance].isDataInitialized) {
-        [self initFetchedResultsController];
-        [self.tableView reloadData];
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -103,7 +97,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInitDataEvent:) name:@"C2CallDataManager:initData" object:nil];
 
-    [self updateFetchRequest];
+    [self initFetchedResultsController];
 }
 
 - (void)didReceiveMemoryWarning
