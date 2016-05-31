@@ -1106,7 +1106,28 @@ typedef enum {
  @param completion - Completion handler when the upload job is done
  @return YES - Uploading / NO - Upload failed completion handler will not be called
  */
--(BOOL) uploadFileObjectWithUrl:(nonnull NSURL *) url withPrefix:(nullable NSString *) prefix completion:(void (^)(BOOL finished, NSString *mediaKey, NSError *error ))handler;
+-(BOOL) uploadFileObjectWithUrl:(nonnull NSURL *) url withPrefix:(nullable NSString *) prefix completion:(nullable void (^)(BOOL finished, NSString * _Nullable mediaKey, NSError * _Nullable error ))handler;
+
+/** Import rich media file object into media files directories
+ 
+ Import a locally stored rich media file object into media files directory.
+ 
+ @param url - Local file url
+ @param prefix - Name prefix
+ @param error - Error if not null
+ @return MediaKey of imported object
+ */
+-(nullable NSString *) importFileObject:(nonnull NSURL *) url withPrefix:(nullable NSString *) prefix error:( NSError * _Nullable * _Nullable) error;
+
+/** Upload rich media file object to server
+ 
+ Upload a locally stored rich media object to the server.
+ 
+ @param mediaKey - MediaKey of the local available file object
+ @param completion - Completion handler when the upload job is done
+ @return YES - Uploading / NO - Upload failed completion handler will not be called
+ */
+-(BOOL) uploadFileObjectForKey:(nonnull NSString  *) mediaKey completion:(nullable void (^)(BOOL finished)) handler;
 
 /** Retrieve remote size of object
  
