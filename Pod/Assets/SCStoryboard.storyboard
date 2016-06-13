@@ -10744,7 +10744,7 @@ Remove search filter?</string>
                                             <rect key="frame" x="0.0" y="5" width="320" height="255"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P2k-g5-9wf">
-                                            <rect key="frame" x="0.0" y="177" width="320" height="83"/>
+                                            <rect key="frame" x="0.0" y="182" width="320" height="83"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Broadcast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjl-4n-aio" userLabel="broadcastName">
                                                     <rect key="frame" x="20" y="8" width="280" height="21"/>
@@ -10823,7 +10823,7 @@ Remove search filter?</string>
                                         <constraint firstAttribute="bottom" secondItem="Wad-nS-Nb2" secondAttribute="bottom" constant="5" id="8Rg-xa-BWm"/>
                                         <constraint firstItem="P2k-g5-9wf" firstAttribute="leading" secondItem="qjN-5z-M2o" secondAttribute="leading" id="9fH-uu-WCm"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="qb2-M7-PIm" secondAttribute="trailing" constant="5" id="BnF-Ke-SLO"/>
-                                        <constraint firstAttribute="bottom" secondItem="P2k-g5-9wf" secondAttribute="bottom" constant="5" id="NMA-YH-wMb"/>
+                                        <constraint firstAttribute="bottom" secondItem="P2k-g5-9wf" secondAttribute="bottom" id="NMA-YH-wMb"/>
                                         <constraint firstItem="qb2-M7-PIm" firstAttribute="top" secondItem="qjN-5z-M2o" secondAttribute="topMargin" constant="10" id="Ncu-OL-ibR"/>
                                         <constraint firstItem="Wad-nS-Nb2" firstAttribute="top" secondItem="qjN-5z-M2o" secondAttribute="top" constant="5" id="O1z-dH-gsi"/>
                                         <constraint firstItem="Vse-KM-rze" firstAttribute="centerY" secondItem="qb2-M7-PIm" secondAttribute="centerY" id="hJq-KR-aAl"/>

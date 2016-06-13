@@ -111,6 +111,7 @@
         <attribute name="lastMissedEvent" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastTimestamp" attributeType="Date" syncable="YES"/>
         <attribute name="missedEvents" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="userType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="callHistory" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="MOC2CallEvent" inverseName="lastCall" inverseEntity="MOC2CallEvent" syncable="YES"/>
     </entity>
     <entity name="MOChatHistory" representedClassName="MOChatHistory" syncable="YES">
@@ -119,6 +120,7 @@
         <attribute name="lastMissedEvent" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastTimestamp" attributeType="Date" syncable="YES"/>
         <attribute name="missedEvents" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="userType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="chatHistory" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="MOC2CallEvent" inverseName="lastChat" inverseEntity="MOC2CallEvent" syncable="YES"/>
     </entity>
     <entity name="MODidNumber" representedClassName="MODidNumber" syncable="YES">
@@ -160,8 +162,8 @@
         <element name="MOC2CallEvent" positionX="16" positionY="177" width="128" height="343"/>
         <element name="MOC2CallGroup" positionX="-2" positionY="-178" width="128" height="133"/>
         <element name="MOC2CallUser" positionX="-693" positionY="86" width="128" height="658"/>
-        <element name="MOCallHistory" positionX="-333" positionY="-162" width="128" height="135"/>
-        <element name="MOChatHistory" positionX="394" positionY="-180" width="128" height="135"/>
+        <element name="MOCallHistory" positionX="-333" positionY="-162" width="128" height="148"/>
+        <element name="MOChatHistory" positionX="394" positionY="-180" width="128" height="148"/>
         <element name="MODidNumber" positionX="-441" positionY="389" width="128" height="88"/>
         <element name="MOGroupMember" positionX="232" positionY="-261" width="128" height="135"/>
         <element name="MOOpenId" positionX="412" positionY="81" width="128" height="90"/>

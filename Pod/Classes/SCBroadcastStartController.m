@@ -19,6 +19,7 @@
 #import "C2CallAppDelegate.h"
 #import "FCLocation.h"
 #import "SCFlatButton.h"
+#import "ImageUtil.h"
 #import "IOS.h"
 
 @interface SCBroadcastStartController () <CLLocationManagerDelegate>{
@@ -168,7 +169,10 @@
             [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
             
                 if (image) {
+                    image = [ImageUtil fixImage:image withQuality:UIImagePickerControllerQualityTypeLow];
+                    
                     SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
+                    
                     [bcast setGroupImage:image withCompletionHandler:^(BOOL finished) {
                         weakself.recordingController.broadcastGroupId = bcastId;
                         [weakself.recordingController startBroadcasting];

@@ -2,7 +2,7 @@
 //  MOCallHistory.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 03.06.13.
+//  Created by Michael Knecht on 13/06/16.
 //
 //
 
@@ -11,21 +11,14 @@
 
 @class MOC2CallEvent;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MOCallHistory : NSManagedObject
 
-@property (nonatomic, retain) NSString * contact;
-@property (nonatomic, retain) NSString * lastEventId;
-@property (nonatomic, retain) NSDate * lastMissedEvent;
-@property (nonatomic, retain) NSDate * lastTimestamp;
-@property (nonatomic, retain) NSNumber * missedEvents;
-@property (nonatomic, retain) NSSet *callHistory;
-@end
-
-@interface MOCallHistory (CoreDataGeneratedAccessors)
-
-- (void)addCallHistoryObject:(MOC2CallEvent *)value;
-- (void)removeCallHistoryObject:(MOC2CallEvent *)value;
-- (void)addCallHistory:(NSSet *)values;
-- (void)removeCallHistory:(NSSet *)values;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "MOCallHistory+CoreDataProperties.h"

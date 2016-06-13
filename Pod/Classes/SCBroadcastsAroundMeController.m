@@ -11,19 +11,51 @@
 #import "SCDataManager.h"
 #import "SCBroadcastChatController.h"
 
+@interface SCBroadcastCell ()
+
+@property(nonatomic, strong) NSString   *bcastImageKey;
+@property(nonatomic, strong) NSString   *userImageKey;
+
+@end
+
 @implementation SCBroadcastCell
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 -(void) prepareForReuse
 {
     [super prepareForReuse];
-    
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.broadcastid = nil;
+    self.bcastImageKey = nil;
+    self.userImageKey = nil;
     self.broadcastName.text = @"";
     self.onlineUsers.text = @"0";
     self.broadcastImage.image = [UIImage imageNamed:@"ico_video"];
     self.userImage.image = [UIImage imageNamed:@"btn_ico_avatar"];;
     self.userName.text = @"";
     self.userStatus.text = @"";
+
+}
+-(void) downloadProgress:(NSNotification *) notification
+{
+    if (self.bcastImageKey && [[notification name] isEqualToString:self.bcastImageKey]) {
+        NSNumber *finished = [notification.userInfo objectForKey:@"finished"];
+        if ([finished boolValue]) {
+            self.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:self.bcastImageKey];
+        }
+    }
+
+    if (self.userImageKey && [[notification name] isEqualToString:self.userImageKey]) {
+        NSNumber *finished = [notification.userInfo objectForKey:@"finished"];
+        if ([finished boolValue]) {
+            self.userImage.image = [[C2CallPhone currentPhone] imageForKey:self.userImageKey];
+        }
+    }
 
 }
 
@@ -78,13 +110,16 @@
         });
 
         if (!bcastImage && bcastImageKey) {
+            self.bcastImageKey = bcastImageKey;
             if ([[C2CallPhone currentPhone] hasObjectForKey:bcastImageKey]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if ([bcastid isEqualToString:weakself.broadcastid]) {
                         weakself.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:bcastImageKey];
                     }
                 });
-            } else {
+            } if ([[C2CallPhone currentPhone] downloadStatusForKey:bcastImageKey]) {
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgress:) name:bcastImageKey object:nil];
+            }  else {
                 [[C2CallPhone currentPhone] retrieveObjectForKey:bcastImageKey completion:^(BOOL finished) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if ([bcastid isEqualToString:weakself.broadcastid]) {
@@ -96,12 +131,15 @@
         }
 
         if (!image && imagekey) {
+            self.userImageKey = imagekey;
             if ([[C2CallPhone currentPhone] hasObjectForKey:imagekey]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if ([bcastid isEqualToString:weakself.broadcastid]) {
                         weakself.userImage.image = [[C2CallPhone currentPhone] imageForKey:imagekey];
                     }
                 });
+            } if ([[C2CallPhone currentPhone] downloadStatusForKey:imagekey]) {
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgress:) name:imagekey object:nil];
             } else {
                 [[C2CallPhone currentPhone] retrieveObjectForKey:imagekey completion:^(BOOL finished) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -126,7 +164,10 @@
     self.sectionNameKeyPath = nil;
     self.useDidChangeContentOnly = NO;
     
-    NSFetchRequest *fetch =  [[SCDataManager instance] fetchRequestForBroadcasts:NO fromDate:nil sort:NO];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDate *after = [cal dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:[NSDate date] options:0];
+    
+    NSFetchRequest *fetch =  [[SCDataManager instance] fetchRequestForBroadcasts:YES fromDate:after sort:NO];
     
     return fetch;
 }
