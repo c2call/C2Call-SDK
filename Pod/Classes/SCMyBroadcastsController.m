@@ -105,9 +105,7 @@ static NSDateFormatter *dateTime = nil;
         cell.broadcast = bcast;
     }
     
-    NSString *mediaUrl = bcast.mediaUrl;
-    
-    if (mediaUrl && [[C2CallPhone currentPhone] hasObjectForKey:mediaUrl]) {
+    if (bcast.mediaUrl && [[C2CallPhone currentPhone] hasObjectForKey:bcast.mediaUrl]) {
         [self performSegueWithIdentifier:@"SCVideoPlayerControllerSegue" sender:cell];
     }
 }
