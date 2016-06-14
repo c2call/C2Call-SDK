@@ -109,6 +109,18 @@
  */
 -(void) saveUserProfileWithCompletionHandler:(void (^)(BOOL success))handler;
 
+/** Update User with new CallerId using Twitter Digits Authentication
+ 
+ In case of successful authentication the CallerId will be updated in the user profile.
+ The user profile will be reloaded automatically. Do not call save user profile immediately afterwards.
+ 
+ @param phoneNumber - New Phone Number in international format
+ @param oauth - Twitter Digits oauth token
+ @param authProvider - Twitter Digits provider
+ */
+-(BOOL) updateCallerId:(NSString *) phoneNumber withDigitsAuth:(NSString *) oauth andProvider:(NSString *) authProvider;
+
+
 /** Change the user image and upload the image to the server
  
  The completion handler will be called when the transfer has been completed and the user profile has been updated
