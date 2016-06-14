@@ -124,14 +124,33 @@ Please return one of the pre-defined fetchRequest from SCDataManager here:
     - MOChatHistory
     - MOCallHistory
  
+ @param cell - UITableViewCell
+ @param indexPath - The indexPath
  */
 -(void) configureCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath;
+
+/** Configure your Empty Results UITableViewCell subclass.
+ 
+ This abstract method can be overwritten in a SCDataTableViewController subclass.
+ The default method does nothing.
+ 
+ @param cell - UITableViewCell 
+ @param indexPath - The indexPath
+ */
+-(void) configureEmptyResultsCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath;
 
 /** @name Properties */
 /** Sets the cellIdentifier for UITableView dequeueReusableCellWithIdentifier:
  
  */
 @property(nonatomic, strong) NSString       *cellIdentifier;
+
+/** Sets the cellIdentifier for UITableView dequeueReusableCellWithIdentifier to show a cell when the result set is empty.
+    If set to nil, no cell will be shown in case of empty results
+ 
+ */
+@property(nonatomic, strong) NSString       *emptyResultCellIdentifier;
+
 
 /** A key path on result objects that returns the section name. Pass nil to indicate that the controller should generate a single section.
  The section name is used to pre-compute the section information.

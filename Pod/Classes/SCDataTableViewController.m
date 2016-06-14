@@ -134,7 +134,7 @@
 {
     
     if (!self.fetchedResultsController || [[self.fetchedResultsController fetchedObjects] count] == 0) {
-        return 0;
+        return self.emptyResultCellIdentifier? 1 : 0;
     }
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
@@ -148,15 +148,29 @@
     
 }
 
+-(void) configureEmptyResultsCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath
+{
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = self.cellIdentifier?self.cellIdentifier : @"Cell";
     
+    NSString *reuseIdentifier = self.cellIdentifier?self.cellIdentifier : @"Cell";
+    if (!self.fetchedResultsController || [[self.fetchedResultsController fetchedObjects] count] == 0) {
+        reuseIdentifier = self.emptyResultCellIdentifier;
+    }
+
     UITableViewCell *cell = nil;
     if ([self.tableView isEqual:tv]) {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     } else {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    }
+    
+    if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
+        [self configureEmptyResultsCell:cell atIndexPath:indexPath];
+        return cell;
     }
     
     // Configure the cell...

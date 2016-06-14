@@ -10842,6 +10842,26 @@ Remove search filter?</string>
                                     <segue destination="dGs-p7-iOA" kind="push" id="1Vj-U0-wTG"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SCNoBroadcastsCell" rowHeight="231" id="Rjv-Nx-1vh">
+                                <rect key="frame" x="0.0" y="338" width="320" height="231"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rjv-Nx-1vh" id="dgy-N7-p90">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No live broadcasts in your area" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tst-sJ-W41">
+                                            <rect key="frame" x="43" y="104" width="235" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Tst-sJ-W41" firstAttribute="centerY" secondItem="dgy-N7-p90" secondAttribute="centerY" id="0oh-6M-gaH"/>
+                                        <constraint firstItem="Tst-sJ-W41" firstAttribute="centerX" secondItem="dgy-N7-p90" secondAttribute="centerX" id="h0B-bJ-5Jg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="mq8-gX-dZN" id="faA-jH-IpB"/>

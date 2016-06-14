@@ -580,6 +580,9 @@
 
 -(CGFloat) messageCellInHeight:(MOC2CallEvent *) elem font:(UIFont *) font
 {
+    if (!font)
+        font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+
     CGSize maximumLabelSize = CGSizeMake(220,9999);
     
     CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
@@ -601,6 +604,9 @@
 
 -(CGFloat) messageCellOutHeight:(MOC2CallEvent *) elem font:(UIFont *) font
 {
+    if (!font)
+        font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+
     CGSize maximumLabelSize = CGSizeMake(220,9999);
     
     CGSize expectedLabelSize = [elem.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin

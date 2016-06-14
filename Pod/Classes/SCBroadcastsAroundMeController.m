@@ -177,6 +177,7 @@
     [super viewDidLoad];
     
     self.cellIdentifier = @"SCBroadcastCell";
+    self.emptyResultCellIdentifier = @"SCNoBroadcastsCell";
     self.tableView.estimatedRowHeight = 266.;
     self.tableView.rowHeight = 266.;
     
