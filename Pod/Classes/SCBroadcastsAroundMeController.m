@@ -28,7 +28,7 @@
 -(void) prepareForReuse
 {
     [super prepareForReuse];
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.broadcastid = nil;
     self.bcastImageKey = nil;
@@ -39,7 +39,7 @@
     self.userImage.image = [UIImage imageNamed:@"btn_ico_avatar"];;
     self.userName.text = @"";
     self.userStatus.text = @"";
-
+    
 }
 -(void) downloadProgress:(NSNotification *) notification
 {
@@ -49,14 +49,14 @@
             self.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:self.bcastImageKey];
         }
     }
-
+    
     if (self.userImageKey && [[notification name] isEqualToString:self.userImageKey]) {
         NSNumber *finished = [notification.userInfo objectForKey:@"finished"];
         if ([finished boolValue]) {
             self.userImage.image = [[C2CallPhone currentPhone] imageForKey:self.userImageKey];
         }
     }
-
+    
 }
 
 -(void) configureCell:(MOC2CallBroadcast *) bcast
@@ -108,7 +108,7 @@
                 self.userStatus.text = locationName;
             }
         });
-
+        
         if (!bcastImage && bcastImageKey) {
             self.bcastImageKey = bcastImageKey;
             if ([[C2CallPhone currentPhone] hasObjectForKey:bcastImageKey]) {
@@ -129,7 +129,7 @@
                 }];
             }
         }
-
+        
         if (!image && imagekey) {
             self.userImageKey = imagekey;
             if ([[C2CallPhone currentPhone] hasObjectForKey:imagekey]) {
@@ -153,6 +153,12 @@
     });
     
     
+}
+
+@end
+
+@interface SCBroadcastsAroundMeController () {
+    BOOL refreshLoop;
 }
 
 @end
@@ -181,16 +187,32 @@
     self.tableView.estimatedRowHeight = 266.;
     self.tableView.rowHeight = 266.;
     
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    refreshLoop = YES;
     [self refreshBroadcasts];
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    refreshLoop = NO;
+    
+}
 -(void) refreshBroadcasts
 {
     [[C2CallPhone currentPhone] refreshLiveBroadcasts];
     
     __weak SCBroadcastsAroundMeController *weakself = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakself refreshBroadcasts];
+        if (refreshLoop) {
+            [weakself refreshBroadcasts];
+        }
     });
 }
 

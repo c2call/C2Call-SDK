@@ -217,6 +217,7 @@
 -(DDXMLElement *) getFriendCallerGroup:(NSString *)groupid;
 -(void) handleGroupCallEvent:(SIPRequest *) request;
 -(BOOL) isGroupUser:(NSString *) userid;
+-(BOOL) isBroadcastUser:(NSString *) userid;
 
 -(DDXMLElement *) createBroadcastGroupWithSynchonousRequest:(NSString *) groupName groupType:(NSString *)groupType properties:(NSDictionary *)properties withFriends:(NSArray *) groupMember;
 -(DDXMLElement *) getBroadcastGroup:(NSString *)groupid;

@@ -135,7 +135,7 @@
                 
                 NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:nil];
                 DLog(@"File Attributes: %@", attr);
-                [[C2CallPhone currentPhone] submitRichMessage:mediaKey message:nil toTarget:self.broadcastGroupId];
+                //[[C2CallPhone currentPhone] submitRichMessage:mediaKey message:nil toTarget:self.broadcastGroupId];
                 [self closeBroadcasting];
             }
             

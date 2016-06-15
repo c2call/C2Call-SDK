@@ -334,6 +334,12 @@ typedef enum {
 */
 -(BOOL) isGroupUser:(nonnull NSString *) userid;
 
+/** Check whether a given userid is actually a broadcast group.
+ 
+ @return YES / NO
+ */
+-(BOOL) isBroadcastUser:(nonnull NSString *) userid;
+
 /** Register Apple Push Notification Token.
  
  The C2Call Backend Service needs the push notification token in order to sumit push notifications to your app.

@@ -41,7 +41,7 @@
         //}
         
         
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:3.0 animations:^{
             weakview.alpha = 0.;
         } completion:^(BOOL finished) {
             if (completion) {
@@ -79,7 +79,7 @@
         //}
         
         
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:3.0 animations:^{
             weakview.alpha = 0.;
         } completion:^(BOOL finished) {
             if (completion) {
@@ -558,7 +558,7 @@
         cell.contentView.alpha = 1.0;
         
         __weak SCBroadcastController *weakself = self;
-        [cell triggerFadeOut:6. withCompleteHandler:^{
+        [cell triggerFadeOut:7. withCompleteHandler:^{
             @synchronized (_mutex) {
                 weakself.visibleCells--;
                 
@@ -590,7 +590,7 @@
         cell.contentView.alpha = 1.0;
         
         __weak SCBroadcastController *weakself = self;
-        [cell triggerFadeOut:6. withCompleteHandler:^{
+        [cell triggerFadeOut:7. withCompleteHandler:^{
             @synchronized (_mutex) {
                 weakself.visibleCells--;
                 

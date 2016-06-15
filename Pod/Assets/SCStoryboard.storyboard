@@ -11500,13 +11500,13 @@ Remove search filter?</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cC3-l8-eAt" userLabel="innerView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okj-90-3b6">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okj-90-3b6" userLabel="VideoContainer">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
                                         <connections>
                                             <segue destination="U5e-Ir-hW2" kind="embed" id="KiE-9u-4Ar"/>
                                         </connections>
                                     </containerView>
-                                    <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTx-tc-frb">
+                                    <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTx-tc-frb" userLabel="ChatContainter">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -11569,7 +11569,7 @@ Remove search filter?</string>
                                     <constraint firstItem="fTx-tc-frb" firstAttribute="top" secondItem="cC3-l8-eAt" secondAttribute="top" id="ZuE-p4-5eU"/>
                                     <constraint firstItem="fTx-tc-frb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cC3-l8-eAt" secondAttribute="top" id="aCN-2K-0vN"/>
                                     <constraint firstItem="okj-90-3b6" firstAttribute="leading" secondItem="cC3-l8-eAt" secondAttribute="leading" id="mH3-bO-aDE"/>
-                                    <constraint firstItem="Dgt-Qk-jFI" firstAttribute="top" secondItem="okj-90-3b6" secondAttribute="bottom" id="oDk-o2-kYh"/>
+                                    <constraint firstAttribute="bottom" secondItem="okj-90-3b6" secondAttribute="bottom" constant="38" id="oVE-cP-IvX"/>
                                     <constraint firstAttribute="trailing" secondItem="okj-90-3b6" secondAttribute="trailing" id="rXg-yP-fem"/>
                                     <constraint firstAttribute="trailing" secondItem="fTx-tc-frb" secondAttribute="trailing" id="usG-Lt-6xj"/>
                                     <constraint firstAttribute="bottom" secondItem="Dgt-Qk-jFI" secondAttribute="bottom" id="wmK-WQ-PWM"/>
@@ -11643,8 +11643,8 @@ Remove search filter?</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="df7-Sg-gWA" firstAttribute="top" secondItem="Fk3-K5-Jih" secondAttribute="bottom" id="1Go-K3-C8i"/>
                             <constraint firstAttribute="trailing" secondItem="Fk3-K5-Jih" secondAttribute="trailing" id="7TY-4i-Tck"/>
-                            <constraint firstItem="df7-Sg-gWA" firstAttribute="top" secondItem="Fk3-K5-Jih" secondAttribute="bottom" id="OWI-UB-f1p"/>
                             <constraint firstItem="Fk3-K5-Jih" firstAttribute="leading" secondItem="yth-JI-rTi" secondAttribute="leading" id="PIY-EK-fvo"/>
                             <constraint firstItem="Fk3-K5-Jih" firstAttribute="top" secondItem="yXH-KE-1RJ" secondAttribute="bottom" id="Trs-ox-OjY"/>
                         </constraints>
@@ -12113,14 +12113,14 @@ Remove search filter?</string>
         <image name="ziffer_plus_h" width="107" height="69"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dzS-7x-4l6"/>
         <segue reference="y6p-gl-6ga"/>
-        <segue reference="1u2-TG-LS5"/>
+        <segue reference="dYh-Uy-CrV"/>
+        <segue reference="hDv-Zp-8lC"/>
+        <segue reference="dzS-7x-4l6"/>
+        <segue reference="sdM-v2-Wtr"/>
         <segue reference="UPE-Al-XWo"/>
         <segue reference="vNd-Un-nVZ"/>
-        <segue reference="sdM-v2-Wtr"/>
-        <segue reference="hDv-Zp-8lC"/>
-        <segue reference="dYh-Uy-CrV"/>
+        <segue reference="1u2-TG-LS5"/>
         <segue reference="cXP-qr-CSY"/>
     </inferredMetricsTieBreakers>
 </document>
