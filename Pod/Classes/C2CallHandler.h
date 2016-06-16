@@ -254,6 +254,8 @@
 -(void) refreshLoginCredentials;
 -(NSArray *) getCallingPlans;
 
+-(BOOL) externalNumberVerification:(NSString *) number withAuthenticationProperties:(NSDictionary *) auth;
+
 +(C2CallHandler *) defaultHandler;
 
 @end
