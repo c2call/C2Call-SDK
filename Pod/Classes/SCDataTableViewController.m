@@ -155,13 +155,20 @@
     
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(NSString *) reuseIdentifierForIndexPath:(NSIndexPath *) indexPath
 {
-    
     NSString *reuseIdentifier = self.cellIdentifier?self.cellIdentifier : @"Cell";
     if (!self.fetchedResultsController || [[self.fetchedResultsController fetchedObjects] count] == 0) {
         reuseIdentifier = self.emptyResultCellIdentifier;
     }
+
+    return reuseIdentifier;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSString *reuseIdentifier = [self reuseIdentifierForIndexPath:indexPath];
     
     UITableViewCell *cell = nil;
     if ([self.tableView isEqual:tv]) {

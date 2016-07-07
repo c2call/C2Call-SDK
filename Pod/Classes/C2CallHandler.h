@@ -226,6 +226,13 @@
 -(BOOL) updateBroadcastGroup:(DDXMLElement *)group;
 -(DDXMLDocument *) listBroadcasts:(BOOL) onlyLifeBroadcasts afterDate:(NSDate *) afterDate withLimit:(int) limit;
 
+-(DDXMLDocument *) getTimelineForTimevalue:(NSNumber *) timevalue;
+-(NSNumber *) writeTimeline:(NSString *) userid timeline:(NSString *) timelineId eventType:(NSString *) eventType message:(NSString *) msg media:(NSString *) mediaKey;
+-(BOOL) likeTimeline:(NSNumber *) msgid;
+-(BOOL) dislikeTimeline:(NSNumber *) msgid;
+-(BOOL) deleteTimelineEvent:(NSNumber *) msgid;
+
+
 -(BOOL) removeMsg:(NSString *) msgid;
 -(BOOL) recallMessge:(NSString *) msgid remoteUser:(NSString *) remoteUser;
 -(NSString *) messageUrlForKey:(NSString *) key;

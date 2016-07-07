@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1.0.11" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 4.1">
+<model userDefinedModelVersionIdentifier="1.0.11" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 4.1">
     <entity name="MOAddress" representedClassName="MOAddress" syncable="YES">
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
@@ -148,6 +148,24 @@
         <relationship name="contactNumbers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="contactNumbers" inverseEntity="MOC2CallUser" syncable="YES"/>
         <relationship name="friendNumbers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="friendNumbers" inverseEntity="MOC2CallUser" syncable="YES"/>
     </entity>
+    <entity name="MOTimelineEvent" representedClassName="MOTimelineEvent" syncable="YES">
+        <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="dislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="eventId" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="eventType" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="like" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="mediaUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="missed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="originalSender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeline" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="timevalue" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="MOUserData" representedClassName="MOUserData" syncable="YES">
         <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="public" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -169,5 +187,6 @@
         <element name="MOOpenId" positionX="412" positionY="81" width="128" height="90"/>
         <element name="MOPhoneNumber" positionX="817" positionY="204" width="128" height="120"/>
         <element name="MOUserData" positionX="-450" positionY="45" width="128" height="133"/>
+        <element name="MOTimelineEvent" positionX="-200" positionY="-558" width="128" height="253"/>
     </elements>
 </model>

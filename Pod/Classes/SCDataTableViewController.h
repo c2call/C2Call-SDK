@@ -139,6 +139,17 @@ Please return one of the pre-defined fetchRequest from SCDataManager here:
  */
 -(void) configureEmptyResultsCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath;
 
+/** Provide reuseIdentifiert for various Cell classes
+ Overwrite this method if you have multiple cell classes and you need more control.
+ Default provides the empty reuseIdentifier if no objects are available and cellIdentifiert else.
+ This method will be called by cellForRowAtIndexpath to determine which TableViewCell to 
+ provide for configureCell:atIndexPath
+ 
+ @param indexPath - current Indexpath
+ @return cell reuse Identifier
+ */
+-(NSString *) reuseIdentifierForIndexPath:(NSIndexPath *) indexPath;
+
 /** @name Properties */
 /** Sets the cellIdentifier for UITableView dequeueReusableCellWithIdentifier:
  
