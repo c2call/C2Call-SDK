@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCTimelineController.h"
 
-@interface SCTimelineMasterController : UIViewController
+@interface SCTimelineMasterController : UIViewController<SCTimelineControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddVideo;
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnAddAudio;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentView;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 
 
 - (IBAction) addImage:(id)sender;

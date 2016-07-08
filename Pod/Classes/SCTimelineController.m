@@ -11,13 +11,29 @@
 #import "MOTimelineEvent.h"
 #import "C2CallPhone.h"
 #import "SCTimeline.h"
+#import "ImageUtil.h"
 #import "debug.h"
 
 // We need only one instance
 static NSDateFormatter  *dateTime = nil;
+static NSCache          *imageCache = nil;
 
 
 @implementation SCTimelineBaseCell
+
+-(void) prepareForReuse
+{
+
+    self.userName.text = @"";
+    self.userImage.image = nil;
+    
+    self.timeLabel.text = @"";
+
+    self.textLabel.text = @"";
+    
+    self.likesLabel.text = @"";
+    self.mediaKey = nil;
+}
 
 -(void) configureCell:(MOTimelineEvent *) event
 {
@@ -28,9 +44,12 @@ static NSDateFormatter  *dateTime = nil;
     }
 
     self.timeLabel.text = [dateTime stringFromDate:event.timeStamp];
-    self.textLabel.text = event.text;
-    self.likesLabel.text = [NSString stringWithFormat:@"(%d)", [event.like intValue]];
 
+    self.textLabel.text = event.text;
+
+    if ([event.like intValue] > 0) {
+        self.likesLabel.text = [NSString stringWithFormat:@"(%d)", [event.like intValue]];
+    }
 }
 
 @end
@@ -46,14 +65,35 @@ static NSDateFormatter  *dateTime = nil;
 
 @implementation SCTimelineImageCell
 
+-(void) prepareForReuse
+{
+    [super prepareForReuse];
+    self.eventImage.image = nil;
+}
+
+
 -(void) configureCell:(MOTimelineEvent *) event
 {
     [super configureCell:event];
     
     NSString *imageKey = event.mediaUrl;
-    UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+    self.mediaKey = [imageKey copy];
     
-    self.eventImage.image = img;
+    UIImage *img = [imageCache objectForKey:imageKey];
+    
+    if (!img) {
+        UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+        
+        if (img) {
+            img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
+            [imageCache setObject:img forKey:imageKey];
+            
+            self.eventImage.image = img;
+        }
+    } else {
+        self.eventImage.image = img;
+    }
+    
 }
 
 @end
@@ -94,7 +134,7 @@ static NSDateFormatter  *dateTime = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tableView.estimatedRowHeight = 76;
+    self.tableView.estimatedRowHeight = 160;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.cellIdentifier = @"SCTimelineBaseCell";
@@ -104,6 +144,10 @@ static NSDateFormatter  *dateTime = nil;
         dateTime = [[NSDateFormatter alloc] init];
         [dateTime setDateStyle:NSDateFormatterShortStyle];
         [dateTime setTimeStyle:NSDateFormatterShortStyle];
+    }
+    
+    if (!imageCache) {
+        imageCache = [[NSCache alloc] init];
     }
 
     [[SCTimeline instance] refreshTimeline];
@@ -121,7 +165,7 @@ static NSDateFormatter  *dateTime = nil;
         return nil;
     
     self.sectionNameKeyPath = nil;
-    self.useDidChangeContentOnly = NO;
+    self.useDidChangeContentOnly = YES;
     
     NSFetchRequest *fetchRequest = [[SCDataManager instance] fetchRequestForTimeline:NO];
     
@@ -237,6 +281,12 @@ static NSDateFormatter  *dateTime = nil;
     
 }
 
+-(void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.delegate) {
+        [self.delegate timelineControllerDidScroll:scrollView];
+    }
+}
 /*
 #pragma mark - Navigation
 

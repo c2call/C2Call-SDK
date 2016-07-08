@@ -3051,14 +3051,14 @@ Please try again later.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="USA / Canada" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o33-mN-6e9">
-                                                    <rect key="frame" x="62" y="0.0" width="223" height="43"/>
+                                                    <rect key="frame" x="60" y="0.0" width="225" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="flag1" id="2nX-W6-ruF">
-                                                    <rect key="frame" x="15" y="5" width="32" height="32"/>
+                                                    <rect key="frame" x="15" y="11" width="30" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -12453,7 +12453,7 @@ Remove search filter?</string>
         <image name="btn_send_message_grey" width="66" height="28"/>
         <image name="btn_takecall_hover" width="135" height="50"/>
         <image name="btn_video_offer" width="28" height="28"/>
-        <image name="flag1" width="32" height="32"/>
+        <image name="flag1" width="30" height="20"/>
         <image name="ico_arrow_left" width="27" height="21"/>
         <image name="ico_arrow_right" width="27" height="21"/>
         <image name="ico_avatar.png" width="30" height="30"/>
@@ -12477,7 +12477,7 @@ Remove search filter?</string>
         <image name="ico_expand" width="30" height="30"/>
         <image name="ico_footer_dialpad_01" width="25" height="25"/>
         <image name="ico_footer_phonebook_contacts_01" width="30" height="30"/>
-        <image name="ico_friendcaller-color" width="24" height="24"/>
+        <image name="ico_friendcaller-color" width="29" height="29"/>
         <image name="ico_front_kamera" width="43" height="26"/>
         <image name="ico_geolocation-24x24" width="30" height="30"/>
         <image name="ico_group" width="30" height="30"/>
@@ -12491,7 +12491,7 @@ Remove search filter?</string>
         <image name="ico_msg_white-20x20" width="20" height="20"/>
         <image name="ico_no_kamera" width="43" height="26"/>
         <image name="ico_play" width="11" height="16"/>
-        <image name="ico_read" width="14" height="14"/>
+        <image name="ico_read" width="15" height="15"/>
         <image name="ico_record" width="17" height="17"/>
         <image name="ico_record_again" width="19" height="22"/>
         <image name="ico_richmessaging_03" width="28" height="28"/>

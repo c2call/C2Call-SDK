@@ -7,14 +7,17 @@
 //
 
 #import "SCTimelineMasterController.h"
+#import "SCTimelineController.h"
 #import "SCTimeline.h"
+
 #import "C2CallPhone.h"
 #import "SCUserProfile.h"
 #import "UIViewController+SCCustomViewController.h"
 
-@interface SCTimelineMasterController ()
+@interface SCTimelineMasterController ()<UITextViewDelegate>
 
 @property(nonatomic, strong) NSMutableDictionary    *currentMessage;
+@property(nonatomic, weak) SCTimelineController     *timelineController;
 
 @end
 
@@ -23,11 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.textView.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,16 +36,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark UITextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView;
+{
+    self.placeholderLabel.hidden = YES;
+}
 
-/*
+- (void)textViewDidEndEditing:(UITextView *)textView;
+{
+    if ([textView.text length] == 0) {
+        self.placeholderLabel.hidden = NO;
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView;
+{
+    NSString *newtext = textView.text;
+    CGSize maximumLabelSize = textView.bounds.size;
+    maximumLabelSize.height = 999;
+    CGSize expectedTextSize = [newtext boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin
+                                                 attributes:@{NSFontAttributeName:textView.font} context:nil].size;
+    
+    if (expectedTextSize.height > 120) {
+        textView.scrollEnabled = YES;
+    } else {
+        textView.scrollEnabled = NO;
+    }
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[SCTimelineController class]]) {
+        self.timelineController = (SCTimelineController *) segue.destinationViewController;
+        self.timelineController.delegate = self;
+    }
 }
-*/
+
+-(void) timelineControllerDidScroll:(UIScrollView *)scrollView
+{
+    if ([self.textView isFirstResponder]) {
+        [self.textView resignFirstResponder];
+    }
+}
 
 -(void) updateMessage
 {
@@ -52,12 +88,15 @@
         self.attachmentView.image = self.currentMessage[@"preview"];
         
         NSString *text = self.currentMessage[@"text"];
-        if (text) {
+        if ([text length] > 0) {
             self.textView.text = text;
+            self.placeholderLabel.hidden = YES;
         }
     } else {
-        self.attachmentView.image = nil;
+        self.attachmentView.image = [UIImage imageNamed:@"transparent1x1"];
         self.textView.text = nil;
+        self.placeholderLabel.hidden = NO;
+
         if ([self.textView isFirstResponder]) {
             [self.textView resignFirstResponder];
         }

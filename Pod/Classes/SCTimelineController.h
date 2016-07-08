@@ -14,9 +14,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *innerContentView;
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
+@property (weak, nonatomic) IBOutlet UITextView *textLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
+@property (atomic, strong) NSString *mediaKey;
 
 @end
 
@@ -38,10 +39,19 @@
 
 @end
 
+@protocol SCTimelineControllerDelegate <NSObject>
+
+
+-(void) timelineControllerDidScroll:(UIScrollView *)scrollView;
+
+
+@end
 
 @interface SCTimelineController : SCDataTableViewController
 
 @property(nonatomic) int                fetchLimit;
 @property(nonatomic) int                fetchSize;
+
+@property(nonatomic, weak) id<SCTimelineControllerDelegate>     delegate;
 
 @end
