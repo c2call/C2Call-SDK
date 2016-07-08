@@ -58,6 +58,9 @@
     } else {
         self.attachmentView.image = nil;
         self.textView.text = nil;
+        if ([self.textView isFirstResponder]) {
+            [self.textView resignFirstResponder];
+        }
     }
 }
 
@@ -97,6 +100,9 @@
     NSString *text = self.textView.text;
     NSString *mediakey = self.currentMessage[@"mediakey"];
     NSNumber *eventType = self.currentMessage[@"eventType"];
+    
+    if (!eventType && !mediakey)
+        eventType = @(SCTimeLineEvent_Message);
     
     if (([text length] > 0 || [mediakey length] > 0) && eventType) {
         [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey toTimeline:[SCUserProfile currentUser].userid];

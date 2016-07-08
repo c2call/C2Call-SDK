@@ -106,6 +106,7 @@ static NSDateFormatter  *dateTime = nil;
         [dateTime setTimeStyle:NSDateFormatterShortStyle];
     }
 
+    [[SCTimeline instance] refreshTimeline];
 }
 
 - (void)didReceiveMemoryWarning {
