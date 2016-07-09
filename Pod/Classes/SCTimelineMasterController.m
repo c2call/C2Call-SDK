@@ -11,6 +11,7 @@
 #import "SCTimeline.h"
 
 #import "C2CallPhone.h"
+#import "SocialCommunication.h"
 #import "SCUserProfile.h"
 #import "UIViewController+SCCustomViewController.h"
 
@@ -96,7 +97,7 @@
         self.attachmentView.image = [UIImage imageNamed:@"transparent1x1"];
         self.textView.text = nil;
         self.placeholderLabel.hidden = NO;
-
+        
         if ([self.textView isFirstResponder]) {
             [self.textView resignFirstResponder];
         }
@@ -105,13 +106,13 @@
 
 - (IBAction)addImage:(id)sender {
     [self captureImageFromCameraWithQuality:UIImagePickerControllerQualityTypeMedium andCompleteAction:^(NSString *key) {
-       
+        
         if (key) {
             UIImage *image = [[C2CallPhone currentPhone] thumbnailForKey:key];
             if (!image) {
                 return;
             }
-                
+            
             NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
             msg[@"preview"] = image;
             msg[@"mediakey"] = key;
@@ -124,7 +125,23 @@
 }
 
 - (IBAction)addVideo:(id)sender {
-    
+    [self captureVideoFromCameraWithQuality:UIImagePickerControllerQualityTypeLow andCompleteAction:^(NSString *key) {
+        
+        if (key) {
+            UIImage *image = [[C2CallPhone currentPhone] thumbnailForKey:key];
+            if (!image) {
+                return;
+            }
+            
+            NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
+            msg[@"preview"] = image;
+            msg[@"mediakey"] = key;
+            msg[@"eventType"] = @(SCTimeLineEvent_Video);
+            
+            self.currentMessage = msg;
+            [self updateMessage];
+        }
+    }];
 }
 
 - (IBAction)addLocation:(id)sender {
@@ -144,9 +161,17 @@
         eventType = @(SCTimeLineEvent_Message);
     
     if (([text length] > 0 || [mediakey length] > 0) && eventType) {
-        [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey toTimeline:[SCUserProfile currentUser].userid];
-        self.currentMessage = nil;
-        [self updateMessage];
+        [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Uploading content" andWaitMessage:nil];
+        BOOL res = [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
+            
+            self.currentMessage = nil;
+            [self updateMessage];
+            [[C2CallAppDelegate appDelegate] waitIndicatorStop];
+        }];
+        
+        if (!res) {
+            [[C2CallAppDelegate appDelegate] waitIndicatorStop];
+        }
     }
 }
 

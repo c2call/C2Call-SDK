@@ -8,6 +8,7 @@
 
 #import "UIViewController+SCCustomViewController.h"
 #import "SCTimelineController.h"
+#import "SCVideoPlayerView.h"
 #import "MOTimelineEvent.h"
 #import "C2CallPhone.h"
 #import "SCTimeline.h"
@@ -23,12 +24,12 @@ static NSCache          *imageCache = nil;
 
 -(void) prepareForReuse
 {
-
+    
     self.userName.text = @"";
     self.userImage.image = nil;
     
     self.timeLabel.text = @"";
-
+    
     self.textLabel.text = @"";
     
     self.likesLabel.text = @"";
@@ -42,11 +43,11 @@ static NSCache          *imageCache = nil;
     if (image) {
         self.userImage.image = image;
     }
-
+    
     self.timeLabel.text = [dateTime stringFromDate:event.timeStamp];
-
+    
     self.textLabel.text = event.text;
-
+    
     if ([event.like intValue] > 0) {
         self.likesLabel.text = [NSString stringWithFormat:@"(%d)", [event.like intValue]];
     }
@@ -56,9 +57,18 @@ static NSCache          *imageCache = nil;
 
 @implementation SCTimelineVideoCell
 
+-(void) layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.videoView.layer.frame = self.videoView.bounds;
+    
+}
+
 -(void) configureCell:(MOTimelineEvent *) event
 {
     [super configureCell:event];
+    self.videoView.mediaUrl =  [[C2CallPhone currentPhone] mediaUrlForKey:event.mediaUrl];
 }
 
 @end
@@ -133,13 +143,13 @@ static NSCache          *imageCache = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.tableView.estimatedRowHeight = 160;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-
+    
     self.cellIdentifier = @"SCTimelineBaseCell";
     self.emptyResultCellIdentifier = @"SCNoTimelineEventsCell";
-
+    
     if (!dateTime) {
         dateTime = [[NSDateFormatter alloc] init];
         [dateTime setDateStyle:NSDateFormatterShortStyle];
@@ -149,7 +159,7 @@ static NSCache          *imageCache = nil;
     if (!imageCache) {
         imageCache = [[NSCache alloc] init];
     }
-
+    
     [[SCTimeline instance] refreshTimeline];
 }
 
@@ -251,33 +261,33 @@ static NSCache          *imageCache = nil;
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Picture]]) {
         return @"SCTimelineImageCell";
     }
-
+    
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Video]]) {
-        //return @"SCTimelineVideoCell";
+        return @"SCTimelineVideoCell";
     }
-
+    
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Audio]]) {
         //return @"SCTimelineAudioCell";
     }
-
+    
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Location]]) {
         //return @"SCTimelineLocationCell";
     }
-
+    
     return self.cellIdentifier;
 }
 
 -(void) configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     MOTimelineEvent *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+    
     if ([cell isKindOfClass:[SCTimelineBaseCell class]]) {
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
         
         [bcell configureCell:event];
     }
-
+    
     
 }
 
@@ -288,13 +298,13 @@ static NSCache          *imageCache = nil;
     }
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -8,6 +8,8 @@
 
 #import <SocialCommunication/SocialCommunication.h>
 
+@class SCVideoPlayerView;
+
 @interface SCTimelineBaseCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *userName;
@@ -22,6 +24,7 @@
 @end
 
 @interface SCTimelineVideoCell : SCTimelineBaseCell
+@property (weak, nonatomic) IBOutlet SCVideoPlayerView *videoView;
 
 @end
 

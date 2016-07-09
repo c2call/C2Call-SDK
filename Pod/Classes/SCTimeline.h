@@ -23,7 +23,7 @@ typedef enum {
 @interface SCTimeline : NSObject
 
 -(void) refreshTimeline;
--(BOOL) submitTimelineEvent:(SCTimelineEventType) eventType withMessage:(NSString *) message andMedia:(NSString *) mediakey toTimeline:(NSString *) timeline;
+-(BOOL) submitTimelineEvent:(SCTimelineEventType) eventType withMessage:(NSString *) message andMedia:(NSString *) mediakey toTimeline:(NSString *) timeline withCompletionHandler:(void (^)(BOOL success))handler;
 -(void) submitVideo:(NSURL *) mediaUrl withMessage:(NSString *) message toTimeline:(NSString *) timeline withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
 -(void) submitImage:(UIImage *) originalImage withQuality:(UIImagePickerControllerQualityType) imageQuality andMessage:(NSString *) message toTimeline:(NSString *) timeline withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey , NSError *error))handler;
 -(void) submitAudio:(NSURL *) mediaUrl withMessage:(NSString *) message toTimeline:(NSString *) timeline withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
