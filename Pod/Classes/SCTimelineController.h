@@ -8,7 +8,7 @@
 
 #import <SocialCommunication/SocialCommunication.h>
 
-@class SCVideoPlayerView;
+@class SCVideoPlayerView, SCPTTPlayer;
 
 @interface SCTimelineBaseCell : UITableViewCell
 
@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *innerContentView;
-@property (weak, nonatomic) IBOutlet UITextView *textLabel;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (atomic, strong) NSString *mediaKey;
@@ -35,6 +35,17 @@
 @end
 
 @interface SCTimelineAudioCell : SCTimelineBaseCell
+
+-(IBAction)togglePlayPause:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *progress;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (weak, nonatomic) IBOutlet UIImageView *playButton;
+
+@property (nonatomic, strong) SCPTTPlayer   *player;
+@property (nonatomic, strong) C2BlockAction *action;
+@property (nonatomic, strong) UITapGestureRecognizer    *tapGesture;
 
 @end
 
@@ -56,5 +67,8 @@
 @property(nonatomic) int                fetchSize;
 
 @property(nonatomic, weak) id<SCTimelineControllerDelegate>     delegate;
+
+-(void) refetchResults;
+-(void) scrollToTopOnUpdate;
 
 @end

@@ -19,6 +19,7 @@
 
 @property(nonatomic, strong) NSMutableDictionary    *currentMessage;
 @property(nonatomic, weak) SCTimelineController     *timelineController;
+@property(nonatomic, strong) NSString               *progressKey;
 
 @end
 
@@ -29,7 +30,7 @@
     
     
     self.textView.delegate = self;
-    
+    self.progressViewHeight.constant = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -149,7 +150,17 @@
 }
 
 - (IBAction)addAudio:(id)sender {
-    
+    [self recordVoiceMail:^(NSString *key) {
+        if (key) {
+            NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
+            msg[@"preview"] = [UIImage imageNamed:@"ico_voice_msg"];
+            msg[@"mediakey"] = key;
+            msg[@"eventType"] = @(SCTimeLineEvent_Audio);
+            
+            self.currentMessage = msg;
+            [self updateMessage];
+        }
+    }];
 }
 
 - (IBAction)submitTimelineEvent:(id)sender {
@@ -162,6 +173,11 @@
     
     if (([text length] > 0 || [mediakey length] > 0) && eventType) {
         [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Uploading content" andWaitMessage:nil];
+        [self.timelineController scrollToTopOnUpdate];
+        
+        if ([mediakey length] > 0) {
+            [self addProgressObserverForKey:mediakey];
+        }
         BOOL res = [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
             
             self.currentMessage = nil;
@@ -173,6 +189,61 @@
             [[C2CallAppDelegate appDelegate] waitIndicatorStop];
         }
     }
+}
+
+-(void) addProgressObserverForKey:(NSString *) key
+{
+    if (self.progressKey) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:self.progressKey object:nil];
+        self.progressKey = nil;
+    }
+    
+    [self showProgress];
+    
+    self.progressKey = key;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadProgressNotification:) name:key object:nil];
+
+}
+
+
+-(void) uploadProgressNotification:(NSNotification *) notification
+{
+    if (self.progressKey && [[notification name] isEqualToString:self.progressKey]) {
+        
+        NSNumber *p = [notification.userInfo objectForKey:@"progress"];
+        if (p) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.progressViewHeight.constant == 0) {
+                    [self showProgress];
+                }
+                [self.progress setProgress:[p floatValue] / 100.];
+            });
+        }
+        
+        NSNumber *finished = [notification.userInfo objectForKey:@"finished"];
+        if (finished) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:self.progressKey object:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgress];
+            });
+        }
+    }
+}
+
+-(void) showProgress
+{
+    self.progressViewHeight.constant = 26;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.headerView layoutIfNeeded];
+    }];
+}
+
+-(void) hideProgress
+{
+    self.progressViewHeight.constant = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.headerView layoutIfNeeded];
+    }];
 }
 
 @end

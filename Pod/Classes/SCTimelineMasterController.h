@@ -18,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentView;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *progress;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressViewHeight;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 
 - (IBAction) addImage:(id)sender;

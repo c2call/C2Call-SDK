@@ -11,6 +11,7 @@
 #import "SCVideoPlayerView.h"
 #import "MOTimelineEvent.h"
 #import "C2CallPhone.h"
+#import "SCPTTPlayer.h"
 #import "SCTimeline.h"
 #import "ImageUtil.h"
 #import "debug.h"
@@ -24,13 +25,13 @@ static NSCache          *imageCache = nil;
 
 -(void) prepareForReuse
 {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.userName.text = @"";
     self.userImage.image = nil;
     
     self.timeLabel.text = @"";
     
-    self.textLabel.text = @"";
+    self.textView.text = @"";
     
     self.likesLabel.text = @"";
     self.mediaKey = nil;
@@ -46,11 +47,94 @@ static NSCache          *imageCache = nil;
     
     self.timeLabel.text = [dateTime stringFromDate:event.timeStamp];
     
-    self.textLabel.text = event.text;
+    self.textView.text = event.text;
     
     if ([event.like intValue] > 0) {
         self.likesLabel.text = [NSString stringWithFormat:@"(%d)", [event.like intValue]];
     }
+}
+
+-(void) monitorUploadForKey:(NSString *) key
+{
+    if ([key rangeOfString:@"(null)"].location != NSNotFound) {
+        return;
+    }
+    
+    self.mediaKey = key;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadProgressNotification:) name:key object:nil];
+}
+
+-(void) monitorDownloadForKey:(NSString *) key
+{
+    if ([key rangeOfString:@"(null)"].location != NSNotFound) {
+        return;
+    }
+    
+    self.mediaKey = key;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgressNotification:) name:key object:nil];
+}
+
+-(void) uploadProgressNotification:(NSNotification *) notification
+{
+    if (self.mediaKey && [[notification name] isEqualToString:self.mediaKey]) {
+        
+        NSNumber *p = [notification.userInfo objectForKey:@"progress"];
+        if (p) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self uploadProgress:p];
+            });
+        }
+        
+        NSNumber *finished = [notification.userInfo objectForKey:@"finished"];
+        if (finished) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self uploadCompleted:[finished boolValue]];
+            });
+        }
+    }
+}
+
+-(void) downloadProgressNotification:(NSNotification *) notification
+{
+    if (self.mediaKey && [[notification name] isEqualToString:self.mediaKey]) {
+        
+        NSNumber *p = [notification.userInfo objectForKey:@"progress"];
+        if (p) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self downloadProgress:p];
+            });
+        }
+        
+        NSNumber *finished = [notification.userInfo objectForKey:@"finished"];
+        if (finished) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self downloadCompleted:[finished boolValue]];
+            });
+        }
+    }
+
+}
+
+-(void) uploadProgress:(NSNumber *) progress
+{
+    
+}
+
+-(void) downloadProgress:(NSNumber *) progress
+{
+    
+}
+
+-(void) uploadCompleted:(BOOL) success
+{
+    
+}
+
+-(void) downloadCompleted:(BOOL) success
+{
+    
 }
 
 @end
@@ -110,9 +194,141 @@ static NSCache          *imageCache = nil;
 
 @implementation SCTimelineAudioCell
 
+-(void) prepareForReuse
+{
+    [super prepareForReuse];
+    
+    [self.activity stopAnimating];
+    [self.progress setProgress:0.0];
+    
+    if ([self.player isPlaying]) {
+        [self.player pause];
+    }
+    self.player = nil;
+
+}
+- (void)dealloc
+{
+    if (self.tapGesture) {
+        [self.innerContentView removeGestureRecognizer:self.tapGesture];
+    }
+}
+
+-(IBAction)togglePlayPause:(id)sender
+{
+    [self.action fireAction:self];
+}
+
 -(void) configureCell:(MOTimelineEvent *) event
 {
     [super configureCell:event];
+    
+    __weak SCTimelineAudioCell  *weakself = self;
+    
+    if (!self.tapGesture) {
+        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause:)];
+        [self.innerContentView addGestureRecognizer:self.tapGesture];
+        self.innerContentView.userInteractionEnabled;
+    }
+    
+    NSString *mediakey = [event.mediaUrl copy];
+    if ([[C2CallPhone currentPhone] hasObjectForKey:mediakey]) {
+        NSString *duration = [[C2CallPhone currentPhone] durationForKey:mediakey];
+        if ([duration length] == 0) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSString *duration = [[C2CallPhone currentPhone] durationForKey:mediakey];
+                DLog(@"Duration : %@", duration);
+                self.durationLabel.text = duration;
+            });
+        } else {
+            DLog(@"Duration : %@", duration);
+            self.durationLabel.text = duration;
+        }
+        self.durationLabel.hidden = NO;
+        
+        [self.progress setHidden:NO];
+        [self.progress setProgress:0];
+        if ([self.player.mediaKey isEqualToString:mediakey]) {
+            self.player.progress = self.progress;
+            self.player.playButton = self.playButton;
+        }
+        
+        self.action = [C2BlockAction actionWithAction:^(id sender) {
+            if (weakself.player) {
+                if ([weakself.player.mediaKey isEqualToString:mediakey]) {
+                    if ([weakself.player isPlaying]) {
+                        [weakself.player pause];
+                    } else {
+                        [weakself.player play];
+                    }
+                } else {
+                    if ([weakself.player isPlaying]) {
+                        [weakself.player pause];
+                    }
+                    weakself.player = nil;
+                    weakself.player = [[SCPTTPlayer alloc] initWithMediaKey:mediakey];
+                    weakself.player.progress = weakself.progress;
+                    weakself.player.playButton = weakself.playButton;
+                    [weakself.player play];
+                }
+            } else {
+                weakself.player = nil;
+                weakself.player = [[SCPTTPlayer alloc] initWithMediaKey:mediakey];
+                weakself.player.progress = weakself.progress;
+                weakself.player.playButton = weakself.playButton;
+                [weakself.player play];
+            }
+        }];
+    } else {
+        self.mediaKey = mediakey;
+        
+        if ([[C2CallPhone currentPhone] downloadStatusForKey:mediakey]) {
+            [self monitorDownloadForKey:mediakey];
+        } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediakey]) {
+            // We need a broken link image here and a download button
+            self.playButton.image = [UIImage imageNamed:@"ico_broken_voice_msg.png"];
+            self.playButton.contentMode = UIViewContentModeScaleAspectFit;
+            
+            self.action = [C2BlockAction actionWithAction:^(id sender) {
+                [weakself monitorDownloadForKey:mediakey];
+                [[C2CallPhone currentPhone] retrieveObjectForKey:mediakey completion:^(BOOL finished) {
+                    
+                }];
+            }];
+        } else {
+            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+                [self monitorDownloadForKey:mediakey];
+                [[C2CallPhone currentPhone] retrieveObjectForKey:mediakey completion:^(BOOL finished) {
+                    
+                }];
+            }
+            
+        }
+    }
+
+}
+
+-(void) monitorDownloadForKey:(NSString *) key
+{
+    [super monitorDownloadForKey:key];
+    
+    [self.activity startAnimating];
+}
+
+-(void) downloadProgress:(NSNumber *) progress
+{
+    [self.progress setProgress:[progress floatValue] / 100.];
+}
+
+-(void) downloadCompleted:(BOOL) success
+{
+    [self.activity stopAnimating];
+    [self.progress setProgress:0.];
+    self.player = nil;
+    self.player = [[SCPTTPlayer alloc] initWithMediaKey:self.mediaKey];
+    self.player.progress = self.progress;
+    self.player.playButton = self.playButton;
+    [self.player play];
 }
 
 @end
@@ -131,7 +347,7 @@ static NSCache          *imageCache = nil;
 
 @interface SCTimelineController () {
     BOOL            showPreviousMessageButton;
-    BOOL            scrollToBottom;
+    BOOL            scrollToBottom, scrollToTop;
     BOOL            didLoad;
     
     CFAbsoluteTime  lastContentChange;
@@ -161,6 +377,7 @@ static NSCache          *imageCache = nil;
     }
     
     [[SCTimeline instance] refreshTimeline];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -175,7 +392,7 @@ static NSCache          *imageCache = nil;
         return nil;
     
     self.sectionNameKeyPath = nil;
-    self.useDidChangeContentOnly = YES;
+    self.useDidChangeContentOnly = NO;
     
     NSFetchRequest *fetchRequest = [[SCDataManager instance] fetchRequestForTimeline:NO];
     
@@ -199,6 +416,10 @@ static NSCache          *imageCache = nil;
                 scrollToBottom = NO;
                 [self scrollToBottom];
             }
+            if (scrollToTop) {
+                scrollToTop = NO;
+                [self scrollToTop];
+            }
         }
     });
 }
@@ -216,6 +437,23 @@ static NSCache          *imageCache = nil;
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     });
+}
+
+-(void) scrollToTop
+{
+    
+    double delayInSeconds = 0.05;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+              [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
+    });
+}
+
+-(void) scrollToTopOnUpdate
+{
+    scrollToTop = YES;
 }
 
 -(void) refetchResults
@@ -240,6 +478,7 @@ static NSCache          *imageCache = nil;
         DLog(@"Error : %@", error);
     }
     
+    scrollToTop = YES;
     //[self refreshTable];
 }
 
@@ -267,7 +506,7 @@ static NSCache          *imageCache = nil;
     }
     
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Audio]]) {
-        //return @"SCTimelineAudioCell";
+        return @"SCTimelineAudioCell";
     }
     
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Location]]) {
@@ -296,6 +535,18 @@ static NSCache          *imageCache = nil;
     if (self.delegate) {
         [self.delegate timelineControllerDidScroll:scrollView];
     }
+}
+
+-(void) controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [super controllerDidChangeContent:controller];
+
+    DLog(@"controllerDidChangeContent: %d", [[self.fetchedResultsController fetchedObjects] count]);
+    if (scrollToTop) {
+        scrollToTop = NO;
+        [self scrollToTop];
+    }
+    //[self.tableView reloadData];
 }
 /*
  #pragma mark - Navigation

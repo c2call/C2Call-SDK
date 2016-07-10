@@ -178,6 +178,9 @@ cp "../SocialCommunication/SCTimelineController.m" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineMasterController.h" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineMasterController.m" "Pod/Classes"
 
+cp "../SocialCommunication/SCPTTPlayer.h" "Pod/Classes"
+cp "../SocialCommunication/SCPTTRecorder.h" "Pod/Classes"
+
 cp "../SocialCommunication/SCBrowserViewController.h" "Pod/Classes/SCBrowserViewController.h"
 cp "../SocialCommunication/SCBubbleViewIn.h" "Pod/Classes/SCBubbleViewIn.h"
 cp "../SocialCommunication/SCBubbleViewOut.h" "Pod/Classes/SCBubbleViewOut.h"
