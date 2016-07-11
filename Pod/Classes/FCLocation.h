@@ -26,6 +26,8 @@
 
 -(void) storeLocation;
 -(BOOL) restoreLocation:(NSString *) key;
+-(BOOL) retrievePlacesInfoWithCompleteHandler:(void (^)(NSDictionary *place))completeHandler;
+-(BOOL) retrieveAddressWithCompletionHandler:(void (^)(NSDictionary *location, NSString *address))completeHandler;
 
 -(void) setTitle:(NSString *) _title;
 -(void) setSubTitle:(NSString *) _subtitle;

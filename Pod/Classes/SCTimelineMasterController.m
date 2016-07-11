@@ -6,6 +6,7 @@
 //
 //
 
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "SCTimelineMasterController.h"
 #import "SCTimelineController.h"
 #import "SCTimeline.h"
@@ -105,6 +106,32 @@
     }
 }
 
+- (IBAction)addFromAlbum:(id)sender {
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.allowsEditing = NO;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie, nil];
+    imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
+
+    [self captureMediaFromImagePicker:imagePicker andCompleteAction:^(NSString *key) {
+        if (key) {
+            UIImage *image = [[C2CallPhone currentPhone] thumbnailForKey:key];
+            if (!image) {
+                return;
+            }
+            
+            NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
+            msg[@"preview"] = image;
+            msg[@"mediakey"] = key;
+            msg[@"eventType"] = [key hasPrefix:@"image://"]? @(SCTimeLineEvent_Picture): @(SCTimeLineEvent_Video);
+            
+            self.currentMessage = msg;
+            [self updateMessage];
+        }
+    }];
+}
+
 - (IBAction)addImage:(id)sender {
     [self captureImageFromCameraWithQuality:UIImagePickerControllerQualityTypeMedium andCompleteAction:^(NSString *key) {
         
@@ -146,7 +173,22 @@
 }
 
 - (IBAction)addLocation:(id)sender {
-    
+    [self requestLocation:^(NSString *key) {
+        if (key) {
+            UIImage *image = [[C2CallPhone currentPhone] thumbnailForKey:key];
+            if (!image) {
+                return;
+            }
+            
+            NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
+            msg[@"preview"] = image;
+            msg[@"mediakey"] = key;
+            msg[@"eventType"] = @(SCTimeLineEvent_Location);
+            
+            self.currentMessage = msg;
+            [self updateMessage];
+        }
+    }];
 }
 
 - (IBAction)addAudio:(id)sender {
@@ -175,7 +217,7 @@
         [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Uploading content" andWaitMessage:nil];
         [self.timelineController scrollToTopOnUpdate];
         
-        if ([mediakey length] > 0) {
+        if ([mediakey length] > 0 && ![mediakey hasPrefix:@"loc://"]) {
             [self addProgressObserverForKey:mediakey];
         }
         BOOL res = [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {

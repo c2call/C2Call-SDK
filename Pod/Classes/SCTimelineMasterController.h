@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnAddVideo;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddLocation;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddAudio;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddAlbum;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentView;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;

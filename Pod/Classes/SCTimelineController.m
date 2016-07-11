@@ -14,6 +14,8 @@
 #import "SCPTTPlayer.h"
 #import "SCTimeline.h"
 #import "ImageUtil.h"
+#import "FCLocation.h"
+
 #import "debug.h"
 
 // We need only one instance
@@ -345,6 +347,80 @@ static NSCache          *imageCache = nil;
 @end
 
 
+@implementation SCTimelineLocationCell
+
+-(void) prepareForReuse
+{
+    [super prepareForReuse];
+    
+    [self.activity stopAnimating];
+    self.locationMapImage.image = nil;
+    self.locationTitle.text = @"";
+}
+
+
+-(void) configureCell:(MOTimelineEvent *) event
+{
+    [super configureCell:event];
+    
+    FCLocation *loc = [[FCLocation alloc] initWithKey:event.mediaUrl];
+    [self retrieveLocation:loc];
+}
+
+-(void) retrieveLocation:(FCLocation *) loc
+{
+    self.mediaKey = loc.locationKey;
+    
+    
+    __weak SCTimelineLocationCell *weakself = self;
+    if (loc.place) {
+        NSString *name = [loc.place objectForKey:@"name"];
+        self.locationTitle.text = name;
+    } else if (loc.address) {
+        NSArray *addr = [loc.address componentsSeparatedByString:@","];
+        if ([addr count] > 0) {
+            self.locationTitle.text = addr[0];
+        }
+    } else if (loc.reference && !loc.place) {
+        [loc retrievePlacesInfoWithCompleteHandler:^(NSDictionary *place) {
+            if ([weakself.mediaKey isEqualToString:loc.locationKey]) {
+                NSString *name = [place objectForKey:@"name"];
+                self.locationTitle.text = name;
+            }
+        }];
+    } else {
+        [loc retrieveAddressWithCompletionHandler:^(NSDictionary *location, NSString *address) {
+            if ([weakself.mediaKey isEqualToString:loc.locationKey]) {
+                NSArray *addr = [loc.address componentsSeparatedByString:@","];
+                if ([addr count] > 0) {
+                    self.locationTitle = addr[0];
+                }
+            }
+        }];
+    }
+
+    UIImage *locImage = [imageCache objectForKey:self.mediaKey];
+    if (locImage) {
+        self.locationMapImage.image = locImage;
+    } else {
+        [self.activity startAnimating];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage *locImage = [ImageUtil imageFromLocation:loc];
+            [imageCache setObject:locImage forKey:loc.locationKey];
+            if (locImage && [weakself.mediaKey isEqualToString:loc.locationKey]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activity stopAnimating];
+                    self.locationMapImage.image = locImage;
+                });
+            }
+        });
+    }
+
+}
+
+
+@end
+
 @interface SCTimelineController () {
     BOOL            showPreviousMessageButton;
     BOOL            scrollToBottom, scrollToTop;
@@ -510,7 +586,7 @@ static NSCache          *imageCache = nil;
     }
     
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Location]]) {
-        //return @"SCTimelineLocationCell";
+        return @"SCTimelineLocationCell";
     }
     
     return self.cellIdentifier;

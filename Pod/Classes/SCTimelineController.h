@@ -53,6 +53,15 @@
 
 @end
 
+@interface SCTimelineLocationCell : SCTimelineBaseCell
+
+@property (weak, nonatomic) IBOutlet UILabel *locationTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *locationMapImage;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+
+@end
+
+
 @protocol SCTimelineControllerDelegate <NSObject>
 
 
