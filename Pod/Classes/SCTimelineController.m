@@ -15,6 +15,7 @@
 #import "SCTimeline.h"
 #import "ImageUtil.h"
 #import "FCLocation.h"
+#import "C2BlockAction.h"
 
 #import "debug.h"
 
@@ -22,6 +23,15 @@
 static NSDateFormatter  *dateTime = nil;
 static NSCache          *imageCache = nil;
 
+@interface SCTimelineBaseCell ()
+
+@property(nonatomic, strong) C2BlockAction                      *tapAction;
+@property(nonatomic, strong) C2BlockAction                      *longpressAction;
+
+@property (nonatomic, strong) UITapGestureRecognizer            *tapRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer      *longpressRecognizer;
+
+@end
 
 @implementation SCTimelineBaseCell
 
@@ -137,6 +147,45 @@ static NSCache          *imageCache = nil;
 -(void) downloadCompleted:(BOOL) success
 {
     
+}
+
+-(IBAction)handleTap:(id)sender
+{
+    [self.tapAction fireAction:sender];
+}
+
+-(IBAction)handleLongpress:(id)sender
+{
+    [self.longpressAction fireAction:sender];
+}
+
+-(void) addTapAction:(C2BlockAction *)tapAction
+{
+    if (self.tapRecognizer) {
+        [self.innerContentView removeGestureRecognizer:self.tapRecognizer];
+        self.tapRecognizer = nil;
+    }
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.innerContentView addGestureRecognizer:tap];
+    self.tapRecognizer = tap;
+    
+    self.tapAction = tapAction;
+}
+
+-(void) addLongpressAction:(C2BlockAction *)longpressAction
+{
+    if (self.longpressRecognizer) {
+        [self.innerContentView removeGestureRecognizer:self.longpressRecognizer];
+        self.longpressRecognizer = nil;
+    }
+    
+    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongpress:)];
+    [self.innerContentView addGestureRecognizer:press];
+    
+    self.longpressRecognizer = press;
+
+    self.longpressAction = longpressAction;
 }
 
 @end
@@ -602,8 +651,43 @@ static NSCache          *imageCache = nil;
         
         [bcell configureCell:event];
     }
+
+    __weak SCTimelineController *weakself = self;
     
+    // Additional Setup for image cell
+    if ([cell isKindOfClass:[SCTimelineImageCell class]]) {
+        C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
+            [weakself showPhoto:event.mediaUrl];
+        }];
+
+        SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
+        [bcell addTapAction:action];
+    }
     
+    // Additional Setup for video cell
+    if ([cell isKindOfClass:[SCTimelineVideoCell class]]) {
+        __block CFAbsoluteTime didAction = 0;
+        C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
+            if (CFAbsoluteTimeGetCurrent() - didAction > 1.0) {
+                didAction = CFAbsoluteTimeGetCurrent(); // For some reason this longpress action is called twice
+                [weakself showVideo:event.mediaUrl];
+            }
+        }];
+        
+        SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
+        [bcell addLongpressAction:action];
+    }
+
+    // Additional Setup for location cell
+    if ([cell isKindOfClass:[SCTimelineLocationCell class]]) {
+        C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
+            [weakself showLocation:event.mediaUrl forUser:event.senderName];
+        }];
+        
+        SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
+        [bcell addTapAction:action];
+    }
+
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView

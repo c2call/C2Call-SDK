@@ -178,6 +178,9 @@ cp "../SocialCommunication/SCTimelineController.m" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineMasterController.h" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineMasterController.m" "Pod/Classes"
 
+cp "../SocialCommunication/SCAudioRecordingOverlayController.h" "Pod/Classes"
+cp "../SocialCommunication/SCAudioRecordingOverlayController.m" "Pod/Classes"
+
 cp "../SocialCommunication/SCPTTPlayer.h" "Pod/Classes"
 cp "../SocialCommunication/SCPTTRecorder.h" "Pod/Classes"
 

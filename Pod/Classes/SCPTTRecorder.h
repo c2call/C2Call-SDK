@@ -23,5 +23,6 @@ typedef enum
 -(BOOL) startRecording;
 -(void) cancelRecording;
 -(void) endRecordingAndSubmit:(NSString *) targetuser withCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
+-(void) endRecordingAndUseWithCompletionHandler:(void (^)(BOOL success, NSString *richMediaKey, NSError *error))handler;
 
 @end

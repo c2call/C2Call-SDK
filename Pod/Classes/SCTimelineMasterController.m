@@ -14,6 +14,7 @@
 #import "C2CallPhone.h"
 #import "SocialCommunication.h"
 #import "SCUserProfile.h"
+#import "SCAudioRecordingOverlayController.h"
 #import "UIViewController+SCCustomViewController.h"
 
 @interface SCTimelineMasterController ()<UITextViewDelegate>
@@ -75,6 +76,33 @@
     if ([segue.destinationViewController isKindOfClass:[SCTimelineController class]]) {
         self.timelineController = (SCTimelineController *) segue.destinationViewController;
         self.timelineController.delegate = self;
+    }
+    
+    if ([segue.destinationViewController isKindOfClass:[SCAudioRecordingOverlayController class]]) {
+        SCAudioRecordingOverlayController *vc = (SCAudioRecordingOverlayController *) segue.destinationViewController;
+        
+        __weak SCTimelineMasterController *weakself = self;
+        [vc setUseAction:^(NSString *key) {
+            if (key) {
+                NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
+                msg[@"preview"] = [UIImage imageNamed:@"ico_voice_msg"];
+                msg[@"mediakey"] = key;
+                msg[@"eventType"] = @(SCTimeLineEvent_Audio);
+                
+                weakself.currentMessage = msg;
+                [weakself updateMessage];
+            }
+            
+            [weakself dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }];
+
+        [vc setCancelAction:^{
+            [weakself dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }];
     }
 }
 
@@ -192,17 +220,8 @@
 }
 
 - (IBAction)addAudio:(id)sender {
-    [self recordVoiceMail:^(NSString *key) {
-        if (key) {
-            NSMutableDictionary *msg = [NSMutableDictionary dictionaryWithCapacity:3];
-            msg[@"preview"] = [UIImage imageNamed:@"ico_voice_msg"];
-            msg[@"mediakey"] = key;
-            msg[@"eventType"] = @(SCTimeLineEvent_Audio);
-            
-            self.currentMessage = msg;
-            [self updateMessage];
-        }
-    }];
+    
+    [self performSegueWithIdentifier:@"SCAudioRecordingOverlayControllerSegue" sender:nil];
 }
 
 - (IBAction)submitTimelineEvent:(id)sender {

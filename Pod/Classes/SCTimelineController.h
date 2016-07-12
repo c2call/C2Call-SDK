@@ -8,7 +8,7 @@
 
 #import <SocialCommunication/SocialCommunication.h>
 
-@class SCVideoPlayerView, SCPTTPlayer;
+@class SCVideoPlayerView, SCPTTPlayer, C2BlockAction;
 
 @interface SCTimelineBaseCell : UITableViewCell
 
@@ -19,7 +19,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
+
 @property (atomic, strong) NSString *mediaKey;
+
+-(void) addTapAction:(C2BlockAction *) tapAction;
+-(void) addLongpressAction:(C2BlockAction *) longpressAction;
 
 @end
 
