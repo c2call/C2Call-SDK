@@ -234,6 +234,17 @@ static NSCache          *imageCache = nil;
             [imageCache setObject:img forKey:imageKey];
             
             self.eventImage.image = img;
+        } else {
+           [[C2CallPhone currentPhone] retrieveObjectForKey:imageKey completion:^(BOOL finished) {
+               if (finished && [self.mediaKey isEqualToString:imageKey]) {
+                   UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+                   if (img) {
+                       [imageCache setObject:img forKey:imageKey];
+                       self.eventImage.image = img;
+                   }
+                   
+               }
+           }];
         }
     } else {
         self.eventImage.image = img;
