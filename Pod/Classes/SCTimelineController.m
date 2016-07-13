@@ -188,6 +188,13 @@ static NSCache          *imageCache = nil;
     self.longpressAction = longpressAction;
 }
 
+-(void) notifyCellUpdate
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self];
+    });
+}
+
 @end
 
 @implementation SCTimelineVideoCell
@@ -241,6 +248,8 @@ static NSCache          *imageCache = nil;
                    if (img) {
                        [imageCache setObject:img forKey:imageKey];
                        self.eventImage.image = img;
+                       [self.eventImage setNeedsDisplay];
+                       [self notifyCellUpdate];
                    }
                    
                }
@@ -514,6 +523,14 @@ static NSCache          *imageCache = nil;
     
     [[SCTimeline instance] refreshTimeline];
     [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
+    
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -521,6 +538,19 @@ static NSCache          *imageCache = nil;
     // Dispose of any resources that can be recreated.
 }
 
+-(void) cellUpdate:(NSNotification *) notification
+{
+    UITableViewCell *cell = [notification object];
+    if (cell) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            [cell.contentView layoutIfNeeded];
+        }];
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+}
 
 -(NSFetchRequest *) fetchRequest
 {
