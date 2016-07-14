@@ -274,7 +274,7 @@ static NSCache          *imageCache = nil;
                         [imageCache setObject:img forKey:imageKey];
                         self.eventImage.image = img;
                         [self.eventImage setNeedsDisplay];
-                        [self notifyCellUpdate];
+                        [self notifyCellUpdate:YES];
                     }
                     
                 }

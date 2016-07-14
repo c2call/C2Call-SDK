@@ -242,7 +242,6 @@
         return;
     
     DLog(@"SCDataTable:didChangeObject : %@ / %ld / %lu", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"), (long)indexPath.row, (unsigned long)type);
-    UITableView *tableView = self.tableView;
     
     @try {
         switch(type) {
@@ -251,7 +250,7 @@
                 if (isEmpty && self.emptyResultCellIdentifier) {
                     [self.tableView reloadRowsAtIndexPaths:newIndexPath withRowAnimation:UITableViewRowAnimationFade];
                 } else {
-                    [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                      withRowAnimation:UITableViewRowAnimationFade];
                 }
                 break;
@@ -260,25 +259,27 @@
                 if ([[controller fetchedObjects] count] == 0 && self.emptyResultCellIdentifier) {
                     [self.tableView reloadRowsAtIndexPaths:indexPath withRowAnimation:UITableViewRowAnimationFade];
                 } else {
-                    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                      withRowAnimation:UITableViewRowAnimationFade];
                 }
                 break;
                 
             case NSFetchedResultsChangeUpdate: {
-                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                if ([cell.reuseIdentifier isEqualToString:self.cellIdentifier]) {
-                    [self configureCell:cell atIndexPath:indexPath];
-                } else if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
-                    [self configureEmptyResultsCell:cell atIndexPath:indexPath];
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                if (cell) {
+                    if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
+                        [self configureEmptyResultsCell:cell atIndexPath:indexPath];
+                    } else {
+                        [self configureCell:cell atIndexPath:indexPath];
+                    }
                 }
             }
                 break;
                 
             case NSFetchedResultsChangeMove:
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                  withRowAnimation:UITableViewRowAnimationFade];
-                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                  withRowAnimation:UITableViewRowAnimationFade];
                 break;
         }
@@ -286,7 +287,7 @@
     }
     @catch (NSException *exception) {
         DLog(@"Error : didChangeObject : %@", exception);
-        [tableView reloadData];
+        [self.tableView reloadData];
     }
 }
 
