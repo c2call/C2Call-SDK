@@ -47,10 +47,13 @@ static NSCache          *imageCache = nil;
     
     self.likesLabel.text = @"";
     self.mediaKey = nil;
+    self.eventId = nil;
+    [self.likeButton removeTarget:self action:@selector(like:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) configureCell:(MOTimelineEvent *) event
 {
+    self.eventId = [event.eventId copy];
     self.userName.text = event.senderName;
     UIImage *image = [[C2CallPhone currentPhone] userimageForUserid:event.contact];
     if (image) {
@@ -63,7 +66,18 @@ static NSCache          *imageCache = nil;
     
     if ([event.like intValue] > 0) {
         self.likesLabel.text = [NSString stringWithFormat:@"(%d)", [event.like intValue]];
+    } else {
+        self.likesLabel.text = @"";
     }
+    
+    [self.likeButton addTarget:self action:@selector(like:) forControlEvents:UIControlEventTouchUpInside];
+    self.likeButton.enabled = [[SCTimeline instance] canLikeEvent:event.eventId];
+}
+
+-(IBAction)like:(id)sender
+{
+    [[SCTimeline instance] likeEvent:self.eventId];
+    [self notifyCellUpdate:YES];
 }
 
 -(void) monitorUploadForKey:(NSString *) key
@@ -126,7 +140,7 @@ static NSCache          *imageCache = nil;
             });
         }
     }
-
+    
 }
 
 -(void) uploadProgress:(NSNumber *) progress
@@ -184,14 +198,24 @@ static NSCache          *imageCache = nil;
     [self.innerContentView addGestureRecognizer:press];
     
     self.longpressRecognizer = press;
-
+    
     self.longpressAction = longpressAction;
 }
 
 -(void) notifyCellUpdate
 {
+    [self notifyCellUpdate:NO];
+}
+
+-(void) notifyCellUpdate:(BOOL) forceReload
+{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self];
+        if (forceReload) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@(YES), @"reloadData", nil]];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self];
+        }
+        
     });
 }
 
@@ -242,18 +266,19 @@ static NSCache          *imageCache = nil;
             
             self.eventImage.image = img;
         } else {
-           [[C2CallPhone currentPhone] retrieveObjectForKey:imageKey completion:^(BOOL finished) {
-               if (finished && [self.mediaKey isEqualToString:imageKey]) {
-                   UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
-                   if (img) {
-                       [imageCache setObject:img forKey:imageKey];
-                       self.eventImage.image = img;
-                       [self.eventImage setNeedsDisplay];
-                       [self notifyCellUpdate];
-                   }
-                   
-               }
-           }];
+            [[C2CallPhone currentPhone] retrieveObjectForKey:imageKey completion:^(BOOL finished) {
+                if (finished && [self.mediaKey isEqualToString:imageKey]) {
+                    UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+                    if (img) {
+                        img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
+                        [imageCache setObject:img forKey:imageKey];
+                        self.eventImage.image = img;
+                        [self.eventImage setNeedsDisplay];
+                        [self notifyCellUpdate];
+                    }
+                    
+                }
+            }];
         }
     } else {
         self.eventImage.image = img;
@@ -276,7 +301,7 @@ static NSCache          *imageCache = nil;
         [self.player pause];
     }
     self.player = nil;
-
+    
 }
 - (void)dealloc
 {
@@ -376,7 +401,7 @@ static NSCache          *imageCache = nil;
             
         }
     }
-
+    
 }
 
 -(void) monitorDownloadForKey:(NSString *) key
@@ -467,7 +492,7 @@ static NSCache          *imageCache = nil;
             }
         }];
     }
-
+    
     UIImage *locImage = [imageCache objectForKey:self.mediaKey];
     if (locImage) {
         self.locationMapImage.image = locImage;
@@ -484,7 +509,7 @@ static NSCache          *imageCache = nil;
             }
         });
     }
-
+    
 }
 
 
@@ -541,9 +566,14 @@ static NSCache          *imageCache = nil;
 -(void) cellUpdate:(NSNotification *) notification
 {
     UITableViewCell *cell = [notification object];
+    
+    if (notification.userInfo[@"reloadData"]) {
+        [self.tableView reloadData];
+        return;
+    }
+    
     if (cell) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        
+        //NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         [UIView animateWithDuration:0.3 animations:^{
             [cell.contentView layoutIfNeeded];
         }];
@@ -612,7 +642,7 @@ static NSCache          *imageCache = nil;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-              [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     });
 }
@@ -692,7 +722,7 @@ static NSCache          *imageCache = nil;
         
         [bcell configureCell:event];
     }
-
+    
     __weak SCTimelineController *weakself = self;
     
     // Additional Setup for image cell
@@ -700,7 +730,7 @@ static NSCache          *imageCache = nil;
         C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
             [weakself showPhoto:event.mediaUrl];
         }];
-
+        
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
         [bcell addTapAction:action];
     }
@@ -718,7 +748,7 @@ static NSCache          *imageCache = nil;
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
         [bcell addLongpressAction:action];
     }
-
+    
     // Additional Setup for location cell
     if ([cell isKindOfClass:[SCTimelineLocationCell class]]) {
         C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
@@ -728,7 +758,7 @@ static NSCache          *imageCache = nil;
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
         [bcell addTapAction:action];
     }
-
+    
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -741,7 +771,7 @@ static NSCache          *imageCache = nil;
 -(void) controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [super controllerDidChangeContent:controller];
-
+    
     DLog(@"controllerDidChangeContent: %d", [[self.fetchedResultsController fetchedObjects] count]);
     if (scrollToTop) {
         scrollToTop = NO;

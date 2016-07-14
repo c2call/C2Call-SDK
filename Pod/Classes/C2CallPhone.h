@@ -1198,7 +1198,7 @@ typedef enum {
  @return Referenced ImageKey
  
  */
--(NSString *) userimageKeyForUserid:(NSString *) userid;
+-(nullable NSString *) userimageKeyForUserid:(nonnull NSString *) userid;
 
 /** Gets the user image for a given userId.
  

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 
 @property (atomic, strong) NSString *mediaKey;
+@property (nonatomic,strong) NSNumber *eventId;
 
 -(void) addTapAction:(C2BlockAction *) tapAction;
 -(void) addLongpressAction:(C2BlockAction *) longpressAction;

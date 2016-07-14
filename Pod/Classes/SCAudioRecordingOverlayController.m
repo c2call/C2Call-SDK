@@ -113,13 +113,13 @@
     __weak SCAudioRecordingOverlayController *weakself = self;
     
     if (self.recordingImage.alpha == 0.) {
-        [UIView animateWithDuration:2.0 animations:^{
+        [UIView animateWithDuration:1.0 animations:^{
             self.recordingImage.alpha = 1.;
         } completion:^(BOOL finished) {
             [weakself animateRecordingImage];
         }];
     } else {
-        [UIView animateWithDuration:2.0 animations:^{
+        [UIView animateWithDuration:1.0 animations:^{
             self.recordingImage.alpha = 0.;
         } completion:^(BOOL finished) {
             [weakself animateRecordingImage];

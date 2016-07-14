@@ -230,7 +230,7 @@
  
  @param sortAscending YES - Oldest Timeline Event first / NO - Latest Event first
  */
--(NSFetchRequest *) fetchRequestForTimeline:(BOOL) sortAscending;
+-(nonnull NSFetchRequest *) fetchRequestForTimeline:(BOOL) sortAscending;
 
 /** Gets a predefined NSFetchRequest for a list the of MOC2CallBroadcast objects (not the users own)
  

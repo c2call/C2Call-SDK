@@ -97,7 +97,7 @@
                 
             }];
         }];
-
+        
         [vc setCancelAction:^{
             [weakself dismissViewControllerAnimated:YES completion:^{
                 
@@ -141,7 +141,7 @@
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie, nil];
     imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
-
+    
     [self captureMediaFromImagePicker:imagePicker andCompleteAction:^(NSString *key) {
         if (key) {
             UIImage *image = [[C2CallPhone currentPhone] thumbnailForKey:key];
@@ -263,7 +263,7 @@
     
     self.progressKey = key;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadProgressNotification:) name:key object:nil];
-
+    
 }
 
 

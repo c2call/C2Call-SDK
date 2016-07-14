@@ -148,6 +148,10 @@
         <relationship name="contactNumbers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="contactNumbers" inverseEntity="MOC2CallUser" syncable="YES"/>
         <relationship name="friendNumbers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MOC2CallUser" inverseName="friendNumbers" inverseEntity="MOC2CallUser" syncable="YES"/>
     </entity>
+    <entity name="MOTimelineDislike" syncable="YES">
+        <attribute name="eventId" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="userid" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MOTimelineEvent" representedClassName="MOTimelineEvent" syncable="YES">
         <attribute name="contact" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="dislike" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -165,6 +169,10 @@
             <userInfo/>
         </attribute>
         <attribute name="timevalue" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="MOTimelineLike" syncable="YES">
+        <attribute name="eventId" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="userid" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MOUserData" representedClassName="MOUserData" syncable="YES">
         <attribute name="key" attributeType="String" syncable="YES"/>
@@ -186,7 +194,9 @@
         <element name="MOGroupMember" positionX="232" positionY="-261" width="128" height="135"/>
         <element name="MOOpenId" positionX="412" positionY="81" width="128" height="90"/>
         <element name="MOPhoneNumber" positionX="817" positionY="204" width="128" height="120"/>
-        <element name="MOUserData" positionX="-450" positionY="45" width="128" height="133"/>
         <element name="MOTimelineEvent" positionX="-200" positionY="-558" width="128" height="253"/>
+        <element name="MOUserData" positionX="-450" positionY="45" width="128" height="133"/>
+        <element name="MOTimelineLike" positionX="-504" positionY="-459" width="128" height="73"/>
+        <element name="MOTimelineDislike" positionX="-362" positionY="-459" width="128" height="73"/>
     </elements>
 </model>
