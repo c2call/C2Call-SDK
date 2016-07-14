@@ -161,7 +161,7 @@
     if (!self.fetchedResultsController || [[self.fetchedResultsController fetchedObjects] count] == 0) {
         reuseIdentifier = self.emptyResultCellIdentifier;
     }
-
+    
     return reuseIdentifier;
 }
 
@@ -251,7 +251,7 @@
                     [self.tableView reloadRowsAtIndexPaths:newIndexPath withRowAnimation:UITableViewRowAnimationFade];
                 } else {
                     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                     withRowAnimation:UITableViewRowAnimationFade];
+                                          withRowAnimation:UITableViewRowAnimationFade];
                 }
                 break;
                 
@@ -260,7 +260,7 @@
                     [self.tableView reloadRowsAtIndexPaths:indexPath withRowAnimation:UITableViewRowAnimationFade];
                 } else {
                     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                     withRowAnimation:UITableViewRowAnimationFade];
+                                          withRowAnimation:UITableViewRowAnimationFade];
                 }
                 break;
                 
@@ -278,9 +278,9 @@
                 
             case NSFetchedResultsChangeMove:
                 [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
+                                      withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
+                                      withRowAnimation:UITableViewRowAnimationFade];
                 break;
         }
         
