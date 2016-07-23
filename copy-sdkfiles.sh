@@ -264,6 +264,7 @@ cp "../SocialCommunication/SCVerifyNumberController.h" "Pod/Classes/SCVerifyNumb
 cp "../SocialCommunication/SCVideoCallController.h" "Pod/Classes/SCVideoCallController.h"
 cp "../SocialCommunication/SCVideoPlayerController.h" "Pod/Classes/SCVideoPlayerController.h"
 cp "../SocialCommunication/SCVideoPlayerView.h" "Pod/Classes"
+cp "../SocialCommunication/SCVLCVideoPlayerView.h" "Pod/Classes"
 cp "../SocialCommunication/SCWaitIndicatorController.h" "Pod/Classes/SCWaitIndicatorController.h"
 cp "../SocialCommunication/SCWaitIndicatorController.m" "Pod/Classes/SCWaitIndicatorController.m"
 cp "../SocialCommunication/SCAssetManager.h" "Pod/Classes/SCAssetManager.h"

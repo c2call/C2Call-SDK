@@ -8,7 +8,7 @@
 
 #import <SocialCommunication/SocialCommunication.h>
 
-@class SCVideoPlayerView, SCPTTPlayer, C2BlockAction;
+@class SCVideoPlayerView, SCPTTPlayer, C2BlockAction, SCVLCVideoPlayerView;
 
 @interface SCTimelineBaseCell : UITableViewCell
 
@@ -30,6 +30,12 @@
 
 @interface SCTimelineVideoCell : SCTimelineBaseCell
 @property (weak, nonatomic) IBOutlet SCVideoPlayerView *videoView;
+
+@end
+
+@interface SCTimelineBroadcastCell : SCTimelineBaseCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *eventImage;
 
 @end
 

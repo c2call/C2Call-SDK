@@ -13,6 +13,8 @@
 #import "C2CallPhone.h"
 #import "SCMediaManager.h"
 #import "SCBroadcast.h"
+#import "SCTimeline.h"
+#import "SCUserProfile.h"
 #import "debug.h"
 
 @interface SCBroadcastRecordingController ()<UIGestureRecognizerDelegate> {
@@ -131,12 +133,25 @@
                 bcast.mediaUrl = mediaKey;
                 [bcast saveBroadcast];
                 
+                if ([bcast.groupType isEqualToString:@"BCG_PUBLIC"]) {
+                    BOOL res = [[SCTimeline instance] submitTimelineEvent:SCTimeLineEvent_ActivityBroadcastEvent withMessage:bcast.groupDescription andMedia:[NSString stringWithFormat:@"bcast://%@", bcast.groupid] toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
+                        [self closeBroadcasting];
+                    }];
+                    
+                    if (!res) {
+                        [self closeBroadcasting];
+                    }
+                } else {
+                    [self closeBroadcasting];
+                }
+                
+                /*
                 NSURL *url = [[C2CallPhone currentPhone] mediaUrlForKey:mediaKey];
                 
                 NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:nil];
                 DLog(@"File Attributes: %@", attr);
                 //[[C2CallPhone currentPhone] submitRichMessage:mediaKey message:nil toTarget:self.broadcastGroupId];
-                [self closeBroadcasting];
+                */
             }
             
         }];

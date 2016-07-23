@@ -8,6 +8,7 @@
 
 #import "UIViewController+SCCustomViewController.h"
 #import "SCTimelineController.h"
+#import "SCVLCVideoPlayerView.h"
 #import "SCVideoPlayerView.h"
 #import "MOTimelineEvent.h"
 #import "C2CallPhone.h"
@@ -223,6 +224,12 @@ static NSCache          *imageCache = nil;
 
 @implementation SCTimelineVideoCell
 
+-(void) prepareForReuse
+{
+    [super prepareForReuse];
+    //[self.videoView resetPlayer];
+}
+
 -(void) layoutSubviews
 {
     [super layoutSubviews];
@@ -235,6 +242,58 @@ static NSCache          *imageCache = nil;
 {
     [super configureCell:event];
     self.videoView.mediaUrl =  [[C2CallPhone currentPhone] mediaUrlForKey:event.mediaUrl];
+}
+
+@end
+
+@implementation SCTimelineBroadcastCell
+
+-(void) prepareForReuse
+{
+    [super prepareForReuse];
+    self.eventImage.image = nil;
+}
+
+-(void) configureCell:(MOTimelineEvent *) event
+{
+    [super configureCell:event];
+    
+    NSString *bcast = event.mediaUrl;
+    
+    NSString *bcastId = [bcast substringFromIndex:@"bcast://".length];
+    NSString *imageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:bcastId];
+    
+    self.mediaKey = [imageKey copy];
+    
+    UIImage *img = [imageCache objectForKey:imageKey];
+    
+    if (!img) {
+        UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+        
+        if (img) {
+            img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
+            [imageCache setObject:img forKey:imageKey];
+            
+            self.eventImage.image = img;
+        } else {
+            [[C2CallPhone currentPhone] retrieveObjectForKey:imageKey completion:^(BOOL finished) {
+                if (finished && [self.mediaKey isEqualToString:imageKey]) {
+                    UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+                    if (img) {
+                        img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
+                        [imageCache setObject:img forKey:imageKey];
+                        self.eventImage.image = img;
+                        [self.eventImage setNeedsDisplay];
+                        [self notifyCellUpdate:YES];
+                    }
+                    
+                }
+            }];
+        }
+    } else {
+        self.eventImage.image = img;
+    }
+
 }
 
 @end
@@ -708,7 +767,11 @@ static NSCache          *imageCache = nil;
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Location]]) {
         return @"SCTimelineLocationCell";
     }
-    
+
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastEvent]]) {
+        return @"SCTimelineBroadcastCell";
+    }
+
     return self.cellIdentifier;
 }
 
