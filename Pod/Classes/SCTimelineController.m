@@ -9,6 +9,8 @@
 #import "UIViewController+SCCustomViewController.h"
 #import "SCTimelineController.h"
 #import "SCVLCVideoPlayerView.h"
+#import "SCBroadcastPlaybackController.h"
+#import "SCBroadcastChatController.h"
 #import "SCVideoPlayerView.h"
 #import "MOTimelineEvent.h"
 #import "C2CallPhone.h"
@@ -17,6 +19,7 @@
 #import "ImageUtil.h"
 #import "FCLocation.h"
 #import "C2BlockAction.h"
+#import "SCBroadcast.h"
 
 #import "debug.h"
 
@@ -821,7 +824,25 @@ static NSCache          *imageCache = nil;
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
         [bcell addTapAction:action];
     }
-    
+
+    // Additional Setup for location cell
+    if ([cell isKindOfClass:[SCTimelineBroadcastCell class]]) {
+        NSString *bcast = event.mediaUrl;
+        NSString *bcastId = [bcast substringFromIndex:@"bcast://".length];
+        
+        C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
+            SCBroadcast *broadcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId];
+            if (broadcast.isLive) {
+                [weakself performSegueWithIdentifier:@"SCBroadcastChatControllerSegue" sender:broadcast];
+            } else {
+                [weakself performSegueWithIdentifier:@"SCBroadcastPlaybackControllerSegue" sender:broadcast];
+            }
+        }];
+        
+        SCTimelineBroadcastCell *bcell = (SCTimelineBroadcastCell *)cell;
+        [bcell addTapAction:action];
+    }
+
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -842,14 +863,29 @@ static NSCache          *imageCache = nil;
     }
     //[self.tableView reloadData];
 }
-/*
- #pragma mark - Navigation
+
+#pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     [self customPrepareForSegue:segue sender:sender];
+     
+     if ([segue.destinationViewController isKindOfClass:[SCBroadcastPlaybackController class]] && [sender isKindOfClass:[SCBroadcast class]]) {
+         SCBroadcastPlaybackController *bcc = (SCBroadcastPlaybackController *) segue.destinationViewController;
+
+         SCBroadcast *broadcast = (SCBroadcast *) sender;
+         bcc.broadcast = broadcast;
+     }
+     
+     if ([segue.destinationViewController isKindOfClass:[SCBroadcastChatController class]] && [sender isKindOfClass:[SCBroadcast class]]) {
+         SCBroadcastChatController *bchat = (SCBroadcastChatController *) segue.destinationViewController;
+         SCBroadcast *broadcast = (SCBroadcast *) sender;
+         
+         NSString *bid = broadcast.groupid;
+         bchat.broadcastGroupId = bid;
+     }
+
  }
- */
+
 
 @end

@@ -118,6 +118,13 @@
     
     self.broadcastStartController.view.superview.hidden = YES;
     self.broadcastStatusController.view.superview.hidden = NO;
+
+    SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:self.broadcastGroupId retrieveFromServer:NO];
+    
+    if ([bcast.groupType isEqualToString:@"BCG_PUBLIC"]) {
+        BOOL res = [[SCTimeline instance] submitTimelineEvent:SCTimeLineEvent_ActivityBroadcastEvent withMessage:bcast.groupDescription andMedia:[NSString stringWithFormat:@"bcast://%@", bcast.groupid] toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
+        }];
+    }
 }
 
 -(void) stopBroadcasting
@@ -133,6 +140,8 @@
                 bcast.mediaUrl = mediaKey;
                 [bcast saveBroadcast];
                 
+                [self closeBroadcasting];
+                /*
                 if ([bcast.groupType isEqualToString:@"BCG_PUBLIC"]) {
                     BOOL res = [[SCTimeline instance] submitTimelineEvent:SCTimeLineEvent_ActivityBroadcastEvent withMessage:bcast.groupDescription andMedia:[NSString stringWithFormat:@"bcast://%@", bcast.groupid] toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
                         [self closeBroadcasting];
@@ -144,6 +153,7 @@
                 } else {
                     [self closeBroadcasting];
                 }
+                */
                 
                 /*
                 NSURL *url = [[C2CallPhone currentPhone] mediaUrlForKey:mediaKey];

@@ -158,6 +158,8 @@ cp "../SocialCommunication/SCBroadcastController.h" "Pod/Classes/SCBroadcastCont
 cp "../SocialCommunication/SCBroadcastController.m" "Pod/Classes/SCBroadcastController.m"
 cp "../SocialCommunication/SCMyBroadcastsController.h" "Pod/Classes"
 cp "../SocialCommunication/SCMyBroadcastsController.m" "Pod/Classes"
+cp "../SocialCommunication/SCBroadcastPlaybackController.h" "Pod/Classes"
+cp "../SocialCommunication/SCBroadcastPlaybackController.m" "Pod/Classes"
 cp "../SocialCommunication/SCBroadcastsAroundMeController.h" "Pod/Classes"
 cp "../SocialCommunication/SCBroadcastsAroundMeController.m" "Pod/Classes"
 cp "../SocialCommunication/SCBroadcastChatController.h" "Pod/Classes/SCBroadcastChatController.h"

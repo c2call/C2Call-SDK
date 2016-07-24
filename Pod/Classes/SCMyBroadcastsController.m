@@ -9,6 +9,7 @@
 #import "SCMyBroadcastsController.h"
 #import "MOC2CallBroadcast.h"
 #import "SCVideoPlayerController.h"
+#import "SCBroadcastPlaybackController.h"
 #import "SCBroadcast.h"
 
 static NSDateFormatter *dateTime = nil;
@@ -105,9 +106,9 @@ static NSDateFormatter *dateTime = nil;
         cell.broadcast = bcast;
     }
     
-    if (bcast.mediaUrl && [[C2CallPhone currentPhone] hasObjectForKey:bcast.mediaUrl]) {
-        [self performSegueWithIdentifier:@"SCVideoPlayerControllerSegue" sender:cell];
-    }
+    //if (bcast.mediaUrl && [[C2CallPhone currentPhone] hasObjectForKey:bcast.mediaUrl]) {
+    [self performSegueWithIdentifier:@"SCBroadcastPlaybackControllerSegue" sender:cell];
+    //}
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -120,6 +121,15 @@ static NSDateFormatter *dateTime = nil;
             vpc.mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:cell.broadcast.mediaUrl];
         }
     }
+
+    if ([segue.destinationViewController isKindOfClass:[SCBroadcastPlaybackController class]] && [sender isKindOfClass:[SCMyBroadcastCell class]]) {
+        SCBroadcastPlaybackController *vpc = (SCBroadcastPlaybackController *) segue.destinationViewController;
+        SCMyBroadcastCell *cell = (SCMyBroadcastCell *) sender;
+        
+        vpc.broadcast = cell.broadcast;
+    }
+
+    
 }
 
 @end
