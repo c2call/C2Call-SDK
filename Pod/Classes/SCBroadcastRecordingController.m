@@ -15,6 +15,7 @@
 #import "SCBroadcast.h"
 #import "SCTimeline.h"
 #import "SCUserProfile.h"
+#import "SCMediaManager.h"
 #import "debug.h"
 
 @interface SCBroadcastRecordingController ()<UIGestureRecognizerDelegate> {
@@ -55,8 +56,8 @@
 
 -(void) broadcastConnected:(NSNotification *) notification
 {
-    [[SCMediaManager instance] startMediaRecording];
-    mediaRecordingStarted = YES;
+    //[[SCMediaManager instance] startMediaRecording];
+    //mediaRecordingStarted = YES;
 }
 
 -(void) viewDidLayoutSubviews
@@ -114,6 +115,7 @@
 
 -(void) startBroadcasting
 {
+    //[SCMediaManager instance].useGPUImageVideoCapture = YES;
     [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
     
     self.broadcastStartController.view.superview.hidden = YES;
@@ -130,6 +132,7 @@
 -(void) stopBroadcasting
 {
     [[C2CallPhone currentPhone] hangUp];
+    //[SCMediaManager instance].useGPUImageVideoCapture = NO;
     
     if (mediaRecordingStarted) {
         [[SCMediaManager instance] stopMediaRecordingWithCompletionHandler:^(NSString * _Nullable mediaKey) {
@@ -140,7 +143,6 @@
                 bcast.mediaUrl = mediaKey;
                 [bcast saveBroadcast];
                 
-                [self closeBroadcasting];
                 /*
                 if ([bcast.groupType isEqualToString:@"BCG_PUBLIC"]) {
                     BOOL res = [[SCTimeline instance] submitTimelineEvent:SCTimeLineEvent_ActivityBroadcastEvent withMessage:bcast.groupDescription andMedia:[NSString stringWithFormat:@"bcast://%@", bcast.groupid] toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
@@ -163,6 +165,7 @@
                 //[[C2CallPhone currentPhone] submitRichMessage:mediaKey message:nil toTarget:self.broadcastGroupId];
                 */
             }
+            [self closeBroadcasting];
             
         }];
     } else {
