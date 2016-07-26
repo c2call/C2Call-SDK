@@ -20,6 +20,13 @@
     [self configureView];
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.videoView pause:nil];
+}
+
 -(void) configureView
 {
     //self.broadcastName.text = bcast.groupName;

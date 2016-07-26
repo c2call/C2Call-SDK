@@ -608,11 +608,17 @@ static NSCache          *imageCache = nil;
         imageCache = [[NSCache alloc] init];
     }
     
-    [[SCTimeline instance] refreshTimeline];
-    [self.tableView reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
     
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [[SCTimeline instance] refreshTimeline];
+    [self.tableView reloadData];
 }
 
 - (void)dealloc
