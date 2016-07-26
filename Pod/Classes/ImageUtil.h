@@ -24,6 +24,7 @@
 +(UIImage*) imageFromRGBAData:(NSData*) rgba withSize:(CGSize) sz;
 +(UIImage*) imageFromRGBAData:(NSData*) rgba withSize:(CGSize) sz orientation:(UIInterfaceOrientation) orientation;
 +(UIImage*) imageFromRGBAData:(NSData*) rgba withSize:(CGSize) sz orientation:(UIInterfaceOrientation) orientation scale:(CGFloat) scale;
++(NSData *) dataFromRGBAData:(NSData*) rgba withSize:(CGSize) sz orientation:(UIInterfaceOrientation) orientation scale:(CGFloat) scale;
 +(UIImage *)rotateImage:(UIImage *)image onDegrees:(float)degrees;
 
 @end

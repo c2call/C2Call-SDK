@@ -35,6 +35,8 @@ typedef enum {
 -(void) dislikeEvent:(NSNumber *) eventId;
 -(BOOL) canDislikeEvent:(NSNumber *) eventId;
 
+-(void) startLiveBroadcastMonitoring;
+
 +(instancetype) instance;
 +(NSString *) eventTypeForType:(SCTimelineEventType) eventType;
 

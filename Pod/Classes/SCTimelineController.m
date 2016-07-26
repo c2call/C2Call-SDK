@@ -67,7 +67,11 @@ static NSCache          *imageCache = nil;
     
     self.timeLabel.text = [dateTime stringFromDate:event.timeStamp];
     
-    self.textView.text = event.text;
+    if (event.text) {
+        self.textView.text = event.text;
+    } else {
+        self.textView.text = @"";
+    }
     
     if ([event.like intValue] > 0) {
         self.likesLabel.text = [NSString stringWithFormat:@"(%d)", [event.like intValue]];
@@ -277,20 +281,32 @@ static NSCache          *imageCache = nil;
 
         DLog(@"Broadcast Info Received: %@", bcastId);
 
+        NSString *broadcastText = @"";
+        if ([broadcast.groupName length] > 0 && [broadcast.groupDescription length] > 0) {
+            broadcastText = [NSString stringWithFormat:@"%@\n%@", broadcast.groupName, broadcast.groupDescription];
+        } else if ([broadcast.groupName length] > 0) {
+            broadcastText = broadcast.groupName;
+        } else if ([broadcast.groupDescription length] > 0) {
+            broadcastText = broadcast.groupDescription;
+        }
+        
         // Still the same?
         if ([weakself.mediaKey isEqualToString:imageKey]) {
             if ([broadcast isLive]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakself.broadcastInfo.text = @"Live Broadcast";
+                    weakself.textView.text = broadcastText;
+                    [[SCTimeline instance] startLiveBroadcastMonitoring];
                 });
             } else {
                 if (broadcast.startDate || broadcast.endDate) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        weakself.textView.text = broadcastText;
                         if (broadcast.endDate) {
-                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Ended at %@", [dateTime stringFromDate:broadcast.endDate]];
+                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Ended at %@", [dateTime stringFromDate:broadcast.endDate]];
                         } else {
-                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Started at %@", [dateTime stringFromDate:broadcast.startDate]];
+                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Started at %@", [dateTime stringFromDate:broadcast.startDate]];
                         }
                         //[self notifyCellUpdate];
                     });
@@ -647,6 +663,7 @@ static NSCache          *imageCache = nil;
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
     
 }
 
@@ -666,6 +683,38 @@ static NSCache          *imageCache = nil;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) broadcastStateChanged:(NSNotification *) notification
+{
+    NSMutableSet *started = [NSMutableSet setWithCapacity:10];
+    NSMutableSet *ended = [NSMutableSet setWithCapacity:10];
+    for (NSString *bcastid in [notification.userInfo allKeys]) {
+        if ([notification.userInfo[bcastid] isEqualToString:@"started"]) {
+            [started addObject:bcastid];
+        } else {
+            [ended addObject:bcastid];
+        }
+    }
+    
+    NSMutableArray *indexPathList = [NSMutableArray arrayWithCapacity:10];
+    for (MOTimelineEvent *event in [self.fetchedResultsController fetchedObjects]) {
+        if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastEvent]]) {
+            NSString *bcastId = [event.mediaUrl substringFromIndex:@"bcast://".length];
+            
+            if ([started containsObject:bcastId] || [ended containsObject:bcastId]) {
+                NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:event];
+                if (indexPath) {
+                    [indexPathList addObject:indexPath];
+                }
+            }
+        }
+    }
+    
+    if ([indexPathList count] > 0) {
+        [self.tableView reloadRowsAtIndexPaths:indexPathList withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+
 }
 
 -(void) cellUpdate:(NSNotification *) notification

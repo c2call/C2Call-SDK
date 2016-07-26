@@ -221,6 +221,7 @@
 
 -(DDXMLElement *) createBroadcastGroupWithSynchonousRequest:(NSString *) groupName groupType:(NSString *)groupType properties:(NSDictionary *)properties withFriends:(NSArray *) groupMember;
 -(DDXMLElement *) getBroadcastGroup:(NSString *)groupid;
+-(void) getBroadcastGroups:(NSArray *)groupids;
 -(BOOL) deleteBroadcastGroup:(NSString *)groupid;
 -(BOOL) joinBroadcastGroup:(NSString *)groupid;
 -(BOOL) updateBroadcastGroup:(DDXMLElement *)group;

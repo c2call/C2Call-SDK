@@ -163,7 +163,16 @@
     }
     
     __weak SCBroadcastStartController *weakself = self;
-    [[C2CallPhone currentPhone] createBroadcast:self.broadcastName.text withProperties:proerties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {
+    
+    NSString *bcastName = self.broadcastName.text;
+    if ([bcastName length] == 0) {
+    NSDateFormatter *dateTime = [[NSDateFormatter alloc] init];
+        [dateTime setDateStyle:NSDateFormatterShortStyle];
+        [dateTime setTimeStyle:NSDateFormatterShortStyle];
+        bcastName = [NSString stringWithFormat:@"Video Broadcast from %@", [dateTime stringFromDate:[NSDate date]]];
+    }
+    
+    [[C2CallPhone currentPhone] createBroadcast:bcastName withProperties:proerties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {
         
         if (success) {
             [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
