@@ -27,6 +27,7 @@
 static NSDateFormatter  *dateTime = nil;
 static NSCache          *imageCache = nil;
 
+
 @interface SCTimelineBaseCell ()
 
 @property(nonatomic, strong) C2BlockAction                      *tapAction;
@@ -267,6 +268,38 @@ static NSCache          *imageCache = nil;
     NSString *imageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:bcastId];
     
     self.mediaKey = [imageKey copy];
+    __weak SCTimelineBroadcastCell *weakself = self;
+    
+    self.broadcastInfo.text = @"";
+    DLog(@"Get Broadcast Info: %@", bcastId);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        SCBroadcast *broadcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
+
+        DLog(@"Broadcast Info Received: %@", bcastId);
+
+        // Still the same?
+        if ([weakself.mediaKey isEqualToString:imageKey]) {
+            if ([broadcast isLive]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakself.broadcastInfo.text = @"Live Broadcast";
+                });
+            } else {
+                if (broadcast.startDate || broadcast.endDate) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (broadcast.endDate) {
+                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Ended at %@", [dateTime stringFromDate:broadcast.endDate]];
+                        } else {
+                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Started at %@", [dateTime stringFromDate:broadcast.startDate]];
+                        }
+                        //[self notifyCellUpdate];
+                    });
+                }
+
+            }
+        }
+        
+    });
     
     UIImage *img = [imageCache objectForKey:imageKey];
     
@@ -285,9 +318,11 @@ static NSCache          *imageCache = nil;
                     if (img) {
                         img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
                         [imageCache setObject:img forKey:imageKey];
-                        self.eventImage.image = img;
-                        [self.eventImage setNeedsDisplay];
-                        [self notifyCellUpdate:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.eventImage.image = img;
+                            [self.eventImage setNeedsDisplay];
+                            [self notifyCellUpdate:YES];
+                        });
                     }
                     
                 }
@@ -334,9 +369,11 @@ static NSCache          *imageCache = nil;
                     if (img) {
                         img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
                         [imageCache setObject:img forKey:imageKey];
-                        self.eventImage.image = img;
-                        [self.eventImage setNeedsDisplay];
-                        [self notifyCellUpdate:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.eventImage.image = img;
+                            [self.eventImage setNeedsDisplay];
+                            [self notifyCellUpdate:YES];
+                        });
                     }
                     
                 }

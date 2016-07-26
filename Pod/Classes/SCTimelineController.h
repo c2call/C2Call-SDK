@@ -36,6 +36,7 @@
 @interface SCTimelineBroadcastCell : SCTimelineBaseCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *eventImage;
+@property (weak, nonatomic) IBOutlet UILabel *broadcastInfo;
 
 @end
 
