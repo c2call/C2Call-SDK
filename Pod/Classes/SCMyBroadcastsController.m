@@ -47,18 +47,22 @@ static NSDateFormatter *dateTime = nil;
         self.broadcastDetail.text = @"";
     }
     
-    if (broadcast.groupImage) {
-        if ([[C2CallPhone currentPhone] hasObjectForKey:broadcast.groupImage]) {
-            self.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:broadcast.groupImage];
+    NSString *bcastImageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:self.broadcastid];
+    if (bcastImageKey) {
+        if ([[C2CallPhone currentPhone] hasObjectForKey:bcastImageKey]) {
+            self.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:bcastImageKey];
         } else {
             self.broadcastImage.image = [UIImage imageNamed:@"ico_group"];
             
             __weak SCMyBroadcastCell *weakself = self;
             NSString *currentid = self.broadcastid;
-            NSString *imagekey = [broadcast.groupImage copy];
-            [[C2CallPhone currentPhone] retrieveObjectForKey:imagekey completion:^(BOOL finished) {
-                if ([currentid isEqualToString:weakself.broadcastid] && finished) {
-                    weakself.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:imagekey];
+            [[C2CallPhone currentPhone] retrieveObjectForKey:bcastImageKey completion:^(BOOL finished) {
+                if (finished) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if ([currentid isEqualToString:weakself.broadcastid]) {
+                            weakself.broadcastImage.image = [[C2CallPhone currentPhone] imageForKey:bcastImageKey];
+                        }
+                    });
                 }
             }];
         }

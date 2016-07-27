@@ -18,6 +18,9 @@
 @property(nonatomic, strong) NSArray     *recentList;
 @property(nonatomic, strong) IBOutlet SearchTableCell         *searchTableCell;
 
+@property(nonatomic) BOOL useSMSOnly;
+@property(nonatomic) BOOL useFriendsOnly;
+
 -(BOOL) setFilter:(NSString *) filterText;
 -(void) initRecentList;
 -(void) initAddressbook;

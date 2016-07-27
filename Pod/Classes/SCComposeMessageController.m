@@ -111,9 +111,30 @@
 {
     [super viewDidLoad];
     
+    self.searchTableController.useSMSOnly = self.useSMSOnly;
+    self.searchTableController.useFriendsOnly = self.useFriendsOnly;
     
     if (!self.recentList) {
-        self.recentList = [[SCDataManager instance] recentContacts];
+        NSArray *recents = [[SCDataManager instance] recentContacts];
+        
+        NSMutableArray *filteredRecents = [NSMutableArray arrayWithCapacity:[recents count] + 1];
+        if (self.useSMSOnly) {
+            for (NSString *contact in recents) {
+                if ([contact hasPrefix:@"+"]) {
+                    [filteredRecents addObject:contact];
+                }
+            }
+            self.recentList = filteredRecents;
+        } else if (self.useFriendsOnly) {
+            for (NSString *contact in recents) {
+                if (![contact hasPrefix:@"+"]) {
+                    [filteredRecents addObject:contact];
+                }
+            }
+            self.recentList = filteredRecents;
+        } else {
+            self.recentList = recents;
+        }
     }
     
     self.searchTableController.recentList = self.recentList;

@@ -76,6 +76,12 @@
 /** Targets UserId or phone number of the receiver. */
 @property(nonatomic, strong) NSString                           *targetUserid;
 
+/** Use for SMS Messages only */
+@property(nonatomic) BOOL                                       useSMSOnly;
+
+/** Use for Friend Messages only */
+@property(nonatomic) BOOL                                       useFriendsOnly;
+
 /** Pre-set message template. */
 @property(nonatomic, strong) NSString                           *messageTemplate;
 
