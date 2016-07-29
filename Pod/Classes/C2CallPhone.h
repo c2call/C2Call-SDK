@@ -72,7 +72,7 @@ typedef enum {
 
 @end
 
-@class MOC2CallUser, MOC2CallEvent;
+@class MOC2CallUser, MOC2CallEvent, C2BlockAction;
 
 /**---------------------------------------------------------------------------------------
  * @defgroup Mainclasses
@@ -109,6 +109,7 @@ typedef enum {
         [[C2CallPhone currentPhone] submitRichMessage:key message:@"Hi, see my photo..." toTarget:@"max@gmail.com"];
     }];
  */
+
 
 @interface C2CallPhone : NSObject
 
@@ -290,6 +291,22 @@ typedef enum {
  */
 -(void) logoutUser;
 
+/** WakeUp in Background Handler
+ 
+ With VoIP Push Notifications, the App will wakeup in background on notification receive.
+ However, the actual C2CallPhone handler is not active then and tasks like refresh
+ Call or Message history will not work. 
+ 
+ With this wakeUpInBackground method, the C2Call Phone Handler can be temporary activated
+ and a task like retrieving the call or message histroy from the server can be completed
+ in a block handler. 
+ wakeUpInBackground only works when not in active status.
+ 
+ @param wakeUpAction - Block of actions to be fired after the C2Call Phone handler has been 
+ connected.
+ */
+
+-(void) wakeUpInBackground:(nullable C2BlockAction *) wakeUpAction;
 
 /**---------------------------------------------------------------------------------------
  * @name Other Methods
