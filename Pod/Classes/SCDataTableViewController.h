@@ -15,76 +15,76 @@
  
  This abstract base class currently supports the following CoreData Entities:
  
-    - MOC2CallUser
-    - MOC2CallEvent
-    - MOChatHistory
-    - MOCallHistory
+ - MOC2CallUser
+ - MOC2CallEvent
+ - MOChatHistory
+ - MOCallHistory
  
  The character of this UITableViewController subclass is abstract, as the developer needs to subclass this controller and has to overwrite the following methods:
  
-    fetchRequest:
-    configureCell:atIndexPath
+ fetchRequest:
+ configureCell:atIndexPath
  
  The developer also must set the cellIdentifier with the identifier of his custom UITableViewCell.
  
  Code Sample from WhazzUpp WUFavoritesViewController:
  
-     #import <SocialCommunication/SocialCommunication.h>
-     
-     @interface WUFavoritesCell : UITableViewCell
-     
-     @property(nonatomic, weak) IBOutlet UILabel     *nameLabel, *statusLabel, *onlineLabel;
-     
-     @end
-     
-     @interface WUFavoritesViewController : SCDataTableViewController
-     
-     -(IBAction)toggleEditing:(id)sender;
-     
-     @end
+ #import <SocialCommunication/SocialCommunication.h>
  
-     @implementation WUFavoritesViewController
-     ...skip...
-     - (void)viewDidLoad
-     {
-         [super viewDidLoad];
-         self.cellIdentifier = @"WUFavoritesCell";
-            
-         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
-         favoritesCellHeight = cell.frame.size.height;
-     }
-
-     -(NSFetchRequest *) fetchRequest
-     {
-        return [[SCDataManager instance] fetchRequestForFriendlist:YES];
-     }
-     
-     -(void) configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-     {
-        MOC2CallUser *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
-     
-        if ([cell isKindOfClass:[WUFavoritesCell class]]) {
-            WUFavoritesCell *favocell = (WUFavoritesCell *) cell;
-            favocell.nameLabel.text = [[C2CallPhone currentPhone] nameForUserid:user.userid];
-            favocell.statusLabel.text = @"Hi there, I'm using WhazzUpp!";
-        }
-     }
-     ...skip...
-    @end
+ @interface WUFavoritesCell : UITableViewCell
+ 
+ @property(nonatomic, weak) IBOutlet UILabel     *nameLabel, *statusLabel, *onlineLabel;
+ 
+ @end
+ 
+ @interface WUFavoritesViewController : SCDataTableViewController
+ 
+ -(IBAction)toggleEditing:(id)sender;
+ 
+ @end
+ 
+ @implementation WUFavoritesViewController
+ ...skip...
+ - (void)viewDidLoad
+ {
+ [super viewDidLoad];
+ self.cellIdentifier = @"WUFavoritesCell";
+ 
+ UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
+ favoritesCellHeight = cell.frame.size.height;
+ }
+ 
+ -(NSFetchRequest *) fetchRequest
+ {
+ return [[SCDataManager instance] fetchRequestForFriendlist:YES];
+ }
+ 
+ -(void) configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+ {
+ MOC2CallUser *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+ 
+ if ([cell isKindOfClass:[WUFavoritesCell class]]) {
+ WUFavoritesCell *favocell = (WUFavoritesCell *) cell;
+ favocell.nameLabel.text = [[C2CallPhone currentPhone] nameForUserid:user.userid];
+ favocell.statusLabel.text = @"Hi there, I'm using WhazzUpp!";
+ }
+ }
+ ...skip...
+ @end
  
  */
 @interface SCDataTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
 
 /** @name Abstract Methods */
 /** Abstract method fetchRequest.
-    
-This abstract method must be overwritten in a SCDataTableViewController subclass.
-Please return one of the pre-defined fetchRequest from SCDataManager here:
-    
-    - fetchRequestForChatHistory
-    - fetchRequestForCallHistory
-    - fetchRequestForEventHistory
-    - fetchRequestForFriendlist
+ 
+ This abstract method must be overwritten in a SCDataTableViewController subclass.
+ Please return one of the pre-defined fetchRequest from SCDataManager here:
+ 
+ - fetchRequestForChatHistory
+ - fetchRequestForCallHistory
+ - fetchRequestForEventHistory
+ - fetchRequestForFriendlist
  
  @return The fetchRequest
  */
@@ -94,37 +94,74 @@ Please return one of the pre-defined fetchRequest from SCDataManager here:
  */
 -(void) initFetchedResultsController;
 
+/** Update Fetch Request
+ 
+ Call this method if the fetchRequest has been changed or setup after ViewController initialization.
+ 
+ */
+-(void) updateFetchRequest;
+
 /** Configure your UITableViewCell subclass.
  
  This abstract method must be overwritten in a SCDataTableViewController subclass.
  
  SampleCode:
-     -(void) configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-     {
-        MOC2CallUser *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
-     
-        if ([cell isKindOfClass:[WUFavoritesCell class]]) {
-            WUFavoritesCell *favocell = (WUFavoritesCell *) cell;
-            favocell.nameLabel.text = [[C2CallPhone currentPhone] nameForUserid:user.userid];
-            favocell.statusLabel.text = @"Hi there, I'm using WhazzUpp!";
-        }
-     }
+ -(void) configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+ {
+ MOC2CallUser *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+ 
+ if ([cell isKindOfClass:[WUFavoritesCell class]]) {
+ WUFavoritesCell *favocell = (WUFavoritesCell *) cell;
+ favocell.nameLabel.text = [[C2CallPhone currentPhone] nameForUserid:user.userid];
+ favocell.statusLabel.text = @"Hi there, I'm using WhazzUpp!";
+ }
+ }
  
  Depending on the fetchRequest the "[self.fetchedResultsController objectAtIndexPath:indexPath]" provides the following NSManagedObject subclasses:
  
-    - MOC2CallUser
-    - MOC2CallEvent
-    - MOChatHistory
-    - MOCallHistory
+ - MOC2CallUser
+ - MOC2CallEvent
+ - MOChatHistory
+ - MOCallHistory
  
+ @param cell - UITableViewCell
+ @param indexPath - The indexPath
  */
 -(void) configureCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath;
+
+/** Configure your Empty Results UITableViewCell subclass.
+ 
+ This abstract method can be overwritten in a SCDataTableViewController subclass.
+ The default method does nothing.
+ 
+ @param cell - UITableViewCell
+ @param indexPath - The indexPath
+ */
+-(void) configureEmptyResultsCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath;
+
+/** Provide reuseIdentifiert for various Cell classes
+ Overwrite this method if you have multiple cell classes and you need more control.
+ Default provides the empty reuseIdentifier if no objects are available and cellIdentifiert else.
+ This method will be called by cellForRowAtIndexpath to determine which TableViewCell to
+ provide for configureCell:atIndexPath
+ 
+ @param indexPath - current Indexpath
+ @return cell reuse Identifier
+ */
+-(NSString *) reuseIdentifierForIndexPath:(NSIndexPath *) indexPath;
 
 /** @name Properties */
 /** Sets the cellIdentifier for UITableView dequeueReusableCellWithIdentifier:
  
  */
 @property(nonatomic, strong) NSString       *cellIdentifier;
+
+/** Sets the cellIdentifier for UITableView dequeueReusableCellWithIdentifier to show a cell when the result set is empty.
+ If set to nil, no cell will be shown in case of empty results
+ 
+ */
+@property(nonatomic, strong) NSString       *emptyResultCellIdentifier;
+
 
 /** A key path on result objects that returns the section name. Pass nil to indicate that the controller should generate a single section.
  The section name is used to pre-compute the section information.

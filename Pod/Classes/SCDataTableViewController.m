@@ -17,7 +17,9 @@
 
 #import "debug.h"
 
-@interface SCDataTableViewController ()
+@interface SCDataTableViewController () {
+    BOOL    isEmpty;
+}
 
 @end
 
@@ -43,8 +45,7 @@
 {
     if ([[notification name] isEqualToString:@"C2CallDataManager:initData"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self initFetchedResultsController];
-            [self.tableView reloadData];
+            [self updateFetchRequest];
         });
     }
 }
@@ -90,14 +91,21 @@
     
 }
 
+-(void) updateFetchRequest
+{
+    if ([SCDataManager instance].isDataInitialized) {
+        [self initFetchedResultsController];
+        [self.tableView reloadData];
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInitDataEvent:) name:@"C2CallDataManager:initData" object:nil];
-
-    [self initFetchedResultsController];
+    
+    [self updateFetchRequest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,7 +136,7 @@
 {
     
     if (!self.fetchedResultsController || [[self.fetchedResultsController fetchedObjects] count] == 0) {
-        return 0;
+        return self.emptyResultCellIdentifier? 1 : 0;
     }
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
@@ -142,61 +150,84 @@
     
 }
 
+-(void) configureEmptyResultsCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath
+{
+    
+}
+
+-(NSString *) reuseIdentifierForIndexPath:(NSIndexPath *) indexPath
+{
+    NSString *reuseIdentifier = self.cellIdentifier?self.cellIdentifier : @"Cell";
+    if (!self.fetchedResultsController || [[self.fetchedResultsController fetchedObjects] count] == 0) {
+        reuseIdentifier = self.emptyResultCellIdentifier;
+    }
+    
+    return reuseIdentifier;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = self.cellIdentifier?self.cellIdentifier : @"Cell";
+    
+    NSString *reuseIdentifier = [self reuseIdentifierForIndexPath:indexPath];
     
     UITableViewCell *cell = nil;
     if ([self.tableView isEqual:tv]) {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     } else {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    }
+    
+    if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
+        isEmpty = YES;
+        [self configureEmptyResultsCell:cell atIndexPath:indexPath];
+        return cell;
     }
     
     // Configure the cell...
+    isEmpty = NO;
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 #pragma mark - Table view delegate
 
@@ -209,40 +240,54 @@
 {
     if (self.useDidChangeContentOnly)
         return;
-
+    
     DLog(@"SCDataTable:didChangeObject : %@ / %ld / %lu", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"), (long)indexPath.row, (unsigned long)type);
-    UITableView *tableView = self.tableView;
     
     @try {
         switch(type) {
                 
             case NSFetchedResultsChangeInsert:
-                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
+                if (isEmpty && self.emptyResultCellIdentifier) {
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                } else {
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                          withRowAnimation:UITableViewRowAnimationFade];
+                }
                 break;
                 
             case NSFetchedResultsChangeDelete:
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
+                if ([[controller fetchedObjects] count] == 0 && self.emptyResultCellIdentifier) {
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                } else {
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                          withRowAnimation:UITableViewRowAnimationFade];
+                }
                 break;
                 
-            case NSFetchedResultsChangeUpdate:
-                [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
-                        atIndexPath:indexPath];
+            case NSFetchedResultsChangeUpdate: {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                if (cell) {
+                    if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
+                        [self configureEmptyResultsCell:cell atIndexPath:indexPath];
+                    } else {
+                        [self configureCell:cell atIndexPath:indexPath];
+                    }
+                }
+            }
                 break;
                 
             case NSFetchedResultsChangeMove:
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
-                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
                 break;
         }
         
     }
     @catch (NSException *exception) {
         DLog(@"Error : didChangeObject : %@", exception);
-        [tableView reloadData];
+        [self.tableView reloadData];
     }
 }
 
@@ -284,9 +329,9 @@
 {
     if (self.useDidChangeContentOnly)
         return;
-
+    
     DLog(@"SCDataTable:controllerWillChangeContent : %@", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"));
-
+    
     [self.tableView beginUpdates];
 }
 
@@ -297,7 +342,7 @@
 {
     if (self.useDidChangeContentOnly)
         return;
-
+    
     DLog(@"SCDataTable:controllerDidChangeContent : %@", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"));
     [self.tableView endUpdates];
 }
