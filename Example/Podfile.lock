@@ -2,15 +2,15 @@ PODS:
   - AWSCore (2.3.6)
   - AWSS3 (2.3.6):
     - AWSCore (= 2.3.6)
-  - C2Call-SDK (1.4.4):
+  - C2Call-SDK (1.4.5):
     - AWSCore (~> 2.3.5)
     - AWSS3 (~> 2.3.5)
     - Flurry-iOS-SDK/FlurryAds (~> 7.3)
     - Flurry-iOS-SDK/FlurrySDK (~> 7.3)
     - SBJson (~> 4.0)
-  - Flurry-iOS-SDK/FlurryAds (7.6.4):
+  - Flurry-iOS-SDK/FlurryAds (7.6.6):
     - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (7.6.4)
+  - Flurry-iOS-SDK/FlurrySDK (7.6.6)
   - SBJson (4.0.2)
 
 DEPENDENCIES:
@@ -23,8 +23,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
-  C2Call-SDK: 4ae25f47d79203d46d93649a69b2bf85a3801bf9
-  Flurry-iOS-SDK: 9da972687d3af9f48038dcd86eae9cad3acca456
+  C2Call-SDK: b2b4329ec04b7edbbe134f4d6bebcacb7d9dbff5
+  Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
   SBJson: c18691cc18375b14664ff0fec841f8c4faef1934
 
 COCOAPODS: 0.39.0
