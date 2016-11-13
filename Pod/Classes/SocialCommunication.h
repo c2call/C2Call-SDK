@@ -139,8 +139,6 @@
 #import "AudioCellOutStream.h"
 #import "C2ActionButton.h"
 #import "C2BarButtonItem.h"
-#import "C2CallConstants.h"
-#import "C2CallHandler.h"
 #import "C2TapImageView.h"
 #import "C2WaitMessage.h"
 #import "CallCellIn.h"
