@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "C2Call-SDK"
-  s.version          = "1.4.6"
+  s.version          = "1.4.7"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
 #s.module_name      = "C2Call\-SDK"
   s.header_dir       = "SocialCommunication"
