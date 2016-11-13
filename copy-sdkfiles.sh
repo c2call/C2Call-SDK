@@ -469,3 +469,4 @@ cp ../libvpx.a Libraries/
 #cp ../Classes/G729/libg729b.a Libraries/
 cp ../Classes/libopus.a Libraries/
 cp ../SocialCommunication/Release-Notes.txt .
+#cp "Example/Pods/Target Support Files/C2Call-SDK/C2Call-SDK-umbrella.h" Pod/Classes
