@@ -14,8 +14,7 @@ typedef enum {
     SC_BUBBLE_IN_HANGOUT,
     SC_BUBBLE_IN_WHAZZUPP,
     SC_BUBBLE_IN_IOS7,
-    SC_BUBBLE_IN_SIMPLE,
-    SC_BUBBLE_IN_BROADCAST,
+    SC_BUBBLE_IN_SIMPLE
 } SCBubbleType_In;
 
 /** This class renders the bubble for an inbound message in the SCBoardController.
@@ -55,19 +54,9 @@ typedef enum {
  */
 @property(nonatomic, strong) UIColor        *textColor UI_APPEARANCE_SELECTOR;
 
-/** Text Font for Header Text
- */
-@property(nonatomic, strong) UIFont         *headerFont UI_APPEARANCE_SELECTOR;
-
-/** Text Color for Header Text
- */
-@property(nonatomic, strong) UIColor        *headerColor UI_APPEARANCE_SELECTOR;
-
 /** Draw the text with offset from top
  */
 @property(nonatomic, strong) NSNumber       *textOffsetTop;
-
-@property(nonatomic, strong) UIImage        *userImage;
 
 /** Bubble Style
  

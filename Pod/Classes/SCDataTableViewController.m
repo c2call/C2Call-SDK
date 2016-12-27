@@ -248,7 +248,7 @@
                 
             case NSFetchedResultsChangeInsert:
                 if (isEmpty && self.emptyResultCellIdentifier) {
-                    [self.tableView reloadRowsAtIndexPaths:newIndexPath withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                 } else {
                     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                           withRowAnimation:UITableViewRowAnimationFade];
@@ -257,7 +257,7 @@
                 
             case NSFetchedResultsChangeDelete:
                 if ([[controller fetchedObjects] count] == 0 && self.emptyResultCellIdentifier) {
-                    [self.tableView reloadRowsAtIndexPaths:indexPath withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 } else {
                     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                           withRowAnimation:UITableViewRowAnimationFade];

@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = "C2Call-SDK"
-  s.version          = "1.4.2"
+  s.version          = "1.4.10"
   s.summary          = "C2Call SocialCommunication SDK. VoIP, Video Call, Conferencing and Chat for your App"
-#s.module_name      = "C2CallSDK"
+#s.module_name      = "C2Call\-SDK"
   s.header_dir       = "SocialCommunication"
 
 # This description is used to generate tags and improve search results.
@@ -37,7 +37,7 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.source_files = ['Pod/Classes/*', 'Pod/Classes/Categories/*']
   s.resources = 'Pod/Assets/*.{wav,aiff,aif,fsh,xml,vsh,xib,png,xcdatamodeld,storyboard,xcassets}'
 #s.resource_bundles = {
-#    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,fsh, xml,vsh,png,xcdatamodeld,storyboard,xcassets}']
+#    'SocialCommunication' => ['Pod/Assets/*.{wav,aiff,aif,fsh,xml,vsh,xib,png,xcdatamodeld,storyboard,xcassets}']
 #  }
 
   s.public_header_files = 'Pod/Classes/*.h'
@@ -55,7 +55,10 @@ Our SDK is available for mobile app developers free of charge. By integrating C2
   s.libraries = 'xml2', 'z', 'sqlite3', 'stdc++'
 
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => "/usr/include/libxml2",
+                 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
                  'OTHER_LDFLAGS' => '-ObjC',
                  'OTHER_LDFLAGS[arch=i386]' => '-read_only_relocs suppress $(OTHER_LDFLAGS)',
                  'OTHER_LDFLAGS[arch=x86_64]' => '-read_only_relocs suppress $(OTHER_LDFLAGS)'}
+s.module_map = 'Pod/modulemap/SocialCommunication.modulemap'
+#s.module_map = 'Example/Pods/Target Support Files/C2Call-SDK/C2Call-SDK.modulemap'
 end

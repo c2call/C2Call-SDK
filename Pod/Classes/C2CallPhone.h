@@ -72,7 +72,7 @@ typedef enum {
 
 @end
 
-@class MOC2CallUser, MOC2CallEvent;
+@class MOC2CallUser, MOC2CallEvent, C2BlockAction;
 
 /**---------------------------------------------------------------------------------------
  * @defgroup Mainclasses
@@ -109,6 +109,7 @@ typedef enum {
         [[C2CallPhone currentPhone] submitRichMessage:key message:@"Hi, see my photo..." toTarget:@"max@gmail.com"];
     }];
  */
+
 
 @interface C2CallPhone : NSObject
 
@@ -290,6 +291,22 @@ typedef enum {
  */
 -(void) logoutUser;
 
+/** WakeUp in Background Handler
+ 
+ With VoIP Push Notifications, the App will wakeup in background on notification receive.
+ However, the actual C2CallPhone handler is not active then and tasks like refresh
+ Call or Message history will not work. 
+ 
+ With this wakeUpInBackground method, the C2Call Phone Handler can be temporary activated
+ and a task like retrieving the call or message histroy from the server can be completed
+ in a block handler. 
+ wakeUpInBackground only works when not in active status.
+ 
+ @param wakeUpAction - Block of actions to be fired after the C2Call Phone handler has been 
+ connected.
+ */
+
+-(void) wakeUpInBackground:(nullable C2BlockAction *) wakeUpAction;
 
 /**---------------------------------------------------------------------------------------
  * @name Other Methods
@@ -856,57 +873,6 @@ typedef enum {
  */
 -(BOOL) disableEncryptionForGroup:(nonnull NSString *) groupid withCompletionHandler:(nullable void (^)(BOOL success))handler;
 
-
-/** Create a new Live Broadcast
- 
- This method creates a new live broadcast with a name, some properties, and an optional array of userids of broadcast members.
- It calls the complete handler when the creation has been completed.
- If the array of broadcast members is empty or nil, the broadcast will be public.
- 
- The properties are as follows:
- 
-    UseLocation : YES - Use the current location for the Broadcast 
-                  (Automatically set Longitude and Latitude from current location)
-    LocationName : Name of the location (optional)
-    Longitude : Location Longitude
-    Latitude : Location Latitude
- 
- 
- 
- SampleCode:
- 
- #import <SocialCommunication/UIViewController+SCCustomViewController.h>
- ...
- -(IBAction)createBroadcastGroup:(id)sender
- {
-    [[C2CallPhone currentPhone] createGroup:@"Traveling with Friends"
-        withProperties:@("UseLocation" : @(YES))
-        withMembers:nil
-        withCompletionHandler:^(BOOL success, NSString *groupId, NSString *result) {
- 
-            if (success) {
-                [self startBroadcast];
-            }
-    }];
- }
- 
- 
- @param groupName - Name of the Broadcast Group
- @param properties - Dictionary with Properties
- @param members - Array of userids of Broadcast members. If the array is nil or empty the broadcast will be public
- @param handler - The completion handler. Will be called with a success parameter the groupid and a result string.
- 
- */
-
--(void) createBroadcast:(nonnull NSString *) groupName withProperties:(nullable NSDictionary *) broadcastProperties withMembers:(nullable NSArray *) members withCompletionHandler:(nullable void (^)(BOOL success,  NSString * _Nullable bcastId, NSString * _Nullable result))handler;
-
-
-/** Retrieve current Livebroadcasts
- */
-
--(void) refreshLiveBroadcasts;
-
-
 /** Import Public/Private Keypair from QR-Code Scan
  
  SCQRCertExportController presents a QR Code from the Public/Private Key-Pair, which can be imported using this method.
@@ -916,7 +882,6 @@ typedef enum {
  @return YES - Key-Pair successfully imported
  
  */
-
 -(BOOL) importKeyPairFromQRCode:(nonnull NSString *) keypair;
 
 /** Get a QR-Code Image from the current public/private key-pair.
@@ -1154,6 +1119,47 @@ typedef enum {
  
  */
 -(BOOL) retrieveObjectForKey:(nonnull NSString *)key completion:(nullable void (^)(BOOL finished))completion;
+
+/** Upload rich media object to server
+ 
+ Upload a locally stored rich media object to the server.
+ 
+ @param url - Local file url
+ @param prefix - Name prefix
+ @param completion - Completion handler when the upload job is done
+ @return YES - Uploading / NO - Upload failed completion handler will not be called
+ */
+-(BOOL) uploadFileObjectWithUrl:(nonnull NSURL *) url withPrefix:(nullable NSString *) prefix completion:(nullable void (^)(BOOL finished, NSString * _Nullable mediaKey, NSError * _Nullable error ))handler;
+
+/** Import rich media file object into media files directories
+ 
+ Import a locally stored rich media file object into media files directory.
+ 
+ @param url - Local file url
+ @param prefix - Name prefix
+ @param error - Error if not null
+ @return MediaKey of imported object
+ */
+-(nullable NSString *) importFileObject:(nonnull NSURL *) url withPrefix:(nullable NSString *) prefix error:( NSError * _Nullable * _Nullable) error;
+
+/** Upload rich media file object to server
+ 
+ Upload a locally stored rich media object to the server.
+ 
+ @param mediaKey - MediaKey of the local available file object
+ @param completion - Completion handler when the upload job is done
+ @return YES - Uploading / NO - Upload failed completion handler will not be called
+ */
+-(BOOL) uploadFileObjectForKey:(nonnull NSString  *) mediaKey completion:(nullable void (^)(BOOL finished)) handler;
+
+/** Retrieve remote size of object
+ 
+ @param key - rich message key of the media file
+ 
+ @return >= 0 : Size of object < 0 : Object not available
+ */
+
+-(int) remoteSizeForKey:(nonnull NSString *) key;
 
 /** Check whether a rich media file for a given rich media key is locally available on the device.
  

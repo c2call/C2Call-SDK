@@ -238,7 +238,12 @@
 -(void) awakeFromNib
 {
     [super awakeFromNib];
-    
+
+    self.textFieldInFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    self.headerFieldInFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    self.textFieldOutFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    self.headerFieldOutFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+
     [self resetLimits];
 }
 

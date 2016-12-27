@@ -27,6 +27,7 @@
 @property BOOL soundCompleted;
 
 -(id) initWithRessource:(NSString *) soundFile ofType:(NSString *) ext;
+-(id) initWithPath:(NSString *) soundFile;
 
 -(void) startSound;
 -(void) startAlert;
