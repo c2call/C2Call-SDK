@@ -1,0 +1,6 @@
+framework module SocialCommunication {
+  umbrella header "SocialCommunication.h"
+    
+  export *
+  module * { export * }
+}

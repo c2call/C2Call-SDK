@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2FC9CAEA7140F28C46D6662A /* Pods_C2Call_SDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E7A051BC9A9ABCDBAE81B5 /* Pods_C2Call_SDK_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -20,6 +19,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		6EAFD7DD3960291A46220864 /* Pods_C2Call_SDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26A2CD796F6F7385C0009A /* Pods_C2Call_SDK_Tests.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		976779211C07A954003BDBF0 /* ico_logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9767791F1C07A954003BDBF0 /* ico_logout.png */; };
 		976779221C07A954003BDBF0 /* ico_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 976779201C07A954003BDBF0 /* ico_logout@2x.png */; };
@@ -27,7 +27,7 @@
 		97C546E91C39B485007BAD68 /* VCFriendListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C546E41C39B485007BAD68 /* VCFriendListController.m */; };
 		97C546EA1C39B485007BAD68 /* VCCallHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C546E61C39B485007BAD68 /* VCCallHistoryController.m */; };
 		97C546EB1C39B485007BAD68 /* VCLogoutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C546E81C39B485007BAD68 /* VCLogoutController.m */; };
-		B554B7DEFC67B3EB351D4DDC /* Pods_C2Call_SDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E5204802199CF3A79D4B94 /* Pods_C2Call_SDK_Example.framework */; };
+		9FDCE21FD358F99DD333E44E /* Pods_C2Call_SDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCAD5217B6147E5B94DD952F /* Pods_C2Call_SDK_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1039903FD0FE695B6275347C /* Pods-C2Call-SDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		48A1BD530FCD4B278FDE7AB0 /* Pods-C2Call-SDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		5646A7EF4876F845C637A1B0 /* Pods-C2Call-SDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		291DEBEF89ECA0F56C22164D /* Pods-C2Call-SDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		2F26A2CD796F6F7385C0009A /* Pods_C2Call_SDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34FB1CB2578D7F2812BC7BEB /* Pods-C2Call-SDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		3E602094B56F1A66674ACDF6 /* Pods-C2Call-SDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		58F848F07B8079D4D1F25693 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* C2Call-SDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C2Call-SDK_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,9 +64,7 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		64E7A051BC9A9ABCDBAE81B5 /* Pods_C2Call_SDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D102A1C3AF6F5BE4660A61F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		74486E36CD454D40929C4202 /* Pods-C2Call-SDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		79749036E99E7ACDA374666A /* C2Call-SDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "C2Call-SDK.podspec"; path = "../C2Call-SDK.podspec"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9767791F1C07A954003BDBF0 /* ico_logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_logout.png; sourceTree = "<group>"; };
@@ -77,7 +76,8 @@
 		97C546E61C39B485007BAD68 /* VCCallHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCCallHistoryController.m; sourceTree = "<group>"; };
 		97C546E71C39B485007BAD68 /* VCLogoutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCLogoutController.h; sourceTree = "<group>"; };
 		97C546E81C39B485007BAD68 /* VCLogoutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCLogoutController.m; sourceTree = "<group>"; };
-		B1E5204802199CF3A79D4B94 /* Pods_C2Call_SDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB5F22710E14DC148A40FCAD /* Pods-C2Call-SDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-C2Call-SDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		CCAD5217B6147E5B94DD952F /* Pods_C2Call_SDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_C2Call_SDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				B554B7DEFC67B3EB351D4DDC /* Pods_C2Call_SDK_Example.framework in Frameworks */,
+				9FDCE21FD358F99DD333E44E /* Pods_C2Call_SDK_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,13 +98,24 @@
 			files = (
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				2FC9CAEA7140F28C46D6662A /* Pods_C2Call_SDK_Tests.framework in Frameworks */,
+				6EAFD7DD3960291A46220864 /* Pods_C2Call_SDK_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4FCD43D7E95D1D24C9F9F50D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BB5F22710E14DC148A40FCAD /* Pods-C2Call-SDK_Example.debug.xcconfig */,
+				34FB1CB2578D7F2812BC7BEB /* Pods-C2Call-SDK_Example.release.xcconfig */,
+				291DEBEF89ECA0F56C22164D /* Pods-C2Call-SDK_Tests.debug.xcconfig */,
+				3E602094B56F1A66674ACDF6 /* Pods-C2Call-SDK_Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -113,7 +124,7 @@
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
-				65E153F02980D2C972A8339D /* Pods */,
+				4FCD43D7E95D1D24C9F9F50D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,8 +143,8 @@
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
-				B1E5204802199CF3A79D4B94 /* Pods_C2Call_SDK_Example.framework */,
-				64E7A051BC9A9ABCDBAE81B5 /* Pods_C2Call_SDK_Tests.framework */,
+				CCAD5217B6147E5B94DD952F /* Pods_C2Call_SDK_Example.framework */,
+				2F26A2CD796F6F7385C0009A /* Pods_C2Call_SDK_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -202,17 +213,6 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		65E153F02980D2C972A8339D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				48A1BD530FCD4B278FDE7AB0 /* Pods-C2Call-SDK_Example.debug.xcconfig */,
-				74486E36CD454D40929C4202 /* Pods-C2Call-SDK_Example.release.xcconfig */,
-				5646A7EF4876F845C637A1B0 /* Pods-C2Call-SDK_Tests.debug.xcconfig */,
-				1039903FD0FE695B6275347C /* Pods-C2Call-SDK_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -220,12 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "C2Call-SDK_Example" */;
 			buildPhases = (
-				D688EAD253A8989C9D0A0F3C /* Check Pods Manifest.lock */,
+				C883B6AB08B9DB2AB1E62134 /* [CP] Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				F2987D503FA4D6809DF8F7FD /* Embed Pods Frameworks */,
-				3A3F6C86AD14FC5B92E82CD6 /* Copy Pods Resources */,
+				B3440DAD704B840F59FC669D /* [CP] Embed Pods Frameworks */,
+				A622E20F2C4B12BA9E70200A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -240,12 +240,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "C2Call-SDK_Tests" */;
 			buildPhases = (
-				FEF88962834A161B6C2A45CC /* Check Pods Manifest.lock */,
+				854DDEA45EB06A558938DF14 /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				E9610E0DED593D33BE1D8B4C /* Embed Pods Frameworks */,
-				6B667873562607D4DEB70551 /* Copy Pods Resources */,
+				445C34F5FA0271459B7631A3 /* [CP] Embed Pods Frameworks */,
+				5D3DC51E7BD66E3C17377365 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -319,59 +319,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3A3F6C86AD14FC5B92E82CD6 /* Copy Pods Resources */ = {
+		445C34F5FA0271459B7631A3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6B667873562607D4DEB70551 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D688EAD253A8989C9D0A0F3C /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E9610E0DED593D33BE1D8B4C /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,14 +334,59 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F2987D503FA4D6809DF8F7FD /* Embed Pods Frameworks */ = {
+		5D3DC51E7BD66E3C17377365 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C2Call-SDK_Tests/Pods-C2Call-SDK_Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		854DDEA45EB06A558938DF14 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A622E20F2C4B12BA9E70200A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3440DAD704B840F59FC669D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,19 +394,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C2Call-SDK_Example/Pods-C2Call-SDK_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FEF88962834A161B6C2A45CC /* Check Pods Manifest.lock */ = {
+		C883B6AB08B9DB2AB1E62134 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -537,7 +537,7 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48A1BD530FCD4B278FDE7AB0 /* Pods-C2Call-SDK_Example.debug.xcconfig */;
+			baseConfigurationReference = BB5F22710E14DC148A40FCAD /* Pods-C2Call-SDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -561,7 +561,7 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74486E36CD454D40929C4202 /* Pods-C2Call-SDK_Example.release.xcconfig */;
+			baseConfigurationReference = 34FB1CB2578D7F2812BC7BEB /* Pods-C2Call-SDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -585,7 +585,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5646A7EF4876F845C637A1B0 /* Pods-C2Call-SDK_Tests.debug.xcconfig */;
+			baseConfigurationReference = 291DEBEF89ECA0F56C22164D /* Pods-C2Call-SDK_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -608,7 +608,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1039903FD0FE695B6275347C /* Pods-C2Call-SDK_Tests.release.xcconfig */;
+			baseConfigurationReference = 3E602094B56F1A66674ACDF6 /* Pods-C2Call-SDK_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

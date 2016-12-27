@@ -42,7 +42,7 @@ cp "../Classes/C2BarButtonItem.h" "Pod/Classes/C2BarButtonItem.h"
 cp "../Classes/C2BlockAction.h" "Pod/Classes/C2BlockAction.h"
 cp "../SocialCommunication/C2CallAppDelegate.h" "Pod/Classes/C2CallAppDelegate.h"
 cp "../Classes/C2CallConstants.h" "Pod/Classes/C2CallConstants.h"
-cp "../Classes/C2CallHandler.h" "Pod/Classes/C2CallHandler.h"
+#cp "../Classes/C2CallHandler.h" "Pod/Classes/C2CallHandler.h"
 cp "../c2callcore/C2CallPhone.h" "Pod/Classes/C2CallPhone.h"
 cp "../FriendCallerHD/C2ExpandViewController.h" "Pod/Classes/C2ExpandViewController.h"
 cp "../Classes/C2TapImageView.h" "Pod/Classes/C2TapImageView.h"
@@ -469,3 +469,4 @@ cp ../libvpx.a Libraries/
 #cp ../Classes/G729/libg729b.a Libraries/
 cp ../Classes/libopus.a Libraries/
 cp ../SocialCommunication/Release-Notes.txt .
+#cp "Example/Pods/Target Support Files/C2Call-SDK/C2Call-SDK-umbrella.h" Pod/Classes
