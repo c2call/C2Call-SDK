@@ -1,4 +1,12 @@
 cp -r "../SocialCommunication/SCStoryboard.storyboard" "Pod/Assets/SCStoryboard.storyboard"
+cp -r "../SocialCommunication/SCTimeline.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCBroadcast.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCProfileAndMore.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCSignIn.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCUtility.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCChat.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCFriendsGroupsContacts.storyboard" "Pod/Assets"
+cp -r "../SocialCommunication/SCCallViews.storyboard" "Pod/Assets"
 rm -rf Pod/Assets/C2CallDataModel.xcdatamodeld
 cp -r "../c2callcore/C2CallDataModel.xcdatamodeld" "Pod/Assets/C2CallDataModel.xcdatamodeld"
 rm -rf Pod/Assets/SocialCommunication.xcassets
