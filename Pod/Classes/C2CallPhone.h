@@ -873,6 +873,57 @@ typedef enum {
  */
 -(BOOL) disableEncryptionForGroup:(nonnull NSString *) groupid withCompletionHandler:(nullable void (^)(BOOL success))handler;
 
+
+/** Create a new Live Broadcast
+ 
+ This method creates a new live broadcast with a name, some properties, and an optional array of userids of broadcast members.
+ It calls the complete handler when the creation has been completed.
+ If the array of broadcast members is empty or nil, the broadcast will be public.
+ 
+ The properties are as follows:
+ 
+    UseLocation : YES - Use the current location for the Broadcast 
+                  (Automatically set Longitude and Latitude from current location)
+    LocationName : Name of the location (optional)
+    Longitude : Location Longitude
+    Latitude : Location Latitude
+ 
+ 
+ 
+ SampleCode:
+ 
+ #import <SocialCommunication/UIViewController+SCCustomViewController.h>
+ ...
+ -(IBAction)createBroadcastGroup:(id)sender
+ {
+    [[C2CallPhone currentPhone] createGroup:@"Traveling with Friends"
+        withProperties:@("UseLocation" : @(YES))
+        withMembers:nil
+        withCompletionHandler:^(BOOL success, NSString *groupId, NSString *result) {
+ 
+            if (success) {
+                [self startBroadcast];
+            }
+    }];
+ }
+ 
+ 
+ @param groupName - Name of the Broadcast Group
+ @param properties - Dictionary with Properties
+ @param members - Array of userids of Broadcast members. If the array is nil or empty the broadcast will be public
+ @param handler - The completion handler. Will be called with a success parameter the groupid and a result string.
+ 
+ */
+
+-(void) createBroadcast:(nonnull NSString *) groupName withProperties:(nullable NSDictionary *) broadcastProperties withMembers:(nullable NSArray *) members withCompletionHandler:(nullable void (^)(BOOL success,  NSString * _Nullable bcastId, NSString * _Nullable result))handler;
+
+
+/** Retrieve current Livebroadcasts
+ */
+
+-(void) refreshLiveBroadcasts;
+
+
 /** Import Public/Private Keypair from QR-Code Scan
  
  SCQRCertExportController presents a QR Code from the Public/Private Key-Pair, which can be imported using this method.
@@ -882,6 +933,7 @@ typedef enum {
  @return YES - Key-Pair successfully imported
  
  */
+
 -(BOOL) importKeyPairFromQRCode:(nonnull NSString *) keypair;
 
 /** Get a QR-Code Image from the current public/private key-pair.

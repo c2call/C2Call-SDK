@@ -2,21 +2,23 @@
 //  MOUserData.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 19.02.14.
+//  Created by Michael Knecht on 14/05/16.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MOC2CallGroup, MOC2CallUser;
+@class MOC2CallBroadcast, MOC2CallGroup, MOC2CallUser;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface MOUserData : NSManagedObject
 
-@property (nonatomic, retain) NSString * key;
-@property (nonatomic, retain) NSString * value;
-@property (nonatomic, retain) NSNumber * public;
-@property (nonatomic, retain) MOC2CallGroup *group;
-@property (nonatomic, retain) MOC2CallUser *friend;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "MOUserData+CoreDataProperties.h"

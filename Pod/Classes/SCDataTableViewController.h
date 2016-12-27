@@ -134,7 +134,7 @@
  This abstract method can be overwritten in a SCDataTableViewController subclass.
  The default method does nothing.
  
- @param cell - UITableViewCell 
+ @param cell - UITableViewCell
  @param indexPath - The indexPath
  */
 -(void) configureEmptyResultsCell:(UITableViewCell *) cell atIndexPath:(NSIndexPath *) indexPath;
@@ -142,7 +142,7 @@
 /** Provide reuseIdentifiert for various Cell classes
  Overwrite this method if you have multiple cell classes and you need more control.
  Default provides the empty reuseIdentifier if no objects are available and cellIdentifiert else.
- This method will be called by cellForRowAtIndexpath to determine which TableViewCell to 
+ This method will be called by cellForRowAtIndexpath to determine which TableViewCell to
  provide for configureCell:atIndexPath
  
  @param indexPath - current Indexpath
@@ -157,7 +157,7 @@
 @property(nonatomic, strong) NSString       *cellIdentifier;
 
 /** Sets the cellIdentifier for UITableView dequeueReusableCellWithIdentifier to show a cell when the result set is empty.
-    If set to nil, no cell will be shown in case of empty results
+ If set to nil, no cell will be shown in case of empty results
  
  */
 @property(nonatomic, strong) NSString       *emptyResultCellIdentifier;
