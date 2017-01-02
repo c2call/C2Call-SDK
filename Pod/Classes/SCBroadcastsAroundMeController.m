@@ -61,6 +61,7 @@
 
 -(void) configureCell:(MOC2CallBroadcast *) bcast
 {
+    NSLog(@"configure BCast Cell: %@ / %@ / %@", bcast.groupName, bcast.groupid, bcast.live);
     self.broadcastid = bcast.groupid;
     self.broadcastName.text = bcast.groupName;
     self.onlineUsers.text = [bcast.onlineUsers stringValue];

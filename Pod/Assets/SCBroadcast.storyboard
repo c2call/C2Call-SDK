@@ -223,6 +223,7 @@
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <segue destination="ZHU-gO-hGG" kind="push" identifier="SCVideoPlayerControllerSegue" id="zEx-XF-ANj"/>
+                        <segue destination="5BD-sX-g97" kind="push" identifier="SCBroadcastPlaybackControllerSegue" id="Dv0-sI-Hny"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNp-7E-GzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -344,7 +345,7 @@
                                     <outlet property="userImage" destination="ON5-Ds-ufA" id="Akz-KD-Z8L"/>
                                     <outlet property="userName" destination="hCV-Sa-TAn" id="t44-tF-wKR"/>
                                     <outlet property="userStatus" destination="Ngg-bg-CVs" id="nnE-en-tbj"/>
-                                    <segue destination="dGs-p7-iOA" kind="push" id="1Vj-U0-wTG"/>
+                                    <segue destination="dGs-p7-iOA" kind="push" id="r45-GI-VJZ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SCNoBroadcastsCell" rowHeight="231" id="Rjv-Nx-1vh">
@@ -703,7 +704,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGm-xC-Yu1">
-                                <rect key="frame" x="289" y="40" width="30" height="30"/>
+                                <rect key="frame" x="289" y="84" width="30" height="30"/>
                                 <state key="normal" image="ico_cam-24x24"/>
                                 <connections>
                                     <action selector="toggleCamera:" destination="5BD-sX-g97" eventType="touchUpInside" id="gh4-aL-tgS"/>
@@ -718,6 +719,7 @@
                             <constraint firstItem="faw-Jz-IgH" firstAttribute="centerX" secondItem="xc8-fh-XjI" secondAttribute="centerX" id="kdZ-DR-SSl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5KQ-r4-n3s"/>
                     <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0tC-EP-3yY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1169,7 +1171,7 @@
             </objects>
             <point key="canvasLocation" x="-27481" y="-133382"/>
         </scene>
-        <!--Broadcast Test-->
+        <!--Life Broadcast-->
         <scene sceneID="tpu-9m-B2o">
             <objects>
                 <viewController storyboardIdentifier="SCBroadcastChatController" extendedLayoutIncludesOpaqueBars="YES" id="dGs-p7-iOA" customClass="SCBroadcastChatController" sceneMemberID="viewController">
@@ -1271,7 +1273,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Item" id="aLW-yL-NRB"/>
-                    <navigationItem key="navigationItem" title="Broadcast Test" id="KbL-jN-Vhf">
+                    <navigationItem key="navigationItem" title="Life Broadcast" id="KbL-jN-Vhf">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="M5K-4J-dK7">
                             <connections>
                                 <action selector="closeViewControllerWithAnimation:" destination="dGs-p7-iOA" id="br2-5i-Byq"/>
@@ -1710,6 +1712,7 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="ZJF-d0-gCK"/>
         <segue reference="bqd-tQ-Gh0"/>
     </inferredMetricsTieBreakers>
 </document>

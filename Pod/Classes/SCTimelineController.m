@@ -923,7 +923,7 @@ static NSCache          *imageCache = nil;
         NSString *bcastId = [bcast substringFromIndex:@"bcast://".length];
         
         C2BlockAction *action = [C2BlockAction actionWithAction:^(id sender) {
-            SCBroadcast *broadcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId];
+            SCBroadcast *broadcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
             if (broadcast.isLive) {
                 [weakself performSegueWithIdentifier:@"SCBroadcastChatControllerSegue" sender:broadcast];
             } else {

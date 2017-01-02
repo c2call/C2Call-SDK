@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SCTimelineController.h"
 
+@protocol  SCTimelineControllerDelegate;
+
+
 @interface SCTimelineMasterController : UIViewController<SCTimelineControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAddImage;

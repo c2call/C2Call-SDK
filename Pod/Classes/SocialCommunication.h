@@ -128,6 +128,25 @@
 #import "SCDataManager.h"
 #import "SCDataTableViewController.h"
 
+// Broadcasts
+#import "SCBroadcast.h"
+#import "SCBroadcastController.h"
+#import "SCMyBroadcastsController.h"
+#import "SCBroadcastChatController.h"
+#import "SCBroadcastVideoController.h"
+#import "SCBroadcastRecordingController.h"
+#import "SCBroadcastStartController.h"
+#import "SCBroadcastStatusController.h"
+#import "SCBroadcastInfoController.h"
+#import "SCBroadcastsAroundMeController.h"
+#import "SCBroadcastPlaybackController.h"
+
+// Timeline
+#import "SCTimeline.h"
+#import "SCTimelineController.h"
+#import "SCTimelineMasterController.h"
+
+
 // other Headers
 #import "AarkiBannerView.h"
 #import "AdListProtocol.h"
