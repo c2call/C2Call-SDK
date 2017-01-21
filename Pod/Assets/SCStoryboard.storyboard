@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="0sJ-qu-8NN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="0sJ-qu-8NN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="14" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="JMF-C8-hZA">
-                                                <rect key="frame" x="47.5" y="32" width="280" height="44"/>
+                                                <rect key="frame" x="48" y="32" width="280" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="280" id="PXg-dc-vEv"/>
                                                     <constraint firstAttribute="height" constant="44" id="scd-Uc-mLB"/>
@@ -48,7 +48,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A7I-AQ-PXX">
-                                        <rect key="frame" x="47.5" y="222.5" width="280" height="223"/>
+                                        <rect key="frame" x="48" y="222" width="280" height="223"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dvm-Sn-tUN" userLabel="middleView">
                                                 <rect key="frame" x="11" y="6" width="257" height="211"/>
@@ -212,7 +212,7 @@
                                         </constraints>
                                     </view>
                                     <containerView hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-9H-Hk8" userLabel="keypadViewContainer">
-                                        <rect key="frame" x="27.5" y="166.5" width="320" height="334"/>
+                                        <rect key="frame" x="28" y="167" width="320" height="334"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="320" id="3tR-oK-cvA"/>
@@ -287,7 +287,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Incoming Call from :" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xLH-ZM-7ZY">
-                                <rect key="frame" x="70.5" y="453" width="234" height="44"/>
+                                <rect key="frame" x="71" y="453" width="234" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="139-VT-6Uu"/>
                                     <constraint firstAttribute="width" constant="234" id="HCr-U1-pwz"/>
@@ -321,7 +321,7 @@
                                 <rect key="frame" x="0.0" y="560" width="375" height="107"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohp-Sa-lqh" userLabel="audioButtons">
-                                        <rect key="frame" x="27.5" y="32" width="320" height="44"/>
+                                        <rect key="frame" x="28" y="32" width="320" height="44"/>
                                         <subviews>
                                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-kS-imM">
                                                 <rect key="frame" x="179" y="0.0" width="121" height="40"/>
@@ -357,7 +357,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIM-Uk-m56" userLabel="videoButtons">
-                                        <rect key="frame" x="27.5" y="10" width="320" height="88"/>
+                                        <rect key="frame" x="28" y="10" width="320" height="88"/>
                                         <subviews>
                                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5i-R7-tP7">
                                                 <rect key="frame" x="179" y="1" width="121" height="40"/>
@@ -1008,7 +1008,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7K6-tj-Bb8">
-                                            <rect key="frame" x="161.5" y="10" width="52" height="44"/>
+                                            <rect key="frame" x="162" y="10" width="52" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="52" id="e75-d0-5uX"/>
                                                 <constraint firstAttribute="height" constant="44" id="jkY-mw-uzC"/>
@@ -1369,10 +1369,10 @@ asdfsdfg</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbX-Lc-DdR">
-                                <rect key="frame" x="59.5" y="255.5" width="256" height="156"/>
+                                <rect key="frame" x="60" y="256" width="256" height="156"/>
                                 <subviews>
                                     <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="popover_new" translatesAutoresizingMaskIntoConstraints="NO" id="uVc-bb-Goy">
-                                        <rect key="frame" x="20" y="23" width="216" height="110"/>
+                                        <rect key="frame" x="20" y="23" width="215" height="110"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <activityIndicatorView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qwK-Sa-17u">
@@ -1604,19 +1604,19 @@ asdfsdfg</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg_group_details" translatesAutoresizingMaskIntoConstraints="NO" id="k9u-qZ-hcE">
-                                <rect key="frame" x="10" y="5" width="300" height="93.5"/>
+                                <rect key="frame" x="10" y="5" width="300" height="94"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="k9u-qZ-hcE" secondAttribute="height" multiplier="301:94" id="qVS-7F-hRE"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="img_add_profile_picture" translatesAutoresizingMaskIntoConstraints="NO" id="2d0-Dw-z4Z" customClass="C2TapImageView">
-                                <rect key="frame" x="20" y="14" width="69.5" height="70.5"/>
+                                <rect key="frame" x="20" y="14" width="70" height="71"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2d0-Dw-z4Z" secondAttribute="height" multiplier="70:71" id="jYF-5N-J3m"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Group Name" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3uC-ss-gal" userLabel="labelGroupName">
-                                <rect key="frame" x="100.5" y="14" width="170.5" height="21"/>
+                                <rect key="frame" x="101" y="14" width="170" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="TkH-UP-YtU"/>
                                 </constraints>
@@ -1625,7 +1625,7 @@ asdfsdfg</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ftf-ZF-tSy" userLabel="tfGroupName">
-                                <rect key="frame" x="101.5" y="14" width="169.5" height="21"/>
+                                <rect key="frame" x="102" y="14" width="169" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="7PY-Va-d7J"/>
                                 </constraints>
@@ -1661,7 +1661,7 @@ asdfsdfg</string>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJP-A8-dxn" userLabel="btnCall">
-                                <rect key="frame" x="125" y="106.5" width="70" height="42"/>
+                                <rect key="frame" x="125" y="107" width="70" height="42"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="U5x-wH-Evy"/>
@@ -1686,7 +1686,7 @@ asdfsdfg</string>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leX-Sx-i4i" userLabel="btnChat">
-                                <rect key="frame" x="222" y="106.5" width="70" height="42"/>
+                                <rect key="frame" x="222" y="107" width="70" height="42"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="F4p-GN-P0h"/>
@@ -1711,7 +1711,7 @@ asdfsdfg</string>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NOW-Xo-XTa" userLabel="btnVideo">
-                                <rect key="frame" x="28" y="106.5" width="70" height="42"/>
+                                <rect key="frame" x="28" y="107" width="70" height="42"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="V1o-xL-onY"/>
@@ -1736,7 +1736,7 @@ asdfsdfg</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EP5-Pv-Iif" userLabel="btnEncryption">
-                                <rect key="frame" x="183" y="64.5" width="117" height="30"/>
+                                <rect key="frame" x="183" y="65" width="117" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Vvo-Hh-zGl"/>
                                 </constraints>
@@ -2232,7 +2232,7 @@ asdfsdfg</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kC1-f7-j3V">
-                                <rect key="frame" x="138" y="169.5" width="99" height="30"/>
+                                <rect key="frame" x="138" y="169" width="99" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="99" id="vYf-ON-0rQ"/>
                                     <constraint firstAttribute="height" constant="30" id="wa4-D4-Wlq"/>
@@ -2244,7 +2244,7 @@ asdfsdfg</string>
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter your PIN code to validate your phone number." lineBreakMode="tailTruncation" numberOfLines="3" minimumFontSize="10" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Gii-Hy-Leg">
-                                <rect key="frame" x="20" y="21" width="335" height="75.5"/>
+                                <rect key="frame" x="20" y="21" width="335" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Gii-Hy-Leg" secondAttribute="height" multiplier="40:9" id="olB-O5-bBo"/>
                                 </constraints>
@@ -3691,7 +3691,7 @@ Please try again later.</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHq-2I-5zn">
-                                            <rect key="frame" x="152.5" y="1" width="70" height="42"/>
+                                            <rect key="frame" x="153" y="1" width="70" height="42"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="70" id="EjU-er-gA7"/>
@@ -4070,7 +4070,7 @@ Please try again later.</string>
                                 </connections>
                             </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxR-61-4WM" userLabel="activityContainerView">
-                                <rect key="frame" x="101.5" y="250" width="172" height="103"/>
+                                <rect key="frame" x="102" y="250" width="172" height="103"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleToFill" image="popover_new" translatesAutoresizingMaskIntoConstraints="NO" id="Swi-sW-hZL">
                                         <rect key="frame" x="0.0" y="0.0" width="172" height="103"/>
@@ -4904,7 +4904,7 @@ Please try again later.</string>
                                                 </connections>
                                             </button>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_broken_video" translatesAutoresizingMaskIntoConstraints="NO" id="roE-RI-fb2">
-                                                <rect key="frame" x="156" y="219" width="65" height="65"/>
+                                                <rect key="frame" x="155" y="218" width="65" height="65"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5117,14 +5117,14 @@ Please try again later.</string>
                         <viewControllerLayoutGuide type="bottom" id="hqt-dv-hwo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BIn-Tc-fFe">
-                        <rect key="frame" x="0.0" y="64" width="375" height="501"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="565"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sxM-76-0K1">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="501"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="545"/>
                             </mapView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="QBL-hn-dM2" customClass="C2Toolbar">
-                                <rect key="frame" x="0.0" y="457" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="521" width="375" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="action" id="fju-ei-fBX">
                                         <connections>
@@ -5134,7 +5134,7 @@ Please try again later.</string>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="vG9-q8-SG8"/>
                                     <barButtonItem style="plain" id="Xfm-LT-hRO">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ycY-Ys-Cf5">
-                                            <rect key="frame" x="60" y="7" width="200" height="30"/>
+                                            <rect key="frame" x="87" y="7" width="200" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Standard"/>
@@ -5155,7 +5155,7 @@ Please try again later.</string>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pd-dU-FAY" userLabel="addressView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="84"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hbx-JH-9bK" userLabel="addressTitle">
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -5379,7 +5379,7 @@ Please try again later.</string>
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0hy-pP-Vs3">
-                                        <rect key="frame" x="170" y="233" width="37" height="37"/>
+                                        <rect key="frame" x="169" y="232" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5438,7 +5438,7 @@ Please try again later.</string>
             <objects>
                 <tableViewController storyboardIdentifier="SCLocationSubmitController" extendedLayoutIncludesOpaqueBars="YES" id="96a-aL-xp4" customClass="SCLocationSubmitController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="EoZ-Xb-RDW">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="501"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="WHf-GH-pLm">
@@ -5452,7 +5452,7 @@ Please try again later.</string>
                                     </constraints>
                                 </mapView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="WSz-Fz-HM7">
-                                    <rect key="frame" x="225.5" y="109" width="90" height="48"/>
+                                    <rect key="frame" x="225" y="109" width="90" height="48"/>
                                     <state key="normal" title="Use Location"/>
                                     <connections>
                                         <action selector="sendLocation:" destination="96a-aL-xp4" eventType="touchUpInside" id="8a3-j4-iBq"/>
@@ -5524,7 +5524,7 @@ Please try again later.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y2u-Kw-bCb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1164" y="4368"/>
+            <point key="canvasLocation" x="1225" y="4368"/>
         </scene>
         <!--VoiceMail Recorder-->
         <scene sceneID="OQ1-nH-Elj">
@@ -5535,14 +5535,14 @@ Please try again later.</string>
                         <viewControllerLayoutGuide type="bottom" id="gdF-nM-aJX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="AIx-fM-MkP">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="452"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wrY-NA-DsS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="452"/>
                             </imageView>
                             <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="bg_audio_bar" translatesAutoresizingMaskIntoConstraints="NO" id="v5H-xv-sZ2">
-                                <rect key="frame" x="65.5" y="200" width="244" height="60"/>
+                                <rect key="frame" x="66" y="200" width="244" height="60"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -5552,17 +5552,17 @@ Please try again later.</string>
                                 </constraints>
                             </imageView>
                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBY-lW-cOn" customClass="CALevelMeter">
-                                <rect key="frame" x="71.5" y="206" width="232" height="48"/>
+                                <rect key="frame" x="72" y="206" width="232" height="48"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBu-PM-AME" userLabel="editView">
-                                <rect key="frame" x="0.0" y="469" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="367" width="375" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoe-C9-jBS" userLabel="btnRecordAgain">
-                                        <rect key="frame" x="190.5" y="7" width="122" height="30"/>
+                                        <rect key="frame" x="190" y="7" width="122" height="30"/>
                                         <color key="backgroundColor" red="0.43201160430908203" green="0.48877787590026855" blue="0.60665339231491089" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="yj4-T1-s56"/>
@@ -5583,7 +5583,7 @@ Please try again later.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cum-df-OFL" userLabel="btnSubmit">
-                                        <rect key="frame" x="63.5" y="42" width="249" height="30"/>
+                                        <rect key="frame" x="63" y="42" width="249" height="30"/>
                                         <color key="backgroundColor" red="0.37746715545654297" green="0.5609588623046875" blue="0.29690194129943848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="249" id="19P-do-OYU"/>
@@ -5605,7 +5605,7 @@ Please try again later.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MDC-T6-Oxk" userLabel="btnPlay">
-                                        <rect key="frame" x="63.5" y="7" width="122" height="30"/>
+                                        <rect key="frame" x="63" y="7" width="122" height="30"/>
                                         <color key="backgroundColor" red="0.31877025961875916" green="0.47252911329269409" blue="0.71800011396408081" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Dqg-Xr-ukJ"/>
@@ -5640,10 +5640,10 @@ Please try again later.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8g1-KY-9nu" userLabel="startView">
-                                <rect key="frame" x="0.0" y="469" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="367" width="375" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2f-t3-453" userLabel="btnRecord">
-                                        <rect key="frame" x="79.5" y="18" width="216" height="43"/>
+                                        <rect key="frame" x="80" y="18" width="216" height="43"/>
                                         <color key="backgroundColor" red="0.43201160430908203" green="0.48877787590026855" blue="0.60665339231491089" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="PyA-cs-b70"/>
@@ -5672,19 +5672,19 @@ Please try again later.</string>
                                 </constraints>
                             </view>
                             <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qTA-xk-drQ">
-                                <rect key="frame" x="97.5" y="277" width="180" height="2"/>
+                                <rect key="frame" x="98" y="277" width="180" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="SAh-DI-MOo"/>
                                 </constraints>
                             </progressView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5bt-lO-PAs" userLabel="labelMaxtime">
-                                <rect key="frame" x="286.5" y="268" width="41" height="19"/>
+                                <rect key="frame" x="287" y="268" width="41" height="19"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="D6x-bW-jd3" userLabel="labelTime">
-                                <rect key="frame" x="46.5" y="268" width="41" height="19"/>
+                                <rect key="frame" x="47" y="268" width="41" height="19"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -5736,7 +5736,7 @@ Please try again later.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gny-ls-uJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="4368"/>
+            <point key="canvasLocation" x="1640" y="4368"/>
         </scene>
         <!--Chat-->
         <scene sceneID="JU6-fg-toA">
@@ -5932,7 +5932,7 @@ Please try again later.</string>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOm-ua-j4n">
-                                    <rect key="frame" x="50" y="11" width="220" height="32"/>
+                                    <rect key="frame" x="50" y="11" width="275" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="32" id="FiM-kr-ykh"/>
                                     </constraints>
@@ -5949,7 +5949,7 @@ Please try again later.</string>
                                     </connections>
                                 </button>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPa-VE-bWD" userLabel="filterInfoView">
-                                    <rect key="frame" x="0.0" y="-56" width="320" height="36"/>
+                                    <rect key="frame" x="0.0" y="-56" width="375" height="36"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ql6-zp-SYG">
                                             <rect key="frame" x="20" y="16" width="280" height="21"/>
@@ -5987,7 +5987,7 @@ Please try again later.</string>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GhL-9V-M2d" userLabel="firstTimestampHeader">
-                                    <rect key="frame" x="0.0" y="-20" width="320" height="20"/>
+                                    <rect key="frame" x="0.0" y="-20" width="375" height="20"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="bg_timestamp" translatesAutoresizingMaskIntoConstraints="NO" id="zQB-xy-2v8">
                                             <rect key="frame" x="98" y="0.0" width="124" height="20"/>
@@ -6117,7 +6117,7 @@ Please try again later.</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbd-K3-7Xe">
-                                            <rect key="frame" x="180" y="48" width="120" height="2"/>
+                                            <rect key="frame" x="180" y="48" width="175" height="2"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="yul-fW-k0z"/>
@@ -6207,13 +6207,13 @@ Please try again later.</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O6C-x2-do4">
-                                            <rect key="frame" x="180" y="46" width="120" height="2"/>
+                                            <rect key="frame" x="180" y="46" width="175" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="eYU-SR-d4J"/>
                                             </constraints>
                                         </progressView>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYz-NW-wlH">
-                                            <rect key="frame" x="196" y="35" width="88" height="34"/>
+                                            <rect key="frame" x="196" y="35" width="143" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="qaI-WE-W3T"/>
                                             </constraints>
@@ -6401,13 +6401,13 @@ test</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxI-a0-cWu">
-                                            <rect key="frame" x="168" y="47" width="127" height="2"/>
+                                            <rect key="frame" x="168" y="47" width="182" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="OaC-2r-vui"/>
                                             </constraints>
                                         </progressView>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7h2-bc-trg">
-                                            <rect key="frame" x="182" y="33" width="88" height="34"/>
+                                            <rect key="frame" x="182" y="33" width="143" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="8Pu-1b-8le"/>
                                             </constraints>
@@ -6496,7 +6496,7 @@ test</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Document.pdf" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="133" translatesAutoresizingMaskIntoConstraints="NO" id="BY9-2k-ARv">
-                                            <rect key="frame" x="168" y="22" width="122" height="17"/>
+                                            <rect key="frame" x="223" y="22" width="122" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="122" id="7sE-eP-bbs"/>
                                                 <constraint firstAttribute="height" constant="17" id="o9K-Ch-RVN"/>
@@ -6506,13 +6506,13 @@ test</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Abr-AN-uok">
-                                            <rect key="frame" x="168" y="63" width="127" height="2"/>
+                                            <rect key="frame" x="168" y="63" width="182" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="LOD-ar-c9n"/>
                                             </constraints>
                                         </progressView>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcL-UH-DRv">
-                                            <rect key="frame" x="182" y="47" width="88" height="34"/>
+                                            <rect key="frame" x="182" y="47" width="143" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="JIp-Vq-jdI"/>
                                             </constraints>
@@ -6828,7 +6828,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rX-MK-eqI" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="55" y="10" width="225" height="30"/>
+                                            <rect key="frame" x="110" y="10" width="225" height="30"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_deliverd" translatesAutoresizingMaskIntoConstraints="NO" id="g19-mp-Dv9">
                                                     <rect key="frame" x="207" y="0.0" width="14" height="14"/>
@@ -6862,7 +6862,7 @@ test</string>
                                             </connections>
                                         </view>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xDh-Rn-lrj" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="7" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="7" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="G6b-EU-fTj"/>
                                                 <constraint firstAttribute="width" constant="35" id="ioQ-i7-iyu"/>
@@ -6893,14 +6893,14 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="fLH-kW-LFa" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="66" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="66" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="2X6-Ej-wLc"/>
                                                 <constraint firstAttribute="height" constant="35" id="c11-EU-OyQ"/>
                                             </constraints>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGp-0G-Hgo" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="150" y="0.0" width="130" height="99"/>
+                                            <rect key="frame" x="205" y="0.0" width="130" height="99"/>
                                             <subviews>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="qnp-Kf-T9l">
                                                     <rect key="frame" x="112" y="2" width="14" height="14"/>
@@ -6919,7 +6919,7 @@ test</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55A-0b-465">
-                                            <rect key="frame" x="20" y="49" width="122" height="2"/>
+                                            <rect key="frame" x="20" y="49" width="177" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="h6A-lW-dGd"/>
                                             </constraints>
@@ -6952,7 +6952,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpN-ju-oIS" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="20" y="15" width="260" height="97"/>
+                                            <rect key="frame" x="75" y="15" width="260" height="97"/>
                                             <subviews>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="WpV-E8-ysS">
                                                     <rect key="frame" x="242" y="0.0" width="14" height="14"/>
@@ -6996,7 +6996,7 @@ test</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="3wB-xh-Hgw" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="79" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="79" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="1hP-YU-yCE"/>
                                                 <constraint firstAttribute="width" constant="35" id="fzi-qn-kEA"/>
@@ -7028,7 +7028,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOx-qZ-kFb" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="150" y="3" width="130" height="100"/>
+                                            <rect key="frame" x="205" y="3" width="130" height="100"/>
                                             <subviews>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="eut-xK-8fb">
                                                     <rect key="frame" x="112" y="0.0" width="14" height="14"/>
@@ -7068,13 +7068,13 @@ test</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8N-2P-kxn">
-                                            <rect key="frame" x="20" y="52" width="122" height="2"/>
+                                            <rect key="frame" x="20" y="52" width="177" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="Sil-Tv-0RE"/>
                                             </constraints>
                                         </progressView>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="szD-Wj-EwT" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="70" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="70" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="0cm-W4-85M"/>
                                                 <constraint firstAttribute="width" constant="35" id="8M7-zZ-98n"/>
@@ -7111,7 +7111,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ukA-MX-enl" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="150" y="3" width="130" height="100"/>
+                                            <rect key="frame" x="205" y="3" width="130" height="100"/>
                                             <subviews>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="iJv-SH-qPD">
                                                     <rect key="frame" x="112" y="0.0" width="14" height="14"/>
@@ -7137,13 +7137,13 @@ test</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15J-KK-okL">
-                                            <rect key="frame" x="20" y="69" width="122" height="2"/>
+                                            <rect key="frame" x="20" y="69" width="177" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="UAv-Gy-U4a"/>
                                             </constraints>
                                         </progressView>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eWh-qF-NNu" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="70" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="70" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="6Gs-NT-hsQ"/>
                                                 <constraint firstAttribute="width" constant="35" id="bJx-NO-ObM"/>
@@ -7191,7 +7191,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oos-Os-k8c" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="150" y="2" width="130" height="100"/>
+                                            <rect key="frame" x="205" y="2" width="130" height="100"/>
                                             <subviews>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="l2E-aJ-bfB">
                                                     <rect key="frame" x="112" y="0.0" width="14" height="14"/>
@@ -7235,13 +7235,13 @@ test</string>
                                             </constraints>
                                         </view>
                                         <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dIW-F6-Z1M">
-                                            <rect key="frame" x="20" y="51" width="122" height="2"/>
+                                            <rect key="frame" x="20" y="51" width="177" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="SDv-IK-TWo"/>
                                             </constraints>
                                         </progressView>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UCg-pc-smZ" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="69" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="69" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="4zQ-Ou-mFH"/>
                                                 <constraint firstAttribute="height" constant="35" id="YI7-L2-PRT"/>
@@ -7278,7 +7278,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YaU-yF-bZ8" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="40" y="16" width="240" height="64"/>
+                                            <rect key="frame" x="95" y="16" width="240" height="64"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="oGd-CF-9kq">
                                                     <rect key="frame" x="222" y="0.0" width="14" height="14"/>
@@ -7307,7 +7307,7 @@ test</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="wmA-tm-Vfa" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="47" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="47" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="BOr-jL-MK1"/>
                                                 <constraint firstAttribute="height" constant="35" id="OgG-5J-ZlJ"/>
@@ -7338,7 +7338,7 @@ test</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ywx-od-5V7" customClass="SCBubbleViewOut">
-                                            <rect key="frame" x="40" y="16" width="240" height="55"/>
+                                            <rect key="frame" x="95" y="16" width="240" height="55"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="ico_read" translatesAutoresizingMaskIntoConstraints="NO" id="nDj-vL-DLi">
                                                     <rect key="frame" x="222" y="0.0" width="14" height="14"/>
@@ -7367,7 +7367,7 @@ test</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="RqJ-vP-6og" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="38" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="38" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="YFH-7k-hWP"/>
                                                 <constraint firstAttribute="width" constant="35" id="u7R-uA-hTa"/>
@@ -7486,7 +7486,7 @@ test</string>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <imageView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="hUX-7S-OfX" customClass="C2TapImageView">
-                                            <rect key="frame" x="282" y="39" width="35" height="35"/>
+                                            <rect key="frame" x="337" y="39" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="FU7-sz-S9Q"/>
                                                 <constraint firstAttribute="width" constant="35" id="VRa-eW-Ava"/>
@@ -7611,7 +7611,7 @@ Remove search filter?</string>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAq-HG-khu">
-                                    <rect key="frame" x="50" y="11" width="220" height="32"/>
+                                    <rect key="frame" x="50" y="11" width="275" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="32" id="cHF-tG-sIc"/>
                                     </constraints>
@@ -7628,7 +7628,7 @@ Remove search filter?</string>
                                     </connections>
                                 </button>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GgY-ga-jGA" userLabel="filterInfoView">
-                                    <rect key="frame" x="0.0" y="-56" width="320" height="36"/>
+                                    <rect key="frame" x="0.0" y="-56" width="375" height="36"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q9f-lO-2Ee">
                                             <rect key="frame" x="20" y="16" width="280" height="21"/>
@@ -7666,7 +7666,7 @@ Remove search filter?</string>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kh3-Vm-vs1" userLabel="firstTimestampHeader">
-                                    <rect key="frame" x="0.0" y="-20" width="320" height="20"/>
+                                    <rect key="frame" x="0.0" y="-20" width="375" height="20"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="bg_timestamp" translatesAutoresizingMaskIntoConstraints="NO" id="UBe-JA-CZf">
                                             <rect key="frame" x="98" y="0.0" width="124" height="20"/>
@@ -9692,7 +9692,7 @@ Remove search filter?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="lKI-vS-IDy">
-                            <rect key="frame" x="0.0" y="64" width="375" height="104"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="img_certificate" translatesAutoresizingMaskIntoConstraints="NO" id="5gV-ix-oFw">
@@ -9957,7 +9957,7 @@ Remove search filter?</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GIG-Zc-InV">
-                                <rect key="frame" x="27.5" y="173.5" width="320" height="320"/>
+                                <rect key="frame" x="28" y="174" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="EZY-tt-4yt"/>
                                     <constraint firstAttribute="height" constant="320" id="npS-z9-jWa"/>
@@ -10028,14 +10028,14 @@ Remove search filter?</string>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg_current_credits" translatesAutoresizingMaskIntoConstraints="NO" id="rBx-pB-gAc">
-                                        <rect key="frame" x="125.5" y="2" width="124" height="20"/>
+                                        <rect key="frame" x="126" y="2" width="124" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="Biw-Y4-APU"/>
                                             <constraint firstAttribute="width" constant="124" id="ePL-4y-eHE"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="flh-4h-2te" userLabel="userCredit">
-                                        <rect key="frame" x="141.5" y="2" width="92" height="20"/>
+                                        <rect key="frame" x="142" y="2" width="92" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="92" id="Rin-Wb-gek"/>
                                             <constraint firstAttribute="height" constant="20" id="oyB-Oa-wJE"/>
@@ -10141,7 +10141,7 @@ Remove search filter?</string>
                                 <rect key="frame" x="0.0" y="123" width="375" height="544"/>
                                 <subviews>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3K-Kr-dpK" userLabel="KeyboardView">
-                                        <rect key="frame" x="27.5" y="131.5" width="320" height="282"/>
+                                        <rect key="frame" x="28" y="131" width="320" height="282"/>
                                         <subviews>
                                             <button opaque="NO" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mys-Ei-5Do" userLabel="Dial Button 1" customClass="SCDialButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="107" height="50"/>
@@ -10812,7 +10812,7 @@ Remove search filter?</string>
         <image name="ico_msg_white-20x20" width="20" height="20"/>
         <image name="ico_no_kamera" width="43" height="26"/>
         <image name="ico_play" width="11" height="16"/>
-        <image name="ico_read" width="14" height="14"/>
+        <image name="ico_read" width="15" height="15"/>
         <image name="ico_record" width="16" height="17"/>
         <image name="ico_record_again" width="19" height="22"/>
         <image name="ico_richmessaging_03" width="27" height="27"/>
@@ -10838,7 +10838,7 @@ Remove search filter?</string>
         <image name="iphone_call_me_link" width="44" height="44"/>
         <image name="lupe" width="27" height="27"/>
         <image name="popover3" width="216" height="110"/>
-        <image name="popover_new" width="216" height="110"/>
+        <image name="popover_new" width="215" height="110"/>
         <image name="z0" width="90" height="60"/>
         <image name="z1" width="90" height="60"/>
         <image name="z2" width="90" height="60"/>
@@ -10859,13 +10859,13 @@ Remove search filter?</string>
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dYh-Uy-CrV"/>
-        <segue reference="hDv-Zp-8lC"/>
-        <segue reference="y6p-gl-6ga"/>
-        <segue reference="sdM-v2-Wtr"/>
-        <segue reference="vNd-Un-nVZ"/>
-        <segue reference="1u2-TG-LS5"/>
-        <segue reference="UPE-Al-XWo"/>
         <segue reference="cXP-qr-CSY"/>
+        <segue reference="y6p-gl-6ga"/>
+        <segue reference="p96-wb-qOH"/>
+        <segue reference="GNG-di-A0l"/>
+        <segue reference="psS-ES-eTF"/>
+        <segue reference="TfF-kn-Iej"/>
+        <segue reference="RRF-Bo-3Ka"/>
+        <segue reference="XYO-8a-ZXB"/>
     </inferredMetricsTieBreakers>
 </document>
