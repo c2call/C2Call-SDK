@@ -9,6 +9,7 @@
 #import "SCBroadcastChatController.h"
 #import "SCBroadcastController.h"
 #import "SCBroadcastVideoController.h"
+#import "SCMediaManager.h"
 #import "C2CallPhone.h"
 
 @implementation SCBroadcastChatController
@@ -135,6 +136,7 @@
 
 - (IBAction)callBroadcast:(id)sender {
     if (self.broadcastGroupId){
+        [[SCMediaManager instance] disableMediaOutput:YES];
         [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
     }
 }
