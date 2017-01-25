@@ -10,14 +10,33 @@
 #import "SCBroadcastRecordingController.h"
 #import "SCMediaManager.h"
 
+@interface SCBroadcastStatusController ()
+@property (weak, nonatomic) IBOutlet UIButton *cameraSwitch;
+
+@end
+
 @implementation SCBroadcastStatusController
+
+-(void) viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if ([SCMediaManager instance].cameraPosition == AVCaptureDevicePositionBack) {
+        self.cameraSwitch.selected = YES;
+    } else {
+        self.cameraSwitch.selected = NO;
+    }
+
+}
 
 - (IBAction)toggleCamera:(UIButton *)cameraButton {
     
-    if (cameraButton.selected) {
+    if ([SCMediaManager instance].cameraPosition == AVCaptureDevicePositionBack) {
         [[SCMediaManager instance] switchCamera:AVCaptureDevicePositionFront];
+        cameraButton.selected = NO;
     } else {
         [[SCMediaManager instance] switchCamera:AVCaptureDevicePositionBack];
+        cameraButton.selected = YES;
     }
 }
 

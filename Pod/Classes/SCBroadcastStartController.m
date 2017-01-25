@@ -32,6 +32,7 @@
 @property(nonatomic, strong) NSString   *locationKey;
 @property(atomic, strong) CLLocation    *currentLocation;
 @property (weak, nonatomic) IBOutlet SCFlatButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *cameraSwitch;
 
 
 
@@ -60,6 +61,11 @@
         [locationManager startUpdatingLocation];
     }
 
+    if ([SCMediaManager instance].cameraPosition == AVCaptureDevicePositionBack) {
+        self.cameraSwitch.selected = YES;
+    } else {
+        self.cameraSwitch.selected = NO;
+    }
 }
 
 - (void)dealloc
@@ -194,10 +200,12 @@
 }
 
 - (IBAction)toggleCamera:(UIButton *)cameraButton {
-    if (cameraButton.selected) {
+    if ([SCMediaManager instance].cameraPosition == AVCaptureDevicePositionBack) {
         [[SCMediaManager instance] switchCamera:AVCaptureDevicePositionFront];
+        cameraButton.selected = NO;
     } else {
         [[SCMediaManager instance] switchCamera:AVCaptureDevicePositionBack];
+        cameraButton.selected = YES;
     }
 }
 
