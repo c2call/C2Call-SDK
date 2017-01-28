@@ -21,6 +21,8 @@
 #import "C2BlockAction.h"
 #import "SCBroadcast.h"
 
+#define __C2DEBUG
+
 #import "debug.h"
 
 // We need only one instance
@@ -671,19 +673,20 @@ static NSCache          *imageCache = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"C2CallHandler:LoginSuccess" object:nil];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    /*
     if ([SCDataManager instance].isDataInitialized) {
         [[SCTimeline instance] refreshTimeline];
-        [self.tableView reloadData];
     }
-    */
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)dealloc
@@ -696,26 +699,16 @@ static NSCache          *imageCache = nil;
     // Dispose of any resources that can be recreated.
 }
 
--(void) handleNotification:(NSNotification *) notification
+-(void) updateFetchRequest
 {
-    if ([[notification name] isEqualToString:@"C2CallHandler:LoginSuccess"]) {
-        DLog(@"Notification: Refresh Timeline!");
+    [super updateFetchRequest];
+    
+    if (!initialRefresh && [C2CallPhone currentPhone].loginCompleted) {
+        initialRefresh = YES;
+        DLog(@"Refresh Timeline!");
         [[SCTimeline instance] refreshTimeline];
     }
     
-}
-
--(void) updateFetchRequest
-{
-    if ([SCDataManager instance].isDataInitialized) {
-        [self initFetchedResultsController];
-        if (!initialRefresh && [C2CallPhone currentPhone].loginCompleted) {
-            initialRefresh = YES;
-            DLog(@"Refresh Timeline!");
-            [[SCTimeline instance] refreshTimeline];
-        }
-        [self.tableView reloadData];
-    }
 }
 
 -(void) broadcastStateChanged:(NSNotification *) notification

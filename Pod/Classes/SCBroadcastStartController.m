@@ -61,11 +61,18 @@
         [locationManager startUpdatingLocation];
     }
 
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     if ([SCMediaManager instance].cameraPosition == AVCaptureDevicePositionBack) {
         self.cameraSwitch.selected = YES;
     } else {
         self.cameraSwitch.selected = NO;
     }
+    
 }
 
 - (void)dealloc
