@@ -115,7 +115,7 @@
 
 -(void) startBroadcasting
 {
-    //[SCMediaManager instance].useGPUImageVideoCapture = YES;
+    [SCMediaManager instance].useGPUImageVideoCapture = YES;
     [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
     
     self.broadcastStartController.view.superview.hidden = YES;
@@ -132,7 +132,7 @@
 -(void) stopBroadcasting
 {
     [[C2CallPhone currentPhone] hangUp];
-    //[SCMediaManager instance].useGPUImageVideoCapture = NO;
+    [SCMediaManager instance].useGPUImageVideoCapture = NO;
     
     if (mediaRecordingStarted) {
         [[SCMediaManager instance] stopMediaRecordingWithCompletionHandler:^(NSString * _Nullable mediaKey) {
