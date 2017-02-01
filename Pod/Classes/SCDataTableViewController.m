@@ -15,11 +15,16 @@
 #import "UIViewController+SCCustomViewController.h"
 #import "SCDataManager.h"
 
+#define __C2DEBUG
+
 #import "debug.h"
 
 @interface SCDataTableViewController () {
     BOOL    isEmpty;
+    BOOL    forceUpdate;
 }
+
+
 
 @end
 
@@ -30,6 +35,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        isEmpty = NO;
+        forceUpdate = NO;
     }
     return self;
 }
@@ -43,8 +50,10 @@
 
 -(void) handleInitDataEvent:(NSNotification *) notification
 {
+    DLog(@"handleInitDataEvent: %@", notification);
     if ([[notification name] isEqualToString:@"C2CallDataManager:initData"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            forceUpdate = YES;
             [self updateFetchRequest];
         });
     }
@@ -62,13 +71,13 @@
     // nil for section name key path means "no sections".
     
     if (!fetchRequest)
-        return;
+    return;
     
     @try {
         NSFetchedResultsController *aFetchedResultsController = [[SCDataManager instance] fetchedResultsControllerWithFetchRequest:fetchRequest sectionNameKeyPath:sectionNameKeyPath cacheName:nil];
         
         if (!aFetchedResultsController)
-            return;
+        return;
         
         if (self.fetchedResultsController) {
             self.fetchedResultsController.delegate = nil;
@@ -93,7 +102,9 @@
 
 -(void) updateFetchRequest
 {
-    if ([SCDataManager instance].isDataInitialized) {
+    if ([SCDataManager instance].isDataInitialized || forceUpdate) {
+        forceUpdate = NO;
+        DLog(@"updateFetchRequest: %@", @(forceUpdate));
         [self initFetchedResultsController];
         [self.tableView reloadData];
     }
@@ -103,9 +114,10 @@
 {
     [super viewDidLoad];
     
+    [self updateFetchRequest];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInitDataEvent:) name:@"C2CallDataManager:initData" object:nil];
     
-    [self updateFetchRequest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -239,14 +251,18 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
 {
     if (self.useDidChangeContentOnly)
+    return;
+    
+    if (isEmpty  && [[self.fetchedResultsController fetchedObjects] count] > 0) {
         return;
+    }
     
     DLog(@"SCDataTable:didChangeObject : %@ / %ld / %lu", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"), (long)indexPath.row, (unsigned long)type);
     
     @try {
         switch(type) {
                 
-            case NSFetchedResultsChangeInsert:
+                case NSFetchedResultsChangeInsert:
                 if (isEmpty && self.emptyResultCellIdentifier) {
                     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                 } else {
@@ -255,7 +271,7 @@
                 }
                 break;
                 
-            case NSFetchedResultsChangeDelete:
+                case NSFetchedResultsChangeDelete:
                 if ([[controller fetchedObjects] count] == 0 && self.emptyResultCellIdentifier) {
                     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 } else {
@@ -264,19 +280,19 @@
                 }
                 break;
                 
-            case NSFetchedResultsChangeUpdate: {
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                if (cell) {
-                    if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
-                        [self configureEmptyResultsCell:cell atIndexPath:indexPath];
-                    } else {
-                        [self configureCell:cell atIndexPath:indexPath];
+                case NSFetchedResultsChangeUpdate: {
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    if (cell) {
+                        if ([cell.reuseIdentifier isEqualToString:self.emptyResultCellIdentifier]) {
+                            [self configureEmptyResultsCell:cell atIndexPath:indexPath];
+                        } else {
+                            [self configureCell:cell atIndexPath:indexPath];
+                        }
                     }
                 }
-            }
                 break;
                 
-            case NSFetchedResultsChangeMove:
+                case NSFetchedResultsChangeMove:
                 [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                       withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
@@ -303,20 +319,24 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
 {
     if (self.useDidChangeContentOnly)
+    return;
+    
+    if (isEmpty  && [[self.fetchedResultsController fetchedObjects] count] > 0) {
         return;
+    }
     
     switch(type) {
-        case NSFetchedResultsChangeInsert:
+            case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationFade];
             break;
             
-        case NSFetchedResultsChangeDelete:
+            case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationFade];
             break;
-        case NSFetchedResultsChangeMove:
-        case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
+            case NSFetchedResultsChangeUpdate:
             break;
             
     }
@@ -328,7 +348,12 @@
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller;
 {
     if (self.useDidChangeContentOnly)
+    return;
+    
+    if (isEmpty) {
         return;
+    }
+    
     
     DLog(@"SCDataTable:controllerWillChangeContent : %@", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"));
     
@@ -341,7 +366,15 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller;
 {
     if (self.useDidChangeContentOnly)
+    return;
+    
+    if (isEmpty  && [[self.fetchedResultsController fetchedObjects] count] > 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            DLog(@"SCDataTable:controllerDidChangeContent - reload TableView!");
+            [self.tableView reloadData];
+        });
         return;
+    }
     
     DLog(@"SCDataTable:controllerDidChangeContent : %@", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"));
     [self.tableView endUpdates];

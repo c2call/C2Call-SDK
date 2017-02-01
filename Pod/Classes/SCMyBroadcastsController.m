@@ -90,7 +90,7 @@ static NSDateFormatter *dateTime = nil;
     [super viewDidLoad];
 
     self.cellIdentifier = @"SCMyBroadcastCell";
-    self.tableView.estimatedRowHeight = 59;
+    self.tableView.estimatedRowHeight = 70;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 

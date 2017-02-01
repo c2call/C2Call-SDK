@@ -21,6 +21,8 @@
 #import "C2BlockAction.h"
 #import "SCBroadcast.h"
 
+#define __C2DEBUG
+
 #import "debug.h"
 
 // We need only one instance
@@ -278,9 +280,9 @@ static NSCache          *imageCache = nil;
     DLog(@"Get Broadcast Info: %@", bcastId);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         SCBroadcast *broadcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
-
+        
         DLog(@"Broadcast Info Received: %@", bcastId);
-
+        
         NSString *broadcastText = @"";
         if ([broadcast.groupName length] > 0 && [broadcast.groupDescription length] > 0) {
             broadcastText = [NSString stringWithFormat:@"%@\n%@", broadcast.groupName, broadcast.groupDescription];
@@ -311,7 +313,7 @@ static NSCache          *imageCache = nil;
                         //[self notifyCellUpdate];
                     });
                 }
-
+                
             }
         }
         
@@ -347,7 +349,7 @@ static NSCache          *imageCache = nil;
     } else {
         self.eventImage.image = img;
     }
-
+    
 }
 
 @end
@@ -602,7 +604,7 @@ static NSCache          *imageCache = nil;
             if ([weakself.mediaKey isEqualToString:loc.locationKey]) {
                 NSArray *addr = [loc.address componentsSeparatedByString:@","];
                 if ([addr count] > 0) {
-                    self.locationTitle = addr[0];
+                    self.locationTitle.text = addr[0];
                 }
             }
         }];
@@ -634,6 +636,7 @@ static NSCache          *imageCache = nil;
     BOOL            showPreviousMessageButton;
     BOOL            scrollToBottom, scrollToTop;
     BOOL            didLoad;
+    BOOL            initialRefresh;
     
     CFAbsoluteTime  lastContentChange;
 }
@@ -644,6 +647,12 @@ static NSCache          *imageCache = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    initialRefresh = NO;
+    didLoad = NO;
+    scrollToBottom = NO;
+    scrollToTop = NO;
+    lastContentChange = 0;
     
     self.tableView.estimatedRowHeight = 160;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -664,15 +673,20 @@ static NSCache          *imageCache = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
-    
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if ([SCDataManager instance].isDataInitialized) {
+        [[SCTimeline instance] refreshTimeline];
+    }
+}
 
-    [[SCTimeline instance] refreshTimeline];
-    [self.tableView reloadData];
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)dealloc
@@ -683,6 +697,18 @@ static NSCache          *imageCache = nil;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) updateFetchRequest
+{
+    [super updateFetchRequest];
+    
+    if (!initialRefresh && [C2CallPhone currentPhone].loginCompleted) {
+        initialRefresh = YES;
+        DLog(@"Refresh Timeline!");
+        [[SCTimeline instance] refreshTimeline];
+    }
+    
 }
 
 -(void) broadcastStateChanged:(NSNotification *) notification
@@ -714,7 +740,7 @@ static NSCache          *imageCache = nil;
     if ([indexPathList count] > 0) {
         [self.tableView reloadRowsAtIndexPaths:indexPathList withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-
+    
 }
 
 -(void) cellUpdate:(NSNotification *) notification
@@ -739,7 +765,7 @@ static NSCache          *imageCache = nil;
 -(NSFetchRequest *) fetchRequest
 {
     if (![SCDataManager instance].isDataInitialized)
-        return nil;
+    return nil;
     
     self.sectionNameKeyPath = nil;
     self.useDidChangeContentOnly = NO;
@@ -784,7 +810,7 @@ static NSCache          *imageCache = nil;
             int section = (int)self.tableView.numberOfSections - 1;
             int row =  (int)[self.tableView numberOfRowsInSection:section] - 1;
             if (section >= 0 && row >= 0)
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     });
 }
@@ -862,11 +888,11 @@ static NSCache          *imageCache = nil;
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_Location]]) {
         return @"SCTimelineLocationCell";
     }
-
+    
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastEvent]]) {
         return @"SCTimelineBroadcastCell";
     }
-
+    
     return self.cellIdentifier;
 }
 
@@ -916,7 +942,7 @@ static NSCache          *imageCache = nil;
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
         [bcell addTapAction:action];
     }
-
+    
     // Additional Setup for location cell
     if ([cell isKindOfClass:[SCTimelineBroadcastCell class]]) {
         NSString *bcast = event.mediaUrl;
@@ -934,7 +960,7 @@ static NSCache          *imageCache = nil;
         SCTimelineBroadcastCell *bcell = (SCTimelineBroadcastCell *)cell;
         [bcell addTapAction:action];
     }
-
+    
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -957,27 +983,27 @@ static NSCache          *imageCache = nil;
 }
 
 #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     [self customPrepareForSegue:segue sender:sender];
-     
-     if ([segue.destinationViewController isKindOfClass:[SCBroadcastPlaybackController class]] && [sender isKindOfClass:[SCBroadcast class]]) {
-         SCBroadcastPlaybackController *bcc = (SCBroadcastPlaybackController *) segue.destinationViewController;
 
-         SCBroadcast *broadcast = (SCBroadcast *) sender;
-         bcc.broadcast = broadcast;
-     }
-     
-     if ([segue.destinationViewController isKindOfClass:[SCBroadcastChatController class]] && [sender isKindOfClass:[SCBroadcast class]]) {
-         SCBroadcastChatController *bchat = (SCBroadcastChatController *) segue.destinationViewController;
-         SCBroadcast *broadcast = (SCBroadcast *) sender;
-         
-         NSString *bid = broadcast.groupid;
-         bchat.broadcastGroupId = bid;
-     }
-
- }
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self customPrepareForSegue:segue sender:sender];
+    
+    if ([segue.destinationViewController isKindOfClass:[SCBroadcastPlaybackController class]] && [sender isKindOfClass:[SCBroadcast class]]) {
+        SCBroadcastPlaybackController *bcc = (SCBroadcastPlaybackController *) segue.destinationViewController;
+        
+        SCBroadcast *broadcast = (SCBroadcast *) sender;
+        bcc.broadcast = broadcast;
+    }
+    
+    if ([segue.destinationViewController isKindOfClass:[SCBroadcastChatController class]] && [sender isKindOfClass:[SCBroadcast class]]) {
+        SCBroadcastChatController *bchat = (SCBroadcastChatController *) segue.destinationViewController;
+        SCBroadcast *broadcast = (SCBroadcast *) sender;
+        
+        NSString *bid = broadcast.groupid;
+        bchat.broadcastGroupId = bid;
+    }
+    
+}
 
 
 @end
