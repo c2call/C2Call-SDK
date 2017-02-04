@@ -71,13 +71,13 @@
     // nil for section name key path means "no sections".
     
     if (!fetchRequest)
-    return;
+        return;
     
     @try {
         NSFetchedResultsController *aFetchedResultsController = [[SCDataManager instance] fetchedResultsControllerWithFetchRequest:fetchRequest sectionNameKeyPath:sectionNameKeyPath cacheName:nil];
         
         if (!aFetchedResultsController)
-        return;
+            return;
         
         if (self.fetchedResultsController) {
             self.fetchedResultsController.delegate = nil;
@@ -251,12 +251,12 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
 {
     if (self.useDidChangeContentOnly)
-    return;
+        return;
     
     if (isEmpty  && [[self.fetchedResultsController fetchedObjects] count] > 0) {
         return;
     }
-    
+
     DLog(@"SCDataTable:didChangeObject : %@ / %ld / %lu", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"), (long)indexPath.row, (unsigned long)type);
     
     @try {
@@ -324,7 +324,7 @@
     if (isEmpty  && [[self.fetchedResultsController fetchedObjects] count] > 0) {
         return;
     }
-    
+
     switch(type) {
             case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
@@ -353,7 +353,7 @@
     if (isEmpty) {
         return;
     }
-    
+
     
     DLog(@"SCDataTable:controllerWillChangeContent : %@", ([NSThread isMainThread]?@"mainThread" : @"not the mainThread"));
     
@@ -366,7 +366,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller;
 {
     if (self.useDidChangeContentOnly)
-    return;
+        return;
     
     if (isEmpty  && [[self.fetchedResultsController fetchedObjects] count] > 0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
