@@ -136,7 +136,7 @@
 
 - (IBAction)callBroadcast:(id)sender {
     if (self.broadcastGroupId){
-        //[[SCMediaManager instance] disableMediaOutput:YES];
+        [[SCMediaManager instance] disableMediaOutput:YES];
         [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
     }
 }
