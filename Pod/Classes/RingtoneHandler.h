@@ -25,6 +25,8 @@
 @property(strong) NSTimer		*timer;
 @property NSTimeInterval		interval;
 @property BOOL soundCompleted;
+@property (nonatomic, strong) NSString *soundFile;
+
 
 -(id) initWithRessource:(NSString *) soundFile ofType:(NSString *) ext;
 -(id) initWithPath:(NSString *) soundFile;
