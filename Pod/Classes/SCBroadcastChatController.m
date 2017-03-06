@@ -11,6 +11,7 @@
 #import "SCBroadcastVideoController.h"
 #import "SCMediaManager.h"
 #import "C2CallPhone.h"
+#import "SCActivity.h"
 
 @implementation SCBroadcastChatController
 
@@ -51,6 +52,7 @@
     
     if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
         [[C2CallPhone currentPhone] hangUp];
+        [SCActivity reportBroadcastAttendEnd:self.broadcastGroupId];
     }
 }
 
@@ -134,17 +136,32 @@
     }
 }
 
+-(void) reportProgress
+{
+    __weak SCBroadcastChatController *weakself = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (weakself) {
+            [SCActivity reportBroadcastAttend:weakself.broadcastGroupId progress:1];
+            [weakself reportProgress];
+        }
+    });
+}
+
 - (IBAction)callBroadcast:(id)sender {
     if (self.broadcastGroupId){
         [[SCMediaManager instance] disableMediaOutput:YES];
         [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
+        
+        [SCActivity reportBroadcastAttendStart:self.broadcastGroupId];
+        [self reportProgress];
     }
 }
 
 - (IBAction)sendMessage:(id)sender {
     if (self.broadcastGroupId && [self.messageTextView.text length] > 0){
         [[C2CallPhone currentPhone] submitMessage:self.messageTextView.text toUser:self.broadcastGroupId];
-        
+        [SCActivity reportBroadcastComment:self.broadcastGroupId];
+
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.messageTextView.text = nil;
             
@@ -158,6 +175,7 @@
 
 - (IBAction)hangUp:(id)sender {
     [[C2CallPhone currentPhone] hangUp];
+    [SCActivity reportBroadcastAttendEnd:self.broadcastGroupId];
 }
 
 

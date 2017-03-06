@@ -137,6 +137,19 @@
  */
 -(void) resetMissedCallsForContact:(nonnull NSString *) contact;
 
+/** Returns the list all tags (NSString)
+ 
+ @return Array of tags
+ */
+-(nullable NSArray *) allTags;
+
+/** Returns the list tags (NSString)
+ 
+ @param featured - Only featured / not featured tags
+ @return Array of tags
+ */
+-(nullable NSArray *) allTagsFeatured:(BOOL) featured;
+
 /** Save additional phone numbers for a friend contact
  
  @param number - The phone number
@@ -240,6 +253,12 @@
  */
 
 -(nonnull NSFetchRequest *) fetchRequestForBroadcasts:(BOOL) onlyLifeBroadcasts fromDate:(nullable NSDate *) fromDate sort:(BOOL) sortAscending;
+
+/** Gets a predefined NSFetchRequest for a list MOTag objects
+ 
+ @param sortAscending YES - Alphabethic sort
+ */
+-(NSFetchRequest *) fetchRequestForTags:(BOOL) sortAscending;
 
 /** Gets a predefined NSFetchRequest an MOC2CallUser object
  

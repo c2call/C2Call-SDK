@@ -1693,6 +1693,24 @@ typedef enum {
 -(nullable NSArray *) getCallingPlans;
 
 
+/** Load Taglist from Server
+ */
+-(void) refreshTags;
+
+/** Report Invited Friend
+ 
+ @param address - Email or Phone Number
+ */
+
+-(void) reportInvitedFriend:(nonnull NSString *) address;
+
+/** Report Invited Friend
+ 
+ @param addresslist - List of Emails or Phone Numbers
+ */
+
+-(void) reportInvitedFriends:(nonnull NSArray *) addresslist;
+
 /**---------------------------------------------------------------------------------------
  * @name Static Methods
  *  ---------------------------------------------------------------------------------------

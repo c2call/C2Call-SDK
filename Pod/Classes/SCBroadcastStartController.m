@@ -162,18 +162,32 @@
         self.infoView.alpha = 1.0;
     }];
     
-    NSDictionary *proerties = @{@"UseLocation" : @(YES)};
+    NSDictionary *properties = @{@"UseLocation" : @(YES)};
     if (self.locationKey) {
         FCLocation *loc = [[FCLocation alloc] initWithKey:self.locationKey];
         
         if (loc.title) {
-            proerties = @{@"LocationName" : loc.title, @"Longitude": [@(loc.locationCoordinate.longitude) stringValue], @"Latitude": [@(loc.locationCoordinate.latitude) stringValue]};
+            properties = @{@"LocationName" : loc.title, @"Longitude": [@(loc.locationCoordinate.longitude) stringValue], @"Latitude": [@(loc.locationCoordinate.latitude) stringValue]};
         } else {
-            proerties = @{@"Longitude": [@(loc.locationCoordinate.longitude) stringValue], @"Latitude": [@(loc.locationCoordinate.latitude) stringValue]};
+            properties = @{@"Longitude": [@(loc.locationCoordinate.longitude) stringValue], @"Latitude": [@(loc.locationCoordinate.latitude) stringValue]};
         }        
     } else if (self.currentLocation) {
-        proerties = @{@"Longitude": [@(self.currentLocation.coordinate.longitude) stringValue], @"Latitude": [@(self.currentLocation.coordinate.latitude) stringValue]};
+        properties = @{@"Longitude": [@(self.currentLocation.coordinate.longitude) stringValue], @"Latitude": [@(self.currentLocation.coordinate.latitude) stringValue]};
     }
+    
+    NSMutableDictionary *p = [properties mutableCopy];
+    if (self.featured) {
+        p[@"featured"] = @(YES);
+    }
+    
+    if ([self.tags count] > 0) {
+        p[@"tags"] = self.tags;
+    }
+    
+    if (self.reward) {
+        p[@"reward"] = self.reward;
+    }
+    properties = p;
     
     __weak SCBroadcastStartController *weakself = self;
     
@@ -185,7 +199,7 @@
         bcastName = [NSString stringWithFormat:@"Video Broadcast from %@", [dateTime stringFromDate:[NSDate date]]];
     }
     
-    [[C2CallPhone currentPhone] createBroadcast:bcastName withProperties:proerties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {
+    [[C2CallPhone currentPhone] createBroadcast:bcastName withProperties:properties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {
         
         if (success) {
             [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {

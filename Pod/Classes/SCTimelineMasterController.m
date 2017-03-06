@@ -239,7 +239,7 @@
         if ([mediakey length] > 0 && ![mediakey hasPrefix:@"loc://"]) {
             [self addProgressObserverForKey:mediakey];
         }
-        BOOL res = [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
+        BOOL res = [[SCTimeline instance] submitTimelineEvent:[eventType intValue] withMessage:text andMedia:mediakey properties:nil toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
             
             self.currentMessage = nil;
             [self updateMessage];

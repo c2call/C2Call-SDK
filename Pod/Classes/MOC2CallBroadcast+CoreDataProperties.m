@@ -2,34 +2,38 @@
 //  MOC2CallBroadcast+CoreDataProperties.m
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 14/05/16.
+//  Created by Michael Knecht on 01.03.17.
 //
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
 #import "MOC2CallBroadcast+CoreDataProperties.h"
 
 @implementation MOC2CallBroadcast (CoreDataProperties)
 
-@dynamic groupid;
-@dynamic groupName;
-@dynamic groupOwner;
++ (NSFetchRequest<MOC2CallBroadcast *> *)fetchRequest {
+	return [[NSFetchRequest alloc] initWithEntityName:@"MOC2CallBroadcast"];
+}
+
+@dynamic endDate;
 @dynamic groupDescription;
-@dynamic groupType;
+@dynamic groupid;
 @dynamic groupImage;
 @dynamic groupImageTimestamp;
-@dynamic startDate;
-@dynamic endDate;
-@dynamic mediaUrl;
-@dynamic onlineUsers;
+@dynamic groupName;
+@dynamic groupOwner;
+@dynamic groupType;
+@dynamic latitude;
 @dynamic live;
 @dynamic locationName;
-@dynamic latitude;
 @dynamic longitude;
+@dynamic mediaUrl;
+@dynamic onlineUsers;
+@dynamic startDate;
+@dynamic featured;
+@dynamic reward;
 @dynamic broadcastUser;
-@dynamic userData;
 @dynamic members;
+@dynamic userData;
+@dynamic tags;
 
 @end

@@ -18,6 +18,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *membersButton;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 
+@property (strong, nonatomic) NSArray   *tags;
+@property (nonatomic) BOOL              featured;
+@property (strong, nonatomic) NSString  *reward;
+
 @property (weak, nonatomic) SCBroadcastRecordingController *recordingController;
 
 @end

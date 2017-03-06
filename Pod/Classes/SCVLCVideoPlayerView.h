@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SCVLCVideoPlayerViewDelegate <NSObject>
+
+@optional
+-(void) playerDidStart;
+-(void) playerDidPause;
+-(void) playerDidStop;
+
+
+@end
+
 @interface SCVLCVideoPlayerView : UIView
 
 /** Control's View Outlet */
@@ -30,6 +40,9 @@
 
 /** Rich Media Key of the Video. */
 @property (nonatomic, strong) NSString                  *mediaKey;
+
+/** Delegate */
+@property (nonatomic, weak) id<SCVLCVideoPlayerViewDelegate>  delegate;
 
 /** Plays video.
  @param sender - The initiator of the action

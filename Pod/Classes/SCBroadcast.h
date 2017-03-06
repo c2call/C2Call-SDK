@@ -36,6 +36,9 @@
 /** Is the current broadcast live */
 @property(nonatomic, readonly) BOOL isLive;
 
+/** Is the current broadcast featured */
+@property(nonatomic, readonly) BOOL isFeatured;
+
 /** The location latitude of the broadcast group */
 @property(nonatomic, readonly) NSNumber *latitude;
 
@@ -53,6 +56,12 @@
 
 /** The broadcast recorded media file */
 @property(nonatomic, strong)  NSString *mediaUrl;
+
+/** The Reward Option for this Broadcast */
+@property(nonatomic, readonly) NSString *reward;
+
+/** Tags for the current broadcast */
+@property(nonatomic, readonly) NSArray *tags;
 
 
 /** Instantiate the broadcast with groupid

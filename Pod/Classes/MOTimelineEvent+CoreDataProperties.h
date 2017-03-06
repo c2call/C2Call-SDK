@@ -2,33 +2,45 @@
 //  MOTimelineEvent+CoreDataProperties.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 05/07/16.
+//  Created by Michael Knecht on 01.03.17.
 //
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
-#import "MOTimelineEvent.h"
+#import "MOTimelineEvent+CoreDataClass.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MOTimelineEvent (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *contact;
-@property (nullable, nonatomic, retain) NSNumber *eventId;
-@property (nullable, nonatomic, retain) NSString *eventType;
-@property (nullable, nonatomic, retain) NSNumber *missed;
-@property (nullable, nonatomic, retain) NSString *originalSender;
-@property (nullable, nonatomic, retain) NSString *senderName;
-@property (nullable, nonatomic, retain) NSNumber *status;
-@property (nullable, nonatomic, retain) NSString *text;
-@property (nullable, nonatomic, retain) NSDate *timeStamp;
-@property (nullable, nonatomic, retain) NSNumber *timevalue;
-@property (nullable, nonatomic, retain) NSNumber *like;
-@property (nullable, nonatomic, retain) NSNumber *dislike;
-@property (nullable, nonatomic, retain) NSString *timeline;
-@property (nullable, nonatomic, retain) NSString *mediaUrl;
++ (NSFetchRequest<MOTimelineEvent *> *)fetchRequest;
+
+@property (nullable, nonatomic, copy) NSString *contact;
+@property (nullable, nonatomic, copy) NSNumber *dislike;
+@property (nullable, nonatomic, copy) NSNumber *eventId;
+@property (nullable, nonatomic, copy) NSString *eventType;
+@property (nullable, nonatomic, copy) NSNumber *like;
+@property (nullable, nonatomic, copy) NSString *mediaUrl;
+@property (nullable, nonatomic, copy) NSNumber *missed;
+@property (nullable, nonatomic, copy) NSString *originalSender;
+@property (nullable, nonatomic, copy) NSString *senderName;
+@property (nullable, nonatomic, copy) NSNumber *status;
+@property (nullable, nonatomic, copy) NSString *text;
+@property (nullable, nonatomic, copy) NSString *timeline;
+@property (nullable, nonatomic, copy) NSDate *timeStamp;
+@property (nullable, nonatomic, copy) NSNumber *timevalue;
+@property (nullable, nonatomic, copy) NSNumber *featured;
+@property (nullable, nonatomic, copy) NSString *reward;
+@property (nullable, nonatomic, retain) NSSet<MOTag *> *tags;
+
+@end
+
+@interface MOTimelineEvent (CoreDataGeneratedAccessors)
+
+- (void)addTagsObject:(MOTag *)value;
+- (void)removeTagsObject:(MOTag *)value;
+- (void)addTags:(NSSet<MOTag *> *)values;
+- (void)removeTags:(NSSet<MOTag *> *)values;
 
 @end
 

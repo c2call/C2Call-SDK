@@ -16,12 +16,14 @@
 #import "SCTimeline.h"
 #import "SCUserProfile.h"
 #import "SCMediaManager.h"
+#import "SCActivity.h"
 #import "debug.h"
 
 @interface SCBroadcastRecordingController ()<UIGestureRecognizerDelegate> {
     BOOL        _toggleView;
     
     BOOL        mediaRecordingStarted;
+    BOOL        broadcastStarted;
 }
 
 @property (nonatomic, weak) AVCaptureVideoPreviewLayer *preview;
@@ -87,6 +89,15 @@
     [[SCMediaManager instance] startVideoCapture];
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
+        //[self stopBroadcasting];
+    }
+}
+
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.destinationViewController isKindOfClass:[SCBroadcastController class]]) {
@@ -113,8 +124,21 @@
     self.broadcastController.broadcastGroupId = _broadcastGroupId;
 }
 
+-(void) reportProgress
+{
+    __weak SCBroadcastRecordingController *weakself = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (weakself) {
+            [SCActivity reportBroadcastPresentation:weakself.broadcastGroupId progress:1];
+            [weakself reportProgress];
+        }
+    });
+}
+
 -(void) startBroadcasting
 {
+    broadcastStarted = YES;
+    
     //[SCMediaManager instance].useGPUImageVideoCapture = YES;
     [[C2CallPhone currentPhone] callVideo:self.broadcastGroupId groupCall:YES];
     
@@ -124,17 +148,42 @@
     SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:self.broadcastGroupId retrieveFromServer:NO];
     
     if ([bcast.groupType isEqualToString:@"BCG_PUBLIC"]) {
-        BOOL res = [[SCTimeline instance] submitTimelineEvent:SCTimeLineEvent_ActivityBroadcastEvent withMessage:bcast.groupDescription andMedia:[NSString stringWithFormat:@"bcast://%@", bcast.groupid] toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
+        
+        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:4];
+        properties[@"featured"] = bcast.isFeatured? @"true" : @"false";
+        
+        if (bcast.reward) {
+            properties[@"reward"] = bcast.reward;
+        }
+        
+        NSArray *tags = bcast.tags;
+        if (tags) {
+            properties[@"tag"] = tags;
+        }
+        
+        BOOL res = [[SCTimeline instance] submitTimelineEvent:SCTimeLineEvent_ActivityBroadcastEvent withMessage:bcast.groupDescription andMedia:[NSString stringWithFormat:@"bcast://%@", bcast.groupid] properties:properties toTimeline:[SCUserProfile currentUser].userid withCompletionHandler:^(BOOL success) {
+            
         }];
     }
+    
+    [SCActivity reportBroadcastPresentationStart:self.broadcastGroupId];
+    [self reportProgress];
 }
 
 -(void) stopBroadcasting
 {
+    if (!broadcastStarted) {
+        return;
+    }
+    broadcastStarted = NO;
+    
     [[C2CallPhone currentPhone] hangUp];
+    [SCActivity reportBroadcastPresentationEnd:self.broadcastGroupId];
+    
     //[SCMediaManager instance].useGPUImageVideoCapture = NO;
     
     if (mediaRecordingStarted) {
+        // This does not happen, we record server side...
         [[SCMediaManager instance] stopMediaRecordingWithCompletionHandler:^(NSString * _Nullable mediaKey) {
             
             if (mediaKey) {

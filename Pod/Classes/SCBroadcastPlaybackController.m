@@ -11,12 +11,25 @@
 #import "SCBroadcast.h"
 #import "C2CallPhone.h"
 #import "SCDataManager.h"
+#import "SCActivity.h"
+
+@interface SCBroadcastPlaybackController ()<SCVLCVideoPlayerViewDelegate> {
+}
+
+@property(nonatomic) BOOL isPlaying;
+@property(nonatomic) BOOL started;
+
+@end
 
 @implementation SCBroadcastPlaybackController
 
 -(void) viewDidLoad
 {
     [super viewDidLoad];
+    self.videoView.delegate = self;
+    self.isPlaying = NO;
+    self.started = NO;
+    
     [self configureView];
 }
 
@@ -25,6 +38,42 @@
     [super viewWillDisappear:animated];
     
     [self.videoView pause:nil];
+    
+    if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
+        [SCActivity reportBroadcastVideoEnd:self.broadcast.groupid];
+    }
+}
+
+-(void) reportProgress
+{
+    __weak SCBroadcastPlaybackController *weakself = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (weakself) {
+            if (weakself.isPlaying) {
+                [SCActivity reportBroadcastVideo:weakself.broadcast.groupid progress:1];
+            }
+            [weakself reportProgress];
+        }
+    });
+}
+
+-(void) playerDidStart;
+{
+    if (!self.started) {
+        self.started = YES;
+        [SCActivity reportBroadcastVideoStart:self.broadcast.groupid];
+    }
+    self.isPlaying = YES;
+}
+
+-(void) playerDidPause;
+{
+    self.isPlaying = NO;
+}
+
+-(void) playerDidStop;
+{
+    self.isPlaying = NO;
 }
 
 -(void) configureView
