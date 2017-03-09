@@ -13,6 +13,7 @@
 #import "SCBroadcastChatController.h"
 #import "SCVideoPlayerView.h"
 #import "MOTimelineEvent.h"
+#import "MOTag.h"
 #import "C2CallPhone.h"
 #import "SCPTTPlayer.h"
 #import "SCTimeline.h"
@@ -62,6 +63,17 @@ static NSCache          *imageCache = nil;
 {
     self.eventId = [event.eventId copy];
     self.userName.text = event.senderName;
+    self.featured = [event.featured boolValue];
+    self.mediaKey = [event.mediaUrl copy];
+    
+    if ([event.tags count] > 0) {
+        NSMutableArray *tags = [NSMutableArray arrayWithCapacity:[event.tags count]];
+        for (MOTag *tag in event.tags) {
+            [tags addObject:@{@"tag": [tag.tag copy]}];
+        }
+        self.tags = tags;
+    }
+    
     UIImage *image = [[C2CallPhone currentPhone] userimageForUserid:event.contact];
     if (image) {
         self.userImage.image = image;
@@ -673,6 +685,8 @@ static NSCache          *imageCache = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess:) name:@"C2CallHandler:LoginSuccess" object:nil];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -703,9 +717,9 @@ static NSCache          *imageCache = nil;
 {
     [super updateFetchRequest];
     
-    if (!initialRefresh && [C2CallPhone currentPhone].loginCompleted) {
+    if (!initialRefresh && [SCDataManager instance].isDataInitialized) {
         initialRefresh = YES;
-        DLog(@"Refresh Timeline!");
+        NSLog(@"Refresh Timeline!");
         [[SCTimeline instance] refreshTimeline];
     }
     
@@ -743,6 +757,14 @@ static NSCache          *imageCache = nil;
     
 }
 
+-(void) loginSuccess:(NSNotification *) notification
+{
+    __weak SCTimelineController *weakself = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakself.tableView reloadData];
+    });
+}
+
 -(void) cellUpdate:(NSNotification *) notification
 {
     UITableViewCell *cell = [notification object];
@@ -765,7 +787,7 @@ static NSCache          *imageCache = nil;
 -(NSFetchRequest *) fetchRequest
 {
     if (![SCDataManager instance].isDataInitialized)
-    return nil;
+        return nil;
     
     self.sectionNameKeyPath = nil;
     self.useDidChangeContentOnly = NO;
@@ -810,7 +832,7 @@ static NSCache          *imageCache = nil;
             int section = (int)self.tableView.numberOfSections - 1;
             int row =  (int)[self.tableView numberOfRowsInSection:section] - 1;
             if (section >= 0 && row >= 0)
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     });
 }

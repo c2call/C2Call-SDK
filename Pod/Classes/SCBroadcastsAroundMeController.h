@@ -19,8 +19,15 @@
 
 @property (nonatomic, strong) NSString *broadcastid;
 
+-(void) configureCell:(MOC2CallBroadcast *) bcast;
+-(void) downloadProgress:(NSNotification *) notification;
+
 @end
 
 @interface SCBroadcastsAroundMeController : SCDataTableViewController
+
+
+-(void) refreshBroadcasts;
+-(void) configureCell:(SCBroadcastCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end

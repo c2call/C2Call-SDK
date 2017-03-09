@@ -23,4 +23,6 @@
 
 @property (nonatomic, strong) SCBroadcast *broadcast;
 
+-(void) configureView;
+
 @end

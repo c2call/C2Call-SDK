@@ -9,6 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+@protocol SCVideoPlayerViewDelegate <NSObject>
+
+@optional
+-(void) playerDidStop;
+-(void) playerDidStart;
+-(void) playerDidReachEnd;
+-(void) playerProgress:(NSUInteger) progress;
+
+@end
+
+
 @interface SCVideoPlayerView : UIView
 
 /** Control's View Outlet */
@@ -39,6 +50,9 @@
 
 /** Rich Media Key of the Video. */
 @property (nonatomic, strong) NSString                  *richMessageKey;
+
+/** Video Play Delegate */
+@property (nonatomic, weak) id<SCVideoPlayerViewDelegate>   delegate;
 
 /** Plays video.
  @param sender - The initiator of the action

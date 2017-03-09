@@ -8,7 +8,7 @@
 
 #import <SocialCommunication/SocialCommunication.h>
 
-@class SCVideoPlayerView, SCPTTPlayer, C2BlockAction, SCVLCVideoPlayerView;
+@class SCVideoPlayerView, SCPTTPlayer, C2BlockAction, SCVLCVideoPlayerView, MOTimelineEvent;
 
 @interface SCTimelineBaseCell : UITableViewCell
 
@@ -22,9 +22,13 @@
 
 @property (atomic, strong) NSString *mediaKey;
 @property (nonatomic,strong) NSNumber *eventId;
+@property (nonatomic, strong) NSArray *tags;
+
+@property (nonatomic) BOOL featured;
 
 -(void) addTapAction:(C2BlockAction *) tapAction;
 -(void) addLongpressAction:(C2BlockAction *) longpressAction;
+-(void) configureCell:(MOTimelineEvent *) event;
 
 @end
 

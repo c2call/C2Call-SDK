@@ -11,9 +11,11 @@
 @protocol SCVLCVideoPlayerViewDelegate <NSObject>
 
 @optional
+
 -(void) playerDidStart;
--(void) playerDidPause;
 -(void) playerDidStop;
+-(void) playerDidReachEnd;
+-(void) playerProgress:(NSUInteger) progress;
 
 
 @end

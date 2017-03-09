@@ -40,22 +40,13 @@
     [self.videoView pause:nil];
     
     if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
-        [SCActivity reportBroadcastVideoEnd:self.broadcast.groupid];
+        if (self.started) {
+            self.started = NO;
+            [SCActivity reportBroadcastVideoEnd:self.broadcast.groupid];
+        }
     }
 }
 
--(void) reportProgress
-{
-    __weak SCBroadcastPlaybackController *weakself = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (weakself) {
-            if (weakself.isPlaying) {
-                [SCActivity reportBroadcastVideo:weakself.broadcast.groupid progress:1];
-            }
-            [weakself reportProgress];
-        }
-    });
-}
 
 -(void) playerDidStart;
 {
@@ -66,14 +57,24 @@
     self.isPlaying = YES;
 }
 
--(void) playerDidPause;
+-(void) playerDidStop;
 {
     self.isPlaying = NO;
 }
 
--(void) playerDidStop;
+-(void) playerDidReachEnd
 {
     self.isPlaying = NO;
+    self.started = NO;
+
+    [SCActivity reportBroadcastVideoEnd:self.broadcast.groupid];
+}
+
+-(void) playerProgress:(NSUInteger)progress
+{
+    //if (progress % 5 == 0) {
+        [SCActivity reportBroadcastVideo:self.broadcast.groupid progress:progress];
+    //}
 }
 
 -(void) configureView
@@ -92,7 +93,7 @@
         NSDateFormatter *dateTime = [[NSDateFormatter alloc] init];
         [dateTime setDateStyle:NSDateFormatterShortStyle];
         [dateTime setTimeStyle:NSDateFormatterShortStyle];
-
+        
         if (self.broadcast.endDate) {
             self.timeInfo.text = [NSString stringWithFormat:@"Ended at %@", [dateTime stringFromDate:self.broadcast.endDate]];
         } else {
