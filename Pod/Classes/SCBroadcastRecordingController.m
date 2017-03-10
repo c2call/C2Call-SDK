@@ -115,6 +115,7 @@
     if ([segue.destinationViewController isKindOfClass:[SCBroadcastStartController class]]) {
         self.broadcastStartController = (SCBroadcastStartController *) segue.destinationViewController;
         self.broadcastStartController.recordingController = self;
+        self.broadcastStartController.preset = self.preset;
     }
 }
 

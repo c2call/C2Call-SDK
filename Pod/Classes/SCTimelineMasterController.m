@@ -20,7 +20,6 @@
 @interface SCTimelineMasterController ()<UITextViewDelegate>
 
 @property(nonatomic, strong) NSMutableDictionary    *currentMessage;
-@property(nonatomic, weak) SCTimelineController     *timelineController;
 @property(nonatomic, strong) NSString               *progressKey;
 
 @end

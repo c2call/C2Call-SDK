@@ -16,7 +16,7 @@
 @property(nonatomic, weak) SCBroadcastStartController    *broadcastStartController;
 @property(nonatomic, weak) SCBroadcastStatusController    *broadcastStatusController;
 
-
+@property(nonatomic, strong) NSDictionary   *preset;
 @property(nonatomic, strong) NSString   *broadcastGroupId;
 
 -(void) startBroadcasting;

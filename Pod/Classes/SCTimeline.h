@@ -16,8 +16,13 @@ typedef enum {
     SCTimeLineEvent_Audio,
     SCTimeLineEvent_ActivityProfilePictureChanged,
     SCTimeLineEvent_ActivityBroadcastEvent,
-    SCTimeLineEvent_ActivityUserStatusChanged
-    
+    SCTimeLineEvent_ActivityUserStatusChanged,
+    SCTimeLineEvent_ActivityBroadcastAttended,
+    SCTimeLineEvent_ActivityVideoWatched,
+    SCTimeLineEvent_ActivityContentInfoRequest,
+    SCTimeLineEvent_ActivityFriendsInvited,
+    SCTimeLineEvent_ActivityFriendJoined,
+    SCTimeLineEvent_ActivityContentShared,
 } SCTimelineEventType;
 
 @interface SCTimeline : NSObject

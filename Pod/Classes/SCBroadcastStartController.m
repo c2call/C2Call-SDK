@@ -61,6 +61,16 @@
         [locationManager startUpdatingLocation];
     }
 
+    if (self.preset) {
+        self.tags = self.preset[@"tags"];
+        self.featured = [self.preset[@"featured"] boolValue];
+        self.reward = self.preset[@"reward"];
+        
+        NSString *name = self.preset[@"name"];
+        if ([name length] > 0) {
+            self.broadcastName.text = self.preset[@"name"];
+        }
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated

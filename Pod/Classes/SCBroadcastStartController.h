@@ -22,6 +22,8 @@
 @property (nonatomic) BOOL              featured;
 @property (strong, nonatomic) NSString  *reward;
 
+@property (nonatomic, strong) NSDictionary  *preset;
+
 @property (weak, nonatomic) SCBroadcastRecordingController *recordingController;
 
 @end

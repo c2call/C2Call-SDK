@@ -10,7 +10,7 @@
 #import "SCTimelineController.h"
 
 @protocol  SCTimelineControllerDelegate;
-
+@class SCTimelineController;
 
 @interface SCTimelineMasterController : UIViewController<SCTimelineControllerDelegate>
 
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressViewHeight;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
+@property(nonatomic, weak) SCTimelineController     *timelineController;
 
 - (IBAction) addImage:(id)sender;
 - (IBAction) addVideo:(id)sender;
