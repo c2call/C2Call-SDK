@@ -239,6 +239,7 @@ cp "../SocialCommunication/SCGroupDetailHeaderController.m" "Pod/Classes/SCGroup
 cp "../SocialCommunication/SCGroupMemberCell.h" "Pod/Classes/SCGroupMemberCell.h"
 cp "../SocialCommunication/SCGroupNameCell.h" "Pod/Classes/SCGroupNameCell.h"
 cp "../SocialCommunication/SCGroupVideoCallController.h" "Pod/Classes/SCGroupVideoCallController.h"
+cp "../SocialCommunication/SCAbstractGroupVideoController.h" "Pod/Classes"
 cp "../SocialCommunication/SCHangoutBubbleViewIn.h" "Pod/Classes/SCHangoutBubbleViewIn.h"
 cp "../SocialCommunication/SCHangoutBubbleViewOut.h" "Pod/Classes/SCHangoutBubbleViewOut.h"
 cp "../SocialCommunication/SCHorizontalLineView.h" "Pod/Classes/SCHorizontalLineView.h"

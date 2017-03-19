@@ -31,6 +31,7 @@
 @property (nonatomic, strong) IBOutlet UIButton        *expandButton;
 @property (nonatomic, strong) UILabel                  *nameLabel;
 @property (nonatomic, weak) dispatch_queue_t           openglesQueue;
+@property (nonatomic) CGSize                              videoSize;
 
 - (void)setFramebuffer;
 - (void)deleteFramebuffer;
