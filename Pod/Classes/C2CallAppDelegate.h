@@ -330,6 +330,6 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
  @return Current Application Delegate
  
  */
-+(C2CallAppDelegate *) appDelegate;
++(instancetype) appDelegate;
 
 @end

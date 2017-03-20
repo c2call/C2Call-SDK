@@ -1477,6 +1477,13 @@ typedef enum {
  */
 -(nullable NSDictionary *) getUserInfoForUserid:(nonnull NSString *) userid;
 
+/** For internal use only */
+-(nullable NSString *) getMeetingForMeetingId:(nonnull NSString *) meetingId;
+
+/** For internal use only */
+-(nullable NSString *) getMeetingIdForMeetingGroup:(nonnull NSString *) groupid;
+
+
 /** Transfers the iOS address book to automatically find friends.
  
  The C2Call SDK provides different visibility levels for users inside the C2Call user database.
