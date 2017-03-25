@@ -2,23 +2,26 @@
 //  MOCallHistory+CoreDataProperties.m
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 13/06/16.
+//  Created by Michael Knecht on 22.03.17.
 //
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
 #import "MOCallHistory+CoreDataProperties.h"
 
 @implementation MOCallHistory (CoreDataProperties)
 
++ (NSFetchRequest<MOCallHistory *> *)fetchRequest {
+	return [[NSFetchRequest alloc] initWithEntityName:@"MOCallHistory"];
+}
+
 @dynamic contact;
 @dynamic lastEventId;
 @dynamic lastMissedEvent;
 @dynamic lastTimestamp;
+@dynamic meeting;
 @dynamic missedEvents;
 @dynamic userType;
+@dynamic requireUpdate;
 @dynamic callHistory;
 
 @end

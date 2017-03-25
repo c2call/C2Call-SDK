@@ -6,19 +6,4 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-
-@class MOC2CallEvent;
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MOCallHistory : NSManagedObject
-
-// Insert code here to declare functionality of your managed object subclass
-
-@end
-
-NS_ASSUME_NONNULL_END
-
-#import "MOCallHistory+CoreDataProperties.h"
+#import "MOCallHistory+CoreDataClass.h"

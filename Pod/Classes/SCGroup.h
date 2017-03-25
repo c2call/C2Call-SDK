@@ -31,6 +31,16 @@
  */
 - (id)initWithGroupid:(NSString *) groupid;
 
+/** Instantiate the group with groupid
+ 
+ The Group Data will be retrieved from Server is requested
+ 
+ @param groupid - Groupid of the group
+ @param retrieve - Load new data from server
+ @return SCGroup object
+ */
+- (id)initWithGroupid:(NSString *) groupid retrieveFromServer:(BOOL) retrieve;
+
 /** List of userids of group members 
  
  @return Array of group members

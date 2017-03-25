@@ -2,25 +2,27 @@
 //  MOCallHistory+CoreDataProperties.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 13/06/16.
+//  Created by Michael Knecht on 22.03.17.
 //
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
-#import "MOCallHistory.h"
+#import "MOCallHistory+CoreDataClass.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MOCallHistory (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *contact;
-@property (nullable, nonatomic, retain) NSString *lastEventId;
-@property (nullable, nonatomic, retain) NSDate *lastMissedEvent;
-@property (nullable, nonatomic, retain) NSDate *lastTimestamp;
-@property (nullable, nonatomic, retain) NSNumber *missedEvents;
-@property (nullable, nonatomic, retain) NSNumber *userType;
++ (NSFetchRequest<MOCallHistory *> *)fetchRequest;
+
+@property (nullable, nonatomic, copy) NSString *contact;
+@property (nullable, nonatomic, copy) NSString *lastEventId;
+@property (nullable, nonatomic, copy) NSDate *lastMissedEvent;
+@property (nullable, nonatomic, copy) NSDate *lastTimestamp;
+@property (nonatomic) BOOL meeting;
+@property (nullable, nonatomic, copy) NSNumber *missedEvents;
+@property (nullable, nonatomic, copy) NSNumber *userType;
+@property (nonatomic) BOOL requireUpdate;
 @property (nullable, nonatomic, retain) NSSet<MOC2CallEvent *> *callHistory;
 
 @end
