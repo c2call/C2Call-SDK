@@ -25,7 +25,6 @@
 @interface SCBroadcastStartController () <CLLocationManagerDelegate>{
     BOOL startingBroadcast;
     CLLocationManager   *locationManager;
-    CLLocation          *currentLocation;
 }
 
 @property(nonatomic, strong) NSArray    *members;
@@ -43,7 +42,7 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.startButton.enabled = NO;
     
     locationManager = [[CLLocationManager alloc] init];
@@ -60,7 +59,7 @@
     } else {
         [locationManager startUpdatingLocation];
     }
-
+    
     if (self.preset) {
         self.tags = self.preset[@"tags"];
         self.featured = [self.preset[@"featured"] boolValue];
@@ -83,6 +82,17 @@
         self.cameraSwitch.selected = NO;
     }
     
+    if (self.locationKey) {
+        self.locationButton.selected = YES;
+    } else {
+        self.locationButton.selected = NO;
+    }
+    
+    if ([self.members count] > 0) {
+        self.membersButton.selected = YES;
+    } else {
+        self.membersButton.selected = NO;
+    }
 }
 
 - (void)dealloc
@@ -149,7 +159,7 @@
             [nav dismissViewControllerAnimated:YES completion:NULL];
         }];
     }
-
+    
 }
 
 
@@ -180,7 +190,7 @@
             properties = @{@"LocationName" : loc.title, @"Longitude": [@(loc.locationCoordinate.longitude) stringValue], @"Latitude": [@(loc.locationCoordinate.latitude) stringValue]};
         } else {
             properties = @{@"Longitude": [@(loc.locationCoordinate.longitude) stringValue], @"Latitude": [@(loc.locationCoordinate.latitude) stringValue]};
-        }        
+        }
     } else if (self.currentLocation) {
         properties = @{@"Longitude": [@(self.currentLocation.coordinate.longitude) stringValue], @"Latitude": [@(self.currentLocation.coordinate.latitude) stringValue]};
     }
@@ -203,7 +213,7 @@
     
     NSString *bcastName = self.broadcastName.text;
     if ([bcastName length] == 0) {
-    NSDateFormatter *dateTime = [[NSDateFormatter alloc] init];
+        NSDateFormatter *dateTime = [[NSDateFormatter alloc] init];
         [dateTime setDateStyle:NSDateFormatterShortStyle];
         [dateTime setTimeStyle:NSDateFormatterShortStyle];
         bcastName = [NSString stringWithFormat:@"Video Broadcast from %@", [dateTime stringFromDate:[NSDate date]]];
@@ -213,7 +223,7 @@
         
         if (success) {
             [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
-            
+                
                 if (image) {
                     image = [ImageUtil fixImage:image withQuality:UIImagePickerControllerQualityTypeLow];
                     

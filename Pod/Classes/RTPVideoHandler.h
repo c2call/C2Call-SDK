@@ -96,6 +96,11 @@
 	BOOL                    lastDecodedKeyframe; // = false; 
 	BOOL                    decoding, forceKF, disposed; // = false;
     
+    // Bitrate MM
+    int                     targetBitrate;
+    int                     currentBitrate;
+    int                     adjustBitrate;
+    
     id<VideoHandlerDelegate, NSObject> delegate;
 }
 
@@ -108,6 +113,9 @@
 @property(nonatomic, strong) CALayer  *previewLayer;
 @property(nonatomic, strong) id<VideoHandlerDelegate, NSObject> delegate;
 @property(nonatomic) BOOL disposed;
+@property(nonatomic) BOOL useBitrateManagement;
+@property(nonatomic) BOOL adjustBitrate;
+
 
 
 - (id)initWithRTPSession:(RTPSession *) _session;

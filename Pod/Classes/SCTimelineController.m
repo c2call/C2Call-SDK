@@ -103,6 +103,61 @@ static NSCache          *imageCache = nil;
     [self notifyCellUpdate:YES];
 }
 
+-(IBAction)share:(id)sender
+{
+    NSString *textToShare = self.textView.text;
+    NSURL *mediaUrl = nil;
+    SCRichMediaType mediaType = [[C2CallPhone currentPhone] mediaTypeForKey:self.mediaKey];
+    
+    if (mediaType == SCMEDIATYPE_TEXT && [textToShare length] == 0) {
+        return;
+    }
+    
+    UIActivityViewController *activityViewController = nil;
+    
+    switch (mediaType) {
+        case SCMEDIATYPE_TEXT:
+        {
+            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];
+        }
+            break;
+        case SCMEDIATYPE_IMAGE:
+        case SCMEDIATYPE_USERIMAGE:
+        case SCMEDIATYPE_VIDEO:
+        case SCMEDIATYPE_VOICEMAIL:
+        case SCMEDIATYPE_FILE:
+        {
+            mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:self.mediaKey];
+        }
+            break;
+        case SCMEDIATYPE_LOCATION:{
+            FCLocation *loc = [[FCLocation alloc] initWithKey:self.mediaKey];
+            mediaUrl = [loc storeLocationAsVCard];
+        }
+            break;
+        default:
+            break;
+    }
+
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:2];
+    if ([textToShare length] > 0) {
+        [items addObject:textToShare];
+    }
+    
+    
+    if (mediaUrl) {
+        [items addObject:mediaUrl];
+    }
+
+    if ([items count] == 0) {
+        return;
+    }
+
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+    //activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList]; //Exclude whichever aren't relevant
+    [self.controller presentViewController:activityVC animated:YES completion:nil];
+}
+
 -(void) monitorUploadForKey:(NSString *) key
 {
     if ([key rangeOfString:@"(null)"].location != NSNotFound) {
@@ -925,6 +980,7 @@ static NSCache          *imageCache = nil;
     
     if ([cell isKindOfClass:[SCTimelineBaseCell class]]) {
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
+        bcell.controller = self;
         
         [bcell configureCell:event];
     }
