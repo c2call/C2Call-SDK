@@ -14,4 +14,9 @@
 
 @property (weak, nonatomic) SCBroadcastRecordingController *recordingController;
 
+-(void) updateBroadcastStatus;
+
+-(void) onlineUsers:(NSInteger) onlineUsers;
+-(void) timeElapsed:(NSTimeInterval) elapsedTime;
+
 @end

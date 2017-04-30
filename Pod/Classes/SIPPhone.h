@@ -716,6 +716,13 @@ typedef enum {
  */
 +(void) setUseG729:(BOOL) use;
 
+/** Use iOS 10 CallKit
+ 
+ @param useCallKit - Enable / Disable CallKit
+ 
+ */
++(void) setUseCallKit:(BOOL)useCallKit;
+
 /** Force Ringing instead of SessionProgress
  
  SessionProgress is the ringback tone send by the receiver when the other phone is ringing.

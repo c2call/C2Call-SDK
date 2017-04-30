@@ -167,6 +167,15 @@
     [sender resignFirstResponder];
 }
 
+-(NSString *) broadcastDefaultName
+{
+    NSDateFormatter *dateTime = [[NSDateFormatter alloc] init];
+    [dateTime setDateStyle:NSDateFormatterShortStyle];
+    [dateTime setTimeStyle:NSDateFormatterShortStyle];
+
+    return [NSString stringWithFormat:@"Video Broadcast from %@", [dateTime stringFromDate:[NSDate date]]];
+}
+    
 - (IBAction)startVideo:(id)sender {
     
     if (startingBroadcast)
@@ -213,10 +222,7 @@
     
     NSString *bcastName = self.broadcastName.text;
     if ([bcastName length] == 0) {
-        NSDateFormatter *dateTime = [[NSDateFormatter alloc] init];
-        [dateTime setDateStyle:NSDateFormatterShortStyle];
-        [dateTime setTimeStyle:NSDateFormatterShortStyle];
-        bcastName = [NSString stringWithFormat:@"Video Broadcast from %@", [dateTime stringFromDate:[NSDate date]]];
+        bcastName = [self broadcastDefaultName];
     }
     
     [[C2CallPhone currentPhone] createBroadcast:bcastName withProperties:properties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {

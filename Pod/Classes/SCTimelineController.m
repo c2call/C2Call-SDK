@@ -69,7 +69,8 @@ static NSCache          *imageCache = nil;
     if ([event.tags count] > 0) {
         NSMutableArray *tags = [NSMutableArray arrayWithCapacity:[event.tags count]];
         for (MOTag *tag in event.tags) {
-            [tags addObject:@{@"tag": [tag.tag copy]}];
+            BOOL tagFeatured = [tag.featured boolValue];
+            [tags addObject:@{@"tag": [tag.tag copy], @"referenceUrl": tag.referenceUrl?[tag.referenceUrl copy]: @"", @"reward":tag.reward? [tag.reward copy]: @"", @"description" : tag.infoText? [tag.infoText copy]: @"", @"featured" : tagFeatured? @"true" : @"false"}];
         }
         self.tags = tags;
     }
@@ -325,6 +326,43 @@ static NSCache          *imageCache = nil;
 
 @implementation SCTimelineBroadcastCell
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void) broadcastStateChanged:(NSNotification *) notification
+{
+    if (!self.bcastId)
+        return;
+    
+    if ([[notification userInfo][self.bcastId] isEqualToString:@"started"]) {
+        [self isLife:YES];
+    }
+    if ([[notification userInfo][self.bcastId] isEqualToString:@"ended"]) {
+        [self isLife:NO];
+    }
+}
+
+-(void) isLife:(BOOL) isLife
+{
+    
+}
+
+-(void) onlineUsers:(NSInteger) onlineUsers
+{
+    
+}
+
 -(void) prepareForReuse
 {
     [super prepareForReuse];
@@ -338,6 +376,8 @@ static NSCache          *imageCache = nil;
     NSString *bcast = event.mediaUrl;
     
     NSString *bcastId = [bcast substringFromIndex:@"bcast://".length];
+    self.bcastId = bcastId;
+    
     NSString *imageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:bcastId];
     
     self.mediaKey = [imageKey copy];
@@ -363,6 +403,8 @@ static NSCache          *imageCache = nil;
         if ([weakself.mediaKey isEqualToString:imageKey]) {
             if ([broadcast isLive]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakself isLife:YES];
+                    [weakself onlineUsers:broadcast.onlineUsers];
                     weakself.broadcastInfo.text = @"Live Broadcast";
                     weakself.textView.text = broadcastText;
                     [[SCTimeline instance] startLiveBroadcastMonitoring];
@@ -371,6 +413,9 @@ static NSCache          *imageCache = nil;
                 if (broadcast.startDate || broadcast.endDate) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakself isLife:NO];
+                        [weakself onlineUsers:broadcast.onlineUsers];
+                        
                         weakself.textView.text = broadcastText;
                         if (broadcast.endDate) {
                             weakself.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Ended at %@", [dateTime stringFromDate:broadcast.endDate]];
@@ -614,6 +659,17 @@ static NSCache          *imageCache = nil;
 @end
 
 @implementation SCTimelineMessageCell
+
+-(void) configureCell:(MOTimelineEvent *) event
+{
+    [super configureCell:event];
+    
+    
+}
+
+@end
+
+@implementation SCTimelineEventCell
 
 -(void) configureCell:(MOTimelineEvent *) event
 {
@@ -969,7 +1025,39 @@ static NSCache          *imageCache = nil;
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastEvent]]) {
         return @"SCTimelineBroadcastCell";
     }
+
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityFriendJoined]]) {
+        return @"SCTimelineEventCell";
+    }
     
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityVideoWatched]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityContentShared]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityFriendsInvited]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastAttended]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityUserStatusChanged]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityContentInfoRequest]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityProfilePictureChanged]]) {
+        return @"SCTimelineEventCell";
+    }
+
     return self.cellIdentifier;
 }
 
@@ -1052,7 +1140,7 @@ static NSCache          *imageCache = nil;
 {
     [super controllerDidChangeContent:controller];
     
-    DLog(@"controllerDidChangeContent: %d", [[self.fetchedResultsController fetchedObjects] count]);
+    DLog(@"controllerDidChangeContent: %ld", [[self.fetchedResultsController fetchedObjects] count]);
     if (scrollToTop) {
         scrollToTop = NO;
         [self scrollToTop];

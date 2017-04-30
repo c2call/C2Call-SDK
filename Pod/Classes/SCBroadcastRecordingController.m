@@ -166,7 +166,9 @@
             
         }];
     }
-    
+
+    [self.broadcastStatusController updateBroadcastStatus];
+
     [SCActivity reportBroadcastPresentationStart:self.broadcastGroupId];
     [self reportProgress];
 }

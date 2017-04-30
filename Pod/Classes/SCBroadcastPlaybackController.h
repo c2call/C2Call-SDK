@@ -24,5 +24,9 @@
 @property (nonatomic, strong) SCBroadcast *broadcast;
 
 -(void) configureView;
+-(void) playerDidStart;
+-(void) playerDidStop;
+-(void) playerDidReachEnd;
+-(void) playerProgress:(NSUInteger)progress;
 
 @end

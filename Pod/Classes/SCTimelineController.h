@@ -44,6 +44,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *eventImage;
 @property (weak, nonatomic) IBOutlet UILabel *broadcastInfo;
+@property (strong, nonatomic) NSString  *bcastId;
+
+-(void) isLife:(BOOL) isLife;
+-(void) onlineUsers:(NSInteger) onlineUsers;
 
 @end
 
@@ -69,6 +73,10 @@
 @end
 
 @interface SCTimelineMessageCell : SCTimelineBaseCell
+
+@end
+
+@interface SCTimelineEventCell : SCTimelineBaseCell
 
 @end
 

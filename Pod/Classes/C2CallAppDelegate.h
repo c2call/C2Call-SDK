@@ -126,6 +126,10 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
  */
 @property(nonatomic, strong) NSSet              *pushKitPushTypes;
 
+/** Use iOS 10 CallKit
+ */
+@property(nonatomic) BOOL                       useCallKit;
+
 
 /** Is the user with the current credentials logged in and has a server session
  */

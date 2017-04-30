@@ -150,6 +150,19 @@
  */
 -(nullable NSArray *) allTagsFeatured:(BOOL) featured;
 
+/** Returns the list tags (NSDictionary) for Tag Names
+ 
+ @param tagNames - List of Tag Names
+ @return Array of tags
+ */
+-(NSArray<NSDictionary *> *) tagsForTagNames:(NSArray *) tagNames;
+
+/** Returns the list of all tags (NSDictionary)
+ 
+ @return Array of tags
+ */
+-(NSArray<NSDictionary *> *) allTagsAsDictionary;
+
 /** Save additional phone numbers for a friend contact
  
  @param number - The phone number

@@ -2,7 +2,7 @@
 //  MOTag+CoreDataProperties.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 01.03.17.
+//  Created by Michael Knecht on 29.04.17.
 //
 //
 
@@ -15,24 +15,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<MOTag *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *tag;
 @property (nullable, nonatomic, copy) NSNumber *featured;
-@property (nullable, nonatomic, retain) NSSet<MOTimelineEvent *> *timelineItems;
+@property (nullable, nonatomic, copy) NSString *tag;
+@property (nullable, nonatomic, copy) NSString *referenceUrl;
+@property (nullable, nonatomic, copy) NSString *infoText;
+@property (nullable, nonatomic, copy) NSString *reward;
 @property (nullable, nonatomic, retain) NSSet<MOC2CallBroadcast *> *broadcasts;
+@property (nullable, nonatomic, retain) NSSet<MOTimelineEvent *> *timelineItems;
 
 @end
 
 @interface MOTag (CoreDataGeneratedAccessors)
 
-- (void)addTimelineItemsObject:(MOTimelineEvent *)value;
-- (void)removeTimelineItemsObject:(MOTimelineEvent *)value;
-- (void)addTimelineItems:(NSSet<MOTimelineEvent *> *)values;
-- (void)removeTimelineItems:(NSSet<MOTimelineEvent *> *)values;
-
 - (void)addBroadcastsObject:(MOC2CallBroadcast *)value;
 - (void)removeBroadcastsObject:(MOC2CallBroadcast *)value;
 - (void)addBroadcasts:(NSSet<MOC2CallBroadcast *> *)values;
 - (void)removeBroadcasts:(NSSet<MOC2CallBroadcast *> *)values;
+
+- (void)addTimelineItemsObject:(MOTimelineEvent *)value;
+- (void)removeTimelineItemsObject:(MOTimelineEvent *)value;
+- (void)addTimelineItems:(NSSet<MOTimelineEvent *> *)values;
+- (void)removeTimelineItems:(NSSet<MOTimelineEvent *> *)values;
 
 @end
 

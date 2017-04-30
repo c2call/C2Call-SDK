@@ -65,9 +65,12 @@
 -(void) playerDidReachEnd
 {
     self.isPlaying = NO;
-    self.started = NO;
+    
+    if (self.started) {
+        self.started = NO;
 
-    [SCActivity reportBroadcastVideoEnd:self.broadcast.groupid];
+        [SCActivity reportBroadcastVideoEnd:self.broadcast.groupid];
+    }
 }
 
 -(void) playerProgress:(NSUInteger)progress
