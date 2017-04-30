@@ -679,11 +679,13 @@
 {
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SCNoRecordsCell"];
-        if (self.activeFilter || self.textFilter) {
-            cell.textLabel.text = NSLocalizedString(@"Search result is empty.\nTouch to remove search filter!", @"CellText");
-        } else {
-            cell.textLabel.text = NSLocalizedString(@"No FriendCaller contacts found.", @"CellText");
-        }
+        /*
+         if (self.activeFilter || self.textFilter) {
+         cell.textLabel.text = NSLocalizedString(@"Search result is empty.\nTouch to remove search filter!", @"CellText");
+         } else {
+         cell.textLabel.text = nil;//NSLocalizedString(@"No FriendCaller contacts found.", @"CellText");
+         }
+         */
         return cell;
     }
 

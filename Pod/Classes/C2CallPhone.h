@@ -1425,6 +1425,87 @@ typedef enum {
  */
 -(void) transferAddressBook:(BOOL) force;
 
+// Manage Manual Invites with Confirm
+/**---------------------------------------------------------------------------------------
+ * @name Manage Manual Invites with Confirm
+ *  ---------------------------------------------------------------------------------------
+ */
+
+/** Request a connection to an existing user via email address
+
+ Request a friend connection it an existing user.
+ The user must confirm this connection request using method 
+ confirmInviteForId:
+ 
+ @param email - email address
+ @param comment - Optional comment
+ */
+-(BOOL) addInviteForEmail:(nonnull NSString *) email comment:(nullable NSString *) comment;
+
+/** List invitations to connect
+ 
+ The method return an array of dictionaries with open invitations
+ This invitations must be confirmed, revoked or blocked
+ 
+ Dictionary Values:
+    id - The id for confirm, revoke, block
+    InvitedUserid - Userid of the invited user (the current active user)
+    ByUserid - Userid of the inviting user
+    TStamp - TimeStamp in MS since 1970 UTC
+    comment - Optional comment for this invite
+ 
+ 
+ @return Array of Dictionaries
+ */
+-(nullable NSArray *) listOpenInvitations;
+
+/** List my own invite requests
+ 
+ The method return an array of dictionaries with open/unconfirmed invitations
+ This invitations can revoked id not longer valid
+ 
+ Dictionary Values:
+ id - The id for confirm, revoke, block
+ InvitedUserid - Userid of the invited user (the current active user)
+ ByUserid - Userid of the inviting user
+ TStamp - TimeStamp in MS since 1970 UTC
+ comment - Optional comment for this invite
+ 
+ 
+ @return Array of Dictionaries
+ */
+-(nullable NSArray *) listRequestedInvitations;
+
+/** Confirm open Invite
+ 
+ Use the "id" value from listOpenInvitations to confirm the invite
+ 
+ @param id  - ID of the open invitation
+ @return YES - success
+ */
+-(BOOL) confirmInviteForId:(int) idnum;
+
+/** Revoke/Reject open/pending Invite
+ 
+ Use the "id" value from listOpenInvitations or
+ listRequestedInvitations to revoke the invite
+ 
+ @param id  - ID of the open invitation
+ @return YES - success
+ */
+-(BOOL) revokeInviteForId:(int) idnum;
+
+/** Block open/pending Invite
+ 
+ Use the "id" value from listOpenInvitations or
+ listRequestedInvitations to block the invite
+ 
+ @param id  - ID of the open invitation
+ @return YES - success
+ */
+-(BOOL) blockInviteForId:(int) idnum;
+
+
 // Manage User Credits
 /**---------------------------------------------------------------------------------------
  * @name Manage User Credits
@@ -1436,8 +1517,8 @@ typedef enum {
  The price information will be queried ansychronously 
  Please register an NSNofication observer for @"PriceInfoEvent"
  
- @number - Phone number in international format 
- @isSMS - YES : Query the prices for sending SMS / NO : query the price for phone calls
+ @param number - Phone number in international format
+ @param isSMS - YES : Query the prices for sending SMS / NO : query the price for phone calls
  */
 
 -(void) queryPriceForNumber:(nonnull NSString *) number isSMS:(BOOL) isSMS;
