@@ -30,6 +30,7 @@
 -(void) addTapAction:(C2BlockAction *) tapAction;
 -(void) addLongpressAction:(C2BlockAction *) longpressAction;
 -(void) configureCell:(MOTimelineEvent *) event;
+-(void) notifyCellUpdate:(BOOL) forceReload;
 
 -(IBAction)share:(id)sender;
 
