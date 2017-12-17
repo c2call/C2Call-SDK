@@ -23,6 +23,8 @@ typedef enum {
     SCTimeLineEvent_ActivityFriendsInvited,
     SCTimeLineEvent_ActivityFriendJoined,
     SCTimeLineEvent_ActivityContentShared,
+    SCTimeLineEvent_ActivityLike,
+
 } SCTimelineEventType;
 
 @interface SCTimeline : NSObject
@@ -39,6 +41,7 @@ typedef enum {
 -(BOOL) canLikeEvent:(NSNumber *) eventId;
 -(void) dislikeEvent:(NSNumber *) eventId;
 -(BOOL) canDislikeEvent:(NSNumber *) eventId;
+-(BOOL) deleteTimelineEvent:(NSNumber *) msgid;;
 
 -(void) startLiveBroadcastMonitoring;
 

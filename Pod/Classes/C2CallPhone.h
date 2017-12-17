@@ -26,6 +26,7 @@ typedef enum {
     SCMEDIATYPE_VCARD,
     SCMEDIATYPE_FRIEND,
     SCMEDIATYPE_LOCATION,
+    SCMEDIATYPE_BROADCAST,
 } SCRichMediaType;
 
 typedef enum {
@@ -1172,6 +1173,16 @@ typedef enum {
  */
 -(BOOL) retrieveObjectForKey:(nonnull NSString *)key completion:(nullable void (^)(BOOL finished))completion;
 
+/** Downloads video thumbnail from the server.
+ 
+ @param key - rich message key of the media file
+ @param completion - Completion Handler, once the file download is completed.
+ 
+ @return success / failure
+ */
+
+-(void) retrieveVideoThumbnailForKey:(nonnull NSString*) key completionHandler:(nullable void (^)(UIImage  * _Nullable thumbnail)) completion;
+
 /** Upload rich media object to server
  
  Upload a locally stored rich media object to the server.
@@ -1353,6 +1364,26 @@ typedef enum {
  */
 -(nullable UIImage *) thumbnailForKey:(nonnull NSString *) key;
 
+/** Is Thumbnail Image for a given rich media key available in the cache.
+
+ @param key - rich message key of the media file
+ @return YES / NO
+ */
+-(BOOL) hasThumbnailForKey:(nonnull NSString *) key;
+
+
+/** Refresh Thumbnail Image for a given rich media key.
+ 
+ The system automatically creates thumbnails from video and picture messages.
+ Thumbnails in cache will be re-created with the most current image.
+ 
+ @param key - rich message key of the media file
+ 
+ @return Thumbnail Image
+ 
+ */
+-(nullable UIImage *) refreshThumbnailForKey:(nonnull NSString *) key;
+
 /** Helper Function to discover the media type of an incoming message.
  
  A message can always be a regular text message or a rich media key. 
@@ -1499,6 +1530,87 @@ typedef enum {
  */
 -(void) transferAddressBook:(BOOL) force;
 
+// Manage Manual Invites with Confirm
+/**---------------------------------------------------------------------------------------
+ * @name Manage Manual Invites with Confirm
+ *  ---------------------------------------------------------------------------------------
+ */
+
+/** Request a connection to an existing user via email address
+
+ Request a friend connection it an existing user.
+ The user must confirm this connection request using method 
+ confirmInviteForId:
+ 
+ @param email - email address
+ @param comment - Optional comment
+ */
+-(BOOL) addInviteForEmail:(nonnull NSString *) email comment:(nullable NSString *) comment;
+
+/** List invitations to connect
+ 
+ The method return an array of dictionaries with open invitations
+ This invitations must be confirmed, revoked or blocked
+ 
+ Dictionary Values:
+    id - The id for confirm, revoke, block
+    InvitedUserid - Userid of the invited user (the current active user)
+    ByUserid - Userid of the inviting user
+    TStamp - TimeStamp in MS since 1970 UTC
+    comment - Optional comment for this invite
+ 
+ 
+ @return Array of Dictionaries
+ */
+-(nullable NSArray *) listOpenInvitations;
+
+/** List my own invite requests
+ 
+ The method return an array of dictionaries with open/unconfirmed invitations
+ This invitations can revoked id not longer valid
+ 
+ Dictionary Values:
+ id - The id for confirm, revoke, block
+ InvitedUserid - Userid of the invited user (the current active user)
+ ByUserid - Userid of the inviting user
+ TStamp - TimeStamp in MS since 1970 UTC
+ comment - Optional comment for this invite
+ 
+ 
+ @return Array of Dictionaries
+ */
+-(nullable NSArray *) listRequestedInvitations;
+
+/** Confirm open Invite
+ 
+ Use the "id" value from listOpenInvitations to confirm the invite
+ 
+ @param id  - ID of the open invitation
+ @return YES - success
+ */
+-(BOOL) confirmInviteForId:(int) idnum;
+
+/** Revoke/Reject open/pending Invite
+ 
+ Use the "id" value from listOpenInvitations or
+ listRequestedInvitations to revoke the invite
+ 
+ @param id  - ID of the open invitation
+ @return YES - success
+ */
+-(BOOL) revokeInviteForId:(int) idnum;
+
+/** Block open/pending Invite
+ 
+ Use the "id" value from listOpenInvitations or
+ listRequestedInvitations to block the invite
+ 
+ @param id  - ID of the open invitation
+ @return YES - success
+ */
+-(BOOL) blockInviteForId:(int) idnum;
+
+
 // Manage User Credits
 /**---------------------------------------------------------------------------------------
  * @name Manage User Credits
@@ -1510,8 +1622,8 @@ typedef enum {
  The price information will be queried ansychronously 
  Please register an NSNofication observer for @"PriceInfoEvent"
  
- @number - Phone number in international format 
- @isSMS - YES : Query the prices for sending SMS / NO : query the price for phone calls
+ @param number - Phone number in international format
+ @param isSMS - YES : Query the prices for sending SMS / NO : query the price for phone calls
  */
 
 -(void) queryPriceForNumber:(nonnull NSString *) number isSMS:(BOOL) isSMS;
@@ -1717,6 +1829,13 @@ typedef enum {
  */
 
 -(void) reportInvitedFriends:(nonnull NSArray *) addresslist;
+
+/** Report Abusing Timeline Content
+ @param contentId - Timeline Id of Abusing content
+ @param comment - Optional Comment
+ @param addresslist - List of Emails or Phone Numbers
+ */
+-(void) reportAbusingTimelineContent:(nonnull NSString *) contentId comment:(nullable NSString *) comment;
 
 /**---------------------------------------------------------------------------------------
  * @name Static Methods

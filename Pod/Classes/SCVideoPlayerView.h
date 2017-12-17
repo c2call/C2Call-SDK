@@ -12,6 +12,9 @@
 @protocol SCVideoPlayerViewDelegate <NSObject>
 
 @optional
+-(void) playerDidFailToLoad;
+-(void) playerDidLoad;
+-(void) playerReadyToDisplay:(CGRect) videoRect;
 -(void) playerDidStop;
 -(void) playerDidStart;
 -(void) playerDidReachEnd;
@@ -48,11 +51,25 @@
 /** Media URL of the Video. */
 @property (nonatomic, strong) NSURL                     *mediaUrl;
 
+/** AVURLAsset of the Video. */
+@property (nonatomic, readonly) AVURLAsset              *urlAsset;
+
 /** Rich Media Key of the Video. */
 @property (nonatomic, strong) NSString                  *richMessageKey;
 
 /** Video Play Delegate */
 @property (nonatomic, weak) id<SCVideoPlayerViewDelegate>   delegate;
+
+/** Video Size if available, else CGSizeZero */
+-(CGSize) videoSize;
+
+/** Set the AVAsset directly instead of mediaUrl
+ 
+ Call in MainThread only
+ 
+ @param asset - The media asset. Status must be loaded.
+ */
+-(void) setMediaAsset:(AVURLAsset *) asset;
 
 /** Plays video.
  @param sender - The initiator of the action

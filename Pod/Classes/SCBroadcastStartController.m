@@ -19,6 +19,8 @@
 #import "C2CallAppDelegate.h"
 #import "FCLocation.h"
 #import "SCFlatButton.h"
+#import "SCGroup.h"
+#import "SCUserProfile.h"
 #import "ImageUtil.h"
 #import "IOS.h"
 
@@ -135,7 +137,25 @@
         SCUserSelectionController *vc = (SCUserSelectionController *) nav.topViewController;
         
         [vc setResultAction:^(NSArray *result) {
-            self.members = result;
+            
+            NSMutableArray *bcastMembers = [NSMutableArray arrayWithCapacity:100];
+            for (NSString *userid in result) {
+                if ([[C2CallPhone currentPhone] isGroupUser:userid]) {
+                    SCGroup *group = [[SCGroup alloc] initWithGroupid:userid retrieveFromServer:NO];
+                    NSString *myuserid = [SCUserProfile currentUser].userid;
+                    for (NSString *gmember in group.groupMembers) {
+                        if ([gmember isEqualToString:myuserid]) {
+                            continue;
+                        }
+                        
+                        [bcastMembers addObject:gmember];
+                    }
+                } else {
+                    [bcastMembers addObject:userid];
+                }
+            }
+            
+            self.members = bcastMembers;
             
             [nav dismissViewControllerAnimated:YES completion:NULL];
         }];
@@ -228,19 +248,28 @@
     [[C2CallPhone currentPhone] createBroadcast:bcastName withProperties:properties withMembers:self.members withCompletionHandler:^(BOOL success, NSString * _Nullable bcastId, NSString * _Nullable result) {
         
         if (success) {
-            [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
+            if (!self.teaserImage) {
+                [[SCMediaManager instance] capturePreviewImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
+                    
+                    if (image) {
+                        image = [ImageUtil fixImage:image withQuality:UIImagePickerControllerQualityTypeLow];
+                        
+                        SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
+                        
+                        [bcast setGroupImage:image withCompletionHandler:^(BOOL finished) {
+                            weakself.recordingController.broadcastGroupId = bcastId;
+                            [weakself.recordingController startBroadcasting];
+                        }];
+                    }
+                }];
+            } else {
+                SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
                 
-                if (image) {
-                    image = [ImageUtil fixImage:image withQuality:UIImagePickerControllerQualityTypeLow];
-                    
-                    SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
-                    
-                    [bcast setGroupImage:image withCompletionHandler:^(BOOL finished) {
-                        weakself.recordingController.broadcastGroupId = bcastId;
-                        [weakself.recordingController startBroadcasting];
-                    }];
-                }
-            }];
+                [bcast setGroupImage:self.teaserImage withCompletionHandler:^(BOOL finished) {
+                    weakself.recordingController.broadcastGroupId = bcastId;
+                    [weakself.recordingController startBroadcasting];
+                }];
+            }
         }
         startingBroadcast = NO;
     }];

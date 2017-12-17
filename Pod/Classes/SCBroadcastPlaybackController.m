@@ -62,6 +62,17 @@
     self.isPlaying = NO;
 }
 
+-(void) playerError
+{
+    self.isPlaying = NO;
+    [self presentErrorMessage];
+}
+
+-(void) presentErrorMessage
+{
+    
+}
+
 -(void) playerDidReachEnd
 {
     self.isPlaying = NO;
@@ -78,6 +89,11 @@
     //if (progress % 5 == 0) {
         [SCActivity reportBroadcastVideo:self.broadcast.groupid progress:progress];
     //}
+}
+
+-(void) playerMediaLength:(NSInteger)seconds
+{
+    
 }
 
 -(void) configureView
@@ -162,7 +178,7 @@
                     }
                 });
             } if ([[C2CallPhone currentPhone] downloadStatusForKey:bcastImageKey]) {
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgress:) name:bcastImageKey object:nil];
+                //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgress:) name:bcastImageKey object:nil];
             }  else {
                 [[C2CallPhone currentPhone] retrieveObjectForKey:bcastImageKey completion:^(BOOL finished) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -182,7 +198,7 @@
                     weakself.userImage.image = [[C2CallPhone currentPhone] imageForKey:imagekey];
                 });
             } if ([[C2CallPhone currentPhone] downloadStatusForKey:imagekey]) {
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgress:) name:imagekey object:nil];
+                //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProgress:) name:imagekey object:nil];
             } else {
                 [[C2CallPhone currentPhone] retrieveObjectForKey:imagekey completion:^(BOOL finished) {
                     dispatch_async(dispatch_get_main_queue(), ^{

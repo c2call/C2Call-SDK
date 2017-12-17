@@ -279,30 +279,32 @@
 
 -(UIImage *) imageForElement:(MOC2CallEvent *) elem
 {
-    UIImage *image = [self.smallImageCache objectForKey:elem.contact];
+    NSString *contactUserid = [elem.originalSender length] > 0? elem.originalSender : elem.contact;
+    
+    UIImage *image = [self.smallImageCache objectForKey:contactUserid];
     if (image)
         return image;
     
     NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-    image = [[C2CallPhone currentPhone] userimageForUserid:elem.contact];
+    image = [[C2CallPhone currentPhone] userimageForUserid:contactUserid];
     if (image) {
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
-        [self.smallImageCache setObject:image forKey:elem.contact];
+        [self.smallImageCache setObject:image forKey:contactUserid];
         return image;
     }
     
-    MOC2CallUser *user = [[SCDataManager instance] userForUserid:elem.contact];
+    MOC2CallUser *user = [[SCDataManager instance] userForUserid:contactUserid];
     if ([user.userType intValue] == 2) {
         image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
-        [self.smallImageCache setObject:image forKey:elem.contact];
+        [self.smallImageCache setObject:image forKey:contactUserid];
         return image;
         
     }
     
     image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
-    [self.smallImageCache setObject:image forKey:elem.contact];
+    [self.smallImageCache setObject:image forKey:contactUserid];
     return image;
 }
 

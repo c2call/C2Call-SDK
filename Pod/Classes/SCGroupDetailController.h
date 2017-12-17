@@ -24,6 +24,7 @@
 */
 @interface SCGroupDetailController : SCAdTableViewController
 
+
 /** @name Outlets */
 /** UIView references for the embedded group header view. */
 @property(nonatomic, weak) IBOutlet UIView    *headerView;
@@ -54,5 +55,12 @@
  @param sender - The initiator of the action
  */
 -(IBAction) toggleEncryption:(id) sender;
+
+/** Provide userid at indexPath
+ 
+ @param indexPath - The IndexPath
+ @return Userid or nil
+ */
+-(NSString *) useridForIndexPath:(NSIndexPath *) indexPath;
 
 @end

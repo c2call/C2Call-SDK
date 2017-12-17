@@ -136,6 +136,7 @@
 -(DDXMLElement *) streamInfoForSsrc:(unsigned long) ssrc;
 -(BOOL) encodeAndTransferYUV:(UInt8 *) yPtr u:(UInt8 *)uPtr v:(UInt8 *)vPtr width:(int) width height:(int) height rotate:(int) rotate;
 -(void) setPreviewView:(UIView *) preview adjustBounds:(BOOL) adjust;
+-(void) reduceBitrate;
 
 +(RTPVideoHandler *) videoHandler;
 

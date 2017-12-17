@@ -130,7 +130,10 @@ static NSDateFormatter *dateTime = nil;
         SCBroadcastPlaybackController *vpc = (SCBroadcastPlaybackController *) segue.destinationViewController;
         SCMyBroadcastCell *cell = (SCMyBroadcastCell *) sender;
         
-        vpc.broadcast = cell.broadcast;
+        if (cell.broadcastid) {
+            SCBroadcast *bcast = [[SCBroadcast alloc] initWithBroadcastGroupid:cell.broadcastid retrieveFromServer:NO];
+            vpc.broadcast = bcast;
+        }
     }
 
     

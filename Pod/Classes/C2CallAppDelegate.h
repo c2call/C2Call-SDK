@@ -304,6 +304,14 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
  */
 -(UILocalNotification *) missedCallNotificationForUserid:(NSString *) userid displayName:(NSString *) displayName;
 
+/** Customize Background Message Sound
+ 
+ When the App is in background and still active, message sounds are generated via local notification
+ Overwrite this method for different message sound or behavior
+ 
+ */
+-(void) backgroundMessageSoundUsingLocalNotification;
+
 /** Shows the online status prompt when connected to the service
  
  Overwrite this method to show your own customized prompt

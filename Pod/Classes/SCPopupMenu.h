@@ -67,4 +67,11 @@
  */
 +(SCPopupMenu *) popupMenu:(UIViewController *) parent;
 
+/** Use UIAlterController instead
+ 
+ @param useActionMenu - YES or No
+ 
+ */
++(void) setUseActionMenu:(BOOL) useActionMenu;
+
 @end

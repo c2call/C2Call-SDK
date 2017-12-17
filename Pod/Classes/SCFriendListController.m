@@ -112,7 +112,7 @@
     NSDate *today = [[NSDate alloc] init];
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setWeekOfYear:-1];
+    [offsetComponents setWeekOfYear:-2];
     self.compareDate = [cal dateByAddingComponents:offsetComponents toDate:today options:0];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -129,8 +129,9 @@
     NSMutableDictionary *favorites = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Favorites", @"Filter"), @"name", @"favoriteFilter", @"filter", nil];
     NSMutableDictionary *groups = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Groups", @"Filter"), @"name", @"groupsFilter", @"filter", nil];
     NSMutableDictionary *friends = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Friends", @"Filter"), @"name", @"friendsFilter", @"filter", nil];
+    NSMutableDictionary *onlineFriends = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Online Friends", @"Filter"), @"name", @"onlineFriendsFilter", @"filter", nil];
     
-    self.filterList = [NSArray arrayWithObjects:all, online, recent, favorites, groups, friends, nil];
+    self.filterList = [NSArray arrayWithObjects:all, online, recent, favorites, groups, friends, onlineFriends, nil];
     
     int active = [[[NSUserDefaults standardUserDefaults] objectForKey:@"activeFilter"] intValue];
     if (active >= [self.filterList count])
@@ -837,6 +838,9 @@
         if ([filter isEqualToString:@"friendsFilter"]) {
             activeFilterName = [[selected objectAtIndex:0] objectForKey:@"name"];
         }
+        if ([filter isEqualToString:@"onlineFriendsFilter"]) {
+            activeFilterName = [[selected objectAtIndex:0] objectForKey:@"name"];
+        }
     }
     
     if ([filterText length] == 0)
@@ -875,6 +879,9 @@
             break;
         case SCFriendFilter_FRIENDS:
             filterkey =@"friendsFilter";
+            break;
+        case SCFriendFilter_ONLINEFRIENDS:
+            filterkey =@"onlineFriendsFilter";
             break;
         default:
             break;
@@ -925,6 +932,9 @@
         if ([filter isEqualToString:@"friendsFilter"]) {
             filterType = 5;
         }
+        if ([filter isEqualToString:@"onlineFriendsFilter"]) {
+            filterType = 6;
+        }
     }
     switch (filterType) {
         case 0:
@@ -944,6 +954,9 @@
             break;
         case 5:
             self.activeFilter = [NSPredicate predicateWithFormat:@"userType == 0"];
+            break;
+        case 6:
+            self.activeFilter = [NSPredicate predicateWithFormat:@"userType == 0 and online = YES"];
             break;
             
         default:

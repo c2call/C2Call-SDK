@@ -137,6 +137,12 @@
  */
 -(void) resetMissedCallsForContact:(nonnull NSString *) contact;
 
+/** Manually reset the missed messages indication for a contact
+ 
+ @param contact - Userid of the contact.
+ */
+-(void) resetMissedMessagesForContact:(nonnull NSString *) contact;
+
 /** Returns the list all tags (NSString)
  
  @return Array of tags
@@ -155,13 +161,13 @@
  @param tagNames - List of Tag Names
  @return Array of tags
  */
--(NSArray<NSDictionary *> *) tagsForTagNames:(NSArray *) tagNames;
+-(nullable NSArray<NSDictionary *> *) tagsForTagNames:(nonnull NSArray *) tagNames;
 
 /** Returns the list of all tags (NSDictionary)
  
  @return Array of tags
  */
--(NSArray<NSDictionary *> *) allTagsAsDictionary;
+-(nullable NSArray<NSDictionary *> *) allTagsAsDictionary;
 
 /** Save additional phone numbers for a friend contact
  
@@ -234,8 +240,15 @@
  
  @param sortAscending YES - Oldest Event first / NO - Latest Event first
  */
--(nonnull NSFetchRequest *) fetchRequestForEventHistory:(nonnull NSString *) userid sort:(BOOL) sortAscending;
+-(nonnull NSFetchRequest *) fetchRequestForEventHistory:(nullable NSString *) userid sort:(BOOL) sortAscending;
 
+/** Gets a predefined NSFetchRequest for a list of missed MOC2CallEvent objects of the specific contact.
+ 
+ @see SCDataTableViewController and WhazzUpp Sample Code for more details on how to use NSFetchRequests
+ 
+ @param sortAscending YES - Oldest Event first / NO - Latest Event first
+ */
+-(NSFetchRequest *) fetchRequestForMissedEvents:(NSString *) userid sort:(BOOL) sortAscending;
 
 /** Gets a predefined NSFetchRequest for a list of MOC2CallUser objects (list of all friends and groups).
  
@@ -312,6 +325,13 @@
  
  */
 -(nullable NSFetchedResultsController *) fetchedResultsControllerWithFetchRequest:(nonnull NSFetchRequest *)fetchRequest sectionNameKeyPath:(nullable NSString *)sectionNameKeyPath cacheName:(nullable NSString *)name;
+
+/** Execute a predefined NSFetchRequest
+ 
+ @param fetchRequest - The fetchRequest
+ @return fetch result
+ */
+-(NSArray<NSManagedObject *> *) performFetchRequest:(NSFetchRequest *) fetchRequest;
 
 /** Current Instance of SCDataManager.
  

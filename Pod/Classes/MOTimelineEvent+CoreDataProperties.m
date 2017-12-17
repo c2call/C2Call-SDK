@@ -2,7 +2,7 @@
 //  MOTimelineEvent+CoreDataProperties.m
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 01.03.17.
+//  Created by Michael Knecht on 26.05.17.
 //
 //
 
@@ -18,18 +18,20 @@
 @dynamic dislike;
 @dynamic eventId;
 @dynamic eventType;
+@dynamic featured;
 @dynamic like;
 @dynamic mediaUrl;
 @dynamic missed;
 @dynamic originalSender;
+@dynamic reward;
 @dynamic senderName;
 @dynamic status;
 @dynamic text;
 @dynamic timeline;
 @dynamic timeStamp;
 @dynamic timevalue;
-@dynamic featured;
-@dynamic reward;
+@dynamic mediaWidth;
+@dynamic mediaHeight;
 @dynamic tags;
 
 @end

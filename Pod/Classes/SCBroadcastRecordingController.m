@@ -75,6 +75,10 @@
             preview.frame = self.videoView.layer.bounds;
             [self.videoView.layer addSublayer:preview];
             self.preview = preview;
+
+            if (![[SCMediaManager instance].videoCaptureSession isRunning]) {
+                [[SCMediaManager instance] startVideoCapture];
+            }
         }
     } else {
         self.preview.frame = self.videoView.layer.bounds;
@@ -86,7 +90,13 @@
 {
     [super viewWillAppear: animated];
     
-    [[SCMediaManager instance] startVideoCapture];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear: animated];
+    
+
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -95,6 +105,10 @@
     
     if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
         //[self stopBroadcasting];
+        
+        if ([[SCMediaManager instance].videoCaptureSession isRunning]) {
+            [[SCMediaManager instance] stopVideoCapture];
+        }
     }
 }
 

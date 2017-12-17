@@ -2,7 +2,7 @@
 //  MOTimelineEvent+CoreDataProperties.h
 //  C2CallPhone
 //
-//  Created by Michael Knecht on 01.03.17.
+//  Created by Michael Knecht on 26.05.17.
 //
 //
 
@@ -19,18 +19,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSNumber *dislike;
 @property (nullable, nonatomic, copy) NSNumber *eventId;
 @property (nullable, nonatomic, copy) NSString *eventType;
+@property (nullable, nonatomic, copy) NSNumber *featured;
 @property (nullable, nonatomic, copy) NSNumber *like;
 @property (nullable, nonatomic, copy) NSString *mediaUrl;
 @property (nullable, nonatomic, copy) NSNumber *missed;
 @property (nullable, nonatomic, copy) NSString *originalSender;
+@property (nullable, nonatomic, copy) NSString *reward;
 @property (nullable, nonatomic, copy) NSString *senderName;
 @property (nullable, nonatomic, copy) NSNumber *status;
 @property (nullable, nonatomic, copy) NSString *text;
 @property (nullable, nonatomic, copy) NSString *timeline;
 @property (nullable, nonatomic, copy) NSDate *timeStamp;
 @property (nullable, nonatomic, copy) NSNumber *timevalue;
-@property (nullable, nonatomic, copy) NSNumber *featured;
-@property (nullable, nonatomic, copy) NSString *reward;
+@property (nullable, nonatomic, copy) NSNumber *mediaWidth;
+@property (nullable, nonatomic, copy) NSNumber *mediaHeight;
 @property (nullable, nonatomic, retain) NSSet<MOTag *> *tags;
 
 @end

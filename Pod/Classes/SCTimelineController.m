@@ -29,6 +29,7 @@
 // We need only one instance
 static NSDateFormatter  *dateTime = nil;
 static NSCache          *imageCache = nil;
+static NSCache          *assetCache = nil;
 
 
 @interface SCTimelineBaseCell ()
@@ -56,15 +57,18 @@ static NSCache          *imageCache = nil;
     self.likesLabel.text = @"";
     self.mediaKey = nil;
     self.eventId = nil;
+    self.featured = NO;
     [self.likeButton removeTarget:self action:@selector(like:) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
+    self.controller = controller;
     self.eventId = [event.eventId copy];
     self.userName.text = event.senderName;
     self.featured = [event.featured boolValue];
     self.mediaKey = [event.mediaUrl copy];
+    self.contact = [event.contact copy];
     
     if ([event.tags count] > 0) {
         NSMutableArray *tags = [NSMutableArray arrayWithCapacity:[event.tags count]];
@@ -98,6 +102,25 @@ static NSCache          *imageCache = nil;
     self.likeButton.enabled = [[SCTimeline instance] canLikeEvent:event.eventId];
 }
 
+-(CGFloat) previewHeightForMediaSize:(CGSize) sz
+{
+    CGSize szview = self.contentView.frame.size;
+    
+    if (sz.height == 0)
+        return 0;
+    
+    CGFloat aspect = sz.width / sz.height;
+    CGFloat height = floor(szview.width / aspect);
+    
+    SCTimelineController *tc = self.controller;
+    
+    if (height > tc.maxPreviewHeight) {
+        height = tc.maxPreviewHeight;
+    }
+    
+    return height;
+}
+
 -(IBAction)like:(id)sender
 {
     [[SCTimeline instance] likeEvent:self.eventId];
@@ -106,57 +129,12 @@ static NSCache          *imageCache = nil;
 
 -(IBAction)share:(id)sender
 {
-    NSString *textToShare = self.textView.text;
-    NSURL *mediaUrl = nil;
-    SCRichMediaType mediaType = [[C2CallPhone currentPhone] mediaTypeForKey:self.mediaKey];
-    
-    if (mediaType == SCMEDIATYPE_TEXT && [textToShare length] == 0) {
-        return;
-    }
-    
-    UIActivityViewController *activityViewController = nil;
-    
-    switch (mediaType) {
-        case SCMEDIATYPE_TEXT:
-        {
-            activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];
-        }
-            break;
-        case SCMEDIATYPE_IMAGE:
-        case SCMEDIATYPE_USERIMAGE:
-        case SCMEDIATYPE_VIDEO:
-        case SCMEDIATYPE_VOICEMAIL:
-        case SCMEDIATYPE_FILE:
-        {
-            mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:self.mediaKey];
-        }
-            break;
-        case SCMEDIATYPE_LOCATION:{
-            FCLocation *loc = [[FCLocation alloc] initWithKey:self.mediaKey];
-            mediaUrl = [loc storeLocationAsVCard];
-        }
-            break;
-        default:
-            break;
-    }
+    [self.controller sharePostWithText:self.textView.text andMediaKey:self.mediaKey];
+}
 
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:2];
-    if ([textToShare length] > 0) {
-        [items addObject:textToShare];
-    }
-    
-    
-    if (mediaUrl) {
-        [items addObject:mediaUrl];
-    }
-
-    if ([items count] == 0) {
-        return;
-    }
-
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
-    //activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList]; //Exclude whichever aren't relevant
-    [self.controller presentViewController:activityVC animated:YES completion:nil];
+-(IBAction)menuExtra:(id)sender
+{
+    [self.controller showMenuExtraForItem:[self.eventId stringValue] withText:self.textView.text andMediaKey:self.mediaKey featured:self.featured];
 }
 
 -(void) monitorUploadForKey:(NSString *) key
@@ -242,6 +220,16 @@ static NSCache          *imageCache = nil;
     
 }
 
+-(IBAction) openProfile:(id)sender
+{
+    // That's me
+    if ([self.contact isEqualToString:[SCUserProfile currentUser].userid]) {
+        return;
+    }
+    
+    [self.controller openProfile:self.contact];
+}
+
 -(IBAction)handleTap:(id)sender
 {
     [self.tapAction fireAction:sender];
@@ -292,7 +280,8 @@ static NSCache          *imageCache = nil;
         if (forceReload) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@(YES), @"reloadData", nil]];
         } else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self];
+            [self.controller updateCellIfNeeded:self];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:@"SCTimelineCellUpdate" object:self];
         }
         
     });
@@ -304,8 +293,11 @@ static NSCache          *imageCache = nil;
 
 -(void) prepareForReuse
 {
+    if (self.videoView.urlAsset && self.mediaKey) {
+        [assetCache setObject:self.videoView.urlAsset forKey:self.mediaKey];
+    }
+    
     [super prepareForReuse];
-    //[self.videoView resetPlayer];
 }
 
 -(void) layoutSubviews
@@ -316,20 +308,82 @@ static NSCache          *imageCache = nil;
     
 }
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
-    self.videoView.mediaUrl =  [[C2CallPhone currentPhone] mediaUrlForKey:event.mediaUrl];
+    [super configureCell:event controller:controller];
+    
+    NSString *mediaKey = [event.mediaUrl copy];
+    __weak SCTimelineVideoCell *weakself = self;
+    
+    AVURLAsset *asset = [assetCache objectForKey:mediaKey];
+    if (asset) {
+        // Check Status Loaded
+        NSError *error;
+        AVKeyValueStatus status = [asset statusOfValueForKey:@"tracks" error:&error];
+        if (status == AVKeyValueStatusLoaded) {
+            [self.videoView setMediaAsset:asset];
+            return;
+        }
+    }
+    
+    self.videoView.mediaUrl = nil;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *url =  [[C2CallPhone currentPhone] mediaUrlForKey:mediaKey];
+        
+        if ([weakself.mediaKey isEqualToString:mediaKey]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakself.videoView.mediaUrl = url;
+            });
+        }
+    });
+}
+
+@end
+
+@interface SCTimelineBroadcastCell () {
+    BOOL _isLife;
 }
 
 @end
 
 @implementation SCTimelineBroadcastCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier;
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        _isLife = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _isLife = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _isLife = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
+    }
+    return self;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        _isLife = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
     }
     return self;
@@ -345,17 +399,21 @@ static NSCache          *imageCache = nil;
     if (!self.bcastId)
         return;
     
-    if ([[notification userInfo][self.bcastId] isEqualToString:@"started"]) {
+    NSArray *idlist = [notification userInfo][@"liveBC"];
+    if ([idlist containsObject:self.bcastId]) {
         [self isLife:YES];
-    }
-    if ([[notification userInfo][self.bcastId] isEqualToString:@"ended"]) {
+    } else {
         [self isLife:NO];
     }
 }
 
 -(void) isLife:(BOOL) isLife
 {
-    
+    if (_isLife != isLife) {
+        _isLife = isLife;
+        
+        [self notifyCellUpdate:NO];
+    }
 }
 
 -(void) onlineUsers:(NSInteger) onlineUsers
@@ -367,11 +425,16 @@ static NSCache          *imageCache = nil;
 {
     [super prepareForReuse];
     self.eventImage.image = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    _isLife = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
 }
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
+    [super configureCell:event controller:controller];
     
     NSString *bcast = event.mediaUrl;
     
@@ -380,61 +443,36 @@ static NSCache          *imageCache = nil;
     
     NSString *imageKey = [[C2CallPhone currentPhone] userimageKeyForUserid:bcastId];
     
-    self.mediaKey = [imageKey copy];
-    __weak SCTimelineBroadcastCell *weakself = self;
+    self.bcastImageKey = [imageKey copy];
     
+    self.textView.text = event.text? [event.text copy] : @"";
     self.broadcastInfo.text = @"";
-    DLog(@"Get Broadcast Info: %@", bcastId);
+    
+    NSLog(@"Get Broadcast Info: %@", bcastId);
+    
+    __weak SCTimelineBroadcastCell *weakself = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         SCBroadcast *broadcast = [[SCBroadcast alloc] initWithBroadcastGroupid:bcastId retrieveFromServer:NO];
         
-        DLog(@"Broadcast Info Received: %@", bcastId);
-        
-        NSString *broadcastText = @"";
-        if ([broadcast.groupName length] > 0 && [broadcast.groupDescription length] > 0) {
-            broadcastText = [NSString stringWithFormat:@"%@\n%@", broadcast.groupName, broadcast.groupDescription];
-        } else if ([broadcast.groupName length] > 0) {
-            broadcastText = broadcast.groupName;
-        } else if ([broadcast.groupDescription length] > 0) {
-            broadcastText = broadcast.groupDescription;
-        }
-        
-        // Still the same?
-        if ([weakself.mediaKey isEqualToString:imageKey]) {
-            if ([broadcast isLive]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakself isLife:YES];
-                    [weakself onlineUsers:broadcast.onlineUsers];
-                    weakself.broadcastInfo.text = @"Live Broadcast";
-                    weakself.textView.text = broadcastText;
-                    [[SCTimeline instance] startLiveBroadcastMonitoring];
-                });
-            } else {
-                if (broadcast.startDate || broadcast.endDate) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakself isLife:NO];
-                        [weakself onlineUsers:broadcast.onlineUsers];
-                        
-                        weakself.textView.text = broadcastText;
-                        if (broadcast.endDate) {
-                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Ended at %@", [dateTime stringFromDate:broadcast.endDate]];
-                        } else {
-                            weakself.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Started at %@", [dateTime stringFromDate:broadcast.startDate]];
-                        }
-                        //[self notifyCellUpdate];
-                    });
-                }
-                
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Broadcast Info Received: %@", bcastId);
+            
+            if (![broadcast.groupid isEqualToString:weakself.bcastId]) {
+                NSLog(@"Not longer valid!");
+                return;
             }
-        }
-        
+            
+            [weakself broadcastDataLoaded:broadcast];
+        });
     });
+    
+    
     
     UIImage *img = [imageCache objectForKey:imageKey];
     
     if (!img) {
         UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
+        
         
         if (img) {
             img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
@@ -443,7 +481,7 @@ static NSCache          *imageCache = nil;
             self.eventImage.image = img;
         } else {
             [[C2CallPhone currentPhone] retrieveObjectForKey:imageKey completion:^(BOOL finished) {
-                if (finished && [self.mediaKey isEqualToString:imageKey]) {
+                if (finished && [self.bcastImageKey isEqualToString:imageKey]) {
                     UIImage *img = [[C2CallPhone currentPhone] imageForKey:imageKey];
                     if (img) {
                         img = [ImageUtil fixImage:img withQuality:UIImagePickerControllerQualityTypeLow];
@@ -451,7 +489,7 @@ static NSCache          *imageCache = nil;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             self.eventImage.image = img;
                             [self.eventImage setNeedsDisplay];
-                            [self notifyCellUpdate:YES];
+                            [self notifyCellUpdate:NO];
                         });
                     }
                     
@@ -460,6 +498,41 @@ static NSCache          *imageCache = nil;
         }
     } else {
         self.eventImage.image = img;
+    }
+    
+}
+
+-(void) broadcastDataLoaded:(SCBroadcast *) broadcast
+{
+    NSString *broadcastText = @"";
+    if ([broadcast.groupName length] > 0 && [broadcast.groupDescription length] > 0) {
+        broadcastText = [NSString stringWithFormat:@"%@\n%@", broadcast.groupName, broadcast.groupDescription];
+    } else if ([broadcast.groupName length] > 0) {
+        broadcastText = broadcast.groupName;
+    } else if ([broadcast.groupDescription length] > 0) {
+        broadcastText = broadcast.groupDescription;
+    }
+    
+    if ([broadcast isLive]) {
+        [self isLife:YES];
+        [self onlineUsers:broadcast.onlineUsers];
+        self.broadcastInfo.text = @"Live Broadcast";
+        self.textView.text = broadcastText;
+        [[SCTimeline instance] startLiveBroadcastMonitoring];
+    } else {
+        if (broadcast.startDate || broadcast.endDate) {
+            
+            [self isLife:NO];
+            [self onlineUsers:broadcast.onlineUsers];
+            
+            self.textView.text = broadcastText;
+            if (broadcast.endDate) {
+                self.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Ended at %@", [dateTime stringFromDate:broadcast.endDate]];
+            } else {
+                self.broadcastInfo.text = [NSString stringWithFormat:@"Broadcast Started at %@", [dateTime stringFromDate:broadcast.startDate]];
+            }
+        }
+        
     }
     
 }
@@ -475,9 +548,9 @@ static NSCache          *imageCache = nil;
 }
 
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
+    [super configureCell:event controller:controller];
     
     NSString *imageKey = event.mediaUrl;
     self.mediaKey = [imageKey copy];
@@ -502,7 +575,8 @@ static NSCache          *imageCache = nil;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             self.eventImage.image = img;
                             [self.eventImage setNeedsDisplay];
-                            [self notifyCellUpdate:YES];
+                            
+                            [self notifyCellUpdate:NO];
                         });
                     }
                     
@@ -544,16 +618,16 @@ static NSCache          *imageCache = nil;
     [self.action fireAction:self];
 }
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
+    [super configureCell:event controller:controller];
     
     __weak SCTimelineAudioCell  *weakself = self;
     
     if (!self.tapGesture) {
         self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause:)];
         [self.innerContentView addGestureRecognizer:self.tapGesture];
-        self.innerContentView.userInteractionEnabled;
+        self.innerContentView.userInteractionEnabled = YES;
     }
     
     NSString *mediakey = [event.mediaUrl copy];
@@ -660,9 +734,9 @@ static NSCache          *imageCache = nil;
 
 @implementation SCTimelineMessageCell
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
+    [super configureCell:event controller:controller];
     
     
 }
@@ -671,9 +745,9 @@ static NSCache          *imageCache = nil;
 
 @implementation SCTimelineEventCell
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
+    [super configureCell:event controller:controller];
     
     
 }
@@ -693,9 +767,9 @@ static NSCache          *imageCache = nil;
 }
 
 
--(void) configureCell:(MOTimelineEvent *) event
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
-    [super configureCell:event];
+    [super configureCell:event controller:controller];
     
     FCLocation *loc = [[FCLocation alloc] initWithKey:event.mediaUrl];
     [self retrieveLocation:loc];
@@ -762,7 +836,10 @@ static NSCache          *imageCache = nil;
     BOOL            initialRefresh;
     
     CFAbsoluteTime  lastContentChange;
+    CFAbsoluteTime  lastCellUpdate;
 }
+
+@property(strong, nonatomic) NSMutableDictionary *cellHeightsDictionary;
 
 @end
 
@@ -771,13 +848,16 @@ static NSCache          *imageCache = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.maxPreviewHeight = floor([[UIScreen mainScreen] bounds].size.height * 0.6);
+    self.cellHeightsDictionary = [NSMutableDictionary dictionary];
+
     initialRefresh = NO;
     didLoad = NO;
     scrollToBottom = NO;
     scrollToTop = NO;
     lastContentChange = 0;
     
-    self.tableView.estimatedRowHeight = 160;
+    self.tableView.estimatedRowHeight = 280;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     self.cellIdentifier = @"SCTimelineBaseCell";
@@ -793,9 +873,11 @@ static NSCache          *imageCache = nil;
         imageCache = [[NSCache alloc] init];
     }
     
+    if (!assetCache) {
+        assetCache = [[NSCache alloc] init];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellUpdate:) name:@"SCTimelineCellUpdate" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(broadcastStateChanged:) name:@"SCBroadcastStateChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess:) name:@"C2CallHandler:LoginSuccess" object:nil];
     
 }
@@ -831,42 +913,15 @@ static NSCache          *imageCache = nil;
     if (!initialRefresh && [SCDataManager instance].isDataInitialized) {
         initialRefresh = YES;
         NSLog(@"Refresh Timeline!");
-        [[SCTimeline instance] refreshTimeline];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[SCTimeline instance] refreshTimeline];
+            NSLog(@"Refresh Timeline - Done!");
+        });
+        
     }
     
 }
 
--(void) broadcastStateChanged:(NSNotification *) notification
-{
-    NSMutableSet *started = [NSMutableSet setWithCapacity:10];
-    NSMutableSet *ended = [NSMutableSet setWithCapacity:10];
-    for (NSString *bcastid in [notification.userInfo allKeys]) {
-        if ([notification.userInfo[bcastid] isEqualToString:@"started"]) {
-            [started addObject:bcastid];
-        } else {
-            [ended addObject:bcastid];
-        }
-    }
-    
-    NSMutableArray *indexPathList = [NSMutableArray arrayWithCapacity:10];
-    for (MOTimelineEvent *event in [self.fetchedResultsController fetchedObjects]) {
-        if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastEvent]]) {
-            NSString *bcastId = [event.mediaUrl substringFromIndex:@"bcast://".length];
-            
-            if ([started containsObject:bcastId] || [ended containsObject:bcastId]) {
-                NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:event];
-                if (indexPath) {
-                    [indexPathList addObject:indexPath];
-                }
-            }
-        }
-    }
-    
-    if ([indexPathList count] > 0) {
-        [self.tableView reloadRowsAtIndexPaths:indexPathList withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    
-}
 
 -(void) loginSuccess:(NSNotification *) notification
 {
@@ -895,6 +950,28 @@ static NSCache          *imageCache = nil;
     }
 }
 
+
+-(void) updateCellIfNeeded:(UITableViewCell *) cell
+{
+    
+    if ([[self.tableView visibleCells] containsObject:cell]) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [cell.contentView layoutIfNeeded];
+        }];
+        
+        lastCellUpdate = CFAbsoluteTimeGetCurrent();
+        double delayInSeconds = 0.3;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if (CFAbsoluteTimeGetCurrent() - lastCellUpdate >= 0.25) {
+                [self.tableView beginUpdates];
+                [self.tableView endUpdates];
+            }
+        });
+    }
+    
+}
+
 -(NSFetchRequest *) fetchRequest
 {
     if (![SCDataManager instance].isDataInitialized)
@@ -911,6 +988,7 @@ static NSCache          *imageCache = nil;
     
     return fetchRequest;
 }
+
 
 -(void) refreshTable
 {
@@ -1025,7 +1103,7 @@ static NSCache          *imageCache = nil;
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityBroadcastEvent]]) {
         return @"SCTimelineBroadcastCell";
     }
-
+    
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityFriendJoined]]) {
         return @"SCTimelineEventCell";
     }
@@ -1035,6 +1113,10 @@ static NSCache          *imageCache = nil;
     }
     
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityContentShared]]) {
+        return @"SCTimelineEventCell";
+    }
+    
+    if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityLike]]) {
         return @"SCTimelineEventCell";
     }
     
@@ -1057,7 +1139,7 @@ static NSCache          *imageCache = nil;
     if ([event.eventType isEqualToString:[SCTimeline eventTypeForType:SCTimeLineEvent_ActivityProfilePictureChanged]]) {
         return @"SCTimelineEventCell";
     }
-
+    
     return self.cellIdentifier;
 }
 
@@ -1068,9 +1150,7 @@ static NSCache          *imageCache = nil;
     
     if ([cell isKindOfClass:[SCTimelineBaseCell class]]) {
         SCTimelineBaseCell *bcell = (SCTimelineBaseCell *)cell;
-        bcell.controller = self;
-        
-        [bcell configureCell:event];
+        [bcell configureCell:event controller:self];
     }
     
     __weak SCTimelineController *weakself = self;
@@ -1129,6 +1209,51 @@ static NSCache          *imageCache = nil;
     
 }
 
+/*
+// save height
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.cellHeightsDictionary setObject:@(cell.frame.size.height) forKey:indexPath];
+}
+
+// give exact height value
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *height = [self.cellHeightsDictionary objectForKey:indexPath];
+    if (height) return height.doubleValue;
+    return UITableViewAutomaticDimension;
+}
+*/
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        return NO;
+    }
+    
+    @try {
+        MOTimelineEvent *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        if ([event.contact isEqualToString:[SCUserProfile currentUser].userid]) {
+            return YES;
+        }
+    }
+    @catch (NSException *exception) {
+        return NO;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DLog(@"Commit Editing for : %ld, %ld", (long)indexPath.section, (long)indexPath.row);
+    @try {
+        MOTimelineEvent *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [[SCTimeline instance] deleteTimelineEvent:event.eventId];
+    }
+    @catch (NSException *exception) {
+        DLog(@"Exception : %@", exception);
+    }
+}
+
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.delegate) {
@@ -1146,6 +1271,77 @@ static NSCache          *imageCache = nil;
         [self scrollToTop];
     }
     //[self.tableView reloadData];
+}
+
+-(void) openProfile:(NSString *) userid
+{
+    [self showFriendDetailForUserid:userid];
+}
+
+-(void) showMenuExtraForItem:(NSString *) eventId withText:(NSString *) text andMediaKey:(NSString *) mediaKey featured:(BOOL)featured
+{
+    
+}
+
+-(void) sharePostWithText:(NSString *) textToShare andMediaKey:(NSString *) mediaKey
+{
+    SCRichMediaType mediaType = [[C2CallPhone currentPhone] mediaTypeForKey:mediaKey];
+    
+    if (mediaType == SCMEDIATYPE_TEXT && [textToShare length] == 0) {
+        return;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *mediaUrl = nil;
+        
+        switch (mediaType) {
+            case SCMEDIATYPE_IMAGE:
+            case SCMEDIATYPE_USERIMAGE:
+            case SCMEDIATYPE_VIDEO:
+            case SCMEDIATYPE_VOICEMAIL:
+            case SCMEDIATYPE_FILE:
+            {
+                mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:mediaKey];
+            }
+                break;
+            case SCMEDIATYPE_BROADCAST:
+            {
+                NSString *bcastId = [mediaKey substringFromIndex:@"bcast://".length];
+                mediaUrl = [[C2CallPhone currentPhone] mediaUrlForKey:[NSString stringWithFormat:@"video://bcast-%@.webm", bcastId]];
+            }
+                break;
+            case SCMEDIATYPE_LOCATION:{
+                FCLocation *loc = [[FCLocation alloc] initWithKey:mediaKey];
+                mediaUrl = [loc storeLocationAsVCard];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        NSMutableArray *items = [NSMutableArray arrayWithCapacity:2];
+        if ([textToShare length] > 0) {
+            [items addObject:textToShare];
+        }
+        
+        
+        if (mediaUrl) {
+            [items addObject:mediaUrl];
+        }
+        
+        if ([items count] == 0) {
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+            //activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList]; //Exclude whichever aren't relevant
+            [self presentViewController:activityVC animated:YES completion:nil];
+        });
+        
+    });
+    
+    
 }
 
 #pragma mark - Navigation
@@ -1173,3 +1369,4 @@ static NSCache          *imageCache = nil;
 
 
 @end
+

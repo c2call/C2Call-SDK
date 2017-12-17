@@ -359,6 +359,14 @@
  */
 -(void) recordingAudioSession;
 
+/** Initialize the recording audio session for callKit
+ */
+-(void) callKitAudioSession;
+
+/** Activate the recording audio session for callKit
+ */
+-(void) callKitAudioSessionDidBecomeActive;
+
 /** @name Static Methods */
 /** Returns a share instance of SCMediaManager.
  

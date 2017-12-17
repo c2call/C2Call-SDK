@@ -13,10 +13,14 @@
 @optional
 
 -(void) playerDidStart;
+-(void) playerDidPrepare;
 -(void) playerDidStop;
+-(void) playerError;
 -(void) playerDidReachEnd;
--(void) playerProgress:(NSUInteger) progress;
-
+-(void) playerTime:(NSUInteger) timeInSec;
+-(void) playerTimeRemaining:(NSUInteger) remainingTimeInSec;
+-(void) playerProgress:(NSUInteger) progressInPercent;
+-(void) playerMediaLength:(NSInteger) seconds;
 
 @end
 
@@ -42,6 +46,8 @@
 
 /** Rich Media Key of the Video. */
 @property (nonatomic, strong) NSString                  *mediaKey;
+
+@property (nonatomic) NSTimeInterval                    bufferingTimeout;
 
 /** Delegate */
 @property (nonatomic, weak) id<SCVLCVideoPlayerViewDelegate>  delegate;

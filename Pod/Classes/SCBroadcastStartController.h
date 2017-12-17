@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray   *tags;
 @property (nonatomic) BOOL              featured;
 @property (strong, nonatomic) NSString  *reward;
+@property (strong, nonatomic) UIImage   *teaserImage;
 
 @property (nonatomic, strong) NSDictionary  *preset;
 

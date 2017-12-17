@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SCBoardObjectEventCell">
+            <connections>
+                <outlet property="eventContentView" destination="Xo1-QS-u17" id="Rr5-y9-Ev2"/>
+                <outlet property="tapGestureView" destination="Xo1-QS-u17" id="Z1J-eg-CZz"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="180" placeholderIntrinsicHeight="240" translatesAutoresizingMaskIntoConstraints="NO" id="Xo1-QS-u17" customClass="SCLocationEventContentView">
+                    <rect key="frame" x="77" y="213" width="220" height="240"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-cg-zuy">
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="240"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="180" placeholderIntrinsicHeight="240" image="img_chat_placeholder_location" translatesAutoresizingMaskIntoConstraints="NO" id="2me-a5-Woe">
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="218"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nth-KA-DOs" userLabel="Location Info">
+                                    <rect key="frame" x="0.0" y="218" width="220" height="22"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="My Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3aj-KK-5PL">
+                                            <rect key="frame" x="4" y="2" width="212" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="3aj-KK-5PL" secondAttribute="bottom" constant="2" id="5Jf-tb-LcW"/>
+                                        <constraint firstItem="3aj-KK-5PL" firstAttribute="top" secondItem="nth-KA-DOs" secondAttribute="top" constant="2" id="7pG-sY-0yF"/>
+                                        <constraint firstAttribute="trailing" secondItem="3aj-KK-5PL" secondAttribute="trailing" constant="4" id="WD3-PS-T6G"/>
+                                        <constraint firstItem="3aj-KK-5PL" firstAttribute="leading" secondItem="nth-KA-DOs" secondAttribute="leading" constant="4" id="yPC-xh-bYq"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UOG-Oc-9hk">
+                            <rect key="frame" x="91" y="101" width="37" height="37"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="0.75" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="UOG-Oc-9hk" firstAttribute="centerY" secondItem="Xo1-QS-u17" secondAttribute="centerY" id="Py9-4Z-wBM"/>
+                        <constraint firstItem="ZZA-cg-zuy" firstAttribute="leading" secondItem="Xo1-QS-u17" secondAttribute="leading" id="aIg-sq-Zof"/>
+                        <constraint firstItem="UOG-Oc-9hk" firstAttribute="centerX" secondItem="Xo1-QS-u17" secondAttribute="centerX" id="bB1-mc-N3r"/>
+                        <constraint firstAttribute="bottom" secondItem="ZZA-cg-zuy" secondAttribute="bottom" id="ghZ-rn-4Jh"/>
+                        <constraint firstAttribute="width" constant="220" id="mY5-Op-S2z"/>
+                        <constraint firstAttribute="height" priority="750" constant="220" id="qZU-ft-1NQ"/>
+                        <constraint firstAttribute="trailing" secondItem="ZZA-cg-zuy" secondAttribute="trailing" id="r9q-na-xBF"/>
+                        <constraint firstItem="ZZA-cg-zuy" firstAttribute="top" secondItem="Xo1-QS-u17" secondAttribute="top" id="vAI-mQ-ivi"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="activityView" destination="UOG-Oc-9hk" id="ILU-KX-gNP"/>
+                        <outlet property="contentImage" destination="2me-a5-Woe" id="1Cf-9p-zlc"/>
+                        <outlet property="locationInfo" destination="3aj-KK-5PL" id="Tse-Qg-tIX"/>
+                        <outlet property="locationInfoView" destination="nth-KA-DOs" id="WQh-Bu-onJ"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Xo1-QS-u17" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="DOW-el-LFA"/>
+                <constraint firstItem="Xo1-QS-u17" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cDK-1g-utZ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="img_chat_placeholder_location" width="16" height="16"/>
+    </resources>
+</document>
