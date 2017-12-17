@@ -16,10 +16,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *innerContentView;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *textView;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 
+@property (strong, nonatomic) NSString  *contact;
 @property (atomic, strong) NSString *mediaKey;
 @property (nonatomic,strong) NSNumber *eventId;
 @property (nonatomic, strong) NSArray *tags;
@@ -29,10 +30,12 @@
 
 -(void) addTapAction:(C2BlockAction *) tapAction;
 -(void) addLongpressAction:(C2BlockAction *) longpressAction;
--(void) configureCell:(MOTimelineEvent *) event;
+-(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *) controller;
 -(void) notifyCellUpdate:(BOOL) forceReload;
+-(CGFloat) previewHeightForMediaSize:(CGSize) sz;
 
 -(IBAction)share:(id)sender;
+-(IBAction)menuExtra:(id)sender;
 
 @end
 
@@ -46,6 +49,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *eventImage;
 @property (weak, nonatomic) IBOutlet UILabel *broadcastInfo;
 @property (strong, nonatomic) NSString  *bcastId;
+@property (strong, nonatomic) NSString  *bcastImageKey;
 
 -(void) isLife:(BOOL) isLife;
 -(void) onlineUsers:(NSInteger) onlineUsers;
@@ -102,10 +106,15 @@
 
 @property(nonatomic) int                fetchLimit;
 @property(nonatomic) int                fetchSize;
+@property (nonatomic) CGFloat           maxPreviewHeight;
 
 @property(nonatomic, weak) id<SCTimelineControllerDelegate>     delegate;
 
 -(void) refetchResults;
 -(void) scrollToTopOnUpdate;
+-(void) openProfile:(NSString *) userid;
+-(void) updateCellIfNeeded:(UITableViewCell *) cell;
+-(void) showMenuExtraForItem:(NSString *) eventId withText:(NSString *) text andMediaKey:(NSString *) mediaKey featured:(BOOL)featured;
+-(void) sharePostWithText:(NSString *) textToShare andMediaKey:(NSString *) mediaKey;
 
 @end

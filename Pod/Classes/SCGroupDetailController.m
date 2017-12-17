@@ -58,7 +58,7 @@
     invitedUsers = [NSMutableSet set];
     encryptionStatus = [[NSMutableSet alloc] initWithCapacity:20];
 
-    self.group =  [[SCGroup alloc] initWithGroupid:groupid];
+    self.group =  [[SCGroup alloc] initWithGroupid:groupid retrieveFromServer:NO];
     
     encryptedGroup = [[C2CallPhone currentPhone] encryptedGroup:groupid];
     headerController.toggleEncryptionButton.selected = encryptedGroup;
@@ -228,6 +228,15 @@
     }
 }
 
+-(NSString *) useridForIndexPath:(NSIndexPath *) indexPath
+{
+    if (indexPath.row < [members count]) {
+        return [members objectAtIndex:indexPath.row];
+    }
+    
+    return nil;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SCGroupMemberCell";
@@ -382,7 +391,7 @@
         if ([segue.destinationViewController isKindOfClass:[SCGroupDetailHeaderController class]]) {
             self.headerController = (SCGroupDetailHeaderController *) segue.destinationViewController;
             if (!self.group) {
-                self.group = [[SCGroup alloc] initWithGroupid:groupid];
+                self.group = [[SCGroup alloc] initWithGroupid:groupid retrieveFromServer:NO];
             }
             self.headerController.group = self.group;
         }

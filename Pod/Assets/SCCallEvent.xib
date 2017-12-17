@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SCBoardObjectEventCell">
+            <connections>
+                <outlet property="eventContentView" destination="PUQ-qM-QK2" id="KZS-sa-VK0"/>
+                <outlet property="tapGestureView" destination="PUQ-qM-QK2" id="GDB-Lk-ksy"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PUQ-qM-QK2" customClass="SCCallEventContentView">
+                    <rect key="frame" x="114.5" y="309" width="146" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bby-N9-fDN">
+                            <rect key="frame" x="10" y="5" width="126" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKM-NZ-UND">
+                                    <rect key="frame" x="0.0" y="0.0" width="58" height="40"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="5" maxX="18" maxY="5"/>
+                                    <state key="normal" image="btn_ico_video"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7d-5S-ERh">
+                                    <rect key="frame" x="68" y="0.0" width="58" height="40"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="5" maxX="18" maxY="5"/>
+                                    <state key="normal" image="btn_ico_call"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="0.75" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Bby-N9-fDN" secondAttribute="bottom" constant="5" id="8hv-UJ-Qbe"/>
+                        <constraint firstItem="Bby-N9-fDN" firstAttribute="leading" secondItem="PUQ-qM-QK2" secondAttribute="leading" constant="10" id="M8u-yL-peY"/>
+                        <constraint firstAttribute="trailing" secondItem="Bby-N9-fDN" secondAttribute="trailing" constant="10" id="NUT-sM-D7f"/>
+                        <constraint firstItem="Bby-N9-fDN" firstAttribute="top" secondItem="PUQ-qM-QK2" secondAttribute="top" constant="5" id="ewY-zt-zYW"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="callAudio" destination="R7d-5S-ERh" id="urI-62-lkB"/>
+                        <outlet property="callVideo" destination="aKM-NZ-UND" id="y3Z-91-BuF"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="PUQ-qM-QK2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Em8-Ka-Ejn"/>
+                <constraint firstItem="PUQ-qM-QK2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rjt-zX-UHk"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_ico_call" width="30" height="30"/>
+        <image name="btn_ico_video" width="30" height="30"/>
+    </resources>
+</document>

@@ -145,7 +145,7 @@ typedef enum {
 @end
 
 
-@class SIPHandler, C2NetworkStatusHandler;
+@class SIPHandler, C2NetworkStatusHandler, SCCallKitCallManager;
 /** The SIPPhone class encapsules the SIP communication layer of the C2Call SDK.
  
  The SIPPhone class will be instantiated by the C2CallPhone class.
@@ -200,7 +200,6 @@ typedef enum {
 /** This option will be automatically set if the callerid of the user is verified
  */
 @property(nonatomic) BOOL           callerIdVerified;
-
 
 /**---------------------------------------------------------------------------------------
  * @name SIPPhone lifecycle handling

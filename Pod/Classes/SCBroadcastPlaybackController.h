@@ -26,7 +26,10 @@
 -(void) configureView;
 -(void) playerDidStart;
 -(void) playerDidStop;
+-(void) playerError;
 -(void) playerDidReachEnd;
 -(void) playerProgress:(NSUInteger)progress;
+-(void) playerMediaLength:(NSInteger) seconds;
+-(void) presentErrorMessage;
 
 @end

@@ -2837,7 +2837,7 @@
         
         [self configureCell:cell atIndexPath:indexPath];
         
-        if (isVisible && isInbound && isMessage && [elem.status intValue] < 4) {
+        if (isInbound && isMessage && [elem.status intValue] < 4) {
             [[SCDataManager instance] markAsRead:elem];
         }
         

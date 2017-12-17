@@ -73,17 +73,26 @@
     DLog(@"SCGroupDetailHeaderController:viewWillAppear");
     
     groupName.text = group.groupName;
-    groupOwner.text = nil;
-
+    
     DLog(@"SCGroupDetailHeaderController: Group : %@", groupName.text);
-
+    
     
     if (![group.groupOwner isEqualToString:[SCUserProfile currentUser].userid]) {
         [editGroupName setHidden:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *owner =[[C2CallPhone currentPhone] getUserInfoForUserid:group.groupOwner][@"Firstname"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                groupOwner.text = owner;
+            });
+            
+        });
+        
+    } else {
+        groupOwner.text = [SCUserProfile currentUser].displayname;
     }
     
     [self refreshGroupStatus];
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -241,7 +250,7 @@
 {
     NSString *actionSheetTitle = NSLocalizedString(@"Select Photo", @"GroupDetail ActionSheet Title");
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:actionSheetTitle delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button") destructiveButtonTitle:nil otherButtonTitles:nil];
-
+    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         [actionSheet addButtonWithTitle:NSLocalizedString(@"Select from Camera Roll", @"Choice Title")];
     }
@@ -265,16 +274,16 @@
     
     switch(orient) {
             
-        case UIImageOrientationUp: //EXIF = 1
+            case UIImageOrientationUp: //EXIF = 1
             transform = CGAffineTransformIdentity;
             break;
             
-        case UIImageOrientationDown: //EXIF = 3
+            case UIImageOrientationDown: //EXIF = 3
             transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
             transform = CGAffineTransformRotate(transform, M_PI);
             break;
             
-        case UIImageOrientationLeft: //EXIF = 6
+            case UIImageOrientationLeft: //EXIF = 6
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -283,7 +292,7 @@
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
             
-        case UIImageOrientationRight: //EXIF = 8
+            case UIImageOrientationRight: //EXIF = 8
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -322,7 +331,7 @@
     CGFloat height = img.size.height;
     CGFloat scale = 1.;
     switch (quality) {
-        case UIImagePickerControllerQualityTypeLow:
+            case UIImagePickerControllerQualityTypeLow:
             // 320*240
             if (width > height) {
                 scale = 320./width;
@@ -330,7 +339,7 @@
                 scale = 320./height;
             }
             break;
-        case UIImagePickerControllerQualityTypeMedium:
+            case UIImagePickerControllerQualityTypeMedium:
             // 640x480
             if (width > height) {
                 scale = 640./width;
@@ -338,7 +347,7 @@
                 scale = 640./height;
             }
             break;
-        case UIImagePickerControllerQualityTypeHigh:
+            case UIImagePickerControllerQualityTypeHigh:
             // 320*240
             scale = 1.;
             break;

@@ -53,6 +53,7 @@
     if ([self isBeingDismissed] || [self isMovingFromParentViewController]) {
         [[C2CallPhone currentPhone] hangUp];
         [SCActivity reportBroadcastAttendEnd:self.broadcastGroupId];
+        [[SCMediaManager instance] disableMediaOutput:NO];
     }
 }
 
@@ -176,6 +177,7 @@
 - (IBAction)hangUp:(id)sender {
     [[C2CallPhone currentPhone] hangUp];
     [SCActivity reportBroadcastAttendEnd:self.broadcastGroupId];
+    [[SCMediaManager instance] disableMediaOutput:NO];
 }
 
 

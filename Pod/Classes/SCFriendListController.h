@@ -17,6 +17,7 @@ typedef enum {
     SCFriendFilter_FAVORITE,    // Only Friends marked as Favorites
     SCFriendFilter_GROUPS,      // Groups Only no Friends
     SCFriendFilter_FRIENDS,     // Friends Only no Groups
+    SCFriendFilter_ONLINEFRIENDS,     // Online Friends Only no Groups
     
 } SCFriendListFilterType;
 
@@ -116,6 +117,10 @@ typedef enum {
  @param sender - The initiator of the action
  */
 -(IBAction)filterMenu:(id)sender;
+
+/** Refetch Results after filter change
+ */
+-(void) refetchResults;
 
 /** @name Manage TableView Cells */
 
