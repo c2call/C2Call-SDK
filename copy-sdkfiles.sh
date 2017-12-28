@@ -184,6 +184,8 @@ cp "../SocialCommunication/SCEventContentView.h" "Pod/Classes"
 cp "../SocialCommunication/SCEventContentView.m" "Pod/Classes"
 cp "../SocialCommunication/SCReplyToContentView.h" "Pod/Classes"
 cp "../SocialCommunication/SCReplyToContentView.m" "Pod/Classes"
+cp "../SocialCommunication/SCReplyToContainer.h" "Pod/Classes"
+cp "../SocialCommunication/SCReplyToContainer.m" "Pod/Classes"
 cp "../SocialCommunication/SCBroadcastController.h" "Pod/Classes/SCBroadcastController.h"
 cp "../SocialCommunication/SCBroadcastController.m" "Pod/Classes/SCBroadcastController.m"
 cp "../SocialCommunication/SCMyBroadcastsController.h" "Pod/Classes"
@@ -562,6 +564,7 @@ cp ../SocialCommunication/SCCallEvent.xib Pod/Assets
 cp ../SocialCommunication/SCFileEvent.xib Pod/Assets
 cp ../SocialCommunication/SCContactEvent.xib Pod/Assets
 cp ../SocialCommunication/SCTextEvent.xib Pod/Assets
+cp ../SocialCommunication/SCReplyToContent.xib Pod/Assets
 cp ../Classes/EAGLViewController.xib Pod/Assets
 cp ../Classes/AdWhirl/internal/AdWhirlWebBrowser.xib Pod/Assets
 cp ../libvpx.a Libraries/
