@@ -56,7 +56,7 @@
 
 - (NSUInteger)hash
 {
-    return [self.objectId hash];
+    return [self.eventId hash];
 }
 
 -(MOC2CallEvent *) dataObject
@@ -187,8 +187,16 @@
 
 -(void) resetLimits
 {
-    fetchLimit = 25;
+    fetchLimit = 50;
     fetchSize = 25;
+}
+
+-(void) saveChanges
+{
+    NSError *error = nil;
+    if (![self.fetchedResultsBoardMessages.managedObjectContext save:&error]) {
+        NSLog(@"SaveChanges Error: %@", error);
+    }
 }
 
 -(NSFetchRequest *) fetchRequestBoardMessages;
@@ -215,12 +223,19 @@
     }
     
     // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:fetchLimit >= 0? fetchLimit:0];
+    //[fetchRequest setFetchBatchSize:fetchLimit >= 0? fetchLimit:0];
+    
+    [fetchRequest setFetchLimit:0];
+    [fetchRequest setFetchOffset:0];
     
     int offset = 0;
     if (fetchLimit > 0) {
         offset = [[SCDataManager instance] setFetchLimit:fetchLimit forFetchRequest:fetchRequest];
     }
+    
+    [fetchRequest setFetchLimit:fetchLimit];
+    [fetchRequest setFetchOffset:offset];
+
     
     hasPreviousMessages = offset > 0;
     
@@ -237,10 +252,17 @@
         return;
     
     @try {
+        NSFetchRequest *missedRequest = [[SCDataManager instance] fetchRequestForMissedEvents:self.targetUserid sort:YES];
+        NSArray<NSManagedObject *> *missedEvents = [[SCDataManager instance] performFetchRequest:missedRequest];
+
+        
         NSFetchedResultsController *aFetchedResultsController = [[SCDataManager instance] fetchedResultsControllerWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
         
         if (!aFetchedResultsController)
             return;
+        
+        // Just to query the full dataset with all changes
+        [self saveChanges];
         
         if (self.fetchedResultsBoardMessages) {
             self.fetchedResultsBoardMessages.delegate = nil;
@@ -256,7 +278,7 @@
             return;
         }
 
-        [self prepareBoardMessages];
+        [self prepareBoardMessages:missedEvents];
     }
     @catch (NSException *exception) {
         DLog(@"Exeption : %@", exception);
@@ -264,18 +286,22 @@
     
 }
 
--(void) prepareBoardMessages {
-    NSFetchRequest *missedRequest = [[SCDataManager instance] fetchRequestForMissedEvents:self.targetUserid sort:YES];
-    NSArray<NSManagedObject *> *missedEvents = [[SCDataManager instance] performFetchRequest:missedRequest];
+-(void) prepareBoardMessages:(NSArray<NSManagedObject *> *)missedEvents  {
     
     NSArray *fetchedEvents = [self.fetchedResultsBoardMessages fetchedObjects];
+    
+    NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:[fetchedEvents count] + 1];
+    for (MOC2CallEvent *event in fetchedEvents) {
+        [eventIds addObject:[event.eventId copy]];
+    }
+    
     NSMutableArray<MOC2CallEvent *> *remainingMissedEvents = [NSMutableArray array];
     
     for (NSManagedObject *elem in missedEvents) {
         if ([elem isKindOfClass:[MOC2CallEvent class]]) {
             MOC2CallEvent *evnt = (MOC2CallEvent *) elem;
             
-            if (![fetchedEvents containsObject:evnt]) {
+            if (![eventIds containsObject:evnt.eventId]) {
                 [remainingMissedEvents addObject:evnt];
             }
         }
@@ -284,8 +310,17 @@
     [self reloadBoardMessages: remainingMissedEvents];
 }
 
+-(void) dispose {
+    self.fetchedResultsBoardMessages.delegate = nil;
+    self.fetchedResultsBoardMessages = nil;
+    self.delegate = nil;
+    
+}
+
 - (void)dealloc
 {
+    NSLog(@"SCBoardDataSource:dealloc()");
+
     if (self.observer) {
         [[NSNotificationCenter defaultCenter] removeObserver:self.observer];
         self.observer = nil;
@@ -361,11 +396,18 @@
             continue;
         }
         
+        NSLog(@"SCBoardTest:reloadBoardMessages remainingMissedEvents:%@", evnt.text);
+        
         NSString *cmpDate = [df stringFromDate:evnt.timeStamp];
         SCBoardObjectCoreData *dataObject = [[SCBoardObjectCoreData alloc] initWithC2CallEvent:evnt andParentToken:cmpDate];
         
         dataObject.inboundEvent = [self isInboundMessage:evnt];
         
+        SCBoardObjectTimeHeader *timeHeader = [[SCBoardObjectTimeHeader alloc] initWithTimeStamp:dataObject.dataObject.timeStamp andToken:dataObject.parentToken];
+            
+        [self insertDataObject:dataObject withTimeHeader:timeHeader intoList:newMessages offset:0 notifyDelegate:NO];
+
+        /*
         if ([evnt.missedDisplay boolValue]) {
             if (![cmpDate isEqualToString:currentDayNewMessages]) {
                 // Adding a new TimeHeader
@@ -390,16 +432,24 @@
             [messages addObject:dataObject];
             dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:messages];
         }
+        */
     }
 
     for (MOC2CallEvent *evnt in [self.fetchedResultsBoardMessages fetchedObjects]) {
         
+        NSLog(@"SCBoardTest:reloadBoardMessages fetchedEvents:%@", evnt.text);
+
         NSString *cmpDate = [df stringFromDate:evnt.timeStamp];
         SCBoardObjectCoreData *dataObject = [[SCBoardObjectCoreData alloc] initWithC2CallEvent:evnt andParentToken:cmpDate];
         
         dataObject.inboundEvent = [self isInboundMessage:evnt];
         
         if ([evnt.missedDisplay boolValue]) {
+            SCBoardObjectTimeHeader *timeHeader = [[SCBoardObjectTimeHeader alloc] initWithTimeStamp:dataObject.dataObject.timeStamp andToken:dataObject.parentToken];
+            
+            [self insertDataObject:dataObject withTimeHeader:timeHeader intoList:newMessages offset:0 notifyDelegate:NO];
+
+            /*
             if (![cmpDate isEqualToString:currentDayNewMessages]) {
                 // Adding a new TimeHeader
                 SCBoardObjectTimeHeader *timeHeader = [[SCBoardObjectTimeHeader alloc] initWithTimeStamp:evnt.timeStamp andToken:cmpDate];
@@ -409,9 +459,15 @@
             }
             
             [newMessages addObject:dataObject];
+             */
             
-            dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:newMessages];
+            //dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:newMessages];
         } else {
+            SCBoardObjectTimeHeader *timeHeader = [[SCBoardObjectTimeHeader alloc] initWithTimeStamp:dataObject.dataObject.timeStamp andToken:dataObject.parentToken];
+            
+            [self insertDataObject:dataObject withTimeHeader:timeHeader intoList:messages offset:0 notifyDelegate:NO];
+            
+            /*
             if (![cmpDate isEqualToString:currentDay]) {
                 // Adding a new TimeHeader
                 SCBoardObjectTimeHeader *timeHeader = [[SCBoardObjectTimeHeader alloc] initWithTimeStamp:evnt.timeStamp andToken:cmpDate];
@@ -421,7 +477,8 @@
             }
             
             [messages addObject:dataObject];
-            dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:messages];
+             */
+            //dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:messages];
         }
     }
 
@@ -535,6 +592,7 @@
     
     fetchLimit += fetchSize;
     [self refetchResults];
+    [self insertPreviousMessages];
     return YES;
 }
 
@@ -561,12 +619,14 @@
         DLog(@"Error : %@", error);
     }
     
-    [self insertPreviousMessages];
     //[self refreshFilterInfo];
 }
 
 -(NSString *) sectionStringForUnreadMessages:(NSInteger) unreadMessages
 {
+    if (unreadMessages == 1) {
+        return [NSString stringWithFormat:@"%@ UNREAD MESSAGE", @(unreadMessages)];
+    }
     return [NSString stringWithFormat:@"%@ UNREAD MESSAGES", @(unreadMessages)];
 }
 
@@ -630,6 +690,45 @@
         return nil;
     }
     
+}
+
+-(NSIndexPath *) indexPathForEventId:(NSString *) eventId
+{
+    if (!eventId) {
+        return nil;
+    }
+    NSUInteger offset = 0;
+
+    @synchronized(contentMutex) {
+        int idx = 0;
+        for (SCBoardObject *bo in self.boardContent) {
+            if ([bo isKindOfClass:[SCBoardObjectCoreData class]]) {
+                SCBoardObjectCoreData *bocd = (SCBoardObjectCoreData *) bo;
+                
+                if ([eventId isEqualToString:bocd.dataObject.eventId]) {
+                    return [NSIndexPath indexPathForRow:idx + offset inSection:0];
+                }
+            }
+            
+            idx++;
+        }
+        
+        offset = [self.boardContent count];
+        idx = 0;
+        for (SCBoardObject *bo in self.boardNewMessagesContent) {
+            if ([bo isKindOfClass:[SCBoardObjectCoreData class]]) {
+                SCBoardObjectCoreData *bocd = (SCBoardObjectCoreData *) bo;
+                
+                if ([eventId isEqualToString:bocd.dataObject.eventId]) {
+                    return [NSIndexPath indexPathForRow:idx + offset inSection:0];
+                }
+            }
+            
+            idx++;
+        }
+    }
+    
+    return nil;
 }
 
 -(NSArray<SCBoardObject *> *) allBoardObjects
@@ -981,6 +1080,11 @@
         return;
     }
 
+    if ([self indexPathForEventId:evnt.eventId]) {
+        // Already inserted...
+        return;
+    }
+    
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
     [df setTimeStyle:NSDateFormatterNoStyle];
@@ -1001,11 +1105,14 @@
             
             NSMutableArray<SCBoardObjectCoreData *> *reInsertList = [NSMutableArray arrayWithCapacity:[self.boardNewMessagesContent count]];
             idxOffset = [self.boardContent count];
-            while ([self.boardNewMessagesContent count] > 0) {
-                SCBoardObject *bo = [self.boardNewMessagesContent lastObject];
+            
+            NSUInteger boCount = [self.boardNewMessagesContent count];
+            
+            for (NSInteger idx = boCount - 1; idx >= 0; idx--) {
+                SCBoardObject *bo = self.boardNewMessagesContent[idx];
                 
-                NSUInteger currentIdx = [self.boardNewMessagesContent indexOfObject:bo] + idxOffset;
-                [self.boardNewMessagesContent removeObject:bo];
+                NSUInteger currentIdx = idx + idxOffset;
+                [self.boardNewMessagesContent removeObjectAtIndex:idx];
                 [self.delegate dataSource:self didChangeObject:bo atIndexPath:[NSIndexPath indexPathForRow:currentIdx inSection:0] forChangeType:SCBoardDataSourceChangeeDelete newIndexPath:nil];
                 
                 if ([bo isKindOfClass:[SCBoardObjectCoreData class]]) {

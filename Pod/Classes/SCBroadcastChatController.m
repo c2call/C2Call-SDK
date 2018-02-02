@@ -100,15 +100,16 @@
         CGFloat keyboardSize = [self keyboardSize:notification];
         
         
-        CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
-        if (!hasTabBar) {
-            tabBarHeight = 0.;
+        CGFloat kbNewHeight = keyboardSize;
+        
+        if (@available(iOS 11.0, *)) {
+            kbNewHeight -= self.view.safeAreaInsets.bottom;
+        } else {
+            kbNewHeight -= self.bottomLayoutGuide.length;
         }
         
-        CGFloat kbNewHeight = keyboardSize - tabBarHeight;
-        
         self.innerViewBottomContraint.constant = kbNewHeight;
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             [self.view layoutIfNeeded];
         }];
     }
@@ -116,6 +117,7 @@
     if ([[notification name] isEqualToString:@"UIKeyboardWillHideNotification"]) {
         
         self.innerViewBottomContraint.constant = 0;
+        
         [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
         }];
@@ -162,7 +164,7 @@
     if (self.broadcastGroupId && [self.messageTextView.text length] > 0){
         [[C2CallPhone currentPhone] submitMessage:self.messageTextView.text toUser:self.broadcastGroupId];
         [SCActivity reportBroadcastComment:self.broadcastGroupId];
-
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.messageTextView.text = nil;
             
@@ -182,3 +184,4 @@
 
 
 @end
+

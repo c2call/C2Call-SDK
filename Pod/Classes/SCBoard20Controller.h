@@ -8,9 +8,16 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@class SCEventContentView, SCReplyToContentView;
+@class SCEventContentView, SCReplyToContentView, SCReplyToContainer;
 @class SCBoardDataSource, SCBoardObject, SCBoard20Controller;
 @class SCBoardObjectTimeHeader, SCBoardObjectCoreData, SCBoardObjectNewMessagesHeader;
+
+@protocol SCBoard20ControllerDelegate<NSObject>
+
+-(void) presentReplyToForEventId:(NSString *_Nonnull) eventId;
+
+@end
+
 
 @interface SCBoardObjectCell : UITableViewCell {
     void (^tapAction)(void);
@@ -64,7 +71,7 @@
 
 @property (weak, nonatomic, nullable) IBOutlet UIView                   *userNameView;
 @property (weak, nonatomic, nullable) IBOutlet UIView                   *userImageView;
-@property (weak, nonatomic, nullable) IBOutlet SCReplyToContentView     *replyToView;
+@property (weak, nonatomic, nullable) IBOutlet SCReplyToContainer       *replyToView;
 @property (weak, nonatomic, nullable) IBOutlet UIView                   *rightView;
 
 @property (weak, nonatomic, nullable) IBOutlet SCEventContentView *eventContentView;
@@ -87,6 +94,7 @@
 @property (weak, nonatomic, nullable) IBOutlet UIImageView  *bubbleTip;
 
 @property (strong, nonatomic, nullable) NSString *eventContentXIB;
+@property (strong, nonatomic, nullable) NSString *replyToEventId;
 
 @property (strong, nonatomic, nullable) NSString            *transferKey;
 @property (nonatomic) BOOL                                  transferMonitorActive;
@@ -110,6 +118,7 @@
 -(void) startDownloadForKey:(NSString*_Nonnull) mediaKey;
 -(void) monitorDownloadForKey:(NSString *_Nonnull) mediaKey;
 -(void) retrieveVideoThumbnailForKey:(NSString*_Nonnull) mediaKey;
+-(void) scrollToRepliedMessage;
 
 @end
 
@@ -139,8 +148,10 @@
  Can be nil.
  
  */
-@property (nonatomic, strong) NSString * _Nullable targetUserid;
+@property (nonatomic, strong, nullable) NSString * targetUserid;
 
+
+@property(nonatomic, weak, nullable) id<SCBoard20ControllerDelegate> delegate;
 
 /** Show Sender Name Header in Chat Cell
  
@@ -174,7 +185,8 @@
 -(UIColor *_Nullable) textColorCellOut;
 -(CGSize) maxPictureSize;
 -(CGSize) maxVideoSize;
--(UIImage *) previewImageForKey:(NSString *) mediaKey maxSize:(CGSize) sz;
+-(UIImage *_Nullable) previewImageForKey:(NSString *_Nonnull) mediaKey maxSize:(CGSize) sz;
+-(UIColor *_Nullable) colorForMember:(NSString *) member;
 
 -(void) configureEventContentColor:(SCBoardObjectEventCell *_Nonnull) cell;
 
@@ -203,6 +215,23 @@
 -(void) transferCompletedForKey:(NSString *_Nullable) mediaKey onCell:(SCBoardObjectEventCell *_Nullable) cell;
 
 -(void) contentAction:(nonnull SCBoardObjectEventCellIn *)cell;
+-(void) scrollToMessageWithEventId:(NSString *_Nonnull) eventId;
+-(void) updateCell:(UITableViewCell *) cell;
+
+-(void) dispose;
+
+-(BOOL) canShareWithApps:(NSString *_Nonnull) key;
+-(void) shareWithApps:(NSString*_Nonnull) key;
+-(void) shareEmail:(NSString *_Nonnull) key;
+-(void) shareMessageForKey:(NSString *_Nonnull) key;
+-(void) shareRichMessageForKey:(NSString *_Nonnull) key;
+-(void) forwardMessage:(NSString *_Nonnull)message;
+-(void) copyText:(NSString *_Nonnull) text;
+-(void) copyVCard:(NSString *_Nonnull) vcard;
+-(void) copyImageForKey:(NSString *_Nonnull) key;
+-(void) copyLocationForKey:(NSString *_Nonnull) key;
+-(void) copyMovieForKey:(NSString *_Nonnull) key;
+
 
 @end
 

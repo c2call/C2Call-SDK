@@ -674,10 +674,9 @@
     }
 
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[UIImage imageNamed:@"ico_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_image"] andCompletion:^{
             
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;
@@ -695,7 +694,7 @@
     
     if ([SIPPhone currentPhone].callStatus == SCCallStatusNone) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            [cv addChoiceWithName:NSLocalizedString(@"Take Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[UIImage imageNamed:@"ico_cam-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+            [cv addChoiceWithName:NSLocalizedString(@"Take Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_cam-24x24"] andCompletion:^{
 
                 UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
                 imagePicker.delegate = self;
@@ -711,7 +710,7 @@
     }
     
     if ([CLLocationManager locationServicesEnabled]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Submit Location", @"Choice Title") andSubTitle:NSLocalizedString(@"Submit your current location", @"Button") andIcon:[UIImage imageNamed:@"ico_geolocation-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Submit Location", @"Choice Title") andSubTitle:NSLocalizedString(@"Submit your current location", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_geolocation-24x24"] andCompletion:^{
             
             [self requestLocation:^(NSString *key) {
                 DLog(@"submitLocation: %@ / %@", key, self.targetUserid);
@@ -723,7 +722,7 @@
     
     if ([SIPPhone currentPhone].callStatus == SCCallStatusNone) {
         if ([AVAudioSession sharedInstance].inputAvailable) {
-            [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[UIImage imageNamed:@"ico_mic" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+            [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_mic"] andCompletion:^{
                 
                 [self recordVoiceMail:^(NSString *key) {
                     DLog(@"submitVoiceMail: %@ / %@", key, self.targetUserid);
@@ -735,7 +734,7 @@
     
     /*
     if (!isSMS) {
-        [cv addChoiceWithName:NSLocalizedString(@"Share Friends", @"Choice Title") andSubTitle:NSLocalizedString(@"Share one or more friends", @"Button") andIcon:[UIImage imageNamed:@"ico_share_friend"] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Share Friends", @"Choice Title") andSubTitle:NSLocalizedString(@"Share one or more friends", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_share_friend"] andCompletion:^{
             // TODO - SCChatController - ShareFriends
             //[self shareFriends:numberOrUserid];
         }];
@@ -743,7 +742,7 @@
     */
     
     if ([IOS iosVersion] >= 5.0) {
-        [cv addChoiceWithName:NSLocalizedString(@"Send Contact", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a contact from address book", @"Button") andIcon:[UIImage imageNamed:@"ico_apple_mail" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Send Contact", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a contact from address book", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_apple_mail"] andCompletion:^{
             [self showPicker:nil];
         }];
     }

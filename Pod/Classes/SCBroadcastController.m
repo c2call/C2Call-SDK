@@ -285,7 +285,6 @@
     if (image)
         return image;
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     image = [[C2CallPhone currentPhone] userimageForUserid:contactUserid];
     if (image) {
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
@@ -295,14 +294,14 @@
     
     MOC2CallUser *user = [[SCDataManager instance] userForUserid:contactUserid];
     if ([user.userType intValue] == 2) {
-        image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar_group"];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
         [self.smallImageCache setObject:image forKey:contactUserid];
         return image;
         
     }
     
-    image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+    image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
     [self.smallImageCache setObject:image forKey:contactUserid];
     return image;
@@ -321,8 +320,7 @@
         return image;
     }
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-    image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+    image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
     [self.smallImageCache setObject:image forKey:[SCUserProfile currentUser].userid];
     return image;
@@ -418,7 +416,7 @@
     
     self.cellLBM = NSLineBreakByWordWrapping;
     
-    //self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_kork"]];
+    //self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[SCAssetManager instance] imageForName:@"bg_kork"]];
     
     
     [self.tableView setSeparatorColor:[UIColor clearColor]];

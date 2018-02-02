@@ -359,8 +359,7 @@
 		cell.imageView.image = userpic;
         cell.imageView.contentMode = UIViewContentModeScaleToFill;
 	} else {
-        NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-        cell.imageView.image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.imageView.image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
         cell.imageView.contentMode = UIViewContentModeScaleToFill;
     }
     

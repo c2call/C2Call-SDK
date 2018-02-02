@@ -156,6 +156,31 @@
  */
 -(void) removeUserdataForKey:(NSString *) key;
 
+/** Block a user
+ Blocking users cannot call or message
+ @param userid - userid of the user being blocked
+ */
+-(void) blockUser:(NSString *) userid;
+
+/** Un-Block a user
+
+ @param userid - userid of the user being un-blocked
+ */
+-(void) unblockUser:(NSString *) userid;
+
+/** List of currently blocked users
+ 
+ @return  - List of blocked userids
+ */
+-(NSArray<NSString *> *) blockedUsers;
+
+
+/** Check whether auserid is currently blocked
+ 
+ @param userid - userid of the user to check
+ @return  Yes - Blocked / NO - Not blocked
+ */
+-(BOOL) isUserBlocked:(NSString *) userid;
 
 /** Get extended DID Numer
  

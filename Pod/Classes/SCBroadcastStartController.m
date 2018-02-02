@@ -29,7 +29,6 @@
     CLLocationManager   *locationManager;
 }
 
-@property(nonatomic, strong) NSArray    *members;
 @property(nonatomic, strong) NSString   *locationKey;
 @property(atomic, strong) CLLocation    *currentLocation;
 @property (weak, nonatomic) IBOutlet SCFlatButton *startButton;

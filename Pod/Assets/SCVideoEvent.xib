@@ -41,7 +41,7 @@
                                     <color key="tintColor" red="0.40583058529999999" green="0.62739404639999996" blue="1" alpha="0.97819456339999999" colorSpace="custom" customColorSpace="displayP3"/>
                                 </progressView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ico_chat_video_white" translatesAutoresizingMaskIntoConstraints="NO" id="oCu-6U-7ni">
-                                    <rect key="frame" x="5" y="4.5" width="16" height="16"/>
+                                    <rect key="frame" x="5" y="8" width="16" height="9"/>
                                 </imageView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="OmV-GO-DQO">
                                     <rect key="frame" x="167" y="6" width="26" height="14"/>
@@ -68,7 +68,7 @@
                         </view>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UOG-Oc-9hk">
                             <rect key="frame" x="81" y="81" width="37" height="37"/>
-                            <color key="color" red="0.46666666670000001" green="0.20392156859999999" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="color" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -110,8 +110,8 @@
         </view>
     </objects>
     <resources>
-        <image name="ico_chat_video_white" width="16" height="16"/>
-        <image name="img_chat_placeholder_video" width="16" height="16"/>
-        <image name="img_chat_shadow_video" width="16" height="16"/>
+        <image name="ico_chat_video_white" width="16" height="9"/>
+        <image name="img_chat_placeholder_video" width="63" height="63"/>
+        <image name="img_chat_shadow_video" width="153" height="38"/>
     </resources>
 </document>

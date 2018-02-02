@@ -130,6 +130,10 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
  */
 @property(nonatomic) BOOL                       useCallKit;
 
+/** Use iOS 10 CallKit with VideoCalls 
+ */
+@property(nonatomic) BOOL                       useCallKitVideo;
+
 
 /** Is the user with the current credentials logged in and has a server session
  */
@@ -304,12 +308,37 @@ As a VoIP and Messaging Service the C2Call Framework requires a complex initiali
  */
 -(UILocalNotification *) missedCallNotificationForUserid:(NSString *) userid displayName:(NSString *) displayName;
 
+/** Return the Caller Name for Inbound CallKit Calls
+ 
+ @return Custom CallerName
+ */
+-(NSString *) displayNameForIncomingCallKitCall:(NSString *) userid;
+
+
+/** Return the Caller Name for Outbound CallKit Calls
+ 
+ @return Custom CallerName
+ */
+-(NSString *) displayNameForOutgoingCallKitCall:(NSString *) userid;
+
 /** Customize Background Message Sound
  
  When the App is in background and still active, message sounds are generated via local notification
  Overwrite this method for different message sound or behavior
  
  */
+
+/** Return the Start Call Action for Call Intents from CallKit
+ 
+ The Call Action will be executed, once the app has been connected to service correctly.
+ This method will be called on INStartAudioCallIntent and INStartVideoCallIntent
+ Overwrite this method in case the default behavior shall be changed.
+ 
+ @param userActivty - NSUserActivity
+ @return C2BlockAction containing the start call activty
+ */
+-(C2BlockAction *) startCallActionForActivityType:(NSUserActivity *) userActivity;
+
 -(void) backgroundMessageSoundUsingLocalNotification;
 
 /** Shows the online status prompt when connected to the service

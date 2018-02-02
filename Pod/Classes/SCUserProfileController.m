@@ -278,10 +278,9 @@
 -(IBAction)selectPhoto:(id)sender
 {
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[UIImage imageNamed:@"ico_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_image"] andCompletion:^{
             
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;
@@ -293,7 +292,7 @@
     }
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Take Photo", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[UIImage imageNamed:@"ico_cam-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Take Photo", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_cam-24x24"] andCompletion:^{
             
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;

@@ -6,12 +6,15 @@
 //
 
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "UIViewController+SCCustomViewController.h"
+#import <UIViewController+SCCustomViewController.h>
+
+#import <Contacts/Contacts.h>
 
 #import "SCBoard20Controller.h"
 #import "SCBoardDataSource.h"
 #import "SCEventContentView.h"
 #import "SCReplyToContentView.h"
+#import "SCReplyToContainer.h"
 #import "SocialCommunication.h"
 #import "FCPlacesDetail.h"
 #import "FCGeocoder.h"
@@ -20,11 +23,17 @@
 
 @implementation SCBoardObjectCell
 
+- (void)dealloc
+{
+    DLog(@"SCBoardObjectCell:dealloc");
+    [self dispose];
+}
+
 -(void) prepareForReuse
 {
     [super prepareForReuse];
     
-    NSLog(@"SCBoardTest:prepareForReuse");
+    DLog(@"SCBoardTest:prepareForReuse");
     
     if (tapGesture) {
         [self.tapGestureView removeGestureRecognizer:tapGesture];
@@ -102,6 +111,7 @@
     tapAction = nil;
     longpressAction = nil;
     
+    self.controller = nil;
 }
 
 -(void)handleTap:(UITapGestureRecognizer *)sender
@@ -160,6 +170,7 @@
     self.topDistanceView.hidden = NO;
     self.bottomDistanceView.hidden = NO;
     self.boardObject = nil;
+    self.replyToEventId = nil;
     
     self.retrievingVideoThumbnail = NO;
     if (self.transferKey) {
@@ -170,6 +181,12 @@
         [self hideTransferProgress];
     }
     
+    if (self.replyToView.replyToView) {
+        [self.replyToView.stackView removeArrangedSubview:self.replyToView.replyToView];
+        [self.replyToView.replyToView removeFromSuperview];
+        self.replyToView.replyToView = nil;
+    }
+
     [self.replyToView setHidden:YES];
 }
 
@@ -323,7 +340,9 @@
 
 -(void) showTransferProgress;
 {
-    [self.eventContentView showTransferProgress];
+    if ([self.eventContentView showTransferProgress]) {
+        [self.controller updateCell:self];
+    }
 }
 
 -(void) updateTransferProgress:(CGFloat) progress;
@@ -333,7 +352,9 @@
 
 -(void) hideTransferProgress;
 {
-    [self.eventContentView hideTransferProgress];
+    if ([self.eventContentView hideTransferProgress]) {
+        [self.controller updateCell:self];
+    }
 }
 
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
@@ -383,7 +404,7 @@
     if ([key rangeOfString:@"(null)"].location != NSNotFound) {
         return;
     }
-
+    
     if (self.retrievingVideoThumbnail) {
         return;
     }
@@ -391,7 +412,7 @@
     if ([[C2CallPhone currentPhone] hasObjectForKey:key]) {
         return;
     }
-
+    
     
     if ([[C2CallPhone currentPhone] downloadStatusForKey:key]) {
         return;
@@ -401,7 +422,7 @@
     self.transferMonitorActive = NO;
     
     [self showTransferProgress];
-
+    
     [self monitorDownloadForKey:key];
     
     
@@ -442,12 +463,14 @@
     self.transferMonitorActive = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:key object:nil];
     
-
+    
     // Automatically show progress on next progress event...
 }
 
 -(void) retrieveVideoThumbnailForKey:(NSString*) mediaKey
 {
+    __weak SCBoardObjectEventCell *weakcell = self;
+    
     if (![mediaKey hasPrefix:@"video://"]) {
         DLog(@"Not a video object : %@", mediaKey);
         return;
@@ -464,7 +487,7 @@
         [self presentContentForKey:mediaKey withPreviewImage:image];
         return;
     }
-
+    
     self.retrievingVideoThumbnail = YES;
     self.transferKey = mediaKey;
     
@@ -472,24 +495,23 @@
     
     [[C2CallPhone currentPhone] retrieveVideoThumbnailForKey:mediaKey completionHandler:^(UIImage *thumbnail) {
         DLog(@"VideoThumbnail retrieved!");
-        self.retrievingVideoThumbnail = NO;
+        weakcell.retrievingVideoThumbnail = NO;
         
         // Check whether the cell is still active for this key
-        if ([self.transferKey isEqualToString:mediaKey]) {
+        if ([weakcell.transferKey isEqualToString:mediaKey]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 UIImage *thumb = thumbnail;
                 if (!thumb) {
-                    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-                    thumb = [UIImage imageNamed:@"ico_broken_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                    thumb = [[SCAssetManager instance] imageForName:@"ico_broken_video"];
                 }
-                [self presentContentForKey:mediaKey withPreviewImage:thumb];
+                [weakcell presentContentForKey:mediaKey withPreviewImage:thumb];
                 
-                [self hideTransferProgress];
+                [weakcell hideTransferProgress];
                 
-                [self.controller transferCompletedForKey:mediaKey onCell:self];
+                [weakcell.controller transferCompletedForKey:mediaKey onCell:weakcell];
             });
-            self.transferKey = nil;
+            weakcell.transferKey = nil;
         }
     }];
 }
@@ -499,7 +521,7 @@
 
 -(void) retrieveLocation:(FCLocation *) loc
 {
-    
+    __weak SCBoardObjectEventCell *weakcell = self;
     
     if ([[C2CallPhone currentPhone] hasThumbnailForKey:loc.locationKey]) {
         UIImage *locationImage = [[C2CallPhone currentPhone] thumbnailForKey:loc.locationKey];
@@ -537,7 +559,7 @@
             [loc storeLocation];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.controller transferCompletedForKey:loc.locationKey onCell:self];
+                [weakcell.controller transferCompletedForKey:loc.locationKey onCell:weakcell];
             });
             
         }];
@@ -553,7 +575,7 @@
                 loc.address = [loc.geoLocation objectForKey:@"address"];
                 [loc storeLocation];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.controller transferCompletedForKey:loc.locationKey onCell:self];
+                    [weakcell.controller transferCompletedForKey:loc.locationKey onCell:weakcell];
                 });
             }
         }];
@@ -563,6 +585,12 @@
     }
 }
 
+-(void) scrollToRepliedMessage
+{
+    if (self.replyToEventId) {
+        [self.controller scrollToMessageWithEventId:self.replyToEventId];
+    }
+}
 @end
 
 @implementation SCBoardObjectEventCellIn
@@ -605,7 +633,13 @@
 @end
 
 
-@interface SCBoard20Controller ()<SCBoardDataSourceDelegate, MFMailComposeViewControllerDelegate>
+@interface SCBoard20Controller ()<SCBoardDataSourceDelegate, MFMailComposeViewControllerDelegate> {
+    BOOL    isChangingContent;
+    NSMutableArray<NSNumber *>    *contentCount;
+    
+    NSInteger   insertedObjects, deletedObjects;
+}
+
 
 @property(strong, nonatomic) NSDateFormatter    *timeFormatter;
 @property(nonatomic) BOOL                   scrollToBottom;
@@ -616,7 +650,10 @@
 @property(strong, nonatomic) NSMutableArray     *animationIcon;
 @property(strong, nonatomic) NSMutableArray     *animationIconWhite;
 @property(strong, nonatomic) NSMutableDictionary<NSString*, UIColor*>   *colorMap;
-@property(strong, nonatomic) NSArray<UIColor*>   *colorList;
+
+@property(strong, nonatomic) NSArray<UIColor*>                                  *colorList;
+@property(strong, nonatomic) NSArray<NSDictionary<NSString*, NSObject*> *>     *groupDataDetectors;
+
 @property(nonatomic) NSUInteger    colorNum;
 @property(nonatomic) NSInteger    lastContentOffset;
 @property(nonatomic) BOOL   isGroup;
@@ -629,22 +666,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    isChangingContent = NO;
+    contentCount = [[NSMutableArray alloc] initWithCapacity:200];
+
     self.cellHeightsDictionary = [NSMutableDictionary dictionary];
     self.colorMap = [NSMutableDictionary dictionary];
     self.previewImageCache = [[NSCache alloc] init];
     
     self.animationIcon = [[NSMutableArray alloc] initWithCapacity:4];
-    [self.animationIcon addObject:[UIImage imageNamed:@"ico_sending_0"]];
-    [self.animationIcon addObject:[UIImage imageNamed:@"ico_sending_1"]];
-    [self.animationIcon addObject:[UIImage imageNamed:@"ico_sending_2"]];
-    [self.animationIcon addObject:[UIImage imageNamed:@"ico_sending_3"]];
-
+    [self.animationIcon addObject:[[SCAssetManager instance] imageForName:@"ico_sending_0"]];
+    [self.animationIcon addObject:[[SCAssetManager instance] imageForName:@"ico_sending_1"]];
+    [self.animationIcon addObject:[[SCAssetManager instance] imageForName:@"ico_sending_2"]];
+    [self.animationIcon addObject:[[SCAssetManager instance] imageForName:@"ico_sending_3"]];
+    
     self.animationIconWhite = [[NSMutableArray alloc] initWithCapacity:4];
-    [self.animationIconWhite addObject:[UIImage imageNamed:@"ico_sending_0_white"]];
-    [self.animationIconWhite addObject:[UIImage imageNamed:@"ico_sending_1_white"]];
-    [self.animationIconWhite addObject:[UIImage imageNamed:@"ico_sending_2_white"]];
-    [self.animationIconWhite addObject:[UIImage imageNamed:@"ico_sending_3_white"]];
-
+    [self.animationIconWhite addObject:[[SCAssetManager instance] imageForName:@"ico_sending_0_white"]];
+    [self.animationIconWhite addObject:[[SCAssetManager instance] imageForName:@"ico_sending_1_white"]];
+    [self.animationIconWhite addObject:[[SCAssetManager instance] imageForName:@"ico_sending_2_white"]];
+    [self.animationIconWhite addObject:[[SCAssetManager instance] imageForName:@"ico_sending_3_white"]];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     //[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
@@ -670,6 +710,10 @@
         self.isGroup = [[C2CallPhone currentPhone] isGroupUser:self.targetUserid];
     }
     
+    if (self.isGroup) {
+        self.groupDataDetectors = [self prepareGroupUserDataDetectors];
+    }
+    
     [self.dataSource layzInitialize];
 }
 
@@ -683,18 +727,65 @@
         if (!self.dontShowCallEvents) {
             [[SCDataManager instance] resetMissedCallsForContact:self.targetUserid];
         }
+        
+        [self.dataSource saveChanges];
     }
+    
+}
 
+-(void) dispose {
+    [self.dataSource dispose];
+    self.delegate = nil;
+    self.dataSource = nil;
+    [self.previewImageCache removeAllObjects];
 }
 
 - (void)dealloc
 {
+    DLog(@"SCBoard20Controller:dealloc()");
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSMutableArray<NSDictionary<NSString*, NSObject*> *> *) prepareGroupUserDataDetectors
+{
+    SCGroup *group = [[SCGroup alloc] initWithGroupid:self.targetUserid retrieveFromServer:NO];
+    
+    NSMutableArray<NSDictionary<NSString*, NSObject*> *> *dataDetectors = [NSMutableArray array];
+    
+    for (NSString *member in group.groupMembers) {
+        NSString *name = [[C2CallPhone currentPhone] nameForUserid:member];
+        if ([name isEqualToString:member]) {
+            NSString *firstname = [group firstnameForGroupMember:member];
+            NSString *lastname = [group nameForGroupMember:member];
+            if ([firstname length] > 0 && [lastname length] > 0) {
+                name = [NSString stringWithFormat:@"%@ %@", firstname, lastname];
+            } else if ([firstname length] > 0) {
+                name = firstname;
+            } else if ([lastname length] > 0) {
+                name = lastname;
+            }
+        }
+        
+        if (name) {
+            NSMutableDictionary *dataDetector = [NSMutableDictionary dictionaryWithCapacity:4];
+            dataDetector[@"name"] = name;
+            dataDetector[@"userid"] = member;
+            UIColor *color = [self colorForMember:member];
+            if (color) {
+                dataDetector[@"color"] = color;
+            }
+
+            [dataDetectors addObject:dataDetector];
+        }
+    }
+    
+    return dataDetectors;
 }
 
 -(void) onKeyboardWillShow:(NSNotification *) notification
@@ -726,6 +817,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (isChangingContent) {
+        return [contentCount[section] integerValue];
+    }
+
     return [self.dataSource numberOfRowsInSection:section];
 }
 
@@ -771,16 +866,16 @@
 
 -(NSString *) replyToContentXIBMessageObject:(SCBoardObjectCoreData *) msg
 {
-    return nil;
+    return @"SCReplyToContent";
 }
 
 -(void) loadEventContentXIB:(SCBoardObjectEventCell *) cell forBoardObject:(SCBoardObjectCoreData *) bo
 {
     NSString *xibFile = [self eventContentXIBMessageObject:bo];
-    NSLog(@"SCBoardTest:loadEventContentXIB: %@",xibFile);
+    DLog(@"SCBoardTest:loadEventContentXIB: %@",xibFile);
     if ([cell.eventContentXIB isEqualToString:xibFile]) {
         // Resued Cell with right content, do nothing
-        NSLog(@"SCBoardTest:loadEventContentXIB: %@ - Already Loaded",xibFile);
+        DLog(@"SCBoardTest:loadEventContentXIB: %@ - Already Loaded",xibFile);
         return;
     }
     
@@ -810,12 +905,47 @@
 
 -(void) loadReplyToContentXIB:(SCBoardObjectEventCell *) cell forBoardObject:(SCBoardObjectCoreData *) bo
 {
+    DLog(@"loadReplyToContentXIB: %@", bo.dataObject.text);
+    
+    NSString *replyToEventId = bo.dataObject.replyTo;
+
+    if (!replyToEventId) {
+        return;
+    }
+    
     NSString *xibFile = [self replyToContentXIBMessageObject:bo];
     if (!xibFile) {
         return;
     }
-    UINib *nib = [UINib nibWithNibName:xibFile bundle:nil];
-    [nib instantiateWithOwner:cell options:nil];
+    
+    UINib *nib = nil;
+    if ([[NSBundle mainBundle] pathForResource:xibFile ofType:@"nib"]) {
+        nib = [UINib nibWithNibName:xibFile bundle:nil];
+    }
+    
+    if (!nib) {
+        nib = [UINib nibWithNibName:xibFile bundle:[NSBundle bundleForClass:[self class]]];
+    }
+    [nib instantiateWithOwner:cell.replyToView options:nil];
+    
+    if (![cell.replyToView.replyToView presentReplyToContentFor:replyToEventId]) {
+        return;
+    }
+    
+    cell.replyToEventId = replyToEventId;
+    
+    if (cell.replyToView.replyToView.replyToUserid && self.isGroup) {
+        UIColor *color = [self colorForMember:cell.replyToView.replyToView.replyToUserid];
+        if (color) {
+            [cell.replyToView.replyToView setReplyToColor:color];
+        }
+    }
+
+    [cell.replyToView.replyToTap addTarget:cell action:@selector(scrollToRepliedMessage)];
+    
+    [cell.replyToView.stackView addArrangedSubview:cell.replyToView.replyToView];
+    cell.replyToView.hidden = NO;
+    [cell.replyToView setNeedsUpdateConstraints];
 }
 
 -(NSString *) reuseIdentifierForBoardObject:(SCBoardObject *) bo atIndexPath:(NSIndexPath *) indexPath;
@@ -864,7 +994,6 @@
     if (image)
         return image;
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     image = [[C2CallPhone currentPhone] userimageForUserid:contact];
     if (image) {
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:17.5];
@@ -873,7 +1002,7 @@
     }
     
     if ([self isPhoneNumber:contact]) {
-        image = [UIImage imageNamed:@"btn_ico_adressbook_contact" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        image = [[SCAssetManager instance] imageForName:@"btn_ico_adressbook_contact"];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:17.5];
         [self.smallImageCache setObject:image forKey:contact];
         return image;
@@ -881,14 +1010,14 @@
     
     MOC2CallUser *user = [[SCDataManager instance] userForUserid:contact];
     if ([user.userType intValue] == 2) {
-        image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar_group"];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:17.5];
         [self.smallImageCache setObject:image forKey:contact];
         return image;
         
     }
     
-    image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+    image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
     [self.smallImageCache setObject:image forKey:contact];
     return image;
@@ -941,7 +1070,7 @@
             img = [ImageUtil thumbnailFromImage:img withSize:sz.height];
         }
     }
-
+    
     [self.previewImageCache setObject:img forKey:mediaKey];
     return img;
 }
@@ -983,6 +1112,10 @@
     
     if ([numbers count] > 0) {
         result[@"phone"] = numbers;
+    }
+    
+    if (self.groupDataDetectors && [messageText rangeOfString:@"@"].location != NSNotFound) {
+        result[@"users"] = [self.groupDataDetectors copy];
     }
     
     if ([result count] > 0) {
@@ -1041,11 +1174,9 @@
     [cell.userNameView setHidden:YES];
     cell.timeInfo.text = [self.timeFormatter stringFromDate:elem.timeStamp];
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-    
     int status = [elem.status intValue];
     if (status == 3) {
-        cell.errorStatusImage.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.errorStatusImage.image = [[SCAssetManager instance] imageForName:@"ico_notdelivered"];
         cell.readStatus.hidden = YES;
         return;
     }
@@ -1053,7 +1184,7 @@
     cell.topDistanceView.hidden = bo.sameSenderOnPreviousMessage;
     cell.bubbleTip.hidden = bo.sameSenderOnPreviousMessage && self.isGroup;
     cell.readStatus.hidden = NO;
-
+    
     SCRichMediaType rtype = [[C2CallPhone currentPhone] mediaTypeForKey:bo.dataObject.text];
     
     BOOL isImage = rtype == SCMEDIATYPE_IMAGE;
@@ -1071,6 +1202,8 @@
     NSArray<NSURL *> *links = dataDetector[@"url"];
     NSArray<NSString *> *numbers = dataDetector[@"phone"];
     
+    __weak SCBoard20Controller *weakself = self;
+
     
     if ([links count] > 0 || [numbers count] > 0) {
         if ([links count] == 1 && [numbers count] == 0) {
@@ -1083,10 +1216,10 @@
         }
         
         [cell setTapAction:^{
-            SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
+            SCPopupMenu *cv = [SCPopupMenu popupMenu:weakself];
             
             for (NSURL *url in links) {
-                [cv addChoiceWithName:NSLocalizedString(@"Open URL", @"Choice Title") andSubTitle:[url absoluteString] andIcon:[UIImage imageNamed:@"ico_webmail_import"] andCompletion:^()
+                [cv addChoiceWithName:NSLocalizedString(@"Open URL", @"Choice Title") andSubTitle:[url absoluteString] andIcon:[[SCAssetManager instance] imageForName:@"ico_webmail_import"] andCompletion:^()
                  {
                      [[UIApplication sharedApplication] openURL:url];
                  }];
@@ -1097,7 +1230,7 @@
                 NSString *intlNumber = [SIPUtil normalizePhoneNumber:phoneNumber];
                 NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Call Number", @"MenuItem")];
                 
-                [cv addChoiceWithName:title andSubTitle:intlNumber andIcon:[UIImage imageNamed:@"btn_ico_call"] andCompletion:^{
+                [cv addChoiceWithName:title andSubTitle:intlNumber andIcon:[[SCAssetManager instance] imageForName:@"btn_ico_call"] andCompletion:^{
                     [[SIPPhone currentPhone] callNumber:phoneNumber];
                 }];
             }
@@ -1110,8 +1243,136 @@
         
         return YES;
     }
-
+    
     return NO;
+}
+
+-(BOOL) prepareDataDetectorActionForTextContentView:(SCTextEventContentView *) cv
+{
+    __weak SCBoard20Controller *weakself = self;
+    
+    [cv setDataTapAction:^(NSString * _Nonnull type, NSObject * _Nullable dataObject) {
+        if ([type isEqualToString:@"url"]) {
+            if ([dataObject isKindOfClass:[NSURL class]]) {
+                NSURL *url = (NSURL *) dataObject;
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+        
+        if ([type isEqualToString:@"phone"]) {
+            if ([dataObject isKindOfClass:[NSString class]]) {
+                NSString *phoneNumber = (NSString *) dataObject;
+                NSString *intlNumber = [SIPUtil normalizePhoneNumber:phoneNumber];
+                
+                [[SIPPhone currentPhone] callNumber:phoneNumber];
+            }
+
+        }
+        
+        if ([type isEqualToString:@"user"]) {
+            if ([dataObject isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *user = (NSDictionary *) dataObject;
+                NSString *userid = user[@"userid"];
+                if ([userid isEqualToString:[SCUserProfile currentUser].userid]) {
+                    return;
+                }
+                
+                if ([[C2CallPhone currentPhone] isGroupUser:userid]) {
+                    [weakself showGroupDetailForGroupid:userid];
+                } else {
+                    [weakself showFriendDetailForUserid:userid];
+                }
+            }
+        }
+    }];
+    
+    [cv setDataLongPressAction:^(NSString * _Nonnull type, NSObject * _Nullable dataObject) {
+        if ([type isEqualToString:@"url"]) {
+            if ([dataObject isKindOfClass:[NSURL class]]) {
+                NSURL *url = (NSURL *) dataObject;
+                [weakself copyText:[url absoluteString]];
+
+                UINavigationItem *item = weakself.parentViewController.navigationItem;
+                if (!item) {
+                    item = weakself.navigationItem;
+                }
+                item.prompt = @"Url copied...";
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    item.prompt = nil;
+                });
+            }
+        }
+        
+        if ([type isEqualToString:@"phone"]) {
+            if ([dataObject isKindOfClass:[NSString class]]) {
+                NSString *phoneNumber = (NSString *) dataObject;
+                NSString *intlNumber = [SIPUtil normalizePhoneNumber:phoneNumber];
+                
+                [weakself copyText:intlNumber];
+                
+                UINavigationItem *item = weakself.parentViewController.navigationItem;
+                if (!item) {
+                    item = weakself.navigationItem;
+                }
+                
+                item.prompt = @"Number copied...";
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    item.prompt = nil;
+                });
+            }
+            
+        }
+        
+        if ([type isEqualToString:@"user"]) {
+            if ([dataObject isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *user = (NSDictionary *) dataObject;
+                NSString *userid = user[@"userid"];
+                NSString *name = user[@"name"];
+                
+                if ([userid isEqualToString:[SCUserProfile currentUser].userid]) {
+                    return;
+                }
+
+                SCPopupMenu *cv = [SCPopupMenu popupMenu:weakself];
+
+                [cv addChoiceWithName:NSLocalizedString(name, @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     if ([[C2CallPhone currentPhone] isGroupUser:userid]) {
+                         [weakself showGroupDetailForGroupid:userid];
+                     } else {
+                         [weakself showFriendDetailForUserid:userid];
+                     }
+                 }];
+
+                [cv addChoiceWithName:NSLocalizedString(@"VoIP Call", @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     [[C2CallPhone currentPhone] callVoIP:userid];
+                 }];
+
+                [cv addChoiceWithName:NSLocalizedString(@"Video Call", @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     [[C2CallPhone currentPhone] callVideo:userid];
+                 }];
+
+                [cv addChoiceWithName:NSLocalizedString(@"Chat", @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     [weakself showChatForUserid:userid];
+                 }];
+
+                [cv addChoiceWithName:NSLocalizedString(@"Copy", @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     [weakself copyText:name];
+                 }];
+
+                [cv addCancelWithName:NSLocalizedString(@"Cancel", @"Button") andCompletion:^{
+                }];
+                
+                [cv showMenu];
+            }
+        }
+    }];
+
+    return YES;
 }
 
 -(void) configureTextCellIn:(SCBoardObjectEventCellIn *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
@@ -1119,22 +1380,28 @@
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellIn *weakcell = cell;
+    __weak SCBoard20Controller *weakself = self;
+
     NSString *text = bo.dataObject.text;
     
     NSDictionary<NSString *, NSArray*> *dataDetector = [self dataDetectorAction:text];
     
-    if (dataDetector) {
-        [self prepareDataDetectorAction:dataDetector forCell:cell];
-    }
-
+    //if (dataDetector) {
+    //    [self prepareDataDetectorAction:dataDetector forCell:cell];
+    //}
+    
     [cell setLongpressAction:^{
-        [self showLongpressMenuForCell:weakcell withMediaKey:text];
+        [weakself showLongpressMenuForCell:weakcell withMediaKey:text];
     }];
     
     if ([cell.eventContentView isKindOfClass:[SCTextEventContentView class]]) {
         SCTextEventContentView *cv = (SCTextEventContentView *) cell.eventContentView;
         
         [cv presentTextContent:text  withTextColor:[self textColorCellIn] andDataDetector:dataDetector];
+        
+        if (dataDetector) {
+            [self prepareDataDetectorActionForTextContentView:cv];
+        }
     }
 }
 
@@ -1144,21 +1411,28 @@
     
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
+    __weak SCBoard20Controller *weakself = self;
+
     NSString *text = [bo.dataObject.text copy];
     
     NSDictionary<NSString *, NSArray*> *dataDetector = [self dataDetectorAction:text];
     
-    if (dataDetector) {
-        [self prepareDataDetectorAction:dataDetector forCell:cell];
-    }
-
+    //if (dataDetector) {
+    //    [self prepareDataDetectorAction:dataDetector forCell:cell];
+    //}
+    
     [cell setLongpressAction:^{
-        [self showLongpressMenuForCell:weakcell withMediaKey:text];
+        [weakself showLongpressMenuForCell:weakcell withMediaKey:text];
     }];
     
     if ([cell.eventContentView isKindOfClass:[SCTextEventContentView class]]) {
         SCTextEventContentView *cv = (SCTextEventContentView *) cell.eventContentView;
         [cv presentTextContent:text  withTextColor:[self textColorCellOut] andDataDetector:[self dataDetectorAction:text]];
+        
+        if (dataDetector) {
+            [self prepareDataDetectorActionForTextContentView:cv];
+        }
+
     }
     
 }
@@ -1169,33 +1443,32 @@
     
     
     __weak SCBoardObjectEventCellIn *weakcell = cell;
+    __weak SCBoard20Controller *weakself = self;
+    
     
     cell.contentAction.hidden = NO;
-    
     NSString *mediaKey = bo.dataObject.text;
     if ([[C2CallPhone currentPhone] hasObjectForKey:mediaKey]) {
         UIImage *image = [self previewImageForKey:mediaKey maxSize:[self maxPictureSize]];
         
         [cell presentContentForKey:mediaKey withPreviewImage:image];
         [cell setTapAction:^{
-            [self showImage:mediaKey];
+            [weakself showImage:mediaKey];
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
     } else {
         if ([[C2CallPhone currentPhone] downloadStatusForKey:mediaKey]) {
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage = [[SCAssetManager instance] imageForName:@"ico_broken_image"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             
         } else {
@@ -1210,7 +1483,8 @@
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
-    
+    __weak SCBoard20Controller *weakself = self;
+
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1224,7 +1498,7 @@
             
             NSString *userid = [elem.contact copy];
             [cell setLongpressAction:^{
-                [self setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
+                [weakself setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
             }];
             
             return;
@@ -1244,20 +1518,18 @@
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
     } else {
         if ([[C2CallPhone currentPhone] downloadStatusForKey:mediaKey]) {
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage = [[SCAssetManager instance] imageForName:@"ico_broken_image"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             
         } else {
@@ -1271,9 +1543,10 @@
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellIn *weakcell = cell;
-    
-    cell.contentAction.hidden = NO;
+    __weak SCBoard20Controller *weakself = self;
 
+    cell.contentAction.hidden = NO;
+    
     BOOL failed = NO, hasVideo = NO;
     NSString *mediaKey = bo.dataObject.text;
     if ([[C2CallPhone currentPhone] hasObjectForKey:mediaKey]) {
@@ -1282,20 +1555,18 @@
         hasVideo = YES;
     } else {
         UIImage *thumb = [self previewImageForKey:mediaKey maxSize:[self maxVideoSize]];
-
+        
         [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         
         if ([[C2CallPhone currentPhone] downloadStatusForKey:mediaKey]) {
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage = [[SCAssetManager instance] imageForName:@"ico_broken_video"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             failed = YES;
         } else {
@@ -1307,11 +1578,11 @@
     
     if (!failed && hasVideo) {
         [cell setTapAction:^{
-            [self showVideo:mediaKey];
+            [weakself showVideo:mediaKey];
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
         
         return;
@@ -1330,14 +1601,15 @@
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
-    
+    __weak SCBoard20Controller *weakself = self;
+
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
     if ([elem.eventType isEqualToString:@"MessageSubmit"]) {
         
         UIImage *image = [self previewImageForKey:mediaKey maxSize:[self maxVideoSize]];
-
+        
         [cell presentContentForKey:mediaKey withPreviewImage:image];
         
         int status = [elem.status intValue];
@@ -1345,7 +1617,7 @@
             
             NSString *userid = [elem.contact copy];
             [cell setLongpressAction:^{
-                [self setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
+                [weakself setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
             }];
             
             return;
@@ -1364,20 +1636,18 @@
         hasVideo = YES;
     } else {
         UIImage *thumb = [self previewImageForKey:mediaKey maxSize:[self maxVideoSize]];
-
+        
         [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         
         if ([[C2CallPhone currentPhone] downloadStatusForKey:mediaKey]) {
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_image"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             failed = YES;
         } else {
@@ -1390,11 +1660,11 @@
     
     if (!failed && hasVideo) {
         [cell setTapAction:^{
-            [self showVideo:mediaKey];
+            [weakself showVideo:mediaKey];
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
         return;
     }
@@ -1411,12 +1681,13 @@
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellIn *weakcell = cell;
-    
-    cell.contentAction.hidden = NO;
+    __weak SCBoard20Controller *weakself = self;
 
+    cell.contentAction.hidden = NO;
+    
     BOOL failed = NO, hasAudio = NO;
     NSString *mediaKey = bo.dataObject.text;
-
+    
     if ([[C2CallPhone currentPhone] hasObjectForKey:mediaKey]) {
         [cell presentContentForKey:mediaKey withPreviewImage:nil];
         hasAudio = YES;
@@ -1425,13 +1696,11 @@
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             failed = YES;
         } else {
@@ -1483,7 +1752,7 @@
         
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
         
         return;
@@ -1494,7 +1763,7 @@
             //[weakcell startDownloadForKey:mediaKey];
         }];
     }
-
+    
 }
 
 -(void) configureAudioCellOut:(SCBoardObjectEventCellOut *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
@@ -1502,7 +1771,8 @@
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
-    
+    __weak SCBoard20Controller *weakself = self;
+
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1514,7 +1784,7 @@
             
             NSString *userid = [elem.contact copy];
             [cell setLongpressAction:^{
-                [self setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
+                [weakself setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
             }];
             
             return;
@@ -1534,13 +1804,11 @@
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             failed = YES;
         } else {
@@ -1558,7 +1826,7 @@
                     ev.pttPlayer.progress = ev.progress;
                     ev.pttPlayer.playButton = ev.play;
                 }
-
+                
             }
             
             [cell setTapAction:^{
@@ -1592,7 +1860,7 @@
         
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
         
         return;
@@ -1611,9 +1879,10 @@
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellIn *weakcell = cell;
-    
-    cell.contentAction.hidden = NO;
+    __weak SCBoard20Controller *weakself = self;
 
+    cell.contentAction.hidden = NO;
+    
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1623,7 +1892,7 @@
     [cell setOpenLocationAction:^{
         if (loc.locationUrl) {
             NSString *name = [loc.place objectForKey:@"name"];
-            [self openBrowserWithUrl:loc.locationUrl andTitle:name];
+            [weakself openBrowserWithUrl:loc.locationUrl andTitle:name];
         }
     }];
     
@@ -1631,11 +1900,11 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     
     [cell setTapAction:^{
-        [self showLocation:mediaKey forUser:sendername];
+        [weakself showLocation:mediaKey forUser:sendername];
     }];
     
     [cell setLongpressAction:^{
-        [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+        [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
     }];
     
 }
@@ -1645,7 +1914,8 @@
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
-    
+    __weak SCBoard20Controller *weakself = self;
+
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1655,7 +1925,7 @@
     [cell setOpenLocationAction:^{
         if (loc.locationUrl) {
             NSString *name = [loc.place objectForKey:@"name"];
-            [self openBrowserWithUrl:loc.locationUrl andTitle:name];
+            [weakself openBrowserWithUrl:loc.locationUrl andTitle:name];
         }
     }];
     
@@ -1663,47 +1933,94 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     
     [cell setTapAction:^{
-        [self showLocation:mediaKey forUser:sendername];
+        [weakself showLocation:mediaKey forUser:sendername];
     }];
     
     [cell setLongpressAction:^{
-        [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+        [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
     }];
     
     
 }
 
+-(NSString *) metaKeyForKey:(NSString *) mediaKey
+{
+    return [mediaKey stringByReplacingOccurrencesOfString:@"://" withString:@"://meta-"];
+}
+
+-(NSString *) thumbKeyForKey:(NSString *) mediaKey
+{
+    return [mediaKey stringByReplacingOccurrencesOfString:@"://" withString:@"://thumb-"];
+}
+
+-(void) retrieveAdditionalDataForBoardObject:(SCBoardObjectCoreData *) bocd withKey:(NSString *) key
+{
+    if ([[C2CallPhone currentPhone] hasObjectForKey:key]) {
+        return;
+    }
+    
+    if ([[C2CallPhone currentPhone] downloadStatusForKey:key]) {
+        return;
+    }
+    
+    __weak SCBoard20Controller *weakself = self;
+    [[C2CallPhone currentPhone] retrieveObjectForKey:key completion:^(BOOL finished) {
+        
+        if (finished && [[C2CallPhone currentPhone] hasObjectForKey:key]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSIndexPath *indexPath = [weakself.dataSource indexPathForBoardObject:bocd];
+                
+                NSArray<NSIndexPath *> *pathlist = [weakself.tableView indexPathsForVisibleRows];
+                if (pathlist) {
+                    for (NSIndexPath *ipath in pathlist) {
+                        if ([ipath isEqual:indexPath]) {
+                            [weakself.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        }
+                    }
+                }
+            });
+        }
+    }];
+}
 
 -(void) configureFileCellIn:(SCBoardObjectEventCellIn *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
 {
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellIn *weakcell = cell;
-    
+    __weak SCBoard20Controller *weakself = self;
+
     BOOL failed = NO, hasFile = NO;
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
-    
-    cell.contentAction.hidden = NO;
 
+    NSString *thumbKey = [self thumbKeyForKey:mediaKey];
+    [self retrieveAdditionalDataForBoardObject:bo withKey:thumbKey];
+
+    NSString *metaKey = [self metaKeyForKey:mediaKey];
+    [self retrieveAdditionalDataForBoardObject:bo withKey:metaKey];
+
+    cell.contentAction.hidden = NO;
     
+    UIImage *thumb = [[C2CallPhone currentPhone] thumbnailForKey:mediaKey];
+
     if ([[C2CallPhone currentPhone] hasObjectForKey:mediaKey]) {
-        [cell presentContentForKey:mediaKey withPreviewImage:nil];
+        [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         hasFile = YES;
     } else {
-        [cell presentContentForKey:mediaKey withPreviewImage:nil];
+        
+        [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         
         if ([[C2CallPhone currentPhone] downloadStatusForKey:mediaKey]) {
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
             
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_video"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             failed = YES;
         }
@@ -1711,11 +2028,11 @@
     
     if (!failed && hasFile) {
         [cell setTapAction:^{
-            [self showDocument:mediaKey];
+            [weakself showDocument:mediaKey];
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
         
         return;
@@ -1734,20 +2051,33 @@
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
-    
+    __weak SCBoard20Controller *weakself = self;
+
     BOOL failed = NO, hasFile = NO;
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
+
+
+    UIImage *thumb = [[C2CallPhone currentPhone] thumbnailForKey:mediaKey];
+
+    
+    NSString *thumbKey = [self thumbKeyForKey:mediaKey];
+    [self retrieveAdditionalDataForBoardObject:bo withKey:thumbKey];
+
+    NSString *metaKey = [self metaKeyForKey:mediaKey];
+    [self retrieveAdditionalDataForBoardObject:bo withKey:metaKey];
     
     if ([elem.eventType isEqualToString:@"MessageSubmit"]) {
-        [cell presentContentForKey:mediaKey withPreviewImage:nil];
+        
+        
+        [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         
         int status = [elem.status intValue];
         if (status == 3) {
             
             NSString *userid = [elem.contact copy];
             [cell setLongpressAction:^{
-                [self setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
+                [weakself setRetransmitActionForCell:weakcell withMediaKey:mediaKey andUserid:userid];
             }];
             
             return;
@@ -1760,22 +2090,20 @@
     
     
     if ([[C2CallPhone currentPhone] hasObjectForKey:mediaKey]) {
-        [cell presentContentForKey:mediaKey withPreviewImage:nil];
+        [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         hasFile = YES;
     } else {
-        [cell presentContentForKey:mediaKey withPreviewImage:nil];
+        [cell presentContentForKey:mediaKey withPreviewImage:thumb];
         
         if ([[C2CallPhone currentPhone] downloadStatusForKey:mediaKey]) {
             [cell monitorDownloadForKey:mediaKey];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:mediaKey]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            
-            UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_video"];
             [cell presentContentForKey:mediaKey withPreviewImage:brokenImage];
             
             [cell setLongpressAction:^{
-                [self setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
+                [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:mediaKey];
             }];
             failed = YES;
         }
@@ -1783,11 +2111,11 @@
     
     if (!failed && hasFile) {
         [cell setTapAction:^{
-            [self showDocument:mediaKey];
+            [weakself showDocument:mediaKey];
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:mediaKey];
         }];
         
         return;
@@ -1806,11 +2134,10 @@
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
     cell.contentAction.hidden = NO;
-
-    __weak SCBoardObjectEventCellIn *weakcell = cell;
     
-    NSArray *personArray = nil;
-    ABRecordRef person = NULL;
+    __weak SCBoardObjectEventCellIn *weakcell = cell;
+    __weak SCBoard20Controller *weakself = self;
+
     
     BOOL failed = NO;
     
@@ -1824,21 +2151,19 @@
                     [cell monitorDownloadForKey:vcard];
                 } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:vcard]) {
                     // We need a broken link image here and a download button
-                    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-                    
-                    UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_vcard" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                    UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_vcard"];
                     [cell presentContentForKey:vcard withPreviewImage:brokenImage];
                     
                     [cell setLongpressAction:^{
-                        [self setRetransmitDownloadActionForCell:weakcell withMediaKey:vcard];
+                        [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:vcard];
                     }];
                     failed = YES;
                 } else {
                     [cell startDownloadForKey:vcard];
                 }
-
+                
                 [cell presentContentForKey:NSLocalizedString(@"Loading...", @"VCARD") withPreviewImage:nil];
-
+                
                 return;
             } else {
                 NSURL *url = [[C2CallPhone currentPhone] mediaUrlForKey:vcard];
@@ -1854,59 +2179,65 @@
             return;
         }
         
+        NSError *error = nil;
+        NSArray<CNContact *> *personArray = [CNContactVCardSerialization contactsWithData:data error:&error];
+        CNContact *person = [personArray count] > 0?  personArray[0] : nil;
         
-        personArray = (NSArray *) CFBridgingRelease(ABPersonCreatePeopleInSourceWithVCardRepresentation(NULL,(__bridge CFDataRef) data));
-        person = (__bridge ABRecordRef)([personArray objectAtIndex:0]);
-        
-        NSString *compositName =  (NSString *)CFBridgingRelease(ABRecordCopyCompositeName(person));
-        CFDataRef imageData = ABPersonCopyImageData(person);
+        NSString *compositName = person ? [CNContactFormatter stringFromContact:person style:CNContactFormatterStyleFullName] : nil;
+#
+        //(NSString *)CFBridgingRelease(ABRecordCopyCompositeName(person));
+        NSData *imageData = person.imageData;
         UIImage *vcardImage = nil;
         
         if (imageData != NULL) {
-            vcardImage = [UIImage imageWithData:(__bridge NSData *)imageData];
-            CFRelease(imageData);
+            vcardImage = [UIImage imageWithData:imageData];
         }
         [cell presentContentForKey:compositName withPreviewImage:vcardImage];
         
         [cell setTapAction:^{
-            [self showContact:vcard];
+            [weakself showContact:vcard];
         }];
         
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:vcard];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:vcard];
         }];
         
         if ([cell.eventContentView isKindOfClass:[SCContactEventContentView class]]) {
             SCContactEventContentView *cv = (SCContactEventContentView *) cell.eventContentView;
             
             cv.saveAction = [C2BlockAction actionWithAction:^(id sender) {
-                CFErrorRef error = NULL;
-                ABAddressBookRef addressBook = ABAddressBookCreate();
-                ABAddressBookAddRecord(addressBook, person, &error);
                 
-                if (error == NULL) {
-                    ABAddressBookSave(addressBook, &error);
-                    [AlertUtil showContactSaved];
-                } else {
-                    [AlertUtil showContactSavedError];
+                if (person) {
+                    NSError *error = nil;
+                    
+                    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
+                    [saveRequest addContact:[person mutableCopy] toContainerWithIdentifier:nil];
+                    
+                    CNContactStore *store = [[CNContactStore alloc] init];
+                    [store executeSaveRequest:saveRequest error:&error];
+                    
+                    if (error == nil) {
+                        [AlertUtil showContactSaved];
+                    } else {
+                        [AlertUtil showContactSavedError];
+                    }
                 }
             }];
             
             cv.messageAction =[C2BlockAction actionWithAction:^(id sender) {
-                [self showContact:vcard];
+                [weakself showContact:vcard];
             }];
             
         }
-
-
+        
+        
     }
     @catch (NSException *exception) {
         DLog(@"Exception:setVCard : %@", exception);
     }
     @finally {
-        personArray = nil;
     }
-
+    
 }
 
 -(void) configureVCardCellOut:(SCBoardObjectEventCellOut *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
@@ -1914,9 +2245,8 @@
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
-    
-    NSArray *personArray = nil;
-    ABRecordRef person = NULL;
+    __weak SCBoard20Controller *weakself = self;
+
     
     BOOL failed = NO;
     
@@ -1930,13 +2260,11 @@
                     [cell monitorDownloadForKey:vcard];
                 } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:vcard]) {
                     // We need a broken link image here and a download button
-                    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-                    
-                    UIImage *brokenImage = [UIImage imageNamed:@"ico_broken_vcard" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                    UIImage *brokenImage =[[SCAssetManager instance] imageForName:@"ico_broken_vcard"];
                     [cell presentContentForKey:vcard withPreviewImage:brokenImage];
                     
                     [cell setLongpressAction:^{
-                        [self setRetransmitDownloadActionForCell:weakcell withMediaKey:vcard];
+                        [weakself setRetransmitDownloadActionForCell:weakcell withMediaKey:vcard];
                     }];
                     failed = YES;
                 } else {
@@ -1961,65 +2289,64 @@
         }
         
         
-        personArray = (NSArray *) CFBridgingRelease(ABPersonCreatePeopleInSourceWithVCardRepresentation(NULL,(__bridge CFDataRef) data));
-        person = (__bridge ABRecordRef)([personArray objectAtIndex:0]);
+        NSError *error = nil;
+        NSArray<CNContact *> *personArray = [CNContactVCardSerialization contactsWithData:data error:&error];
+        CNContact *person = [personArray count] > 0?  personArray[0] : nil;
         
-        NSString *compositName =  (NSString *)CFBridgingRelease(ABRecordCopyCompositeName(person));
-        CFDataRef imageData = ABPersonCopyImageData(person);
+        NSString *compositName = person ? [CNContactFormatter stringFromContact:person style:CNContactFormatterStyleFullName] : nil;
+#
+        //(NSString *)CFBridgingRelease(ABRecordCopyCompositeName(person));
+        NSData *imageData = person.imageData;
         UIImage *vcardImage = nil;
         
         if (imageData != NULL) {
-            vcardImage = [UIImage imageWithData:(__bridge NSData *)imageData];
-            CFRelease(imageData);
+            vcardImage = [UIImage imageWithData:imageData];
         }
         [cell presentContentForKey:compositName withPreviewImage:vcardImage];
         
         [cell setTapAction:^{
             //[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0x42/255. green:0x85/255. blue:0xf4/255. alpha:1.0]];
-
-            [self showContact:vcard];
+            
+            [weakself showContact:vcard];
         }];
-
+        
         [cell setLongpressAction:^{
-            [self showLongpressMenuForCell:weakcell withMediaKey:vcard];
+            [weakself showLongpressMenuForCell:weakcell withMediaKey:vcard];
         }];
         
         if ([cell.eventContentView isKindOfClass:[SCContactEventContentView class]]) {
             SCContactEventContentView *cv = (SCContactEventContentView *) cell.eventContentView;
             
             cv.saveAction = [C2BlockAction actionWithAction:^(id sender) {
-                CFErrorRef error = NULL;
-                
-                NSArray *personArray = nil;
-                ABRecordRef person = NULL;
-
-                personArray = (NSArray *) CFBridgingRelease(ABPersonCreatePeopleInSourceWithVCardRepresentation(NULL,(__bridge CFDataRef) data));
-                person = (__bridge ABRecordRef)([personArray objectAtIndex:0]);
-
-                ABAddressBookRef addressBook = ABAddressBookCreate();
-                ABAddressBookAddRecord(addressBook, person, &error);
-                
-                if (error == NULL) {
-                    ABAddressBookSave(addressBook, &error);
-                    [AlertUtil showContactSaved];
-                } else {
-                    [AlertUtil showContactSavedError];
+                if (person) {
+                    NSError *error = nil;
+                    
+                    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
+                    [saveRequest addContact:[person mutableCopy] toContainerWithIdentifier:nil];
+                    
+                    CNContactStore *store = [[CNContactStore alloc] init];
+                    [store executeSaveRequest:saveRequest error:&error];
+                    
+                    if (error == nil) {
+                        [AlertUtil showContactSaved];
+                    } else {
+                        [AlertUtil showContactSavedError];
+                    }
                 }
             }];
             
             cv.messageAction = [C2BlockAction actionWithAction:^(id sender) {
-              [self showContact:vcard];
+                [weakself showContact:vcard];
             }];
         }
-
+        
     }
     @catch (NSException *exception) {
         DLog(@"Exception:setVCard : %@", exception);
     }
     @finally {
-        personArray = nil;
     }
-
+    
 }
 
 -(void) configureFriendCellIn:(SCBoardObjectEventCellIn *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
@@ -2167,6 +2494,7 @@
     return cell;
 }
 
+
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCBoardObject *bo = [self.dataSource boardObjectAtIndexPath:indexPath];
@@ -2186,6 +2514,30 @@
     }
     
     return NO;
+}
+
+-(UISwipeActionsConfiguration *) tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SCBoardObject *bo = [self.dataSource boardObjectAtIndexPath:indexPath];
+
+    if ([bo isKindOfClass:[SCBoardObjectCoreData class]]) {
+        SCBoardObjectCoreData *bocd = (SCBoardObjectCoreData *) bo;
+        
+        if ([bocd.dataObject.eventType isEqualToString:@"MessageIn"]) {
+            if (@available(iOS 11.0, *)) {
+                UIContextualAction *replyAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Reply" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                    [self.delegate presentReplyToForEventId:[bocd.dataObject.eventId copy]];
+                    completionHandler(true);
+                }];
+                return [UISwipeActionsConfiguration configurationWithActions:@[replyAction]];
+            } else {
+                return nil;
+            }
+            
+        }
+    }
+    
+    return nil;
 }
 
 // Override to support editing the table view.
@@ -2256,18 +2608,22 @@
         CGFloat coffset = scrollView.contentOffset.y;
         NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
         
+        if (!indexPaths || [indexPaths count] == 0) {
+            return;
+        }
+        
         NSIndexPath *topIndexPath = indexPaths[0];
         if (topIndexPath.row <= 10 && !self.loadingPreviousMessages) {
             self.loadingPreviousMessages = YES;
             self.lastContentOffset = scrollView.contentOffset.y;
             
-            NSLog(@"SCBoardTest: dataSourceDidReloadContent : %@ / %@", @(coffset), @(topIndexPath.row));
+            DLog(@"SCBoardTest: dataSourceDidReloadContent : %@ / %@", @(coffset), @(topIndexPath.row));
             SCBoardObject *topBoardObject = [self.dataSource boardObjectAtIndexPath:topIndexPath];
             
             //[self killScroll];
-
+            
             CGRect before = [self.tableView rectForRowAtIndexPath:topIndexPath];       // 2
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.loadingPreviousMessages = [self.dataSource previousMessages];
                 
@@ -2284,16 +2640,16 @@
                     contentOffset.y = floor(contentOffset.y);
                     self.lastContentOffset = contentOffset.y;
                     
-                    NSLog(@"SCBoardTest: dataSourceDidReloadContent : %@/%@ - %@/%@ - %@/%@", @(topIndexPath.row), @(newIndexPath.row), @(before.origin.y), @(after.origin.y), @(contentOffset.y), @(self.lastContentOffset));
+                    DLog(@"SCBoardTest: dataSourceDidReloadContent : %@/%@ - %@/%@ - %@/%@", @(topIndexPath.row), @(newIndexPath.row), @(before.origin.y), @(after.origin.y), @(contentOffset.y), @(self.lastContentOffset));
                     
                     
                     //dispatch_async(dispatch_get_main_queue(), ^{
-                        //[self.tableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                        scrollView.contentOffset = contentOffset;
-                        
-                        //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            self.loadingPreviousMessages = NO;
-                        //});
+                    //[self.tableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                    scrollView.contentOffset = contentOffset;
+                    
+                    //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self.loadingPreviousMessages = NO;
+                    //});
                     //});
                     //[self.tableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 }
@@ -2305,7 +2661,17 @@
     }
     
     self.lastContentOffset = scrollView.contentOffset.y;
+    
+}
 
+-(void) updateCell:(UITableViewCell *) cell
+{
+    NSArray<UITableViewCell *> *visibleCells = [self.tableView visibleCells];
+    if ([visibleCells containsObject:cell]) {
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+    
 }
 
 #pragma mark - Navigation
@@ -2316,15 +2682,33 @@
 
 #pragma mark SCBoardDataSourceDelegate
 
+-(void) incrContentCountForSection:(NSInteger) section by:(NSInteger) num
+{
+    DLog(@"SCBoardTest:incrContentCountForSection: %@", @(num));
+    NSInteger count = [contentCount[section] integerValue];
+    count += num;
+    contentCount[section] = @(num);
+}
+
+-(void) decrContentCountForSection:(NSInteger) section by:(NSInteger) num
+{
+    DLog(@"SCBoardTest:decrContentCountForSection: %@", @(num));
+    NSInteger count = [contentCount[section] integerValue];
+    count -= num;
+    contentCount[section] = @(num);
+}
+
 - (void)dataSource:(nonnull SCBoardDataSource *)dataSource didChangeObject:(nullable id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(SCBoardDataSourceChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath;
 {
-    NSLog(@"SCBoardTest:dataSource:didChangeObject: %@ - %@",@(type), indexPath? @(indexPath.row) : @(newIndexPath.row));
+    DLog(@"SCBoardTest:dataSource:didChangeObject: %@ - %@",@(type), indexPath? @(indexPath.row) : @(newIndexPath.row));
     
     @try {
         switch(type) {
             case SCBoardDataSourceChangeInsert:
             {
-                NSUInteger rows = [self.tableView numberOfRowsInSection:indexPath.section];
+                NSUInteger rows = [self.tableView numberOfRowsInSection:newIndexPath.section];
+                insertedObjects++;
+                [self incrContentCountForSection:newIndexPath.section by:1];
                 [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                       withRowAnimation:UITableViewRowAnimationFade];
                 
@@ -2336,6 +2720,8 @@
                 break;
                 
             case NSFetchedResultsChangeDelete:
+                deletedObjects++;
+                [self decrContentCountForSection:newIndexPath.section by:1];
                 [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                       withRowAnimation:UITableViewRowAnimationNone];
                 break;
@@ -2364,21 +2750,37 @@
 
 - (void)dataSourceWillChangeContent:(nonnull SCBoardDataSource *)dataSource;
 {
+    isChangingContent = YES;
+    
+    insertedObjects = 0;
+    deletedObjects = 0;
+    
+    for (int i = 0; i < [dataSource numberOfSections]; i++) {
+        contentCount[i] = @([dataSource numberOfRowsInSection:i]);
+    }
+    
     [self.tableView beginUpdates];
-    NSLog(@"SCBoardTest:dataSource:dataSourceWillChangeContent");
+    DLog(@"SCBoardTest:dataSource:dataSourceWillChangeContent");
     
 }
 
 - (void)dataSourceDidChangeContent:(nonnull SCBoardDataSource *)dataSource;
 {
-    [self.tableView endUpdates];
+    isChangingContent = NO;
     
-    NSLog(@"SCBoardTest:dataSource:dataSourceDidChangeContent");
+    DLog(@"SCBoardTest:dataSourceDidChangeContent: inserted/deleted - %@/%@", @(insertedObjects), @(deletedObjects));
     
-    if (self.scrollToBottom) {
-        [self performScrollToBottom:NO];
+    @try {
+        [self.tableView endUpdates];
+    } @catch (NSException *exception) {
+        [self.tableView reloadData];
+    } @finally {
+        DLog(@"SCBoardTest:dataSource:dataSourceDidChangeContent");
+        
+        if (self.scrollToBottom) {
+            [self performScrollToBottom:NO];
+        }
     }
-    
 }
 
 -(void) dataSourceDidReloadContent;
@@ -2393,13 +2795,14 @@
 
 #pragma mark Board Actions
 
--(void) contentAction:(SCBoardObjectEventCellIn *)cell {
+-(void) contentAction:(SCBoardObjectEventCellIn *)cell
+{
     if ([cell.boardObject isKindOfClass:[SCBoardObjectCoreData class]]) {
         SCBoardObjectCoreData *bocd = (SCBoardObjectCoreData *) cell.boardObject;
         
         [self shareRichMessageForKey:bocd.dataObject.text];
     }
-
+    
 }
 
 -(BOOL) canShareWithApps:(NSString *) key
@@ -2513,14 +2916,13 @@
 -(void) shareMessageForKey:(NSString *) key
 {
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
-    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_forward"] andCompletion:^(){
         [self forwardMessage:key];
     }];
     
     if ([self canShareWithApps:key]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_action" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_action"] andCompletion:^(){
             [self shareWithApps:key];
         }];
     }
@@ -2536,14 +2938,12 @@
 -(void) shareRichMessageForKey:(NSString *) key
 {
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-    
-    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_forward"] andCompletion:^(){
         [self forwardMessage:key];
     }];
     
     if ([self canShareWithApps:key]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_action" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_action"] andCompletion:^(){
             [self shareWithApps:key];
         }];
     }
@@ -2665,7 +3065,6 @@
 -(void) setSubmittedStatusIcon:(UIImageView *) iconSubmitted forStatus:(int) messageStatus isImage:(BOOL) isImage
 {
     iconSubmitted.animationImages = nil;
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     switch (messageStatus) {
         case 1:
             iconSubmitted.image = nil;
@@ -2676,25 +3075,25 @@
             break;
         case 2:
             if (isImage) {
-                iconSubmitted.image = [UIImage imageNamed:@"ico_deliverd_white" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                iconSubmitted.image =[[SCAssetManager instance] imageForName:@"ico_deliverd_white"];
             } else {
-                iconSubmitted.image = [UIImage imageNamed:@"ico_deliverd" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                iconSubmitted.image =[[SCAssetManager instance] imageForName:@"ico_deliverd"];
             }
             [iconSubmitted setHidden:NO];
             break;
         case 3:
             if (isImage) {
-                iconSubmitted.image = [UIImage imageNamed:@"ico_notdeliverd_white" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                iconSubmitted.image =[[SCAssetManager instance] imageForName:@"ico_notdeliverd_white"];
             } else {
-                iconSubmitted.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                iconSubmitted.image =[[SCAssetManager instance] imageForName:@"ico_notdelivered"];
             }
             [iconSubmitted setHidden:NO];
             break;
         case 4:
             if (isImage) {
-                iconSubmitted.image = [UIImage imageNamed:@"ico_read_white" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                iconSubmitted.image =[[SCAssetManager instance] imageForName:@"ico_read_white"];
             } else {
-                iconSubmitted.image = [UIImage imageNamed:@"ico_read" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+                iconSubmitted.image =[[SCAssetManager instance] imageForName:@"ico_read"];
             }
             
             [iconSubmitted setHidden:NO];
@@ -2755,17 +3154,43 @@
     
     SCRichMediaType mt = [[C2CallPhone currentPhone] mediaTypeForKey:mediaKey];
 
+    __weak SCBoard20Controller *weakself = self;
+
+    NSString *eventId = nil;
+    if ([cell.boardObject isKindOfClass:[SCBoardObjectCoreData class]]) {
+        SCBoardObjectCoreData *bocd = (SCBoardObjectCoreData *) cell.boardObject;
+        eventId = bocd.eventId;
+    }
     
-    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", @"MenuItem") action:@selector(shareAction:)];
+    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Reply", @"MenuItem") action:@selector(answerAction:)];
+    [cell setAnswerAction:^{
+        if (eventId && [weakself.delegate respondsToSelector:@selector(presentReplyToForEventId:)]) {
+            [weakself.delegate presentReplyToForEventId:eventId];
+        }
+    }];
+    
+    [menulist addObject:item];
+    
+    item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", @"MenuItem") action:@selector(shareAction:)];
     [cell setShareAction:^{
-        [self shareRichMessageForKey:mediaKey];
+        [weakself shareRichMessageForKey:mediaKey];
     }];
     [menulist addObject:item];
-
+    
+    
     if (mt == SCMEDIATYPE_TEXT) {
         item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"MenuItem") action:@selector(copyAction:)];
         [cell setCopyAction:^{
-            [self copyImageForKey:mediaKey];
+            [weakself copyText:mediaKey];
+        }];
+        [menulist addObject:item];
+        
+    }
+    
+    if (mt == SCMEDIATYPE_IMAGE) {
+        item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"MenuItem") action:@selector(copyAction:)];
+        [cell setCopyAction:^{
+            [weakself copyImageForKey:mediaKey];
         }];
         [menulist addObject:item];
         
@@ -2876,6 +3301,14 @@
     self.colorMap[member] = color;
     
     return color;
+}
+
+-(void) scrollToMessageWithEventId:(NSString *_Nonnull) eventId;
+{
+    NSIndexPath *indexPath = [self.dataSource indexPathForEventId:eventId];
+    if (indexPath) {
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
 }
 
 #pragma mark MailComposerDelegate

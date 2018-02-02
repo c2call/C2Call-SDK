@@ -81,6 +81,7 @@
  */
 -(void) resetPlayer;
 
+
 + (BOOL) vlcKitAvailable;
 
 @end

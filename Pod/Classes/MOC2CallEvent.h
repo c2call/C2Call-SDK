@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * action;
 @property (nonatomic, retain) NSString * contact;
+@property (nonatomic, retain) NSString * replyTo;
 @property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) NSNumber * encrypted;
 @property (nonatomic, retain) NSString * eventId;

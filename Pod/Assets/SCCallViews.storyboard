@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Helvetica.ttc">
-            <string>Helvetica</string>
-            <string>Helvetica-Bold</string>
-        </array>
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Call Status Controller-->
         <scene sceneID="MrC-Eg-Z7H">
@@ -480,10 +469,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hjb-Cw-ca6" userLabel="innerView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg_video_groupcall_one-568h" translatesAutoresizingMaskIntoConstraints="NO" id="ck3-zI-Wl7">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     </imageView>
                                     <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92h-l9-vWL" userLabel="videoView">
                                         <rect key="frame" x="-2" y="-2" width="324" height="572"/>
@@ -502,14 +491,14 @@
                                         </constraints>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="img_connection_ok" translatesAutoresizingMaskIntoConstraints="NO" id="eyf-yw-Pux">
-                                        <rect key="frame" x="326" y="590" width="30" height="30"/>
+                                        <rect key="frame" x="326" y="610" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="XJt-C0-OGc"/>
                                             <constraint firstAttribute="height" constant="30" id="ih6-lr-5fA"/>
                                         </constraints>
                                     </imageView>
                                     <containerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxQ-43-YLH" userLabel="ScreenControls View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="zwc-yd-6Z0" kind="embed" identifier="ScreenControlsSegue" id="uQf-xh-J9y"/>
@@ -564,11 +553,11 @@
                         <viewControllerLayoutGuide type="bottom" id="w8u-LY-0AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q7v-wg-nDc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JTm-Ke-vDJ" userLabel="Top View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="73"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Max Mustermann" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="S1a-ed-p04">
                                         <rect key="frame" x="121" y="15" width="134" height="20"/>
@@ -593,7 +582,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9JL-O9-cSF" userLabel="Bottom View">
-                                <rect key="frame" x="0.0" y="574" width="375" height="73"/>
+                                <rect key="frame" x="0.0" y="594" width="375" height="73"/>
                                 <subviews>
                                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYB-VW-BDi">
                                         <rect key="frame" x="0.0" y="0.0" width="302" height="73"/>
@@ -649,7 +638,7 @@
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="793-cb-MaS">
-                                <rect key="frame" x="101" y="118" width="173" height="29"/>
+                                <rect key="frame" x="101" y="98" width="173" height="29"/>
                                 <segments>
                                     <segment title="" image="ico_no_kamera"/>
                                     <segment title="" image="ico_front_kamera"/>
@@ -661,7 +650,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tUz-qf-C47">
-                                <rect key="frame" x="130" y="118" width="115" height="29"/>
+                                <rect key="frame" x="130" y="98" width="115" height="29"/>
                                 <segments>
                                     <segment title="" image="ico_no_kamera"/>
                                     <segment title="" image="ico_back_kamera"/>
@@ -672,7 +661,7 @@
                                 </connections>
                             </segmentedControl>
                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhy-SB-d9p" userLabel="StatusView">
-                                <rect key="frame" x="48" y="474" width="280" height="60"/>
+                                <rect key="frame" x="48" y="494" width="280" height="60"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" image="bg_prompt" translatesAutoresizingMaskIntoConstraints="NO" id="qVo-iq-vWY">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="60"/>
@@ -801,10 +790,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg_video_groupcall" translatesAutoresizingMaskIntoConstraints="NO" id="gyo-Cp-YqX">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="503" translatesAutoresizingMaskIntoConstraints="NO" id="dN9-nZ-lAR" userLabel="innerView">
-                                <rect key="frame" x="0.0" y="20" width="320" height="503"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="503"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="158" placeholderIntrinsicHeight="211" translatesAutoresizingMaskIntoConstraints="NO" id="gdg-yv-jsr" userLabel="preview">
                                         <rect key="frame" x="162" y="35" width="158" height="211"/>
@@ -824,7 +813,7 @@
                                 </constraints>
                             </view>
                             <containerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrX-bC-0Ye">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="zwc-yd-6Z0" kind="embed" identifier="ScreenControlsSegue" id="y6p-gl-6ga"/>
@@ -1248,7 +1237,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PD3-70-oK1" userLabel="InfoView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="123"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg_dial_numberfield" translatesAutoresizingMaskIntoConstraints="NO" id="P61-rp-GbI">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
@@ -1373,10 +1362,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCz-Id-bQc" userLabel="BottomView">
-                                <rect key="frame" x="0.0" y="143" width="375" height="524"/>
+                                <rect key="frame" x="0.0" y="123" width="375" height="544"/>
                                 <subviews>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3K-Kr-dpK" userLabel="KeyboardView">
-                                        <rect key="frame" x="27.5" y="121.5" width="320" height="282"/>
+                                        <rect key="frame" x="27.5" y="131.5" width="320" height="282"/>
                                         <subviews>
                                             <button opaque="NO" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mys-Ei-5Do" userLabel="Dial Button 1" customClass="SCDialButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="107" height="50"/>
@@ -1822,8 +1811,8 @@
         <image name="ico_front_kamera" width="43" height="26"/>
         <image name="ico_group" width="30" height="30"/>
         <image name="ico_hangup" width="30" height="30"/>
-        <image name="ico_micro" width="42" height="42"/>
-        <image name="ico_micro_mute" width="42" height="42"/>
+        <image name="ico_micro" width="30" height="30"/>
+        <image name="ico_micro_mute" width="30" height="30"/>
         <image name="ico_no_kamera" width="43" height="26"/>
         <image name="ico_sms_white_24x24" width="24" height="24"/>
         <image name="ico_voice" width="30" height="30"/>
@@ -1848,6 +1837,11 @@
         <image name="ziffer_plus" width="90" height="60"/>
         <image name="ziffer_plus_h" width="107" height="69"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="y6p-gl-6ga"/>
     </inferredMetricsTieBreakers>

@@ -484,6 +484,13 @@ typedef enum {
  */
 -(void) submitMessage:(NSString *) message toUser:(NSString *) target;
 
+/** Submits the next message in reply to the defines message id
+ 
+ @param msgId - Message Reference of the Reply
+ */
+-(void) useInReplyTo:(NSString *) msgId;
+
+
 /** Submits an instant message.
  
  Every C2Call user can be addressed by his email address or his C2Call UserId.
@@ -718,9 +725,10 @@ typedef enum {
 /** Use iOS 10 CallKit
  
  @param useCallKit - Enable / Disable CallKit
+ @param useVideo - Enable CallKit also for Video Calls
  
  */
-+(void) setUseCallKit:(BOOL)useCallKit;
++(void) setUseCallKit:(BOOL)useCallKit withVideo:(BOOL) useVideo;
 
 /** Force Ringing instead of SessionProgress
  

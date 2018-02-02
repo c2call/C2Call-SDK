@@ -12,6 +12,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "UIViewController+SCCustomViewController.h"
 
+#import "C2CallAppDelegate.h"
 #import "SCChat20Controller.h"
 #import "SCBoard20Controller.h"
 #import "SCFlexibleToolbarView.h"
@@ -37,7 +38,7 @@
     
     NSTimeInterval      lastTypeEvent, lastTypeEventReceived;
     
-    CGFloat             resizeOffset, minToolbarHeight;
+    //CGFloat             resizeOffset, minToolbarHeight;
     CGFloat             currentKeyboardSize;
     
     BOOL                isGroupChat, isSMS, isKeyboard, hasMaxToolbarSize, hasTabBar, keyboardAnimation, didAppear;
@@ -75,6 +76,10 @@
 
 - (void)dealloc
 {
+    NSLog(@"SCChat20Controller:dealloc()");
+    
+    [self.chatboard dispose];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -107,10 +112,6 @@
         l.borderColor = [self.chatInputBorderColor CGColor];
     }
     
-    CGRect tvframe = chatInput.frame;
-    CGRect svframe = toolbarView.toolbarView.frame;
-    
-    
     if ([self.chatInput respondsToSelector:@selector(textContainerInset)]) {
     }
     
@@ -118,15 +119,14 @@
         self.chatInput.textContainer.heightTracksTextView = YES;
     }
     
-    resizeOffset = svframe.size.height - tvframe.size.height;
-    minToolbarHeight = svframe.size.height;
-    
-    DLog(@"minToolbarHeight : %f / %f", minToolbarHeight, resizeOffset);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"UIKeyboardWillShowNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"UIKeyboardDidShowNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"UIKeyboardWillHideNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"UIKeyboardDidHideNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"UIKeyboardWillChangeFrameNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"UIKeyboardDidChangeFrameNotification" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"SIPHandler:TypingEvent" object:nil];
     
     NSString *name = [[C2CallPhone currentPhone] nameForUserid:self.targetUserid];
@@ -417,15 +417,13 @@
     
     
     if (sz < maximumLabelSize.height) {
-        textView.scrollEnabled = YES;
+        textView.scrollEnabled = NO;
     } else {
         textView.scrollEnabled = YES;
     }
     
     
-    sz += resizeOffset;
-    
-    int maxSZ = maximumLabelSize.height + resizeOffset;
+    int maxSZ = maximumLabelSize.height; // + resizeOffset;
     if (sz >= maxSZ) {
         sz = maxSZ;
         hasMaxToolbarSize = YES;
@@ -433,16 +431,10 @@
         hasMaxToolbarSize = NO;
     }
     
-    if (sz < minToolbarHeight)
-        sz = minToolbarHeight;
     
     BOOL wasScrolling = textView.scrollEnabled;
     textView.scrollEnabled = NO;
     
-    //dispatch_async(dispatch_get_main_queue(), ^{
-    if ([self.toolbarView resizeToolbar:sz]) {
-    }
-    //});
     
     if (isSMS) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -472,12 +464,17 @@
 -(void) resetTextInput
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.chatInput.text = nil;
+        self.chatInput.text = @" ";
         
         //[self.toolbarView resizeToolbar:minToolbarHeight];
         [self initialToolbarSize];
         [numChars setHidden:YES];
         [numSMS setHidden:YES];
+        
+        self.chatInput.scrollEnabled = NO;
+        [self.chatInput.superview setNeedsLayout];
+        [self.chatInput.superview layoutIfNeeded];
+        self.chatInput.text = nil;
     });
 }
 
@@ -509,93 +506,64 @@
     if ([[notification name] isEqualToString:@"UIKeyboardWillShowNotification"]) {
         CGFloat keyboardSize = [self keyboardSize:notification];
         
-        if (keyboardSize == currentKeyboardSize || !didAppear)
-            return;
         
         CGRect frame = self.toolbarView.frame;
-        //DLog(@"Frame : %f / %f ", frame.size.width, frame.size.height);
-        //DLog(@"Keyboard : %f / %f ", keyboardSize.width, keyboardSize.height);
         
-        CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
-        if (!hasTabBar) {
-            tabBarHeight = 0.;
+        CGFloat kbNewHeight = keyboardSize;
+        CGFloat tabbarHeight = self.tabBarController.tabBar.bounds.size.height;
+        
+        if (self.tabBarController.tabBar.hidden) {
+            tabbarHeight = 0.;
         }
         
-        CGFloat kbNewHeight = keyboardSize - tabBarHeight;
-        CGFloat kbCurrentHeight = currentKeyboardSize - tabBarHeight;
-        CGFloat diff = (currentKeyboardSize > 0)? kbNewHeight - kbCurrentHeight : kbNewHeight;
         
-        frame.size.height -= diff;
+        kbNewHeight -= tabbarHeight;
         
-        currentKeyboardSize = keyboardSize;
+        CGFloat blgLength = self.bottomLayoutGuide.length;
+        kbNewHeight -= blgLength;
         
-        if (self.toolbarBottomContraint) {
-            DLog(@"keyboardWillShow : %f", diff);
-            self.toolbarBottomContraint.constant += diff;
-            [self.toolbarView setNeedsUpdateConstraints];
-            if (didAppear) {
-                [UIView animateWithDuration:0.22 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
-                    [self.toolbarView layoutIfNeeded];
-                } completion:^(BOOL finished) {
-                }];
-            } else {
-                [self.toolbarView layoutIfNeeded];
-            }
-        } else {
-            if (didAppear) {
-                [UIView animateWithDuration:0.22 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
-                    self.toolbarView.frame = frame;
-                } completion:^(BOOL finished) {
-                }];
-            } else {
-                self.toolbarView.frame = frame;
-            }
-        }
+        DLog(@"UIKeyboardWillShowNotification: %@ / %@ / %@", @(kbNewHeight), @(tabbarHeight), @(blgLength));
         
+        self.toolbarBottomContraint.constant = kbNewHeight;
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.toolbarView.superview layoutIfNeeded];
+        }];
+
     }
-    if ([[notification name] isEqualToString:@"UIKeyboardWillHideNotification"]) {
-        if (currentKeyboardSize == 0)
-            return;
+
+    if ([[notification name] isEqualToString:@"UIKeyboardWillChangeFrameNotification"]) {
+        /*
+        CGFloat keyboardSize = [self keyboardSize:notification];
         
+        
+        CGRect frame = self.toolbarView.frame;
+        
+        CGFloat kbNewHeight = keyboardSize;
+        CGFloat tabbarHeight = self.tabBarController.tabBar.bounds.size.height;
+        
+        kbNewHeight -= tabbarHeight;
+        
+        self.toolbarBottomContraint.constant = kbNewHeight;
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.toolbarView.superview layoutIfNeeded];
+        }];
+        */
+    }
+
+    if ([[notification name] isEqualToString:@"UIKeyboardDidChangeFrameNotification"]) {
+        NSLog(@"UIKeyboardDidChangeFrameNotification");
+    }
+    
+    
+    if ([[notification name] isEqualToString:@"UIKeyboardWillHideNotification"]) {
         isKeyboard = NO;
         
-        CGRect frame = self.toolbarView.frame;
-        CGFloat keyboardSize = [self keyboardSize:notification];
-        CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
-        if (!hasTabBar) {
-            tabBarHeight = 0.;
-        }
         
-        CGFloat kbHeight = keyboardSize - tabBarHeight;
-        frame.size.height = self.view.frame.size.height;
-        
-        //DLog(@"Frame : %f / %f ", frame.size.width, frame.size.height);
-        //DLog(@"Keyboard : %f / %f ", keyboardSize.width, keyboardSize.height);
-        
-        if (self.toolbarBottomContraint) {
-            DLog(@"keyboardWillHide : %f", kbHeight);
-            self.toolbarBottomContraint.constant -= kbHeight;
-            [self.toolbarView setNeedsUpdateConstraints];
-            
-            if (didAppear) {
-                [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
-                    //self.toolbarView.frame = frame;
-                    [self.toolbarView layoutIfNeeded];
-                } completion:^(BOOL finished) {
-                }];
-            } else {
-                [self.toolbarView layoutIfNeeded];
-            }
-        } else {
-            if (didAppear) {
-                [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionLayoutSubviews animations:^{
-                    self.toolbarView.frame = frame;
-                } completion:^(BOOL finished) {
-                }];
-            } else {
-                self.toolbarView.frame = frame;
-            }
-        }
+        self.toolbarBottomContraint.constant = 0;
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.toolbarView.superview layoutIfNeeded];
+        }];
+
     }
     
     if ([[notification name] isEqualToString:@"UIKeyboardDidShowNotification"]) {
@@ -661,6 +629,7 @@
         }
         smc.targetUserid = targetUserid;
         smc.dontShowCallEvents = self.dontShowCallEvents;
+        smc.delegate = self;
         
         if ([[C2CallPhone currentPhone] isGroupUser:targetUserid]) {
             smc.useNameHeader = YES;
@@ -678,11 +647,11 @@
         [self.chatInput resignFirstResponder];
     }
     
+    
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[UIImage imageNamed:@"ico_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Choose Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Select from Camera Roll", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_image"] andCompletion:^{
             
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;
@@ -700,7 +669,7 @@
     
     if ([SIPPhone currentPhone].callStatus == SCCallStatusNone) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            [cv addChoiceWithName:NSLocalizedString(@"Take Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[UIImage imageNamed:@"ico_cam-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+            [cv addChoiceWithName:NSLocalizedString(@"Take Photo or Video", @"Choice Title") andSubTitle:NSLocalizedString(@"Use Camera", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_cam-24x24"] andCompletion:^{
                 
                 UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
                 imagePicker.delegate = self;
@@ -715,8 +684,14 @@
         }
     }
     
+        [cv addChoiceWithName:NSLocalizedString(@"Submit Document", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a Document", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_geolocation-24x24"] andCompletion:^{
+            [self showDocumentPicker:nil];
+            
+        }];
+
+    
     if ([CLLocationManager locationServicesEnabled]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Submit Location", @"Choice Title") andSubTitle:NSLocalizedString(@"Submit your current location", @"Button") andIcon:[UIImage imageNamed:@"ico_geolocation-24x24" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Submit Location", @"Choice Title") andSubTitle:NSLocalizedString(@"Submit your current location", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_geolocation-24x24"] andCompletion:^{
             
             [self requestLocation:^(NSString *key) {
                 DLog(@"submitLocation: %@ / %@", key, self.targetUserid);
@@ -728,7 +703,7 @@
     
     if ([SIPPhone currentPhone].callStatus == SCCallStatusNone) {
         if ([AVAudioSession sharedInstance].inputAvailable) {
-            [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[UIImage imageNamed:@"ico_mic" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+            [cv addChoiceWithName:NSLocalizedString(@"Submit Voice Mail", @"Choice Title") andSubTitle:NSLocalizedString(@"Record a voice message", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_mic"] andCompletion:^{
                 
                 [self recordVoiceMail:^(NSString *key) {
                     DLog(@"submitVoiceMail: %@ / %@", key, self.targetUserid);
@@ -740,7 +715,7 @@
     
     /*
      if (!isSMS) {
-     [cv addChoiceWithName:NSLocalizedString(@"Share Friends", @"Choice Title") andSubTitle:NSLocalizedString(@"Share one or more friends", @"Button") andIcon:[UIImage imageNamed:@"ico_share_friend"] andCompletion:^{
+     [cv addChoiceWithName:NSLocalizedString(@"Share Friends", @"Choice Title") andSubTitle:NSLocalizedString(@"Share one or more friends", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_share_friend"] andCompletion:^{
      // TODO - SCChatController - ShareFriends
      //[self shareFriends:numberOrUserid];
      }];
@@ -748,7 +723,7 @@
      */
     
     if ([IOS iosVersion] >= 5.0) {
-        [cv addChoiceWithName:NSLocalizedString(@"Send Contact", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a contact from address book", @"Button") andIcon:[UIImage imageNamed:@"ico_apple_mail" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^{
+        [cv addChoiceWithName:NSLocalizedString(@"Send Contact", @"Choice Title") andSubTitle:NSLocalizedString(@"Send a contact from address book", @"Button") andIcon:[[SCAssetManager instance] imageForName:@"ico_apple_mail"] andCompletion:^{
             [self showPicker:nil];
         }];
     }
@@ -800,6 +775,17 @@
 {
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
+
+#pragma mark SCBoard20ControllerDelegate
+
+-(void) presentReplyToForEventId:(NSString *)eventId
+{
+}
+
+-(IBAction) clearReplyTo:(id)sender
+{
+}
+
 
 #pragma mark people picker
 
@@ -857,15 +843,15 @@
         return;
     }
     
-    if ([[C2CallPhone currentPhone] canEncryptMessageForTarget:targetContact]) {
-        self.encryptMessageButton.selected = [C2CallPhone currentPhone].preferMessageEncryption;
-        self.encryptMessageButton.hidden = NO;
-        self.encryptMessageButton.enabled = YES;
-    } else {
+    //if ([[C2CallPhone currentPhone] canEncryptMessageForTarget:targetContact]) {
+    //    self.encryptMessageButton.selected = [C2CallPhone currentPhone].preferMessageEncryption;
+    //    self.encryptMessageButton.hidden = NO;
+    //    self.encryptMessageButton.enabled = YES;
+    //} else {
         self.encryptMessageButton.selected = NO;
         self.encryptMessageButton.hidden = YES;
         self.encryptMessageButton.enabled = NO;
-    }
+    //}
 }
 
 - (IBAction)showPicker:(id)sender
@@ -876,6 +862,69 @@
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
+
+#pragma mark UIDocumentPickerViewController Delegate
+
+-(IBAction)showDocumentPicker:(id)sender
+{
+    NSArray *types = @[(NSString*)kUTTypeImage,(NSString*)kUTTypeSpreadsheet,(NSString*)kUTTypePresentation,(NSString*)kUTTypePDF,(NSString*)kUTTypeRTF,(NSString*)kUTTypePlainText,(NSString*)kUTTypeText];
+    
+    
+    UIDocumentPickerViewController *dpvc = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:types inMode:UIDocumentPickerModeImport];
+    
+    dpvc.delegate = self;
+    
+    [self presentViewController:dpvc animated:YES completion:^{
+        
+    }];
+}
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls
+{
+    __block NSInteger count = [urls count];
+
+    if (count == 1) {
+        [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Sending File..." andWaitMessage:nil];
+    } else {
+        [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Sending Files..." andWaitMessage:nil];
+    }
+    
+    for (NSURL *url in urls) {
+        [[C2CallPhone currentPhone] submitFile:url withMessage:nil toTarget:self.targetUserid withCompletionHandler:^(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error) {
+           
+            count--;
+
+            if (count <= 0) {
+                [[C2CallAppDelegate appDelegate] waitIndicatorStop];
+                
+                [controller dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            }
+
+        }];
+    }
+    
+}
+
+// called if the user dismisses the document picker without selecting a document (using the Cancel button)
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
+{
+    [[C2CallAppDelegate appDelegate] waitIndicatorWithTitle:@"Sending File..." andWaitMessage:nil];
+
+    [[C2CallPhone currentPhone] submitFile:url withMessage:nil toTarget:self.targetUserid withCompletionHandler:^(BOOL success, NSString * _Nullable richMediaKey, NSError * _Nullable error) {
+        
+        [[C2CallAppDelegate appDelegate] waitIndicatorStop];
+        [controller dismissViewControllerAnimated:YES completion:NULL];
+    }];
+
+}
+
 
 -(IBAction) submit:(id) sender;
 {

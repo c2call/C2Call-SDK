@@ -29,6 +29,7 @@
 #define SIP_CONTENT				@"Content"
 #define SIP_ROUTE				@"Route"
 #define SIP_RROUTE				@"Record-Route"
+#define SIP_INREPLYTO           @"In-Reply-To"
 #define SIP_ONLINESTATUS		@"X-OnlineStatus"
 #define SIP_CALLERID			@"X-CallerId"
 #define SIP_PUSHTYPE			@"X-PushType"

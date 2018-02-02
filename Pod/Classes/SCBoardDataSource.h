@@ -101,6 +101,7 @@ typedef NS_ENUM(NSUInteger, SCBoardObjectType) {
 @property(nonatomic) BOOL dontShowCallEvents;
 
 -(void) layzInitialize;
+-(void) dispose;
 
 -(nullable NSFetchRequest *) fetchRequestBoardMessages;
 -(void) setupFetchControllerBoardMessages;
@@ -110,8 +111,10 @@ typedef NS_ENUM(NSUInteger, SCBoardObjectType) {
 
 -(nullable SCBoardObject *) boardObjectAtIndexPath:(nonnull NSIndexPath *) indexPath;
 -(NSIndexPath *_Nullable) indexPathForBoardObject:(SCBoardObject *_Nonnull) bo;
+-(NSIndexPath *_Nullable) indexPathForEventId:(NSString *_Nonnull) eventId;
 
 -(BOOL) previousMessages;
+-(void) saveChanges;
 
 -(nonnull NSArray<SCBoardObject *> *) allBoardObjects;
 

@@ -59,8 +59,7 @@
         }];
     } else {
         if (!userImage) {
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            self.imageButton.image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            self.imageButton.image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar_group"];
         }
     }
     

@@ -351,7 +351,11 @@
 -(void) configureConnectionCell:(MOC2CallUser *) elem
 {
     if (!self.connectionCell) {
-        [[NSBundle mainBundle] loadNibNamed:@"UDConnectionCell" owner:self options:nil];
+        if ([[NSBundle mainBundle] pathForResource:@"UDConnectionCell" ofType:@"nib"]) {
+            [[NSBundle mainBundle] loadNibNamed:@"UDConnectionCell" owner:self options:nil];
+        } else {
+            [[NSBundle bundleForClass:[self class]] loadNibNamed:@"UDConnectionCell" owner:self options:nil];
+        }
     }
     
     [self.connectionCell.btnCallVoice setEnabled:YES];

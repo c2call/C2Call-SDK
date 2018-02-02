@@ -306,12 +306,11 @@
     
     cellLBM = NSLineBreakByWordWrapping;
 	
-    //self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_kork"]];
+    //self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[SCAssetManager instance] imageForName:@"bg_kork"]];
     
     animationIcon = [[NSMutableArray alloc] initWithCapacity:4];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     for (int i = 0; i < 4; i++) {
-        [animationIcon addObject:[UIImage imageNamed:[NSString stringWithFormat:@"ico_sending_%d", i] inBundle:frameWorkBundle compatibleWithTraitCollection:nil]];
+        [animationIcon addObject:[[SCAssetManager instance] imageForName:[NSString stringWithFormat:@"ico_sending_%d", i]]];
     }
     
     [self.tableView setSeparatorColor:[UIColor clearColor]];
@@ -815,7 +814,7 @@
         CGRect bounds = self.tableView.bounds;
         UIView *h = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, 20.)];
         
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_timestamp"]];
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[[SCAssetManager instance] imageForName:@"bg_timestamp"]];
         CGRect bgFrame = bg.frame;
         bgFrame.origin.x = (bounds.size.width / 2.) - (bgFrame.size.width / 2.);
         bgFrame.origin.y = 0;
@@ -928,7 +927,6 @@
 -(void) setSubmittedStatusIcon:(MessageCell *) cell forStatus:(int) messageStatus
 {
     cell.iconSubmitted.animationImages = nil;
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     switch (messageStatus) {
         case 1:
             cell.iconSubmitted.image = nil;
@@ -938,15 +936,15 @@
             [cell.iconSubmitted setHidden:NO];
             break;
         case 2:
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_deliverd" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_deliverd"];
             [cell.iconSubmitted setHidden:NO];
             break;
         case 3:
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_notdelivered"];
             [cell.iconSubmitted setHidden:NO];
             break;
         case 4:
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_read" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_read"];
             [cell.iconSubmitted setHidden:NO];
             break;
         default:
@@ -969,8 +967,7 @@
         return image;
     }
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-    image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+    image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
     [self.smallImageCache setObject:image forKey:[SCUserProfile currentUser].userid];
     return image;
@@ -990,7 +987,6 @@
     if (image)
         return image;
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     image = [[C2CallPhone currentPhone] userimageForUserid:elem.contact];
     if (image) {
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
@@ -999,7 +995,7 @@
     }
     
     if ([self isPhoneNumber:elem.contact]) {
-        image = [UIImage imageNamed:@"btn_ico_adressbook_contact" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        image = [[SCAssetManager instance] imageForName:@"btn_ico_adressbook_contact"];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
         [self.smallImageCache setObject:image forKey:elem.contact];
         return image;
@@ -1007,14 +1003,14 @@
     
     MOC2CallUser *user = [[SCDataManager instance] userForUserid:elem.contact];
     if ([user.userType intValue] == 2) {
-        image = [UIImage imageNamed:@"btn_ico_avatar_group" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar_group"];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
         [self.smallImageCache setObject:image forKey:elem.contact];
         return image;
         
     }
     
-    image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+    image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
     [self.smallImageCache setObject:image forKey:elem.contact];
     return image;
@@ -1417,8 +1413,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_image"];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
                 NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
@@ -1452,12 +1447,11 @@
     
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     cell.headline.text = [NSString stringWithFormat:@"@%@",  sendername];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     if ([elem.eventType isEqualToString:@"MessageSubmit"]) {
         cell.messageImage.image = [[C2CallPhone currentPhone] imageForKey:elem.text];
         int status = [elem.status intValue];
         if (status == 3) {
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_notdelivered"];
             [cell.iconSubmitted setHidden:NO];
             
             [cell setLongpressAction:^{
@@ -1519,7 +1513,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_image" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_image"];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
                 NSMutableArray *menulist = [NSMutableArray arrayWithCapacity:5];
@@ -1555,7 +1549,6 @@
     cell.userImage.image = [self imageForElement:elem];
     [self setUserImageAction:cell.userImage forElement:elem];
     cell.imageNewIndicator.hidden = ![elem.missedDisplay boolValue];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     BOOL failed = NO;
     if ([[C2CallPhone currentPhone] hasObjectForKey:text]) {
@@ -1579,7 +1572,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_video"];
             [cell.downloadButton setHidden:YES];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -1668,7 +1661,6 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     cell.headline.text = [NSString stringWithFormat:@"@%@",  sendername];
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     // Special Handling for current submissions
     if ([elem.eventType isEqualToString:@"MessageSubmit"]) {
@@ -1677,7 +1669,7 @@
         
         int status = [elem.status intValue];
         if (status == 3) {
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_notdelivered"];
             [cell.iconSubmitted setHidden:NO];
             
             [cell setLongpressAction:^{
@@ -1714,7 +1706,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_video"];
             [cell.downloadButton setHidden:YES];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -1921,7 +1913,6 @@
     cell.imageNewIndicator.hidden = ![elem.missedDisplay boolValue];
     
     BOOL failed = NO;
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
 
     if ([[C2CallPhone currentPhone] hasObjectForKey:text]) {
         cell.duration.text = [[C2CallPhone currentPhone] durationForKey:text];
@@ -1938,7 +1929,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell.downloadButton setHidden:YES];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -2002,7 +1993,6 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     cell.headline.text = [NSString stringWithFormat:@"@%@",  sendername];
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     // Special Handling for current submissions
     if ([elem.eventType isEqualToString:@"MessageSubmit"]) {
@@ -2010,7 +2000,7 @@
         
         int status = [elem.status intValue];
         if (status == 3) {
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_notdelivered"];
             [cell.iconSubmitted setHidden:NO];
             
             [cell setLongpressAction:^{
@@ -2043,7 +2033,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell.downloadButton setHidden:YES];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -2066,7 +2056,7 @@
             }];
             failed = YES;
         } else {
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell.downloadButton setHidden:NO];
             [cell.progress setHidden:YES];
             [cell setTapAction:^{
@@ -2131,7 +2121,6 @@
     
     BOOL failed = NO;
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     __weak FileCellInStream *weakcell = cell;
     if ([[C2CallPhone currentPhone] hasObjectForKey:text]) {
@@ -2148,7 +2137,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_video" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_video"];
             [cell.downloadButton setHidden:YES];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -2223,7 +2212,6 @@
     NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
     cell.headline.text = [NSString stringWithFormat:@"@%@",  sendername];
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     __weak FileCellOutStream *weakcell = cell;
     // Special Handling for current submissions
@@ -2231,7 +2219,7 @@
         
         int status = [elem.status intValue];
         if (status == 3) {
-            cell.iconSubmitted.image = [UIImage imageNamed:@"ico_notdelivered" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.iconSubmitted.image = [[SCAssetManager instance] imageForName:@"ico_notdelivered"];
             [cell.iconSubmitted setHidden:NO];
             
             [cell setLongpressAction:^{
@@ -2262,7 +2250,7 @@
             [cell monitorDownloadForKey:text];
         } else if ([[C2CallPhone currentPhone] failedDownloadStatusForKey:text]) {
             // We need a broken link image here and a download button
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell.downloadButton setHidden:YES];
             [cell setLongpressAction:^{
                 UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -2285,7 +2273,7 @@
             }];
             failed = YES;
         } else {
-            cell.messageImage.image = [UIImage imageNamed:@"ico_broken_voice_msg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+            cell.messageImage.image = [[SCAssetManager instance] imageForName:@"ico_broken_voice_msg"];
             [cell.downloadButton setHidden:NO];
             [cell.progress setHidden:YES];
             [cell setTapAction:^{
@@ -2541,12 +2529,11 @@
         }
     }
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
 
     if ([elem.status intValue] == 2) {
-        cell.iconCallStatus.image = [UIImage imageNamed:@"ico_call_in" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.iconCallStatus.image = [[SCAssetManager instance] imageForName:@"ico_call_in"];
     } else {
-        cell.iconCallStatus.image = [UIImage imageNamed:@"ico_call_in_x" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.iconCallStatus.image = [[SCAssetManager instance] imageForName:@"ico_call_in_x"];
     }
     
 }
@@ -2559,7 +2546,6 @@
     
     UIImage *contactImage =  [[C2CallPhone currentPhone] userimageForUserid:elem.contact];
     
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
     SCBubbleViewOut *bubble = nil;
     if ([cell.bubbleView isKindOfClass:[SCBubbleViewOut class]]) {
@@ -2604,7 +2590,7 @@
             }
         }
         */
-        cell.messageImage.image = [UIImage imageNamed:@"btn_ico_avatar" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.messageImage.image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     }
     
     [cell.btnCall addAction:^(id sender) {
@@ -2633,9 +2619,9 @@
     
     
     if ([elem.status intValue] == 2) {
-        cell.iconCallStatus.image = [UIImage imageNamed:@"ico_call_out" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.iconCallStatus.image = [[SCAssetManager instance] imageForName:@"ico_call_out"];
     } else {
-        cell.iconCallStatus.image = [UIImage imageNamed:@"ico_call_out_x" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        cell.iconCallStatus.image = [[SCAssetManager instance] imageForName:@"ico_call_out_x"];
     }
     
 }
@@ -3231,14 +3217,13 @@
 -(void) shareMessageForKey:(NSString *) key
 {
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
-    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_forward"] andCompletion:^(){
         [self forwardMessage:key];
     }];
 
     if ([self canShareWithApps:key]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_action" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_action"] andCompletion:^(){
             [self shareWithApps:key];
         }];
     }
@@ -3254,14 +3239,13 @@
 -(void) shareRichMessageForKey:(NSString *) key
 {
     SCPopupMenu *cv = [SCPopupMenu popupMenu:self];
-    NSBundle *frameWorkBundle = [SCAssetManager instance].imageBundle;
     
-    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_forward" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+    [cv addChoiceWithName:NSLocalizedString(@"Forward", @"Choice Title") andSubTitle:NSLocalizedString(@"Forward to friend", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_forward"] andCompletion:^(){
         [self forwardMessage:key];
     }];
     
     if ([self canShareWithApps:key]) {
-        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[UIImage imageNamed:@"ico_action" inBundle:frameWorkBundle compatibleWithTraitCollection:nil] andCompletion:^(){
+        [cv addChoiceWithName:NSLocalizedString(@"Share", @"Choice Title") andSubTitle:NSLocalizedString(@"Share via App", @"Choice SubTitle") andIcon:[[SCAssetManager instance] imageForName:@"ico_action"] andCompletion:^(){
             [self shareWithApps:key];
         }];
     }

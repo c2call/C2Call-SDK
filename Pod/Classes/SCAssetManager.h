@@ -14,4 +14,6 @@
 
 +(instancetype) instance;
 
+-(UIImage *) imageForName:(NSString *) imageName;
+
 @end

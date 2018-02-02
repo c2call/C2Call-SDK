@@ -24,6 +24,7 @@
 @property (strong, nonatomic) UIImage   *teaserImage;
 
 @property (nonatomic, strong) NSDictionary  *preset;
+@property(nonatomic, strong) NSArray        *members;
 
 @property (weak, nonatomic) SCBroadcastRecordingController *recordingController;
 

@@ -1,4 +1,4 @@
-//
+               //
 //  SCEventContentView.m
 //  C2CallPhone
 //
@@ -9,6 +9,7 @@
 #import "FCLocation.h"
 #import "C2CallPhone.h"
 #import "C2BlockAction.h"
+#import "SCAssetManager.h"
 
 @implementation SCEventContentView
 
@@ -17,9 +18,9 @@
     // Just Empty
 }
 
--(void) showTransferProgress;
+-(BOOL) showTransferProgress;
 {
-    // Just Empty
+    return NO;
 }
 
 -(void) updateTransferProgress:(CGFloat) progress;
@@ -27,9 +28,9 @@
     // Just Empty
 }
 
--(void) hideTransferProgress;
+-(BOOL) hideTransferProgress;
 {
-    // Just Empty
+    return NO;
 }
 
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
@@ -37,6 +38,9 @@
     // Just Empty
 }
 
+@end
+
+@interface SCTextEventContentView()<UIGestureRecognizerDelegate>
 @end
 
 @implementation SCTextEventContentView
@@ -47,41 +51,93 @@
     
     self.contentText.text = nil;
     self.contentText.attributedText = nil;
+    dataTapAction = nil;
+    dataLongPressAction = nil;
+    self.dataDetectors = nil;
+    
+    if (self.tapDataDetectorGR) {
+        [self.contentText removeGestureRecognizer:self.tapDataDetectorGR];
+        self.tapDataDetectorGR = nil;
+    }
+    
+    if (self.longPressDataDetectorGR) {
+        [self.contentText removeGestureRecognizer:self.longPressDataDetectorGR];
+        self.longPressDataDetectorGR = nil;
+    }
 }
 
 -(void) presentTextContent:(NSString *_Nullable) messageText withTextColor:(UIColor *) textColor andDataDetector:(NSDictionary<NSString*, NSArray *> *_Nullable) dataDetector;
 {
+    NSString *appendText = @"XXXXXX";
+    messageText = [NSString stringWithFormat:@"%@%@", messageText, appendText];
     if (dataDetector) {
         NSMutableAttributedString *atext = [[NSMutableAttributedString alloc] initWithString:messageText];
+
+        if (textColor) {
+            NSRange fullRange = NSMakeRange(0, [messageText length]);
+            [atext addAttribute:NSForegroundColorAttributeName value:textColor range:fullRange];
+        }
         
-        
+        NSRange appendTextRange = NSMakeRange(messageText.length - appendText.length, appendText.length);
+        [atext addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:appendTextRange];
+
         NSArray<NSURL *> *urls = dataDetector[@"url"];
-        for (NSURL *url in urls) {
-            NSRange r = [messageText rangeOfString:[url absoluteString]];
-            if (r.location != NSNotFound) {
-                [atext addAttribute:NSLinkAttributeName value:[url absoluteString] range:r];
-            }
-        }
-
+        atext = [self addUrlDataDetectors:urls attributedText:atext messageText:messageText];
+        
         NSArray<NSString *> *numbers = dataDetector[@"phone"];
-        for (NSString *phone in numbers) {
-            NSRange r = [messageText rangeOfString:phone];
-            if (r.location != NSNotFound) {
-                [atext addAttribute:NSLinkAttributeName value:phone range:r];
-            }
-        }
-
+        atext = [self addPhoneDataDetectors:numbers attributedText:atext messageText:messageText];
+        
+        NSArray<NSDictionary<NSString *, NSObject *> *> *users = dataDetector[@"users"];
+        atext = [self addUserDataDetectors:users attributedText:atext messageText:messageText];
+        
+        /*
         NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
         textAttachment.image = [UIImage imageNamed:@"transparent60x13"];
         
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         
         [atext insertAttributedString:attrStringWithImage atIndex:[messageText length]];
-
+         */
+        
+        [self applyNonBreakableSpaces:messageText attributedText:atext];
         self.contentText.attributedText = atext;
+        
+        
+        if (self.tapDataDetectorGR) {
+            [self.contentText removeGestureRecognizer:self.tapDataDetectorGR];
+            self.tapDataDetectorGR = nil;
+        }
+        
+        if (self.longPressDataDetectorGR) {
+            [self.contentText removeGestureRecognizer:self.longPressDataDetectorGR];
+            self.longPressDataDetectorGR = nil;
+        }
+
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        tapGR.delegate = self;
+        [self.contentText addGestureRecognizer:tapGR];
+        self.contentText.userInteractionEnabled = YES;
+        self.tapDataDetectorGR = tapGR;
+        
+        
+        UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        longPressGR.delegate = self;
+        [self.contentText addGestureRecognizer:longPressGR];
+        self.contentText.userInteractionEnabled = YES;
+        self.longPressDataDetectorGR = longPressGR;
+        
     } else {
         NSMutableAttributedString *atext = [[NSMutableAttributedString alloc] initWithString:messageText];
+        if (textColor) {
+            NSRange fullRange = NSMakeRange(0, [messageText length]);
+            [atext addAttribute:NSForegroundColorAttributeName value:textColor range:fullRange];
+        }
+        
+        NSRange appendTextRange = NSMakeRange(messageText.length - appendText.length, appendText.length);
+        [atext addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:appendTextRange];
+        self.contentText.attributedText = atext;
 
+        /*
         NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
         textAttachment.image = [UIImage imageNamed:@"transparent60x13"];
         
@@ -90,9 +146,262 @@
         [atext insertAttributedString:attrStringWithImage atIndex:[messageText length]];
         
         self.contentText.attributedText = atext;
+         */
     }
-    self.contentText.textColor = textColor;
 }
+
+-(void) applyNonBreakableSpaces:(NSString *) messageText attributedText:(NSMutableAttributedString *) atext
+{
+    for (NSDictionary<NSString *, NSObject*> *dataDetector in self.dataDetectors) {
+        NSString *type = (NSString *)dataDetector[@"type"];
+        if ([type isEqualToString:@"user"]) {
+            NSValue *rangeValue = (NSValue *) dataDetector[@"range"];
+            if (rangeValue) {
+                NSRange r = [rangeValue rangeValue];
+                NSRange spaceRange = [messageText rangeOfString:@" " options:0 range:r];
+                if (spaceRange.location != NSNotFound) {
+                    [atext replaceCharactersInRange:spaceRange withString:@"\u00a0"];
+                }
+            }
+        }
+    }
+    
+}
+
+-(NSMutableAttributedString *) addPhoneDataDetectors:(NSArray<NSString *> *) numbers attributedText:(NSMutableAttributedString *)atext messageText:(NSString *) messageText
+{
+    for (NSString *phone in numbers) {
+        NSRange r = [messageText rangeOfString:phone];
+        if (r.location != NSNotFound) {
+            [atext addAttribute:NSLinkAttributeName value:phone range:r];
+            [self addDataDetectorType:@"phone" forData:phone andRange:r];
+        }
+    }
+
+    return atext;
+}
+
+-(NSMutableAttributedString *) addUrlDataDetectors:(NSArray<NSURL *> *) urls attributedText:(NSMutableAttributedString *)atext messageText:(NSString *) messageText
+{
+    for (NSURL *url in urls) {
+        NSRange r = [messageText rangeOfString:[url absoluteString]];
+        if (r.location != NSNotFound) {
+            [atext addAttribute:NSLinkAttributeName value:url range:r];
+            [self addDataDetectorType:@"url" forData:url andRange:r];
+        }
+    }
+    return atext;
+}
+
+-(NSMutableAttributedString *) addUserDataDetectors:(NSArray<NSDictionary<NSString *, NSObject *> *> *) users attributedText:(NSMutableAttributedString *)atext messageText:(NSString *) messageText
+{
+    for (NSDictionary *user in users) {
+        NSString *name = user[@"name"];
+        NSString *userid = user[@"userid"];
+        UIColor *color = user[@"color"];
+        
+        if ([name length] == 0 || [userid length] == 0) {
+            continue;
+        }
+        NSString *atName = [NSString stringWithFormat:@"@%@", name];
+        NSRange r = [messageText rangeOfString:atName];
+
+        if (r.location == NSNotFound) {
+            continue;
+        }
+        
+        if (!color) {
+            color = [UIColor blueColor];
+        }
+        
+        NSRange textRange = NSMakeRange(r.location + 1, r.length - 1);
+        NSRange atRange = NSMakeRange(r.location, 1);
+
+        
+        [atext addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:atRange];
+        [atext addAttribute:NSForegroundColorAttributeName value:color range:textRange];
+        [self addDataDetectorType:@"user" forData:user andRange:r];
+    }
+    return atext;
+}
+
+-(void) addDataDetectorType:(NSString *) type forData:(NSObject *) dataObject andRange:(NSRange) r
+{
+    if (!self.dataDetectors) {
+        self.dataDetectors = [NSMutableArray array];
+    }
+    
+    NSMutableDictionary<NSString *, NSObject*> *dataDetector = [NSMutableDictionary dictionaryWithCapacity:4];
+    dataDetector[@"type"] = type;
+    dataDetector[@"data"] = dataObject;
+    dataDetector[@"range"] = [NSValue valueWithRange:r];
+    
+    [self.dataDetectors addObject:dataDetector];
+}
+
+
+-(void) didTapOnDataDetector:(NSString *)type forData:(NSObject *) dataObject
+{
+    
+    
+    if (dataTapAction) {
+        dataTapAction(type, dataObject);
+    }
+}
+
+-(void) didLongPressOnDataDetector:(NSString *)type forData:(NSObject *) dataObject
+{
+    if (dataLongPressAction) {
+        dataLongPressAction(type, dataObject);
+    }
+}
+
+-(void) setDataTapAction:(void (^_Nullable)(NSString * _Nonnull type, NSObject * _Nullable dataObject)) action;
+{
+    dataTapAction = action;
+}
+
+-(void) setDataLongPressAction:(void (^_Nullable)(NSString * _Nonnull type, NSObject * _Nullable dataObject)) action;
+{
+    dataLongPressAction = action;
+}
+
+-(IBAction)handleTap:(UIGestureRecognizer *)sender
+{
+    NSLog(@"handleTap: %@", @(sender.state));
+    if (sender.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    
+    for (NSDictionary<NSString *, NSObject*> *dataDetector in self.dataDetectors) {
+        NSValue *rangeValue = (NSValue *)dataDetector[@"range"];
+        
+        if ([self gestureRecognizer:self.tapDataDetectorGR didTapInRange:[rangeValue rangeValue]]) {
+            NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
+            [atext removeAttribute:NSBackgroundColorAttributeName range:[rangeValue rangeValue]];
+            self.contentText.attributedText = atext;
+
+            NSString *type = (NSString *)dataDetector[@"type"];
+            NSObject *dataObject = dataDetector[@"data"];
+            [self didTapOnDataDetector:type forData:dataObject];
+            return;
+        }
+    }
+}
+
+-(IBAction)handleLongPress:(id)sender
+{
+    if (self.longPressDataDetectorGR.state != UIGestureRecognizerStateBegan){
+        return;
+    }
+    
+    for (NSDictionary<NSString *, NSObject*> *dataDetector in self.dataDetectors) {
+        NSValue *rangeValue = (NSValue *)dataDetector[@"range"];
+        
+        if ([self gestureRecognizer:self.longPressDataDetectorGR didTapInRange:[rangeValue rangeValue]]) {
+            NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
+            [atext removeAttribute:NSBackgroundColorAttributeName range:[rangeValue rangeValue]];
+            self.contentText.attributedText = atext;
+            
+            NSString *type = (NSString *)dataDetector[@"type"];
+            NSObject *dataObject = dataDetector[@"data"];
+            [self didLongPressOnDataDetector:type forData:dataObject];
+            return;
+        }
+    }
+
+}
+
+
+
+-(BOOL) gestureRecognizer:(UIGestureRecognizer *) gr didTapInRange:(NSRange) r
+{
+    UILabel *textLabel = self.contentText;
+    CGPoint tapLocation = [gr locationInView:textLabel];
+    
+    // init text storage
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:textLabel.attributedText];
+    
+    UIFont *font = textLabel.font;
+    if (font) {
+        [textStorage addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, textStorage.length)];
+    }
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    [textStorage addLayoutManager:layoutManager];
+    
+    // init text container
+    CGRect textRect = textLabel.frame;
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:CGSizeMake(textRect.size.width, textRect.size.height) ];
+    textContainer.lineFragmentPadding  = 0;
+    textContainer.maximumNumberOfLines = textLabel.numberOfLines;
+    textContainer.lineBreakMode        = textLabel.lineBreakMode;
+    
+    [layoutManager addTextContainer:textContainer];
+    [layoutManager ensureLayoutForTextContainer:textContainer];
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:tapLocation
+                                                      inTextContainer:textContainer
+                             fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    return NSLocationInRange(characterIndex, r);
+}
+
+-(BOOL) touch:(UITouch *) touch didTapInRange:(NSRange) r
+{
+    UILabel *textLabel = self.contentText;
+    CGPoint tapLocation = [touch locationInView:textLabel];
+    
+    // init text storage
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:textLabel.attributedText];
+    
+    UIFont *font = textLabel.font;
+    if (font) {
+        [textStorage addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, textStorage.length)];
+    }
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    [textStorage addLayoutManager:layoutManager];
+    
+    // init text container
+    CGRect textRect = textLabel.frame;
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:CGSizeMake(textRect.size.width, textRect.size.height) ];
+    textContainer.lineFragmentPadding  = 0;
+    textContainer.maximumNumberOfLines = textLabel.numberOfLines;
+    textContainer.lineBreakMode        = textLabel.lineBreakMode;
+    
+    [layoutManager addTextContainer:textContainer];
+    [layoutManager ensureLayoutForTextContainer:textContainer];
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:tapLocation
+                                                      inTextContainer:textContainer
+                             fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    return NSLocationInRange(characterIndex, r);
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+{
+    for (NSDictionary<NSString *, NSObject*> *dataDetector in self.dataDetectors) {
+        NSValue *rangeValue = (NSValue *)dataDetector[@"range"];
+        
+        if ([self touch:touch didTapInRange:[rangeValue rangeValue]]) {
+            
+            NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
+            [atext addAttribute:NSBackgroundColorAttributeName value:[UIColor grayColor] range:[rangeValue rangeValue]];
+
+            self.contentText.attributedText = atext;
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;{
+    return NO;
+}
+
 @end
 
 @implementation SCCallEventContentView
@@ -106,11 +415,14 @@
     [self.activityView stopAnimating];
 }
 
--(void) showTransferProgress;
+-(BOOL) showTransferProgress;
 {
-    [self.activityView startAnimating];
-
+    if (!self.activityView.animating) {
+        [self.activityView startAnimating];
+        return YES;
+    }
     
+    return NO;
 }
 
 -(void) updateTransferProgress:(CGFloat) progress;
@@ -118,9 +430,14 @@
     
 }
 
--(void) hideTransferProgress;
+-(BOOL) hideTransferProgress;
 {
-    [self.activityView stopAnimating];
+    if (self.activityView.animating) {
+        [self.activityView stopAnimating];
+        return YES;
+    }
+    
+    return NO;
 }
 
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
@@ -140,11 +457,16 @@
     self.progress.hidden = YES;
 }
 
--(void) showTransferProgress;
+-(BOOL) showTransferProgress;
 {
     [super showTransferProgress];
     
-    self.progress.hidden = NO;
+    if (!self.progress.hidden) {
+        self.progress.hidden = NO;
+        return YES;
+    }
+    
+    return NO;
 }
 
 -(void) updateTransferProgress:(CGFloat) progress;
@@ -152,10 +474,16 @@
     self.progress.progress = progress;
 }
 
--(void) hideTransferProgress;
+-(BOOL) hideTransferProgress;
 {
     [super hideTransferProgress];
-    self.progress.hidden = YES;
+    
+    if (self.progress.hidden) {
+        self.progress.hidden = YES;
+        return YES;
+    }
+    
+    return NO;
 }
 
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
@@ -181,10 +509,16 @@
     self.pttPlayer = nil;
 }
 
--(void) showTransferProgress;
+-(BOOL) showTransferProgress;
 {
     [super showTransferProgress];
-    [self.activityView startAnimating];
+
+    if (!self.activityView.animating) {
+        [self.activityView startAnimating];
+        return YES;
+    }
+    
+    return NO;
 }
 
 -(void) updateTransferProgress:(CGFloat) progress;
@@ -192,11 +526,18 @@
     self.progress.progress = progress;
 }
 
--(void) hideTransferProgress;
+-(BOOL) hideTransferProgress;
 {
     [super hideTransferProgress];
+
     self.progress.progress = 0;
-    [self.activityView stopAnimating];
+
+    if (self.activityView.animating) {
+        [self.activityView stopAnimating];
+        return YES;
+    }
+    
+    return NO;
 }
 
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
@@ -242,30 +583,51 @@
     [super prepareForReuse];
     
     self.fileInfo.text = nil;
+    self.fileIcon.image = nil;
     self.fileInfoView.hidden = YES;
-    self.progress.hidden = YES;
+    self.progressView.hidden = YES;
+    self.progress.progress = 0.;
     self.contentImage.hidden = YES;
+    self.typeInfo.text = @"--";
+    self.sizeInfo.text = @"--";
+    
+    [self.activityView stopAnimating];
+
 }
 
--(void) showTransferProgress;
+-(BOOL) showTransferProgress;
 {
     [super showTransferProgress];
-    [self.activityView startAnimating];
+    
+    if (!self.progressView.hidden) {
+        self.progressView.hidden = NO;
+        [self.activityView startAnimating];
+        return YES;
+    }
+    
+    return NO;
 }
 
 -(void) updateTransferProgress:(CGFloat) progress;
 {
-    if (self.progress.hidden) {
-        self.progress.hidden = NO;
+    if (self.progressView.hidden) {
+        self.progressView.hidden = NO;
     }
 
     self.progress.progress = progress;
 }
 
--(void) hideTransferProgress;
+-(BOOL) hideTransferProgress;
 {
     [super hideTransferProgress];
-    self.progress.hidden = YES;
+
+    if (!self.progressView.hidden) {
+        self.progressView.hidden = YES;
+        [self.activityView stopAnimating];
+        return YES;
+    }
+
+    return NO;
 }
 
 
@@ -273,10 +635,7 @@
 {
     NSString *filename = [[[C2CallPhone currentPhone] metaInfoForKey:mediaKey] objectForKey:@"name"];
     if (!filename) {
-        NSRange r = [mediaKey rangeOfString:@"."];
-        if (r.location != NSNotFound) {
-            filename = [[mediaKey substringFromIndex:r.location + 1] uppercaseString];
-        }
+        filename = [[self extensionForKey:mediaKey] uppercaseString];
     }
     if (!filename) {
         filename = @"";
@@ -285,10 +644,112 @@
     return filename;
 }
 
+-(NSString *) extensionForKey:(NSString *) mediaKey
+{
+    NSString *ext = @"";
+    NSRange r = [mediaKey rangeOfString:@"." options:NSBackwardsSearch];
+
+    if (r.location != NSNotFound) {
+        ext = [[mediaKey substringFromIndex:r.location + 1] lowercaseString];
+    }
+
+    return ext;
+}
+
+-(NSString *) fileSizeForKey:(NSString *) mediaKey
+{
+    NSNumber *fsize = [[[C2CallPhone currentPhone] metaInfoForKey:mediaKey] objectForKey:@"size"];
+    if (fsize) {
+        double sz = [fsize doubleValue];
+        double kb = sz / 1024.;
+        double mb = kb / 1024.;
+        
+        NSInteger sfz = (NSInteger) mb;
+        if (sfz > 0) {
+            return [NSString stringWithFormat:@"%@ MB", @(sfz)];
+        }
+        
+        sfz = (NSInteger) kb;
+        if (sfz > 0) {
+            return [NSString stringWithFormat:@"%@ KB", @(sfz)];
+        }
+        
+        sfz = (NSInteger) sz;
+        if (sfz > 0) {
+            return [NSString stringWithFormat:@"%@ Bytes", @(sfz)];
+        }
+
+        
+    }
+
+    return nil;
+}
+
+-(UIImage *) iconForFileType:(NSString *) fileType
+{
+    if ([[fileType lowercaseString] hasSuffix:@"pdf"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_pdf"];
+    }
+    
+    if ([[fileType lowercaseString] hasSuffix:@"doc"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_doc"];
+    }
+    
+    if ([[fileType lowercaseString] hasSuffix:@"docx"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_doc"];
+    }
+    
+    if ([[fileType lowercaseString] hasSuffix:@"xls"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_xls"];
+    }
+    
+    if ([[fileType lowercaseString] hasSuffix:@"xlsx"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_xls"];
+    }
+    
+    if ([[fileType lowercaseString] hasSuffix:@"ppt"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_ppt"];
+    }
+    
+    if ([[fileType lowercaseString] hasSuffix:@"pptx"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_ppt"];
+    }
+
+    if ([[fileType lowercaseString] hasSuffix:@"txt"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_txt"];
+    }
+
+    if ([[fileType lowercaseString] hasSuffix:@"rtf"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_txt"];
+    }
+
+    if ([[fileType lowercaseString] hasSuffix:@"numbers"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_xls"];
+    }
+
+    if ([[fileType lowercaseString] hasSuffix:@"keynote"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_ppt"];
+    }
+
+    if ([[fileType lowercaseString] hasSuffix:@"pages"]) {
+        return [[SCAssetManager instance] imageForName:@"ico_doc"];
+    }
+
+    
+    return nil;
+}
+
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
 {
     _filename = [self filenameForKey:mediaKey];
-
+    
+    NSString *fileType = [self extensionForKey:mediaKey];
+    self.typeInfo.text = fileType;
+    self.sizeInfo.text = [self fileSizeForKey:mediaKey];
+    
+    UIImage *icon = [self iconForFileType:fileType];
+    self.fileIcon.image = icon;
+    
     if (self.filename) {
         self.fileInfo.text = self.filename;
         self.fileInfoView.hidden = NO;

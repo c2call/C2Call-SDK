@@ -12,19 +12,29 @@
 @interface SCEventContentView : UIView
 
 -(void) prepareForReuse;
--(void) showTransferProgress;
+-(BOOL) showTransferProgress;
 -(void) updateTransferProgress:(CGFloat) progress;
--(void) hideTransferProgress;
+-(BOOL) hideTransferProgress;
 
 -(void) presentContentForKey:(NSString *_Nonnull) mediaKey withPreviewImage:(UIImage *_Nullable) previewImage;
 
 @end
 
-@interface SCTextEventContentView : SCEventContentView
+@interface SCTextEventContentView : SCEventContentView {
+    void (^dataTapAction)(NSString * _Nonnull type, NSObject * _Nullable dataObject);
+    void (^dataLongPressAction)(NSString * _Nonnull type, NSObject * _Nullable dataObject);
+
+}
 
 @property(weak, nonatomic, nullable) IBOutlet UILabel   *contentText;
 
+@property(strong, nonatomic, nullable) UITapGestureRecognizer   *tapDataDetectorGR;
+@property(strong, nonatomic, nullable) UILongPressGestureRecognizer   *longPressDataDetectorGR;
+@property(strong, nonatomic, nullable) NSMutableArray<NSDictionary<NSString*, NSObject *> *> *dataDetectors;
+
 -(void) presentTextContent:(NSString *_Nullable) messageText withTextColor:(UIColor *_Nullable) textColor andDataDetector:(NSDictionary<NSString*, NSArray *> *_Nullable) dataDetector;
+-(void) setDataTapAction:(void (^_Nullable)(NSString * _Nonnull type, NSObject * _Nullable dataObject)) action;
+-(void) setDataLongPressAction:(void (^_Nullable)(NSString * _Nonnull type, NSObject * _Nullable dataObject)) action;
 
 @end
 
@@ -78,7 +88,11 @@
 @interface SCFileEventContentView : SCPictureEventContentView
 
 @property(weak, nonatomic, nullable) IBOutlet UILabel               *fileInfo;
+@property(weak, nonatomic, nullable) IBOutlet UILabel               *sizeInfo;
+@property(weak, nonatomic, nullable) IBOutlet UILabel               *typeInfo;
+@property(weak, nonatomic, nullable) IBOutlet UIImageView           *fileIcon;
 @property(weak, nonatomic, nullable) IBOutlet UIView                *fileInfoView;
+@property(weak, nonatomic, nullable) IBOutlet UIView                *progressView;
 @property(weak, nonatomic, nullable) IBOutlet UIProgressView         *progress;
 
 @property(strong, nonatomic, readonly, nullable) NSString *filename;

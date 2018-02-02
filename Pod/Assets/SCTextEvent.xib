@@ -30,18 +30,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PUQ-qM-QK2" customClass="SCTextEventContentView">
-                    <rect key="frame" x="137.5" y="307.5" width="100" height="53"/>
+                    <rect key="frame" x="140" y="307.5" width="95.5" height="52.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3t-VV-bfS">
-                            <rect key="frame" x="4" y="4" width="92" height="41"/>
+                            <rect key="frame" x="4" y="4" width="87.5" height="40.5"/>
                             <string key="text">123 123 123
 </string>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="rqk-06-YPe">
-                            <rect key="frame" x="50.5" y="37" width="47.5" height="14"/>
+                            <rect key="frame" x="46" y="36.5" width="47.5" height="14"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="10:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0E-cd-25L">
                                     <rect key="frame" x="0.0" y="0.0" width="30.5" height="14"/>

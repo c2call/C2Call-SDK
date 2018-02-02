@@ -13,5 +13,11 @@
 @property(weak, nonatomic, nullable) IBOutlet UILabel                *replyToText;
 @property(weak, nonatomic, nullable) IBOutlet UIImageView            *replyToIcon;
 @property(weak, nonatomic, nullable) IBOutlet UIImageView            *replyToPreviewImage;
+@property(weak, nonatomic, nullable) IBOutlet UIView                 *replyToSideBar;
+
+@property(strong, nonatomic, nullable) NSString *replyToUserid;
+
+-(BOOL) presentReplyToContentFor:(NSString *)eventId;
+-(void) setReplyToColor:(UIColor *_Nonnull) color;
 
 @end

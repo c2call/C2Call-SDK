@@ -295,6 +295,9 @@ static NSCache          *assetCache = nil;
 {
     if (self.videoView.urlAsset && self.mediaKey) {
         [assetCache setObject:self.videoView.urlAsset forKey:self.mediaKey];
+        
+        //[self.videoView setMediaAsset:nil];
+        self.videoView.mediaUrl = nil;
     }
     
     [super prepareForReuse];

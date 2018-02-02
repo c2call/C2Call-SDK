@@ -75,7 +75,7 @@
             preview.frame = self.videoView.layer.bounds;
             [self.videoView.layer addSublayer:preview];
             self.preview = preview;
-
+            
             if (![[SCMediaManager instance].videoCaptureSession isRunning]) {
                 [[SCMediaManager instance] startVideoCapture];
             }
@@ -96,7 +96,7 @@
 {
     [super viewDidAppear: animated];
     
-
+    
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -180,9 +180,9 @@
             
         }];
     }
-
+    
     [self.broadcastStatusController updateBroadcastStatus];
-
+    
     [SCActivity reportBroadcastPresentationStart:self.broadcastGroupId];
     [self reportProgress];
 }
@@ -320,3 +320,4 @@
 }
 
 @end
+

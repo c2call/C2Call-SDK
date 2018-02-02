@@ -57,6 +57,16 @@
  */
 -(nullable MOC2CallUser *) userForEmail:(nonnull NSString *) email;
 
+/** Gets the Userid for a phone number .
+ Get the userid for a user registered phone number
+ The phone number must be in intertnational format starting with +
+ 
+ @param callerId - Phone number in international format
+ @return The userid or nil
+ */
+-(nullable NSString *) useridForCallerId:(nonnull NSString *) callerId;
+
+
 /** Gets the MOC2CallEvent Object for an eventId.
  
  The MOC2CallEvent Object represents a call or a message, which can be inbound call, outbound call, inbound message, outbound message.
@@ -142,6 +152,11 @@
  @param contact - Userid of the contact.
  */
 -(void) resetMissedMessagesForContact:(nonnull NSString *) contact;
+
+/** Manually reset the missed mdisplay flags
+ 
+ */
+-(void) refreshMissedDisplayFlags;
 
 /** Returns the list all tags (NSString)
  
