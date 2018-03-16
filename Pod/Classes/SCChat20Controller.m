@@ -23,16 +23,13 @@
 #import "SIPPhone.h"
 #import "SCUserProfile.h"
 #import "SCDataManager.h"
-
 #import "MOC2CallUser.h"
-
 #import "IOS.h"
 #import "SCWaitIndicatorController.h"
 #import "C2TapImageView.h"
 #import "SCAssetManager.h"
-
-
 #import "debug.h"
+#import "SCLinkMetaInfo.h"
 
 @interface SCChat20Controller () {
     
@@ -41,7 +38,12 @@
     //CGFloat             resizeOffset, minToolbarHeight;
     CGFloat             currentKeyboardSize;
     
-    BOOL                isGroupChat, isSMS, isKeyboard, hasMaxToolbarSize, hasTabBar, keyboardAnimation, didAppear;
+    BOOL                isGroupChat, isSMS, isKeyboard, hasMaxToolbarSize, hasTabBar, keyboardAnimation, didAppear, showLinkPreview;
+    
+    NSString *detectedFirstUrlStr;
+    
+    UIColor *savedTintColor, *cancelBtnTintColor;
+    UIOffset savedTextOffset;
 }
 
 @end
@@ -158,11 +160,25 @@
     } else {
         
     }
+    
+    savedTintColor = [UINavigationBar appearance].tintColor;
+    cancelBtnTintColor = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].tintColor;
+    savedTextOffset = [[UISearchBar appearance] searchTextPositionAdjustment];
+    
+    [self configureLinkPreview];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[UINavigationBar appearance] setTintColor:savedTintColor];
+    
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:cancelBtnTintColor];
+    
+    [[UISearchBar appearance] setSearchFieldBackgroundImage:nil forState:UIControlStateNormal];
+    
+    [[UISearchBar appearance] setSearchTextPositionAdjustment:savedTextOffset];
     
     hasTabBar = !self.tabBarController.tabBar.isHidden;
     
@@ -268,6 +284,19 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    if(![text isEqualToString:@""])
+    {
+        if(!showLinkPreview && detectedFirstUrlStr != nil)
+        {
+            NSLog(@"TEXT : %@ :: DETECTED : %@",textView.text,detectedFirstUrlStr);
+            
+            if([textView.text hasSuffix:detectedFirstUrlStr])
+            {
+                showLinkPreview = YES;
+            }
+        }
+    }
+    
     @try {
         if (!isGroupChat && !isSMS) {
             if (CFAbsoluteTimeGetCurrent() - lastTypeEvent > 2.0) {
@@ -345,7 +374,6 @@
     }
     
     return maximumLabelSize;
-    
 }
 
 -(void) initialToolbarSize
@@ -359,6 +387,8 @@
     if ([textView respondsToSelector:@selector(textContainer)]) {
         //textView.textContainer.size = textView.frame.size;
     }
+    
+    [self detectAndProcessFirstURL:textView.text];
     
     if(![textView.text hasSuffix:@"\n"] && hasMaxToolbarSize && [IOS iosVersion] >= 7.) {
         int pos = (int)textView.selectedRange.location;
@@ -478,6 +508,129 @@
     });
 }
 
+#pragma mark - Link Preview
+
+-(void)configureLinkPreview
+{
+    _linkPreview.layer.borderWidth = 1.0;
+    _linkPreview.layer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5].CGColor;
+    _linkPreview.hidden = YES;
+    showLinkPreview = YES;
+}
+
+-(void)detectAndProcessFirstURL:(NSString*)text
+{
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    
+    NSTextCheckingResult *result = [detector firstMatchInString:text options:0 range:NSMakeRange(0, [text length])];
+    
+    if(result != nil)
+    {
+        detectedFirstUrlStr = [[result URL] absoluteString];
+        
+        if(showLinkPreview)
+        {
+            [[SCLinkMetaInfo sharedInstance] metadataForURL:[result URL] completion:^(NSDictionary *data, NSString *errorMessage)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(data){
+                        [self processMetaData:data error:nil];
+                    }else{
+                        [self hideLinkPreview];
+                    }
+                });
+            }];
+        }
+    }
+    else
+    {
+        [self hideLinkPreview];
+    }
+}
+
+-(void)processMetaData:(NSDictionary *)metadata error:(NSString *)errorMessage
+{
+    if(!errorMessage && showLinkPreview)
+    {
+        _linkTitleLabel.text = [metadata valueForKey:@"title"];
+        
+        _linkDescriptionLabel.text = [metadata valueForKey:@"description"];
+        
+        if(_linkDescriptionLabel.text == nil){
+            _linkTitleLabel.numberOfLines = 2;
+        }else{
+            _linkTitleLabel.numberOfLines = 1;
+        }
+        
+        _linkSiteLabel.text = [metadata valueForKey:@"site_name"];
+        
+        NSURL *imageURL = [NSURL URLWithString:[metadata valueForKey:@"image"]];
+        
+        __weak SCChat20Controller *weakself = self;
+        [self downloadImageWithURL:imageURL cache:NSURLRequestReturnCacheDataElseLoad completionBlock:^(BOOL succeeded, UIImage *image)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(image)
+                {
+                    weakself.linkImageWidth.constant = _linkPreview.frame.size.height - 10.0;
+                    weakself.linkImageView.image = image;
+                }
+                else
+                {
+                    weakself.linkImageWidth.constant = 0;
+                    weakself.linkImageView.image = nil;
+                }
+            });
+        }];
+        
+        _linkPreview.hidden = NO;
+        _linkPreviewTop.constant = -_linkPreview.frame.size.height;
+        [UIView animateWithDuration:.25 animations:^{
+            [self.view layoutIfNeeded];
+        } completion:nil];
+    }
+    else
+    {
+        NSLog(@"OG metadata error : %@",errorMessage);
+        [self hideLinkPreview];
+    }
+}
+
+-(void)hideLinkPreview
+{
+    _linkPreviewTop.constant = 0;
+    [UIView animateWithDuration:.25 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _linkPreview.hidden = YES;
+    }];
+
+}
+
+- (IBAction)closeLinkPreview:(id)sender
+{
+    showLinkPreview = NO;
+    [self hideLinkPreview];
+}
+
+-(void)downloadImageWithURL:(NSURL *)url cache:(NSURLRequestCachePolicy)cachePlicy completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
+{
+    NSURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:cachePlicy timeoutInterval:60.0];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error )
+        {
+            completionBlock(YES,[[UIImage alloc] initWithData:data]);
+        }
+        else
+        {
+            NSLog(@"Error while downloaading Image : %@",error);
+            completionBlock(NO,nil);
+        }
+        
+    }] resume];
+}
+
 #pragma mark Notification Handling
 
 -(CGFloat) keyboardSize:(NSNotification *) notification
@@ -505,9 +658,6 @@
     
     if ([[notification name] isEqualToString:@"UIKeyboardWillShowNotification"]) {
         CGFloat keyboardSize = [self keyboardSize:notification];
-        
-        
-        CGRect frame = self.toolbarView.frame;
         
         CGFloat kbNewHeight = keyboardSize;
         CGFloat tabbarHeight = self.tabBarController.tabBar.bounds.size.height;
@@ -767,8 +917,6 @@
             [picker dismissViewControllerAnimated:YES completion:NULL];
         }];
     }
-    
-    
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -863,10 +1011,17 @@
     
     picker.peoplePickerDelegate = self;
     
-    [[UISearchBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[UISearchBar appearance] setSearchFieldBackgroundImage:[[SCAssetManager instance] imageForName:@"bg_search_field"] forState:UIControlStateNormal];
+    
+    [[UISearchBar appearance] setSearchTextPositionAdjustment:UIOffsetMake(5.0,0)];
+    
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
+
+
+
 
 #pragma mark UIDocumentPickerViewController Delegate
 
@@ -878,7 +1033,8 @@
     
     dpvc.delegate = self;
     
-    [[UINavigationBar appearance] setTintColor:[UIColor blueColor]];
+    //colorFromHex 4285f4
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0]];
     
     [self presentViewController:dpvc animated:YES completion:nil];
 }
@@ -932,6 +1088,8 @@
 
 -(IBAction) submit:(id) sender;
 {
+    [self hideLinkPreview];
+    
     NSString *text = [chatInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if (isSMS) {

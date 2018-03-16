@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@class SCEventContentView, SCReplyToContentView, SCReplyToContainer;
+@class SCEventContentView, SCReplyToContentView, SCReplyToContainer, SCLinkPreview;
 @class SCBoardDataSource, SCBoardObject, SCBoard20Controller;
 @class SCBoardObjectTimeHeader, SCBoardObjectCoreData, SCBoardObjectNewMessagesHeader;
 
@@ -72,6 +72,7 @@
 @property (weak, nonatomic, nullable) IBOutlet UIView                   *userNameView;
 @property (weak, nonatomic, nullable) IBOutlet UIView                   *userImageView;
 @property (weak, nonatomic, nullable) IBOutlet SCReplyToContainer       *replyToView;
+@property (weak, nonatomic, nullable) IBOutlet SCLinkPreview            *linkPreview;
 @property (weak, nonatomic, nullable) IBOutlet UIView                   *rightView;
 
 @property (weak, nonatomic, nullable) IBOutlet SCEventContentView *eventContentView;

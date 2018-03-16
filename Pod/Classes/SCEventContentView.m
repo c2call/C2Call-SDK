@@ -10,6 +10,9 @@
 #import "C2CallPhone.h"
 #import "C2BlockAction.h"
 #import "SCAssetManager.h"
+#import "NSBundle+SDKBundle.h"
+#import "SCLinkMetaInfo.h"
+
 
 @implementation SCEventContentView
 
@@ -41,6 +44,8 @@
 @end
 
 @interface SCTextEventContentView()<UIGestureRecognizerDelegate>
+@property(assign, nonatomic) CGFloat sizeForPureEmojis;
+@property(assign, nonatomic) BOOL isPureEmoji;
 @end
 
 @implementation SCTextEventContentView
@@ -50,6 +55,16 @@
     [super prepareForReuse];
     
     self.contentText.text = nil;
+    _isPureEmoji = NO;
+    if(_sizeForPureEmojis == 0.0)
+    {
+        _sizeForPureEmojis = self.contentText.font.pointSize * 3.0;
+    }
+    else
+    {
+        [self.contentText setFont:[UIFont fontWithName:self.contentText.font.fontName size:_sizeForPureEmojis/3.0]];
+    }
+    
     self.contentText.attributedText = nil;
     dataTapAction = nil;
     dataLongPressAction = nil;
@@ -68,10 +83,22 @@
 
 -(void) presentTextContent:(NSString *_Nullable) messageText withTextColor:(UIColor *) textColor andDataDetector:(NSDictionary<NSString*, NSArray *> *_Nullable) dataDetector;
 {
+    NSString *fontName = self.contentText.font.fontName;
     NSString *appendText = @"XXXXXX";
+    
+    if([self isPureEmojiString:messageText])
+    {
+        [self.contentText setFont:[UIFont fontWithName:fontName size:_sizeForPureEmojis]];
+        appendText = @"\n";
+        _isPureEmoji = YES;
+    }
+    
     messageText = [NSString stringWithFormat:@"%@%@", messageText, appendText];
+    
     if (dataDetector) {
-        NSMutableAttributedString *atext = [[NSMutableAttributedString alloc] initWithString:messageText];
+        
+        NSMutableAttributedString *atext = [[NSMutableAttributedString alloc] init];
+        [atext appendAttributedString:[[NSAttributedString alloc] initWithString:messageText]];
 
         if (textColor) {
             NSRange fullRange = NSMakeRange(0, [messageText length]);
@@ -80,7 +107,7 @@
         
         NSRange appendTextRange = NSMakeRange(messageText.length - appendText.length, appendText.length);
         [atext addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:appendTextRange];
-
+        
         NSArray<NSURL *> *urls = dataDetector[@"url"];
         atext = [self addUrlDataDetectors:urls attributedText:atext messageText:messageText];
         
@@ -100,8 +127,8 @@
          */
         
         [self applyNonBreakableSpaces:messageText attributedText:atext];
-        self.contentText.attributedText = atext;
         
+        self.contentText.attributedText = atext;
         
         if (self.tapDataDetectorGR) {
             [self.contentText removeGestureRecognizer:self.tapDataDetectorGR];
@@ -119,7 +146,6 @@
         self.contentText.userInteractionEnabled = YES;
         self.tapDataDetectorGR = tapGR;
         
-        
         UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         longPressGR.delegate = self;
         [self.contentText addGestureRecognizer:longPressGR];
@@ -135,6 +161,12 @@
         
         NSRange appendTextRange = NSMakeRange(messageText.length - appendText.length, appendText.length);
         [atext addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:appendTextRange];
+        
+        if(_isPureEmoji)
+        {
+            [atext addAttribute:NSFontAttributeName value:[UIFont fontWithName:fontName size:3.0] range:appendTextRange];
+        }
+        
         self.contentText.attributedText = atext;
 
         /*
@@ -165,7 +197,6 @@
             }
         }
     }
-    
 }
 
 -(NSMutableAttributedString *) addPhoneDataDetectors:(NSArray<NSString *> *) numbers attributedText:(NSMutableAttributedString *)atext messageText:(NSString *) messageText
@@ -183,13 +214,22 @@
 
 -(NSMutableAttributedString *) addUrlDataDetectors:(NSArray<NSURL *> *) urls attributedText:(NSMutableAttributedString *)atext messageText:(NSString *) messageText
 {
-    for (NSURL *url in urls) {
-        NSRange r = [messageText rangeOfString:[url absoluteString]];
-        if (r.location != NSNotFound) {
-            [atext addAttribute:NSLinkAttributeName value:url range:r];
+    for (NSURL *url in urls)
+    {
+        NSString *urlString = [[url absoluteString] stringByRemovingPercentEncoding];
+        urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSRange r = [messageText rangeOfString:urlString];
+        if (r.location != NSNotFound)
+        {
+            //colorFromHex 4285f4
+            [atext addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0] range:r];
+            
+            [atext addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:r];
+            
             [self addDataDetectorType:@"url" forData:url andRange:r];
         }
     }
+    
     return atext;
 }
 
@@ -387,9 +427,11 @@
         if ([self touch:touch didTapInRange:[rangeValue rangeValue]]) {
             
             NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
-            [atext addAttribute:NSBackgroundColorAttributeName value:[UIColor grayColor] range:[rangeValue rangeValue]];
-
+            
+            [atext addAttribute:NSBackgroundColorAttributeName value:[[UIColor blackColor] colorWithAlphaComponent:0.15] range:[rangeValue rangeValue]];
+        
             self.contentText.attributedText = atext;
+            
             return YES;
         }
     }
@@ -400,6 +442,95 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;{
     return NO;
+}
+
+- (BOOL)isPureEmojiString:(NSString*)string
+{
+    if (string.length == 0) {
+        return NO;
+    }
+    
+    __block BOOL isPureEmojiString = YES;
+    
+    [string enumerateSubstringsInRange:NSMakeRange(0,
+                                                 [string length])
+                             options:NSStringEnumerationByComposedCharacterSequences
+                          usingBlock:^(NSString *substring,
+                                       NSRange substringRange,
+                                       NSRange enclosingRange,
+                                       BOOL *stop)
+     {
+         BOOL containsEmoji = NO;
+         const unichar hs = [substring characterAtIndex:0];
+         // surrogate pair
+         if (0xd800 <= hs &&
+             hs <= 0xdbff)
+         {
+             if (substring.length > 1)
+             {
+                 const unichar ls = [substring characterAtIndex:1];
+                 const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
+                 if (0x1d000 <= uc &&
+                     uc <= 0x1f9c0)
+                 {
+                     containsEmoji = YES;
+                 }
+             }
+         }
+         else if (substring.length > 1)
+         {
+             const unichar ls = [substring characterAtIndex:1];
+             if (ls == 0x20e3 ||
+                 ls == 0xfe0f ||
+                 ls == 0xd83c)
+             {
+                 containsEmoji = YES;
+             }
+         }
+         else
+         {
+             // non surrogate
+             if (0x2100 <= hs &&
+                 hs <= 0x27ff)
+             {
+                 containsEmoji = YES;
+             }
+             else if (0x2B05 <= hs &&
+                      hs <= 0x2b07)
+             {
+                 containsEmoji = YES;
+             }
+             else if (0x2934 <= hs &&
+                      hs <= 0x2935)
+             {
+                 containsEmoji = YES;
+             }
+             else if (0x3297 <= hs &&
+                      hs <= 0x3299)
+             {
+                 containsEmoji = YES;
+             }
+             else if (hs == 0xa9 ||
+                      hs == 0xae ||
+                      hs == 0x303d ||
+                      hs == 0x3030 ||
+                      hs == 0x2b55 ||
+                      hs == 0x2b1c ||
+                      hs == 0x2b1b ||
+                      hs == 0x2b50)
+             {
+                 containsEmoji = YES;
+             }
+         }
+         
+         if (!containsEmoji)
+         {
+             isPureEmojiString = NO;
+             *stop = YES;
+         }
+     }];
+    
+    return isPureEmojiString;
 }
 
 @end

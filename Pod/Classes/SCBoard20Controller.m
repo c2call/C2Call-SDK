@@ -15,11 +15,15 @@
 #import "SCEventContentView.h"
 #import "SCReplyToContentView.h"
 #import "SCReplyToContainer.h"
+#import "SCLinkPreviewContentView.h"
+#import "SCLinkPreview.h"
 #import "SocialCommunication.h"
 #import "FCPlacesDetail.h"
 #import "FCGeocoder.h"
 #import "SCPTTPlayer.h"
 #import "debug.h"
+
+#import "SCLinkMetaInfo.h"
 
 @implementation SCBoardObjectCell
 
@@ -181,13 +185,20 @@
         [self hideTransferProgress];
     }
     
-    if (self.replyToView.replyToView) {
-        [self.replyToView.stackView removeArrangedSubview:self.replyToView.replyToView];
-        [self.replyToView.replyToView removeFromSuperview];
-        self.replyToView.replyToView = nil;
+    if (_replyToView.replyToView) {
+        [_replyToView.stackView removeArrangedSubview:_replyToView.replyToView];
+        [_replyToView.replyToView removeFromSuperview];
+        _replyToView.replyToView = nil;
     }
 
-    [self.replyToView setHidden:YES];
+    _replyToView.hidden = YES;
+    
+    if (_linkPreview.contentView) {
+        [_linkPreview.stackView removeArrangedSubview:_linkPreview.contentView];
+        [_linkPreview.contentView removeFromSuperview];
+        _linkPreview.contentView = nil;
+    }
+    _linkPreview.hidden = YES;
 }
 
 -(void) setEventContentView:(SCEventContentView *)eventContentView
@@ -198,7 +209,7 @@
     }
     
     if (eventContentView) {
-        [self.middleStack insertArrangedSubview:eventContentView atIndex: 2];
+        [self.middleStack insertArrangedSubview:eventContentView atIndex: 3];
     }
     
     _eventContentView = eventContentView;
@@ -216,6 +227,21 @@
     }
     
     _replyToView = replyToView;
+}
+
+
+-(void) setLinkPreview:(SCLinkPreviewContentView *)linkPreview
+{
+    if (_linkPreview) {
+        [self.middleStack removeArrangedSubview:_linkPreview];
+        [_linkPreview removeFromSuperview];
+    }
+    
+    if (linkPreview) {
+        [self.middleStack insertArrangedSubview:linkPreview atIndex:2];
+    }
+    
+    _linkPreview = linkPreview;
 }
 
 -(void) setCopyAction:(void (^)(void)) _copyAction;
@@ -670,6 +696,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     isChangingContent = NO;
     contentCount = [[NSMutableArray alloc] initWithCapacity:200];
 
@@ -691,7 +718,7 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
-    //[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     
     [self configureBoardBackground];
     
@@ -952,6 +979,7 @@
     [cell.replyToView setNeedsUpdateConstraints];
 }
 
+
 -(NSString *) reuseIdentifierForBoardObject:(SCBoardObject *) bo atIndexPath:(NSIndexPath *) indexPath;
 {
     if ([bo isKindOfClass:[SCBoardObjectTimeHeader class]]) {
@@ -1040,7 +1068,7 @@
 
 -(UIColor *) textColorCellOut
 {
-    return [UIColor whiteColor];
+    return [[UIColor blackColor] colorWithAlphaComponent:0.75];
 }
 
 -(CGSize) maxPictureSize
@@ -1145,11 +1173,14 @@
     cell.userName.text = sendername;
     cell.userName.textColor = [self colorForMember:elem.originalSender? elem.originalSender: elem.contact];
     
-    if (self.useNameHeader) {
+    if (self.useNameHeader){
         cell.userNameView.hidden = bo.sameSenderOnPreviousMessage;
-    } else {
+    }else{
         cell.userNameView.hidden = YES;
     }
+    
+    if(cell.userNameView.isHidden)
+        cell.userName.text = nil;
     
     cell.topDistanceView.hidden = bo.sameSenderOnPreviousMessage;
     
@@ -1398,13 +1429,39 @@
         [weakself showLongpressMenuForCell:weakcell withMediaKey:text];
     }];
     
-    if ([cell.eventContentView isKindOfClass:[SCTextEventContentView class]]) {
+    if ([cell.eventContentView isKindOfClass:[SCTextEventContentView class]])
+    {
         SCTextEventContentView *cv = (SCTextEventContentView *) cell.eventContentView;
-        
+        cv.containerCell = cell;
         [cv presentTextContent:text  withTextColor:[self textColorCellIn] andDataDetector:dataDetector];
         
-        if (dataDetector) {
+        if (dataDetector)
+        {
             [self prepareDataDetectorActionForTextContentView:cv];
+            
+            NSArray<NSURL *> *urls = dataDetector[@"url"];
+            if([urls count] > 0)
+            {
+                NSString *link = [[urls firstObject] absoluteString];
+                NSDictionary *cachedData = [[[SCLinkMetaInfo sharedInstance] cache] objectForKey:link];
+                
+                if(cachedData)
+                {
+                    [self processMetaData:cachedData forCell:cell];
+                }
+                else
+                {
+                    [[SCLinkMetaInfo sharedInstance] metadataForURL:[urls firstObject] completion:^(NSDictionary *data, NSString *errorMessage) {
+                        if(data)
+                        {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self reloadCellAtIndexPath:indexPath];
+                            });
+                        }
+                    }];
+                }
+                
+            }
         }
     }
 }
@@ -1412,7 +1469,6 @@
 -(void) configureTextCellOut:(SCBoardObjectEventCellOut *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
 {
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
-    
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
@@ -1429,26 +1485,57 @@
         [weakself showLongpressMenuForCell:weakcell withMediaKey:text];
     }];
     
-    if ([cell.eventContentView isKindOfClass:[SCTextEventContentView class]]) {
+    if ([cell.eventContentView isKindOfClass:[SCTextEventContentView class]])
+    {
         SCTextEventContentView *cv = (SCTextEventContentView *) cell.eventContentView;
-        [cv presentTextContent:text  withTextColor:[self textColorCellOut] andDataDetector:[self dataDetectorAction:text]];
+        cv.containerCell = cell;
+        [cv presentTextContent:text  withTextColor:[self textColorCellOut] andDataDetector:dataDetector];
         
-        if (dataDetector) {
+        if (dataDetector)
+        {
             [self prepareDataDetectorActionForTextContentView:cv];
+            
+            NSArray<NSURL *> *urls = dataDetector[@"url"];
+            if([urls count] > 0)
+            {
+                NSString *link = [[urls firstObject] absoluteString];
+                NSDictionary *cachedData = [[[SCLinkMetaInfo sharedInstance] cache] objectForKey:link];
+                
+                if(cachedData)
+                {
+                    [self processMetaData:cachedData forCell:cell];
+                }
+                else
+                {
+                    [[SCLinkMetaInfo sharedInstance] metadataForURL:[urls firstObject] completion:^(NSDictionary *data, NSString *errorMessage) {
+                        if(data)
+                        {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self reloadCellAtIndexPath:indexPath];
+                            });
+                        }
+                    }];
+                }
+            }
         }
-
     }
-    
 }
+
+-(void)reloadCellAtIndexPath:(NSIndexPath*)indexPath
+{
+    if(indexPath)
+    {
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
 
 -(void) configurePictureCellIn:(SCBoardObjectEventCellIn *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
 {
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
-    
     __weak SCBoardObjectEventCellIn *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
-    
     
     cell.contentAction.hidden = NO;
     NSString *mediaKey = bo.dataObject.text;
@@ -2470,8 +2557,6 @@
             }
         }
     }
-    
-    
 }
 
 -(void) configureCell:(UITableViewCell *) cell forIndexPath:(NSIndexPath *) indexPath
@@ -2484,10 +2569,51 @@
     [self.tableView endUpdates];
 }
 
+#pragma mark - Link Preview
+
+-(void)processMetaData:(NSDictionary*)metaData forCell:(SCBoardObjectEventCell*)cell
+{
+    if([cell.linkPreview.stackView.arrangedSubviews count] == 0)
+    {
+        UINib *nib = [UINib nibWithNibName:@"SCLinkPreview" bundle:[NSBundle bundleForClass:[SCLinkPreview class]]];
+        [nib instantiateWithOwner:cell.linkPreview options:nil];
+
+        SCTextEventContentView *cv = (SCTextEventContentView *) cell.eventContentView;
+        
+        @try
+        {
+            NSString *urlString = [[metaData valueForKey:@"link"] stringByRemovingPercentEncoding];
+            urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+            
+            if([cv.contentText.text containsString:urlString])
+            {
+                [cell.linkPreview.contentView prepareLinkPreviewWithData:metaData];
+                [cell.linkPreview.stackView addArrangedSubview:cell.linkPreview.contentView];
+                cell.linkPreview.hidden = NO;
+                [cell.linkPreview setNeedsUpdateConstraints];
+                [cell layoutIfNeeded];
+            }
+        }
+        @catch(NSException *e)
+        {
+            NSLog(@"Exception :: %@",e);
+        }
+    }
+}
+
+#pragma mark - UITableView
+
 // save height
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.cellHeightsDictionary setObject:@(cell.frame.size.height) forKey:indexPath];
 }
+
+/*
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+ */
 
 // give exact height value
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -2557,7 +2683,6 @@
             } else {
                 return nil;
             }
-            
         }
     }
     

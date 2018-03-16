@@ -57,6 +57,16 @@
 /** UITextView chat message. */
 @property(nonatomic, weak) IBOutlet UITextView              *chatInput;
 
+/** Link Preview*/
+@property (weak, nonatomic) IBOutlet UIView *linkPreview;
+@property (weak, nonatomic) IBOutlet UIImageView *linkImageView;
+@property (weak, nonatomic) IBOutlet UILabel *linkTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *linkDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *linkSiteLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkPreviewTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkImageWidth;
+
+
 /** @name properties */
 /** References to the embedded SCBoard20Controller. */
 @property(nonatomic, weak) SCBoard20Controller                *chatboard;

@@ -108,12 +108,12 @@
             break;
         case SCMEDIATYPE_FILE:
             self.replyToText.text = @"Attachment";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_video"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_document"];
             self.replyToPreviewImage.hidden = YES;
             break;
         case SCMEDIATYPE_VCARD: {
             self.replyToText.text = @"Contact";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_vcard"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_contact"];
             
             UIImage *vcardImage = [self vcardImageForKey:elem.text];
             if (vcardImage) {
@@ -125,7 +125,7 @@
         }
         case SCMEDIATYPE_IMAGE: {
             self.replyToText.text = @"Picture";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_image"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_image"];
             
             UIImage *image = [self previewImageForKey:elem.text];
             if (image) {
@@ -139,7 +139,7 @@
             break;
         case SCMEDIATYPE_VIDEO: {
             self.replyToText.text = @"Video";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_video"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_video"];
             
             UIImage *image = [self previewImageForKey:elem.text];
             if (image) {
@@ -151,14 +151,14 @@
             break;
         case SCMEDIATYPE_VOICEMAIL: {
             self.replyToText.text = @"Voicemail";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_voice_msg"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_voice_msg"];
             self.replyToPreviewImage.hidden = YES;
         }
             
             break;
         case SCMEDIATYPE_FRIEND: {
             self.replyToText.text = @"Friend";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_friend_30x30"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_user"];
             
             self.replyToPreviewImage.hidden = YES;
         }
@@ -167,7 +167,7 @@
         case SCMEDIATYPE_LOCATION:
         {
             self.replyToText.text = @"Location";
-            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_geolocation-24x24"];
+            self.replyToIcon.image = [[SCAssetManager instance] imageForName:@"ico_reply_to_location"];
             
             UIImage *image = [self previewImageForKey:elem.text];
             if (image) {

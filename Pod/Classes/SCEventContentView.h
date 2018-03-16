@@ -27,7 +27,7 @@
 }
 
 @property(weak, nonatomic, nullable) IBOutlet UILabel   *contentText;
-
+@property(strong, nonatomic, nullable) UITableViewCell   *containerCell;
 @property(strong, nonatomic, nullable) UITapGestureRecognizer   *tapDataDetectorGR;
 @property(strong, nonatomic, nullable) UILongPressGestureRecognizer   *longPressDataDetectorGR;
 @property(strong, nonatomic, nullable) NSMutableArray<NSDictionary<NSString*, NSObject *> *> *dataDetectors;
