@@ -801,7 +801,7 @@
     
     if ([IOS iosVersion] < 9.0) {
         [[C2CallPhone currentPhone] submitVCard:person withMessage:nil toTarget:self.targetUserid withCompletionHandler:^(BOOL success, NSString *richMediaKey, NSError *error) {
-            
+    
         }];
     }
     return NO;
@@ -858,7 +858,12 @@
 {
     ABPeoplePickerNavigationController *picker =
     [[ABPeoplePickerNavigationController alloc] init];
+    
+    picker.displayedProperties = @[[NSNumber numberWithInt:kABPersonPhoneProperty]];
+    
     picker.peoplePickerDelegate = self;
+    
+    [[UISearchBar appearance] setBackgroundColor:[UIColor whiteColor]];
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
@@ -869,14 +874,13 @@
 {
     NSArray *types = @[(NSString*)kUTTypeImage,(NSString*)kUTTypeSpreadsheet,(NSString*)kUTTypePresentation,(NSString*)kUTTypePDF,(NSString*)kUTTypeRTF,(NSString*)kUTTypePlainText,(NSString*)kUTTypeText];
     
-    
     UIDocumentPickerViewController *dpvc = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:types inMode:UIDocumentPickerModeImport];
     
     dpvc.delegate = self;
     
-    [self presentViewController:dpvc animated:YES completion:^{
-        
-    }];
+    [[UINavigationBar appearance] setTintColor:[UIColor blueColor]];
+    
+    [self presentViewController:dpvc animated:YES completion:nil];
 }
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls

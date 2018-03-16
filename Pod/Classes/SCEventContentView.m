@@ -771,15 +771,12 @@
     [super prepareForReuse];
     
     self.contactName.text = nil;
-    self.contactImage.image = nil;
-    self.contactImage.hidden = YES;
 }
 
 -(void) presentContentForKey:(NSString *) mediaKey withPreviewImage:(UIImage *) previewImage
 {
     if (previewImage) {
         self.contactImage.image = previewImage;
-        self.contactImage.hidden = NO;
     }
     self.contactName.text = mediaKey;
 }

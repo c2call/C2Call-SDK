@@ -134,7 +134,10 @@
 
 @interface SCBoardObjectEventCellOut : SCBoardObjectEventCell
 
+@property (weak, nonatomic, nullable) IBOutlet UIButton *sentMediaActionBtn;
 @property (weak, nonatomic) IBOutlet UIImageView * _Nullable errorStatusImage;
+
+- (IBAction)sentMediaAction:(nullable id)sender;
 
 @end
 
@@ -215,6 +218,8 @@
 -(void) transferCompletedForKey:(NSString *_Nullable) mediaKey onCell:(SCBoardObjectEventCell *_Nullable) cell;
 
 -(void) contentAction:(nonnull SCBoardObjectEventCellIn *)cell;
+-(void) sentMediaAction:(nonnull SCBoardObjectEventCellOut *)cell;
+
 -(void) scrollToMessageWithEventId:(NSString *_Nonnull) eventId;
 -(void) updateCell:(UITableViewCell *) cell;
 

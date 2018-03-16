@@ -614,7 +614,7 @@
 
 -(void) prepareForReuse {
     [super prepareForReuse];
-    
+    self.sentMediaActionBtn.hidden = YES;
     self.readStatus.hidden = NO;
     self.errorStatusImage.image = nil;
 }
@@ -629,6 +629,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:key object:nil];
 }
 
+- (IBAction)sentMediaAction:(id)sender
+{
+    [self.controller sentMediaAction:self];
+}
 
 @end
 
@@ -1485,6 +1489,8 @@
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
 
+    cell.sentMediaActionBtn.hidden = NO;
+    
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1603,6 +1609,8 @@
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
 
+    cell.sentMediaActionBtn.hidden = NO;
+    
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1773,6 +1781,8 @@
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
 
+    cell.sentMediaActionBtn.hidden = NO;
+    
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -1916,6 +1926,8 @@
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
 
+    cell.sentMediaActionBtn.hidden = NO;
+    
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
     
@@ -2053,6 +2065,8 @@
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
 
+    cell.sentMediaActionBtn.hidden = NO;
+    
     BOOL failed = NO, hasFile = NO;
     MOC2CallEvent *elem = bo.dataObject;
     NSString *mediaKey = [elem.text copy];
@@ -2250,6 +2264,8 @@
     
     BOOL failed = NO;
     
+    cell.sentMediaActionBtn.hidden = NO;
+    
     NSString *vcard = bo.dataObject.text;
     @try {
         
@@ -2296,12 +2312,20 @@
         NSString *compositName = person ? [CNContactFormatter stringFromContact:person style:CNContactFormatterStyleFullName] : nil;
 #
         //(NSString *)CFBridgingRelease(ABRecordCopyCompositeName(person));
-        NSData *imageData = person.imageData;
         UIImage *vcardImage = nil;
-        
-        if (imageData != NULL) {
-            vcardImage = [UIImage imageWithData:imageData];
+        if(person.imageDataAvailable)
+        {
+            NSData *imageData = person.imageData;
+            
+            if (imageData != NULL) {
+                vcardImage = [UIImage imageWithData:imageData];
+            }
         }
+        else
+        {
+            NSLog(@"Image data not available");
+        }
+        
         [cell presentContentForKey:compositName withPreviewImage:vcardImage];
         
         [cell setTapAction:^{
@@ -2802,7 +2826,16 @@
         
         [self shareRichMessageForKey:bocd.dataObject.text];
     }
-    
+}
+
+-(void) sentMediaAction:(SCBoardObjectEventCellOut *)cell
+{
+    if ([cell.boardObject isKindOfClass:[SCBoardObjectCoreData class]])
+    {
+        SCBoardObjectCoreData *bocd = (SCBoardObjectCoreData *) cell.boardObject;
+        
+        [self shareRichMessageForKey:bocd.dataObject.text];
+    }
 }
 
 -(BOOL) canShareWithApps:(NSString *) key
