@@ -461,7 +461,7 @@
             [newMessages addObject:dataObject];
              */
             
-            //dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:newMessages];
+            dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:newMessages];
         } else {
             SCBoardObjectTimeHeader *timeHeader = [[SCBoardObjectTimeHeader alloc] initWithTimeStamp:dataObject.dataObject.timeStamp andToken:dataObject.parentToken];
             
@@ -478,7 +478,7 @@
             
             [messages addObject:dataObject];
              */
-            //dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:messages];
+            dataObject.sameSenderOnPreviousMessage = [self isSameSenderOnPreviousMessage:dataObject inList:messages];
         }
     }
 

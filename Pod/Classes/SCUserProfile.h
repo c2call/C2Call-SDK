@@ -182,6 +182,12 @@
  */
 -(BOOL) isUserBlocked:(NSString *) userid;
 
+/** VendorId of the User
+ 
+ @return - Returns the VendorId of the user
+ */
+-(NSString *) vendorId;
+
 /** Get extended DID Numer
  
  In case the users has subscribed for multiuple DIDs, 

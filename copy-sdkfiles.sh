@@ -190,6 +190,8 @@ cp "../SocialCommunication/SCReplyToContentView.m" "Pod/Classes"
 cp "../SocialCommunication/SCReplyToContainer.h" "Pod/Classes"
 cp "../SocialCommunication/SCReplyToContainer.m" "Pod/Classes"
 
+cp "../SocialCommunication/SCVendor.h" "Pod/Classes"
+
 cp "../SocialCommunication/OGURL.h" "Pod/Classes"
 cp "../SocialCommunication/OGURL.m" "Pod/Classes"
 cp "../SocialCommunication/SCLinkPreview.h" "Pod/Classes"
