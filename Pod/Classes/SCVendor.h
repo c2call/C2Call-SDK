@@ -15,6 +15,7 @@
 #define C2VENDOR_ELEM_RegisterDate @"RegisterDate"
 #define C2VENDOR_ELEM_ConfirmDate @"ConfirmDate"
 #define C2VENDOR_ELEM_ImageRef @"ImageRef"
+#define C2VENDOR_ELEM_VideoRef @"VideoRef"
 #define C2VENDOR_ELEM_UrlRef @"UrlRef"
 #define C2VENDOR_ELEM_Tag @"Tag"
 #define C2VENDOR_ELEM_VendorDescription @"VendorDescription"
@@ -110,7 +111,44 @@
 #define C2LERR_RequestFailed        -9
 
 
-@interface SCVendor : NSObject
+@class DDXMLElement;
+
+@interface SCLoyaltyBase : NSObject {
+    NSString *mutex;
+}
+
+@property(strong, nonatomic, nullable) DDXMLElement           *xmlData;
+
+-(NSString *_Nullable) attributeForName:(NSString *_Nonnull) name;
+-(NSString *_Nullable) attributeForName:(NSString *_Nonnull) name inElement:(DDXMLElement *_Nonnull) elem;
+-(void) setAttributeForName:(NSString *_Nonnull) name value:(NSString *_Nullable) value;
+-(void) setAttributeForName:(NSString *_Nonnull) name value:(NSString *_Nullable) value inElement:(DDXMLElement *_Nonnull) elem;
+-(NSString *_Nullable) elementForName:(NSString *_Nonnull) name;
+-(DDXMLElement *_Nullable) elementNodeForName:(NSString *_Nonnull) name create:(BOOL) create;
+-(NSString *_Nullable) elementForName:(NSString *_Nonnull) name inElement:(DDXMLElement *_Nonnull) elem;
+-(void) setElementForName:(NSString *_Nonnull) name value:(NSString *_Nullable) value;
+-(void) setElementForName:(NSString *_Nonnull) name value:(NSString *_Nullable) value inElement:(DDXMLElement *_Nonnull) elem;
+
+-(DDXMLElement *_Nullable) urlElementForType:(NSString *_Nonnull) urlType create:(BOOL) create;
+-(DDXMLElement *_Nullable) locationElementForType:(NSString *_Nonnull) locType create:(BOOL) create;
+-(DDXMLElement *_Nullable) infoElementForKey:(NSString *_Nonnull) key  create:(BOOL) create;
+
+-(DDXMLElement *_Nullable) imageElementForType:(NSString *_Nonnull) imageType  create:(BOOL) create;
+-(NSString *_Nullable) imageKeyForType:(NSString *_Nonnull) imageType;
+-(void) removeImageForKey:(NSString *_Nonnull) imageKey;
+-(void) removeImageForImageType:(NSString *_Nonnull) imageType;
+
+-(DDXMLElement *_Nullable) videoElementForType:(NSString *_Nonnull) videoType  create:(BOOL) create;
+-(NSString *_Nullable) videoKeyForType:(NSString *_Nonnull) videoType;
+-(void) removeVideoForKey:(NSString *_Nonnull) videoKey;
+-(void) removeVideoForVideoType:(NSString *_Nonnull) videoType;
+
+-(NSString *) xmlString;
+
+@end
+
+
+@interface SCVendor : SCLoyaltyBase
 
 @property(strong, nonatomic, nullable, readonly) NSString *vendorId;
 @property(strong, nonatomic, nullable) NSString *vendorName;
@@ -156,12 +194,10 @@
 -(BOOL) shouldUploadImages;
 -(BOOL) uploadImagesWithCompletionHandler:(nullable void (^)(BOOL success)) completion;
 
-
--(NSString *_Nullable) xmlString;
 -(NSDictionary *_Nullable) vendorDictionary;
 
 -(BOOL) saveVendorWithCompletionHandler:(nullable void (^)(BOOL success)) completion;
--(void) reloadVendorDataWithCompletionHandler:(void (^)(BOOL success)) completion;
+-(void) reloadVendorDataWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion;
 
 +(void) vendorWithVendorId:(NSString *_Nonnull) vendorId completion:(void (^_Nonnull)(SCVendor * _Nullable  vendor)) completion;
 
