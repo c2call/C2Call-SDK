@@ -31,10 +31,15 @@
 #define C2CAMPAIGN_ATTR_OwnerId @"OwnerId"
 #define C2CAMPAIGN_ATTR_Active @"Active"
 #define C2CAMPAIGN_ATTR_DBTStamp @"DBTStamp"
+#define C2CAMPAIGN_ATTR_TargetLocation @"TargetLocation"
 
 #define C2CAMPAIGN_VALUE_CampaignType_CMP_LOCAL_CAMPAIGN @"CMP_LOCAL_CAMPAIGN"
 #define C2CAMPAIGN_VALUE_CampaignType_CMP_ONLINE_CAMPAIGN @"CMP_ONLINE_CAMPAIGN"
 #define C2CAMPAIGN_VALUE_CampaignType_CMP_IMAGE_CAMPAIN @"CMP_IMAGE_CAMPAIN"
+
+#define C2CAMPAIGN_VALUE_TargetLocation_WorldWide @"WorldWide"
+#define C2CAMPAIGN_VALUE_TargetLocation_CountryWide @"CountryWide"
+#define C2CAMPAIGN_VALUE_TargetLocation_LocationBased @"LocationBased"
 
 #define C2CAMPAIGN_VALUE_FeaturedContentAction_AC_DEAL_DETAILS @"AC_DEAL_DETAILS"
 #define C2CAMPAIGN_VALUE_FeaturedContentAction_AC_PRODUCT_INFO @"AC_PRODUCT_INFO"
@@ -51,7 +56,7 @@
 #define C2REWARD_ATTR_RewardKey @"RewardKey"
 #define C2REWARD_ATTR_RewardType @"RewardType"
 
-#define C2REWARD_VALUE_RewardType_RWD_NONE @""
+#define C2REWARD_VALUE_RewardType_RWD_NONE @"RWD_NONE"
 #define C2REWARD_VALUE_RewardType_RWD_WATCH_ONLY @"RWD_WATCH_ONLY"
 #define C2REWARD_VALUE_RewardType_RWD_WATCH_AND_PICKUP @"RWD_WATCH_AND_PICKUP"
 #define C2REWARD_VALUE_RewardType_RWD_PICKUP_ONLY @"RWD_PICKUP_ONLY"
@@ -85,10 +90,11 @@
 @property(nonatomic) NSInteger                                      rewardTotalPickupPoints;
 @property(nonatomic) NSInteger                                      rewardMaxWatchesPerUser;
 
-@property(nonatomic) double campaignLocationLatitude;
-@property(nonatomic) double campaignLocationLongitude;
-@property(nonatomic) NSInteger campaignLocationRadius;
+@property(nonatomic) double                                         campaignLocationLatitude;
+@property(nonatomic) double                                         campaignLocationLongitude;
+@property(nonatomic) NSInteger                                      campaignLocationRadius;
 @property(strong, nonatomic, nullable) NSString                     *campaignLocationName;
+@property(strong, nonatomic, nullable) NSString                     *campaignLocationTarget;
 
 /** The Teaser Image is the main image of the Campaign
     It will also shown in the timeline as thumbnail for the video
@@ -107,6 +113,9 @@
  */
 @property(strong, nonatomic, nullable) NSString                     *errorDescription;
 @property(nonatomic) NSInteger                                      errorCode;
+
+@property(strong, nonatomic, nullable, readonly) NSArray<NSString *> *campaignTags;
+
 
 - (instancetype _Nullable )initWithDictionary:(NSDictionary *_Nonnull) properties;
 
@@ -139,7 +148,10 @@
     In cases images or video has been changed, the modified images or video will be uploaded accordingly.
  */
 -(BOOL) saveCampaignWithCompletionHandler:(nullable void (^)(BOOL success)) completion;
--(void) reloadCampaignDataWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion;
+-(void) reloadCampaignDataWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion loadMediafiles:(BOOL) loadMedia;
+
+// Retrieve Mediafiles from server if not locally available
+-(BOOL) loadCampaignMediaWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion;
 
 /** activateCampaign will actually release the campaign to the public and will create a featured timeline item
     This method does a server side call, so don't use in main thread
@@ -150,6 +162,10 @@
  This method does a server side call, so don't use in main thread
  */
 -(BOOL) deActivateCampaign;
+
+/** Provides the campaign values in dictionary format
+ */
+-(NSDictionary *_Nullable) campaignDictionary;
 
 +(void) campaignWithCampaignId:(NSString *_Nonnull) campaignId completion:(nonnull void (^)(SCLoyaltyCampaign * _Nullable campaign)) completion;
 

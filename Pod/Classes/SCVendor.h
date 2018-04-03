@@ -143,8 +143,9 @@
 -(void) removeVideoForKey:(NSString *_Nonnull) videoKey;
 -(void) removeVideoForVideoType:(NSString *_Nonnull) videoType;
 
--(NSString *) xmlString;
+-(NSString *_Nullable) xmlString;
 
+-(void) setValue:(NSObject *_Nullable) value forKey:(NSString*_Nonnull) key inDict:(NSMutableDictionary *_Nonnull) dict;
 @end
 
 
@@ -198,6 +199,7 @@
 
 -(BOOL) saveVendorWithCompletionHandler:(nullable void (^)(BOOL success)) completion;
 -(void) reloadVendorDataWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion;
+-(BOOL) loadVendorMediaWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion;
 
 +(void) vendorWithVendorId:(NSString *_Nonnull) vendorId completion:(void (^_Nonnull)(SCVendor * _Nullable  vendor)) completion;
 

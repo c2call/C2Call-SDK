@@ -196,7 +196,6 @@
         startEdit = NO;
         [self.chatInput becomeFirstResponder];
     }
-    
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -677,8 +676,8 @@
         self.toolbarBottomContraint.constant = kbNewHeight;
         [UIView animateWithDuration:0.3 animations:^{
             [self.toolbarView.superview layoutIfNeeded];
+            [self.chatboard scrollToLastVisibleRow];
         }];
-
     }
 
     if ([[notification name] isEqualToString:@"UIKeyboardWillChangeFrameNotification"]) {
@@ -777,6 +776,7 @@
         if ([vc isKindOfClass:[SCBoard20Controller class]]) {
             smc = (SCBoard20Controller *)vc;
         }
+        
         smc.targetUserid = targetUserid;
         smc.dontShowCallEvents = self.dontShowCallEvents;
         smc.delegate = self;

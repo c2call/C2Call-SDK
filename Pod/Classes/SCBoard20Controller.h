@@ -222,6 +222,7 @@
 -(void) sentMediaAction:(nonnull SCBoardObjectEventCellOut *)cell;
 
 -(void) scrollToMessageWithEventId:(NSString *_Nonnull) eventId;
+-(void) scrollToLastVisibleRow;
 -(void) updateCell:(UITableViewCell *) cell;
 
 -(void) dispose;

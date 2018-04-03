@@ -191,6 +191,7 @@ cp "../SocialCommunication/SCReplyToContainer.h" "Pod/Classes"
 cp "../SocialCommunication/SCReplyToContainer.m" "Pod/Classes"
 
 cp "../SocialCommunication/SCVendor.h" "Pod/Classes"
+cp "../SocialCommunication/SCWallet.h" "Pod/Classes"
 cp "../SocialCommunication/SCLoyaltyCampaign.h" "Pod/Classes"
 
 cp "../SocialCommunication/OGURL.h" "Pod/Classes"

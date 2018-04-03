@@ -9,7 +9,7 @@
 #import <UIViewController+SCCustomViewController.h>
 
 #import <Contacts/Contacts.h>
-
+#import <SafariServices/SSReadingList.h>
 #import "SCBoard20Controller.h"
 #import "SCBoardDataSource.h"
 #import "SCEventContentView.h"
@@ -716,10 +716,6 @@
     [self.animationIconWhite addObject:[[SCAssetManager instance] imageForName:@"ico_sending_2_white"]];
     [self.animationIconWhite addObject:[[SCAssetManager instance] imageForName:@"ico_sending_3_white"]];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    
     [self configureBoardBackground];
     
     self.tableView.estimatedRowHeight = 50.;
@@ -817,27 +813,6 @@
     }
     
     return dataDetectors;
-}
-
--(void) onKeyboardWillShow:(NSNotification *) notification
-{
-    NSArray<NSIndexPath *> *visibleRows = [self.tableView indexPathsForVisibleRows];
-    
-    if (visibleRows) {
-        self.lastVisibleRow = [visibleRows lastObject];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self onKeyboardDidShow:nil];
-        });
-    }
-}
-
--(void) onKeyboardDidShow:(NSNotification *) notification
-{
-    if (self.lastVisibleRow) {
-        [self.tableView scrollToRowAtIndexPath:self.lastVisibleRow atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        
-        self.lastVisibleRow = nil;
-    }
 }
 
 #pragma mark - Table view data source
@@ -1073,12 +1048,12 @@
 
 -(CGSize) maxPictureSize
 {
-    return CGSizeMake(240, 240);
+    return CGSizeMake(480, 480);
 }
 
 -(CGSize) maxVideoSize
 {
-    return CGSizeMake(240, 240);
+    return CGSizeMake(480, 480);
 }
 
 -(UIImage *) previewImageForKey:(NSString *) mediaKey maxSize:(CGSize) sz
@@ -1297,7 +1272,7 @@
         if ([type isEqualToString:@"phone"]) {
             if ([dataObject isKindOfClass:[NSString class]]) {
                 NSString *phoneNumber = (NSString *) dataObject;
-                NSString *intlNumber = [SIPUtil normalizePhoneNumber:phoneNumber];
+                //NSString *intlNumber = [SIPUtil normalizePhoneNumber:phoneNumber];
                 
                 [[SIPPhone currentPhone] callNumber:phoneNumber];
             }
@@ -1321,20 +1296,35 @@
         }
     }];
     
-    [cv setDataLongPressAction:^(NSString * _Nonnull type, NSObject * _Nullable dataObject) {
-        if ([type isEqualToString:@"url"]) {
-            if ([dataObject isKindOfClass:[NSURL class]]) {
+    [cv setDataLongPressAction:^(NSString * _Nonnull type, NSObject * _Nullable dataObject)
+    {
+        if ([type isEqualToString:@"url"])
+        {
+            if ([dataObject isKindOfClass:[NSURL class]])
+            {
                 NSURL *url = (NSURL *) dataObject;
-                [weakself copyText:[url absoluteString]];
-
-                UINavigationItem *item = weakself.parentViewController.navigationItem;
-                if (!item) {
-                    item = weakself.navigationItem;
-                }
-                item.prompt = @"Url copied...";
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    item.prompt = nil;
-                });
+                
+                SCPopupMenu *popup = [SCPopupMenu popupMenu:self];
+                
+                [popup addChoiceWithName:NSLocalizedString(@"Open URL", @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     [[UIApplication sharedApplication] openURL:url];
+                 }];
+                
+                [popup addChoiceWithName:NSLocalizedString(@"Add to Reading List", @"Choice Title") andSubTitle:nil andIcon:nil andCompletion:^()
+                 {
+                     [[SSReadingList defaultReadingList] addReadingListItemWithURL:url title:url.host previewText:url.absoluteString error:nil];
+                 }];
+                
+                [popup addChoiceWithName:NSLocalizedString(@"Copy", @"Choice Title") andSubTitle:[url absoluteString] andIcon:nil andCompletion:^()
+                {
+                     [weakself copyText:[url absoluteString]];
+                }];
+                
+                [popup addCancelWithName:NSLocalizedString(@"Cancel", @"Button") andCompletion:^{
+                }];
+                
+                [popup showMenu];
             }
         }
         
@@ -2578,21 +2568,16 @@
         UINib *nib = [UINib nibWithNibName:@"SCLinkPreview" bundle:[NSBundle bundleForClass:[SCLinkPreview class]]];
         [nib instantiateWithOwner:cell.linkPreview options:nil];
 
-        SCTextEventContentView *cv = (SCTextEventContentView *) cell.eventContentView;
-        
         @try
         {
             NSString *urlString = [[metaData valueForKey:@"link"] stringByRemovingPercentEncoding];
             urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
             
-            if([cv.contentText.text containsString:urlString])
-            {
-                [cell.linkPreview.contentView prepareLinkPreviewWithData:metaData];
-                [cell.linkPreview.stackView addArrangedSubview:cell.linkPreview.contentView];
-                cell.linkPreview.hidden = NO;
-                [cell.linkPreview setNeedsUpdateConstraints];
-                [cell layoutIfNeeded];
-            }
+            [cell.linkPreview.contentView prepareLinkPreviewWithData:metaData];
+            [cell.linkPreview.stackView addArrangedSubview:cell.linkPreview.contentView];
+            cell.linkPreview.hidden = NO;
+            [cell.linkPreview setNeedsUpdateConstraints];
+            [cell layoutIfNeeded];
         }
         @catch(NSException *e)
         {
@@ -2734,6 +2719,14 @@
         if (section >= 0 && row >= 0)
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     });
+}
+
+-(void) scrollToLastVisibleRow
+{
+    NSArray<NSIndexPath *> *visibleRows = [self.tableView indexPathsForVisibleRows];
+    if (visibleRows && [visibleRows count] > 0) {
+        [self.tableView scrollToRowAtIndexPath:[visibleRows lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
 }
 
 - (void)killScroll

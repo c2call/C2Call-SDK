@@ -216,10 +216,47 @@
 {
     for (NSURL *url in urls)
     {
-        NSString *urlString = [[url absoluteString] stringByRemovingPercentEncoding];
-        urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSString *urlString = [url absoluteString];
         NSRange r = [messageText rangeOfString:urlString];
-        if (r.location != NSNotFound)
+        BOOL foundRange = YES;
+        if (r.location == NSNotFound)
+        {
+            foundRange = NO;
+            //for umlauts or special characters
+            urlString = [[url absoluteString] stringByRemovingPercentEncoding];
+            r = [messageText rangeOfString:urlString];
+            if (r.location == NSNotFound)
+            {
+                //for white space in url
+                urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+                r = [messageText rangeOfString:urlString];
+                
+                if (r.location == NSNotFound)
+                {
+                    urlString = [url absoluteString];
+                    NSString *prefix = url.scheme;
+                    if(prefix)
+                    {
+                        prefix = [prefix stringByAppendingString:@"://"];
+                        urlString = [urlString stringByReplacingOccurrencesOfString:prefix withString:@""];
+                        r = [messageText rangeOfString:urlString];
+                        if (r.location == NSNotFound)
+                        {
+                            urlString = [urlString stringByRemovingPercentEncoding];
+                            r = [messageText rangeOfString:urlString];
+                            if (r.location == NSNotFound)
+                            {
+                                urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+                                r = [messageText rangeOfString:urlString];
+                                if (r.location != NSNotFound){ foundRange = YES; }
+                            }else{ foundRange = YES; }
+                        }else{ foundRange = YES; }
+                    }
+                }else{ foundRange = YES; }
+            }else{ foundRange = YES; }
+        }
+        
+        if (foundRange)
         {
             //colorFromHex 4285f4
             [atext addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0] range:r];
@@ -232,6 +269,8 @@
     
     return atext;
 }
+//http://www.example.com/some-%5Bspecial%5D-
+//http://www.abc.com/some-%5Bspecial%5D_
 
 -(NSMutableAttributedString *) addUserDataDetectors:(NSArray<NSDictionary<NSString *, NSObject *> *> *) users attributedText:(NSMutableAttributedString *)atext messageText:(NSString *) messageText
 {
@@ -282,8 +321,6 @@
 
 -(void) didTapOnDataDetector:(NSString *)type forData:(NSObject *) dataObject
 {
-    
-    
     if (dataTapAction) {
         dataTapAction(type, dataObject);
     }
@@ -440,7 +477,19 @@
 }
 
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;{
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if ([otherGestureRecognizer.view isKindOfClass:[UITableView class]])
+    {
+        for (NSDictionary<NSString *, NSObject*> *dataDetector in self.dataDetectors)
+        {
+            NSValue *rangeValue = (NSValue *)dataDetector[@"range"];
+            NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
+            [atext removeAttribute:NSBackgroundColorAttributeName range:[rangeValue rangeValue]];
+            self.contentText.attributedText = atext;
+        }
+    }
+    
     return NO;
 }
 
