@@ -26,6 +26,7 @@
 +(void) reportTimelineVideoEnd:(NSString *) reference;
 +(void) reportTimelineVideo:(NSString *) reference progress:(int) progress;
 +(void) reportTimelineVideoStart:(NSString *) reference;
++(BOOL) reportPickupPoints:(NSString *) reference;
 
 +(NSArray *) listActivityRewards;
 +(void) setUseActivityReports:(BOOL) useReports;

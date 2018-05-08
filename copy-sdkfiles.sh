@@ -192,6 +192,8 @@ cp "../SocialCommunication/SCReplyToContainer.m" "Pod/Classes"
 
 cp "../SocialCommunication/SCVendor.h" "Pod/Classes"
 cp "../SocialCommunication/SCWallet.h" "Pod/Classes"
+cp "../SocialCommunication/SCDealManager.h" "Pod/Classes"
+cp "../SocialCommunication/SCMediaLoader.h" "Pod/Classes"
 cp "../SocialCommunication/SCLoyaltyCampaign.h" "Pod/Classes"
 
 cp "../SocialCommunication/OGURL.h" "Pod/Classes"
@@ -582,6 +584,7 @@ cp ../SocialCommunication/SCFileEvent.xib Pod/Assets
 cp ../SocialCommunication/SCContactEvent.xib Pod/Assets
 cp ../SocialCommunication/SCTextEvent.xib Pod/Assets
 cp ../SocialCommunication/SCReplyToContent.xib Pod/Assets
+cp ../SocialCommunication/SCLinkPreview.xib Pod/Assets
 cp ../Classes/EAGLViewController.xib Pod/Assets
 cp ../Classes/AdWhirl/internal/AdWhirlWebBrowser.xib Pod/Assets
 cp ../libvpx.a Libraries/

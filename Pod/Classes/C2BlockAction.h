@@ -34,6 +34,6 @@
 /** Creates a C2BlockAction Instance with an Action Block.
  @param action - The Action Block
  */
-+(id) actionWithAction:(void (^)(id sender))action;
++(instancetype) actionWithAction:(void (^)(id sender))action;
 
 @end

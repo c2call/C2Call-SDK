@@ -945,6 +945,14 @@ typedef enum {
  */
 -(nullable UIImage *) exportQRCodeFromKeyPairWithDimensions:(int) dimensions;
 
+/** Get a QR-Code Image from any string value
+ 
+ @param qrstring - Any string to be QR encoded
+ @param dimensions - Size of the QR-Code image
+ @return The QR-Code image or nil if no key are available.
+ 
+ */
+-(nullable UIImage *) exportQRCodeForKey:(nonnull NSString *) qrstring withDimensions:(int) dimensions;
 
 /**---------------------------------------------------------------------------------------
  * @name Message Functions

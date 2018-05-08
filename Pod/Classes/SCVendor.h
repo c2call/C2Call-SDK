@@ -10,6 +10,7 @@
 // XML Attributes and Elements
 #define C2VENDOR_ELEM_Owner @"Owner"
 #define C2VENDOR_ELEM_Address @"Address"
+#define C2VENDOR_ELEM_PhoneNumber @"PhoneNumber"
 #define C2VENDOR_ELEM_PaymentDetails @"PaymentDetails"
 #define C2VENDOR_ELEM_AutoTopupRule @"AutoTopupRule"
 #define C2VENDOR_ELEM_RegisterDate @"RegisterDate"
@@ -134,6 +135,8 @@
 -(DDXMLElement *_Nullable) infoElementForKey:(NSString *_Nonnull) key  create:(BOOL) create;
 
 -(DDXMLElement *_Nullable) imageElementForType:(NSString *_Nonnull) imageType  create:(BOOL) create;
+-(NSArray<DDXMLElement *> *_Nullable) imageElementsForType:(NSString *_Nonnull) imageType;
+
 -(NSString *_Nullable) imageKeyForType:(NSString *_Nonnull) imageType;
 -(void) removeImageForKey:(NSString *_Nonnull) imageKey;
 -(void) removeImageForImageType:(NSString *_Nonnull) imageType;
@@ -145,7 +148,12 @@
 
 -(NSString *_Nullable) xmlString;
 
+-(UIImage *_Nullable) imageForPath:(NSString *_Nonnull) path;
+-(NSURL *_Nullable) urlForPath:(NSString *_Nonnull) path;
+
 -(void) setValue:(NSObject *_Nullable) value forKey:(NSString*_Nonnull) key inDict:(NSMutableDictionary *_Nonnull) dict;
+
+-(NSString *) documentsDirectory;
 @end
 
 
@@ -155,6 +163,7 @@
 @property(strong, nonatomic, nullable) NSString *vendorName;
 @property(strong, nonatomic, nullable) NSString *vendorDescription;
 @property(strong, nonatomic, nullable) NSString *vendorEmail;
+@property(strong, nonatomic, nullable) NSString *vendorPhone;
 @property(strong, nonatomic, nullable) NSString *vendorType;
 @property(strong, nonatomic, nullable) NSString *businessSection;
 @property(strong, nonatomic, nullable) NSString *referralCode;
@@ -188,6 +197,8 @@
 @property(nonatomic) NSInteger    errorCode;
 
 - (instancetype _Nullable )initWithDictionary:(NSDictionary *_Nonnull) properties;
+
+-(void) setVendorDataFromDictionary:(NSDictionary *) properties;
 
 -(void) addVendorImage:(UIImage *_Nonnull) image;
 -(void) removeVendorImage:(UIImage *_Nonnull) image;
