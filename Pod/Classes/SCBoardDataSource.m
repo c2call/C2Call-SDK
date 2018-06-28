@@ -68,6 +68,33 @@
     return [[SCDataManager instance] eventForEventId:self.eventId];
 }
 
+-(NSString *) mediaKey
+{
+    if ([[C2CallPhone currentPhone] mediaTypeForKey:[self dataObject].text] == SCMEDIATYPE_TEXT) {
+        return nil;
+    }
+         
+
+    return [[self dataObject].text copy];
+}
+
+-(NSString *) messageText
+{
+    if ([[C2CallPhone currentPhone] mediaTypeForKey:[self dataObject].text] == SCMEDIATYPE_TEXT) {
+        return [[self dataObject].text copy];
+    }
+
+    if ([self.eventId hasSuffix:@"#1"]) {
+        return [[self dataObject].text copy];
+    }
+    
+    NSString *attachedId = [NSString stringWithFormat:@"%@#1", self.eventId];
+    
+    MOC2CallEvent *evnt = [[SCDataManager instance] eventForEventId:attachedId];
+    
+    return [evnt.text copy];
+}
+
 @end
 
 @implementation SCBoardObjectTimeHeader
@@ -1080,6 +1107,10 @@
         return;
     }
 
+    if ([evnt.eventId hasSuffix:@"#1"]) {
+        return;
+    }
+    
     if ([self indexPathForEventId:evnt.eventId]) {
         // Already inserted...
         return;
@@ -1151,6 +1182,10 @@
 
 -(void) deleteEvent:(MOC2CallEvent *) evnt atIndexPath: (NSIndexPath *) indexPath
 {
+    if ([evnt.eventId hasSuffix:@"#1"]) {
+        return;
+    }
+
     // We create this dataObject as compare object, to find its index in the content lists
     SCBoardObjectCoreData *dataObject = [[SCBoardObjectCoreData alloc] initWithC2CallEvent:evnt andParentToken:@""];
     dataObject.inboundEvent = [self isInboundMessage:evnt];
@@ -1211,7 +1246,10 @@
 
 -(void) updateEvent:(MOC2CallEvent *) evnt atIndexPath: (NSIndexPath *) indexPath
 {
-    
+    if ([evnt.eventId hasSuffix:@"#1"]) {
+        return;
+    }
+
     if (self.dontShowCallEvents && ([evnt.eventType hasPrefix:@"Call"])){
         return;
     }

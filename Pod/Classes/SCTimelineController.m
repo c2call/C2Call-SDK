@@ -84,7 +84,7 @@ static NSCache          *assetCache = nil;
         self.userImage.image = image;
     }
     
-    self.timeLabel.text = [dateTime stringFromDate:event.timeStamp];
+    self.timeLabel.text = [self timeAgo:event.timeStamp];
     
     if (event.text) {
         self.textView.text = event.text;
@@ -100,6 +100,43 @@ static NSCache          *assetCache = nil;
     
     [self.likeButton addTarget:self action:@selector(like:) forControlEvents:UIControlEventTouchUpInside];
     self.likeButton.enabled = [[SCTimeline instance] canLikeEvent:event.eventId];
+}
+
+-(NSString*)timeAgo:(NSDate*)fromDate
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendarUnit units = NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay;
+    //NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitYear;
+    NSDate *now = [NSDate date];
+    NSDate *earliest = [now earlierDate:fromDate];
+    NSDate *latest = (earliest == now) ? fromDate : now;
+    
+    NSDateComponents *components = [calendar components:units fromDate:earliest toDate:latest options:0];
+    
+    if (components.day > 5) {
+        return [dateTime stringFromDate:fromDate];
+    }
+    else if (components.day >= 2) {
+        return [[NSString alloc] initWithFormat:@"%d days ago",(int)components.day];
+    }
+    else if (components.day >= 1) {
+        return @"Yesterday";
+    }
+    else if (components.hour >= 2) {
+        return [[NSString alloc] initWithFormat:@"%d hours ago",(int)components.hour];
+    }
+    else if (components.hour >= 1) {
+        return @"An hour ago";
+    }
+    else if (components.minute >= 2) {
+        return [[NSString alloc] initWithFormat:@"%d minutes ago",(int)components.minute];
+    }
+    else if (components.minute >= 1) {
+        return @"A minute ago";
+    }
+    else {
+        return @"Just now";
+    }
 }
 
 -(CGFloat) previewHeightForMediaSize:(CGSize) sz

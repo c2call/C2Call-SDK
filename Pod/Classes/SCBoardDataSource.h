@@ -59,6 +59,9 @@ typedef NS_ENUM(NSUInteger, SCBoardObjectType) {
 @property (strong, nonatomic, nullable) NSManagedObjectID       *objectId;
 @property (strong, nonatomic, nullable) NSString                *eventId;
 
+@property (readonly, nonatomic, nullable) NSString              *mediaKey;
+@property (readonly, nonatomic, nullable) NSString              *messageText;
+
 @end
 
 @interface SCBoardObjectTimeHeader : SCBoardObject

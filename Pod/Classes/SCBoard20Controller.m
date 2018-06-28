@@ -666,8 +666,8 @@
 @interface SCBoard20Controller ()<SCBoardDataSourceDelegate, MFMailComposeViewControllerDelegate> {
     BOOL    isChangingContent;
     NSMutableArray<NSNumber *>    *contentCount;
-    
     NSInteger   insertedObjects, deletedObjects;
+    NSIndexPath *scrolledToIndexPath;
 }
 
 
@@ -1138,27 +1138,20 @@
     
     cell.boardObject = bo;
     
+    cell.userImageView.hidden = !self.useSenderImage;
     cell.userImage.image = [self imageForElement:elem];
     cell.userImage.hidden = bo.sameSenderOnPreviousMessage;
     
-    cell.userImageView.hidden = !self.useSenderImage;
-    
-    NSString *sendername = elem.senderName?elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
-    
-    cell.userName.text = sendername;
-    cell.userName.textColor = [self colorForMember:elem.originalSender? elem.originalSender: elem.contact];
-    
-    if (self.useNameHeader){
-        cell.userNameView.hidden = bo.sameSenderOnPreviousMessage;
-    }else{
-        cell.userNameView.hidden = YES;
+    BOOL showUserName = self.useNameHeader && !(bo.sameSenderOnPreviousMessage);
+    cell.userNameView.hidden = !(showUserName);
+    if (showUserName)
+    {
+        NSString *sendername = elem.senderName ? elem.senderName : [[C2CallPhone currentPhone] nameForUserid:elem.contact];
+        cell.userName.text = sendername;
+        cell.userName.textColor = [self colorForMember:elem.originalSender? elem.originalSender: elem.contact];
     }
     
-    if(cell.userNameView.isHidden)
-        cell.userName.text = nil;
-    
     cell.topDistanceView.hidden = bo.sameSenderOnPreviousMessage;
-    
     
     cell.bubbleTip.hidden = bo.sameSenderOnPreviousMessage && self.isGroup;
     
@@ -3458,7 +3451,32 @@
 {
     NSIndexPath *indexPath = [self.dataSource indexPathForEventId:eventId];
     if (indexPath) {
+        scrolledToIndexPath = indexPath;
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tableView && scrolledToIndexPath)
+    {
+        SCBoardObjectEventCell *cell = (SCBoardObjectEventCell*)[self.tableView cellForRowAtIndexPath:scrolledToIndexPath];
+        
+        UIColor *bubbleBgColor = cell.bubbleView.backgroundColor;
+        
+        [UIView animateKeyframesWithDuration:1.0 delay:0 options:0 animations:^{
+            
+            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
+                cell.bubbleView.backgroundColor = [UIColor lightGrayColor];
+            }];
+            
+            [UIView addKeyframeWithRelativeStartTime:0.6 relativeDuration:0.7 animations:^{
+                cell.bubbleView.backgroundColor = bubbleBgColor;
+            }];
+            
+        } completion:^(BOOL finished) {
+            scrolledToIndexPath = nil;
+        }];
     }
 }
 
