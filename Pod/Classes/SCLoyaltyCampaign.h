@@ -13,6 +13,7 @@
 #define C2CAMPAIGN_ELEM_Address @"Address"
 #define C2CAMPAIGN_ELEM_OpeningHours @"OpeningHours"
 #define C2CAMPAIGN_ELEM_Reward @"Reward"
+#define C2CAMPAIGN_ELEM_CampaignVoucher @"CampaignVoucher"
 #define C2CAMPAIGN_ELEM_ImageRef @"ImageRef"
 #define C2CAMPAIGN_ELEM_VideoRef @"VideoRef"
 #define C2CAMPAIGN_ELEM_UrlRef @"UrlRef"
@@ -61,6 +62,10 @@
 #define C2REWARD_ATTR_RewardKey @"RewardKey"
 #define C2REWARD_ATTR_RewardType @"RewardType"
 
+#define C2CAMPAIGNVOUCHER_ATTR_Uploaded @"Uploaded"
+#define C2CAMPAIGNVOUCHER_ATTR_VoucherType @"VoucherType"
+#define C2CAMPAIGNVOUCHER_ATTR_VoucherCode @"VoucherCode"
+
 #define C2REWARD_VALUE_RewardType_RWD_NONE @"RWD_NONE"
 #define C2REWARD_VALUE_RewardType_RWD_WATCH_ONLY @"RWD_WATCH_ONLY"
 #define C2REWARD_VALUE_RewardType_RWD_WATCH_AND_PICKUP @"RWD_WATCH_AND_PICKUP"
@@ -106,6 +111,8 @@ typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 @property(strong, nonatomic, nullable) NSString                     *openingHours;
 @property(strong, nonatomic, nullable) NSString                     *rewardRule;
 @property(strong, nonatomic, nullable) NSString                     *rewardType;
+@property(strong, nonatomic, nullable) NSString                     *voucherType;
+@property(strong, nonatomic, nullable) NSString                     *voucherCode;
 @property(nonatomic) NSInteger                                      rewardWatchPoints;
 @property(nonatomic) NSInteger                                      rewardPickupPoints;
 @property(nonatomic) NSInteger                                      rewardTotalWatchPoints;
@@ -241,6 +248,6 @@ typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 -(void) currentLocationQRCodeForDomain:(NSString *) domain withCompletionHandler:(nonnull void (^)(UIImage *qrcode)) completion;
 
 +(void) campaignWithCampaignId:(NSString *_Nonnull) campaignId completion:(nonnull void (^)(SCLoyaltyCampaign * _Nullable campaign)) completion;
-+(BOOL) pickupPointsQRKey:(NSString *_Nonnull) qrkey autoRedeem:(BOOL) redeem completion:(nonnull void (^)(BOOL pickupSuccess, BOOL redeemSuccess, SCLoyaltyCampaign * _Nullable campaign, SCCampaignQRCodeError resonCode, NSString * _Nullable error)) completion;
++(BOOL) pickupPointsQRKey:(NSString *_Nonnull) qrkey autoRedeem:(BOOL) redeem completion:(nonnull void (^)(BOOL pickupSuccess, BOOL redeemSuccess, SCLoyaltyCampaign * _Nullable campaign, NSString * _Nullable voucherCode, SCCampaignQRCodeError resonCode, NSString * _Nullable error)) completion;
 
 @end

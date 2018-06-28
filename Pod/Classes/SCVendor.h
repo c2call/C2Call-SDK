@@ -149,6 +149,7 @@
 -(NSString *_Nullable) xmlString;
 
 -(UIImage *_Nullable) imageForPath:(NSString *_Nonnull) path;
+-(NSArray<NSString *> *) voucherListForPath:(NSString *) path;
 -(NSURL *_Nullable) urlForPath:(NSString *_Nonnull) path;
 
 -(void) setValue:(NSObject *_Nullable) value forKey:(NSString*_Nonnull) key inDict:(NSMutableDictionary *_Nonnull) dict;
