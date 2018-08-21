@@ -99,33 +99,23 @@
 
 @implementation SCBoardObjectTimeHeader
 
++(instancetype)sharedObject
+{
+    static SCBoardObjectTimeHeader *_shared = nil;
+    static dispatch_once_t once_token;
+    dispatch_once(&once_token, ^{
+        _shared = [SCBoardObjectTimeHeader new];
+    });
+    return _shared;
+}
+
 -(nullable instancetype) initWithTimeStamp:(nonnull NSDate *) tstamp  andToken:(NSString *) token;
 {
     self = [super init];
     if (self) {
         self.type = SCBoardObjectTypeTimeHeader;
-        
-        NSCalendar *cal = [NSCalendar currentCalendar];
-        self.currentDay = [cal startOfDayForDate:tstamp];
-        
-        NSDate *today = [NSDate date];
-        today = [cal startOfDayForDate:today];
-        
-        NSDate *yesterday = [today dateByAddingTimeInterval: -86400.0];
-        yesterday = [cal startOfDayForDate:yesterday];
-        
-        NSComparisonResult resultToday =[today compare:tstamp];
-        NSComparisonResult resultYesterday =[yesterday compare:tstamp];
-        
-        if (resultToday == NSOrderedAscending || resultToday == NSOrderedSame) {
-            self.timeHeader = @"Today";
-        } else if (resultYesterday == NSOrderedAscending || resultYesterday == NSOrderedSame) {
-            self.timeHeader = @"Yesterday";
-        } else  {
-            NSDateFormatter *df = [self dateFormatterForTimeHeader:tstamp];
-            self.timeHeader = [df stringFromDate:tstamp];
-        }
-        
+        self.timeHeader = [self formattedStringFromDate:tstamp];
+        self.currentDay = [[NSCalendar currentCalendar] startOfDayForDate:tstamp];
         self.timeToken = token;
     }
     return self;
@@ -141,10 +131,25 @@
     return [self.currentDay compare:other.currentDay];
 }
 
-
-
--(nonnull NSDateFormatter *) dateFormatterForTimeHeader:(nonnull NSDate *) date;
+-(nonnull NSString *) formattedStringFromDate:(nonnull NSDate *) date
 {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
+    NSDate *today = [NSDate date];
+    today = [cal startOfDayForDate:today];
+    
+    NSDate *yesterday = [today dateByAddingTimeInterval: -86400.0];
+    yesterday = [cal startOfDayForDate:yesterday];
+    
+    NSComparisonResult resultToday =[today compare:date];
+    NSComparisonResult resultYesterday =[yesterday compare:date];
+    
+    if (resultToday == NSOrderedAscending || resultToday == NSOrderedSame) {
+        return @"Today";
+    } else if (resultYesterday == NSOrderedAscending || resultYesterday == NSOrderedSame) {
+        return @"Yesterday";
+    }
+    
     BOOL useWeekDay = YES;
     NSTimeInterval ti = [date timeIntervalSinceNow];
     if (ti < 0) {
@@ -155,7 +160,6 @@
         }
     }
     
-    
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     if (useWeekDay) {
         [df setDateFormat:@"EEEE"];
@@ -164,7 +168,7 @@
         [df setTimeStyle:NSDateFormatterNoStyle];
     }
     
-    return df;
+    return [df stringFromDate:date];
 }
 
 
@@ -422,6 +426,11 @@
         if (self.dontShowCallEvents && ([evnt.eventType hasPrefix:@"Call"])) {
             continue;
         }
+
+        if ([evnt.eventId hasSuffix:@"#1"]) {
+            continue;
+        }
+
         
         NSLog(@"SCBoardTest:reloadBoardMessages remainingMissedEvents:%@", evnt.text);
         
@@ -464,6 +473,10 @@
 
     for (MOC2CallEvent *evnt in [self.fetchedResultsBoardMessages fetchedObjects]) {
         
+        if ([evnt.eventId hasSuffix:@"#1"]) {
+            continue;
+        }
+
         NSLog(@"SCBoardTest:reloadBoardMessages fetchedEvents:%@", evnt.text);
 
         NSString *cmpDate = [df stringFromDate:evnt.timeStamp];
@@ -560,6 +573,10 @@
         for (NSUInteger i = [allMessages count] - 1; i > 0; i--) {
             MOC2CallEvent *evnt = allMessages[i];
             
+            if ([evnt.eventId hasSuffix:@"#1"]) {
+                continue;
+            }
+
             NSString *cmpDate = [df stringFromDate:evnt.timeStamp];
             SCBoardObjectCoreData *bocd = [[SCBoardObjectCoreData alloc] initWithC2CallEvent:evnt andParentToken:cmpDate];
             bocd.inboundEvent = [self isInboundMessage:evnt];

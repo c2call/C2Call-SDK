@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString  *contact;
 @property (atomic, strong) NSString *mediaKey;
 @property (nonatomic,strong) NSNumber *eventId;
+@property (nonatomic, strong) NSString *campaignId;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, weak) SCTimelineController    *controller;
 
@@ -114,7 +115,7 @@
 -(void) scrollToTopOnUpdate;
 -(void) openProfile:(NSString *) userid;
 -(void) updateCellIfNeeded:(UITableViewCell *) cell;
--(void) showMenuExtraForItem:(NSString *) eventId withText:(NSString *) text andMediaKey:(NSString *) mediaKey featured:(BOOL)featured;
+-(void) showMenuExtraForItem:(NSString *) eventId withCampaign:(NSString *)campaignId withText:(NSString *) text andMediaKey:(NSString *) mediaKey featured:(BOOL)featured;
 -(void) sharePostWithText:(NSString *) textToShare andMediaKey:(NSString *) mediaKey;
 
 @end

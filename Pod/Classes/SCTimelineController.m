@@ -46,6 +46,8 @@ static NSCache          *assetCache = nil;
 
 -(void) prepareForReuse
 {
+    [super prepareForReuse];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.userName.text = @"";
     self.userImage.image = nil;
@@ -57,18 +59,30 @@ static NSCache          *assetCache = nil;
     self.likesLabel.text = @"";
     self.mediaKey = nil;
     self.eventId = nil;
+    self.campaignId = nil;
     self.featured = NO;
     [self.likeButton removeTarget:self action:@selector(like:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) configureCell:(MOTimelineEvent *) event controller:(SCTimelineController *)controller
 {
+    NSString *name = event.senderName;
+    if ([name isEqualToString:event.contact]) {
+        if ([[C2CallPhone currentPhone] getUserInfoForUserid:event.contact] != nil) {
+            name = [[C2CallPhone currentPhone] nameForUserid:event.contact];
+        }
+    }
+    
     self.controller = controller;
     self.eventId = [event.eventId copy];
-    self.userName.text = event.senderName;
+    self.userName.text = ![name isEqualToString:event.contact] ? name : NSLocalizedString(@"Unknown User", @"Name Label");
     self.featured = [event.featured boolValue];
     self.mediaKey = [event.mediaUrl copy];
     self.contact = [event.contact copy];
+    
+    if ([event.reward hasPrefix:@"deal://"]) {
+        self.campaignId = [event.reward substringFromIndex:[@"deal://" length]];
+    }
     
     if ([event.tags count] > 0) {
         NSMutableArray *tags = [NSMutableArray arrayWithCapacity:[event.tags count]];
@@ -82,6 +96,8 @@ static NSCache          *assetCache = nil;
     UIImage *image = [[C2CallPhone currentPhone] userimageForUserid:event.contact];
     if (image) {
         self.userImage.image = image;
+    } else {
+        self.userImage.image = [UIImage imageNamed:@"ico_timeline_user"];
     }
     
     self.timeLabel.text = [self timeAgo:event.timeStamp];
@@ -171,7 +187,7 @@ static NSCache          *assetCache = nil;
 
 -(IBAction)menuExtra:(id)sender
 {
-    [self.controller showMenuExtraForItem:[self.eventId stringValue] withText:self.textView.text andMediaKey:self.mediaKey featured:self.featured];
+    [self.controller showMenuExtraForItem:[self.eventId stringValue] withCampaign:self.campaignId withText:self.textView.text andMediaKey:self.mediaKey featured:self.featured];
 }
 
 -(void) monitorUploadForKey:(NSString *) key
@@ -1318,7 +1334,7 @@ static NSCache          *assetCache = nil;
     [self showFriendDetailForUserid:userid];
 }
 
--(void) showMenuExtraForItem:(NSString *) eventId withText:(NSString *) text andMediaKey:(NSString *) mediaKey featured:(BOOL)featured
+-(void) showMenuExtraForItem:(NSString *) eventId withCampaign:(NSString *) campaignId withText:(NSString *) text andMediaKey:(NSString *) mediaKey featured:(BOOL)featured
 {
     
 }

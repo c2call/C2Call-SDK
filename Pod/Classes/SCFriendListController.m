@@ -50,7 +50,6 @@
 @property (nonatomic, strong) NSString                       *filterText;
 @property (nonatomic, strong) NSArray                        *filterList;
 @property (nonatomic, strong) NSDate                         *compareDate;
-@property (nonatomic, strong) MOC2CallUser                   *selectedFriend;
 
 @end
 

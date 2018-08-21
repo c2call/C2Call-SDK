@@ -28,6 +28,7 @@
 #define C2CAMPAIGN_ATTR_TimelineId @"TimelineId"
 #define C2CAMPAIGN_ATTR_CampaignId @"CampaignId"
 #define C2CAMPAIGN_ATTR_CampaignName @"CampaignName"
+#define C2CAMPAIGN_ATTR_CampaignCurrency @"CampaignCurrency"
 #define C2CAMPAIGN_ATTR_VendorId @"VendorId"
 #define C2CAMPAIGN_ATTR_OwnerId @"OwnerId"
 #define C2CAMPAIGN_ATTR_Active @"Active"
@@ -71,6 +72,9 @@
 #define C2REWARD_VALUE_RewardType_RWD_WATCH_AND_PICKUP @"RWD_WATCH_AND_PICKUP"
 #define C2REWARD_VALUE_RewardType_RWD_PICKUP_ONLY @"RWD_PICKUP_ONLY"
 
+#define C2CAMPAIGN_INFO_PromotionType @"PromotionType"
+#define C2CAMPAIGN_INFO_DiscountPercent @"DiscountPercent"
+#define C2CAMPAIGN_INFO_RewardRules @"RewardRules"
 
 typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 {
@@ -90,6 +94,7 @@ typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 
 @property(strong, nonatomic, readonly, nullable) NSString           *campaignId;
 @property(strong, nonatomic, nullable) NSString                     *campaignName;
+@property(strong, nonatomic, nullable) NSString                     *campaignCurrency;
 @property(strong, nonatomic, nullable) NSString                     *campaignDescription;
 @property(strong, nonatomic, nullable) NSString                     *country;
 @property(strong, nonatomic, nullable) NSString                     *city;
@@ -113,6 +118,9 @@ typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 @property(strong, nonatomic, nullable) NSString                     *rewardType;
 @property(strong, nonatomic, nullable) NSString                     *voucherType;
 @property(strong, nonatomic, nullable) NSString                     *voucherCode;
+@property(strong, nonatomic, nullable) NSString                     *promotionType;
+@property(nonatomic) double                                         discountPercent;
+@property(strong, nonatomic, nullable) NSString                     *rewardRules;
 @property(nonatomic) NSInteger                                      rewardWatchPoints;
 @property(nonatomic) NSInteger                                      rewardPickupPoints;
 @property(nonatomic) NSInteger                                      rewardTotalWatchPoints;
@@ -202,7 +210,7 @@ typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 
 
 /** Retrieve a voucherCode from an Online Campaign for a user (use an async call) */
--(NSString *) getCampaignVoucherForUser:(NSString *) userid;
+-(NSString *_Nullable) getCampaignVoucherForUser:(NSString *_Nonnull) userid;
 
 
 // Retrieve Mediafiles from server if not locally available
@@ -236,11 +244,11 @@ typedef NS_ENUM(NSUInteger, SCCampaignQRCodeError)
 
 /** Provides a campaign location dependent QRCode for the Campaign
  */
--(UIImage *) locationQRCodeForDomain:(nonnull NSString *) domain;
+-(UIImage *_Nullable) locationQRCodeForDomain:(nonnull NSString *) domain;
 
 /** Provides a time dependent QRCode for the campaign
  */
--(UIImage *) timebasedQRCodeForDomain:(nonnull NSString *) domain;
+-(UIImage *_Nullable) timebasedQRCodeForDomain:(nonnull NSString *) domain;
 
 
 /** Provides a current location dependent QRCode for the Campaign

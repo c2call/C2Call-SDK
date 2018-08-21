@@ -1019,6 +1019,7 @@
     if ([user.userType intValue] == 2) {
         image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar_group"];
         image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:17.5];
+        [image setAccessibilityHint:@"default_pic"];
         [self.smallImageCache setObject:image forKey:contact];
         return image;
         
@@ -1026,6 +1027,7 @@
     
     image = [[SCAssetManager instance] imageForName:@"btn_ico_avatar"];
     image = [ImageUtil thumbnailFromImage:image withSize:35. andCornerRadius:3.];
+    [image setAccessibilityHint:@"default_pic"];
     [self.smallImageCache setObject:image forKey:contact];
     return image;
 }
@@ -1139,8 +1141,16 @@
     cell.boardObject = bo;
     
     cell.userImageView.hidden = !self.useSenderImage;
-    cell.userImage.image = [self imageForElement:elem];
     cell.userImage.hidden = bo.sameSenderOnPreviousMessage;
+    if (!(cell.userImage.hidden)) {
+        UIImage *pic = [self imageForElement:elem];
+        if ([pic.accessibilityHint isEqualToString:@"default_pic"]) {
+            cell.userImage.backgroundColor = [UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0];
+        } else {
+            cell.userImage.backgroundColor = [UIColor clearColor];
+        }
+        cell.userImage.image = pic;
+    }
     
     BOOL showUserName = self.useNameHeader && !(bo.sameSenderOnPreviousMessage);
     cell.userNameView.hidden = !(showUserName);
@@ -1158,9 +1168,22 @@
     cell.timeInfo.text = [self.timeFormatter stringFromDate:elem.timeStamp];
     cell.readStatus.hidden = YES;
     
-    if ([bo.dataObject.eventType isEqualToString:@"MessageIn"] && [bo.dataObject.status intValue] < 4) {
-        [[SCDataManager instance] markAsRead:elem];
+    if ([bo.dataObject.eventType isEqualToString:@"MessageIn"]) {
+        if ([bo.dataObject.status intValue] < 4) {
+            [[SCDataManager instance] markAsRead:elem];
+        }
+        
+        if (bo.messageText && bo.mediaKey) {
+            NSString *subEvent = [NSString stringWithFormat:@"%@#1", bo.eventId];
+            //NSLog(@"subEvent: %@", subEvent);
+            
+            MOC2CallEvent *subtext = [[SCDataManager instance] eventForEventId:subEvent];
+            if (subtext && [subtext.status intValue] < 4) {
+                [[SCDataManager instance] markAsRead:subtext];
+            }
+        }
     }
+         
     if (cell.eventContentTimeView) {
         cell.eventCellTimeView.hidden = YES;
     } else {
@@ -1517,6 +1540,8 @@
 {
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
+    [(SCPictureEventContentView*)cell.eventContentView setMessageText:bo.messageText withColor:[self textColorCellIn]];
+    
     __weak SCBoardObjectEventCellIn *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
     
@@ -1555,6 +1580,8 @@
 -(void) configurePictureCellOut:(SCBoardObjectEventCellOut *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
 {
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
+    
+    [(SCPictureEventContentView*)cell.eventContentView setMessageText:bo.messageText withColor:[self textColorCellOut]];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
@@ -1618,6 +1645,8 @@
 {
     [self configureEventCellIn:cell forBoardObject:bo atIndexPath:indexPath];
     
+    [(SCVideoEventContentView*)cell.eventContentView setMessage:bo.messageText withColor:[self textColorCellIn]];
+    
     __weak SCBoardObjectEventCellIn *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;
 
@@ -1675,6 +1704,8 @@
 -(void) configureVideoCellOut:(SCBoardObjectEventCellOut *) cell forBoardObject:(SCBoardObjectCoreData *) bo atIndexPath:(NSIndexPath *) indexPath
 {
     [self configureEventCellOut:cell forBoardObject:bo atIndexPath:indexPath];
+    
+    [(SCVideoEventContentView*)cell.eventContentView setMessage:bo.messageText withColor:[self textColorCellIn]];
     
     __weak SCBoardObjectEventCellOut *weakcell = cell;
     __weak SCBoard20Controller *weakself = self;

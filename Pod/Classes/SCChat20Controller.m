@@ -182,6 +182,10 @@
     
     hasTabBar = !self.tabBarController.tabBar.isHidden;
     
+    NSString *preservedText = [[NSUserDefaults standardUserDefaults] valueForKey:[NSString stringWithFormat:@"text-%@", self.targetUserid]];
+    
+    self.chatInput.text = preservedText;
+    
     if ([self.chatInput.text length] == 0) {
         [self initialToolbarSize];
     }
@@ -1088,6 +1092,9 @@
 
 -(IBAction) submit:(id) sender;
 {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"text-%@", self.targetUserid]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self hideLinkPreview];
     
     NSString *text = [chatInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -1114,6 +1121,7 @@
 
 -(IBAction) close:(id) sender
 {
+    [[NSUserDefaults standardUserDefaults] synchronize];
     UIViewController *vc = [self.navigationController popViewControllerAnimated:YES];
     if (!vc)
         [self dismissViewControllerAnimated:YES completion:NULL];

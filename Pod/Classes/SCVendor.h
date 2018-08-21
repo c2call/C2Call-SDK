@@ -136,6 +136,7 @@
 
 -(DDXMLElement *_Nullable) imageElementForType:(NSString *_Nonnull) imageType  create:(BOOL) create;
 -(NSArray<DDXMLElement *> *_Nullable) imageElementsForType:(NSString *_Nonnull) imageType;
+-(void) removeInfoElementForKey:(NSString *) infoKey;
 
 -(NSString *_Nullable) imageKeyForType:(NSString *_Nonnull) imageType;
 -(void) removeImageForKey:(NSString *_Nonnull) imageKey;

@@ -136,4 +136,8 @@ typedef enum {
  */
 -(void) configureCell:(SCFriendListCell *) cell forElement:(MOC2CallUser *) elem atIndexPath:(NSIndexPath *) indexPath;
 
+// adding below two lines for override purpose: for new User Profile
+@property (nonatomic, strong) MOC2CallUser *selectedFriend;
+-(void)showFriendDetail:(MOC2CallUser *)elem;
+
 @end

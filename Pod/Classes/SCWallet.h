@@ -30,13 +30,21 @@ typedef NS_ENUM(NSUInteger, SCWalletReasonCode)
 
 @property(nonatomic) NSInteger      walletPoints;
 
--(BOOL) purchasePoints:(NSUInteger) points withReference:(NSString *_Nonnull) reference withResult:(NSMutableDictionary *_Nullable) apiResult;
+-(BOOL) purchasePoints:(NSUInteger) points amount:(NSInteger) amount currency:(NSString *_Nonnull) currency token:(NSString *_Nonnull) token withReference:(NSString *_Nonnull) reference withResult:(NSMutableDictionary *_Nullable) apiResult;
+-(NSString *) preparePayUPurchase:(NSString *) xml withResult:(NSMutableDictionary *) apiResult;
+-(BOOL) confirmPayUPurchase:(NSString *) xml withResult:(NSMutableDictionary *) apiResult;
+
 -(BOOL) redeemVoucher:(NSString *_Nonnull) voucherCode withResult:(NSMutableDictionary *_Nullable) apiResult;
 -(BOOL) transferPoints:(NSUInteger) points toUser:(NSString *_Nonnull) userid withResult:(NSMutableDictionary *_Nullable) apiResult;
 -(BOOL) redeemPointsForCallCredit:(NSUInteger) points withResult:(NSMutableDictionary *_Nullable) apiResult;
 -(BOOL) redeemPoints:(NSUInteger) points reason:(SCWalletReasonCode) reason reference:(NSString *_Nonnull) reference withResult:(NSMutableDictionary *_Nullable) apiResult;
 -(void) reloadWalletHistoryWithCompletionHandler:(void (^_Nullable)(BOOL success)) completion;
 -(void) requestStripeEphemeralKey:(NSString *_Nonnull) apiVersion withCompletionHandler:(void (^_Nullable)(NSString *_Nullable jsonString, int resultCode, NSString *_Nullable comment)) completion;
+
+-(double) convertCurrency:(double) amount srcCurrency:(NSString *_Nonnull) srcCurrency targetCurrency:(NSString *_Nonnull) targetCurrency;
+-(double) priceForPoints:(NSUInteger) points withCurrency:(NSString *_Nonnull) currency;
+-(NSInteger) pointsForValue:(NSUInteger) value withCurrency:(NSString *_Nonnull) currency;
+
 
 /**
  Valid Keys:

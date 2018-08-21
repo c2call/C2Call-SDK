@@ -1161,6 +1161,16 @@ typedef enum {
  *  ---------------------------------------------------------------------------------------
  */
 
+/** Imports a media attachement from application:openUrl: delegate
+ 
+ The media attachment will be imported into the local file storage and a mediakey is generated
+ 
+ @param url - Url from application:openUrl:
+ @param completion - Completion Handler, once the file import is completed
+ 
+ */
+-(void) importMediaAttachmentForUrl:(nonnull NSURL *) url completed:(nullable void (^)(NSString * _Nullable key, BOOL success))completed;
+
 /** Downloads a rich media object from the server.
  
  The Rich Media Message methods are submitting rich media files like photos, videos, voicemails, vcards or other files to a registered userid or email address.
@@ -1844,6 +1854,13 @@ typedef enum {
  @param addresslist - List of Emails or Phone Numbers
  */
 -(void) reportAbusingTimelineContent:(nonnull NSString *) contentId comment:(nullable NSString *) comment;
+
+/** Report Abusing Campaign Content
+ @param contentId - Campaign Id of Abusing content
+ @param comment - Optional Comment
+ @param addresslist - List of Emails or Phone Numbers
+ */
+-(void) reportAbusingCampaign:(nonnull NSString *) campaignId comment:(nullable NSString *) comment;
 
 /**---------------------------------------------------------------------------------------
  * @name Static Methods

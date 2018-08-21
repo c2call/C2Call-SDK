@@ -66,15 +66,15 @@ typedef NS_ENUM(NSUInteger, SCBoardObjectType) {
 
 @interface SCBoardObjectTimeHeader : SCBoardObject
 
++(instancetype)sharedObject;
+
 -(nullable instancetype) initWithTimeStamp:(nonnull NSDate *) tstamp andToken:(nullable NSString *) token;
 
 @property (strong, nonatomic, nonnull) NSString     *timeHeader;
 @property (strong, nonatomic, nonnull) NSString     *timeToken;
 @property (strong, nonatomic, nonnull) NSDate       *currentDay;
 
-
-
--(nonnull NSDateFormatter *) dateFormatterForTimeHeader:(nonnull NSDate *) date;
+-(nonnull NSString *) formattedStringFromDate:(nonnull NSDate *) date;
 
 @end
 

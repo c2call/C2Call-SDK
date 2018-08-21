@@ -227,6 +227,8 @@ cp "../SocialCommunication/SCBroadcastVideoController.h" "Pod/Classes/SCBroadcas
 
 cp "../SocialCommunication/SCActivity.h" "Pod/Classes"
 cp "../SocialCommunication/SCTimeline.h" "Pod/Classes"
+cp "../SocialCommunication/SCLocationMananger.h" "Pod/Classes"
+cp "../SocialCommunication/SCLocationMananger.m" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineController.h" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineController.m" "Pod/Classes"
 cp "../SocialCommunication/SCTimelineMasterController.h" "Pod/Classes"

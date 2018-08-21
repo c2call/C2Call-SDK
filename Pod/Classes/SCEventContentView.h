@@ -23,11 +23,15 @@
 @interface SCTextEventContentView : SCEventContentView {
     void (^dataTapAction)(NSString * _Nonnull type, NSObject * _Nullable dataObject);
     void (^dataLongPressAction)(NSString * _Nonnull type, NSObject * _Nullable dataObject);
-
+    
 }
 
 @property(weak, nonatomic, nullable) IBOutlet UILabel   *contentText;
 @property(strong, nonatomic, nullable) UITableViewCell   *containerCell;
+
+@property(strong, nonatomic, nullable) UIColor *urlColor;
+@property(strong, nonatomic, nullable) UIColor *phoneColor;
+
 @property(strong, nonatomic, nullable) UITapGestureRecognizer   *tapDataDetectorGR;
 @property(strong, nonatomic, nullable) UILongPressGestureRecognizer   *longPressDataDetectorGR;
 @property(strong, nonatomic, nullable) NSMutableArray<NSDictionary<NSString*, NSObject *> *> *dataDetectors;
@@ -42,6 +46,9 @@
 
 @property(weak, nonatomic, nullable) IBOutlet UIImageView               *contentImage;
 @property(weak, nonatomic, nullable) IBOutlet UIActivityIndicatorView   *activityView;
+@property(weak, nonatomic, nullable) IBOutlet UILabel                   *messageTextLabel;
+
+-(void)setMessageText:(NSString* _Nullable)messageText withColor:(UIColor* _Nonnull)textColor;
 
 @end
 
@@ -49,6 +56,8 @@
 
 @property(weak, nonatomic, nullable) IBOutlet UILabel          *duration;
 @property(weak, nonatomic, nullable) IBOutlet UIProgressView   *progress;
+
+-(void)setMessage:(NSString*)messageText withColor:(UIColor*)textColor;
 
 @end
 

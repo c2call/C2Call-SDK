@@ -1,4 +1,4 @@
-               //
+//
 //  SCEventContentView.m
 //  C2CallPhone
 //
@@ -99,7 +99,7 @@
         
         NSMutableAttributedString *atext = [[NSMutableAttributedString alloc] init];
         [atext appendAttributedString:[[NSAttributedString alloc] initWithString:messageText]];
-
+        
         if (textColor) {
             NSRange fullRange = NSMakeRange(0, [messageText length]);
             [atext addAttribute:NSForegroundColorAttributeName value:textColor range:fullRange];
@@ -118,12 +118,12 @@
         atext = [self addUserDataDetectors:users attributedText:atext messageText:messageText];
         
         /*
-        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-        textAttachment.image = [UIImage imageNamed:@"transparent60x13"];
-        
-        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        
-        [atext insertAttributedString:attrStringWithImage atIndex:[messageText length]];
+         NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+         textAttachment.image = [UIImage imageNamed:@"transparent60x13"];
+         
+         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+         
+         [atext insertAttributedString:attrStringWithImage atIndex:[messageText length]];
          */
         
         [self applyNonBreakableSpaces:messageText attributedText:atext];
@@ -139,7 +139,7 @@
             [self.contentText removeGestureRecognizer:self.longPressDataDetectorGR];
             self.longPressDataDetectorGR = nil;
         }
-
+        
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
         tapGR.delegate = self;
         [self.contentText addGestureRecognizer:tapGR];
@@ -168,16 +168,16 @@
         }
         
         self.contentText.attributedText = atext;
-
+        
         /*
-        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-        textAttachment.image = [UIImage imageNamed:@"transparent60x13"];
-        
-        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        
-        [atext insertAttributedString:attrStringWithImage atIndex:[messageText length]];
-        
-        self.contentText.attributedText = atext;
+         NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+         textAttachment.image = [UIImage imageNamed:@"transparent60x13"];
+         
+         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+         
+         [atext insertAttributedString:attrStringWithImage atIndex:[messageText length]];
+         
+         self.contentText.attributedText = atext;
          */
     }
 }
@@ -204,11 +204,20 @@
     for (NSString *phone in numbers) {
         NSRange r = [messageText rangeOfString:phone];
         if (r.location != NSNotFound) {
-            [atext addAttribute:NSLinkAttributeName value:phone range:r];
+            //[atext addAttribute:NSLinkAttributeName value:phone range:r];
+            UIColor *col = self.phoneColor;
+            if (!col) {
+                col = [UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0];
+            }
+            
+            [atext addAttribute:NSForegroundColorAttributeName value:col range:r];
+            
+            [atext addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:r];
+            
             [self addDataDetectorType:@"phone" forData:phone andRange:r];
         }
     }
-
+    
     return atext;
 }
 
@@ -259,7 +268,12 @@
         if (foundRange)
         {
             //colorFromHex 4285f4
-            [atext addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0] range:r];
+            UIColor *col = self.urlColor;
+            if (!col) {
+                col = [UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1.0];
+            }
+            
+            [atext addAttribute:NSForegroundColorAttributeName value:col range:r];
             
             [atext addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:r];
             
@@ -284,7 +298,7 @@
         }
         NSString *atName = [NSString stringWithFormat:@"@%@", name];
         NSRange r = [messageText rangeOfString:atName];
-
+        
         if (r.location == NSNotFound) {
             continue;
         }
@@ -295,7 +309,7 @@
         
         NSRange textRange = NSMakeRange(r.location + 1, r.length - 1);
         NSRange atRange = NSMakeRange(r.location, 1);
-
+        
         
         [atext addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:atRange];
         [atext addAttribute:NSForegroundColorAttributeName value:color range:textRange];
@@ -357,7 +371,7 @@
             NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
             [atext removeAttribute:NSBackgroundColorAttributeName range:[rangeValue rangeValue]];
             self.contentText.attributedText = atext;
-
+            
             NSString *type = (NSString *)dataDetector[@"type"];
             NSObject *dataObject = dataDetector[@"data"];
             [self didTapOnDataDetector:type forData:dataObject];
@@ -386,7 +400,7 @@
             return;
         }
     }
-
+    
 }
 
 
@@ -466,7 +480,7 @@
             NSMutableAttributedString *atext = [self.contentText.attributedText mutableCopy];
             
             [atext addAttribute:NSBackgroundColorAttributeName value:[[UIColor blackColor] colorWithAlphaComponent:0.15] range:[rangeValue rangeValue]];
-        
+            
             self.contentText.attributedText = atext;
             
             return YES;
@@ -502,12 +516,12 @@
     __block BOOL isPureEmojiString = YES;
     
     [string enumerateSubstringsInRange:NSMakeRange(0,
-                                                 [string length])
-                             options:NSStringEnumerationByComposedCharacterSequences
-                          usingBlock:^(NSString *substring,
-                                       NSRange substringRange,
-                                       NSRange enclosingRange,
-                                       BOOL *stop)
+                                                   [string length])
+                               options:NSStringEnumerationByComposedCharacterSequences
+                            usingBlock:^(NSString *substring,
+                                         NSRange substringRange,
+                                         NSRange enclosingRange,
+                                         BOOL *stop)
      {
          BOOL containsEmoji = NO;
          const unichar hs = [substring characterAtIndex:0];
@@ -592,6 +606,7 @@
 -(void) prepareForReuse
 {
     self.contentImage.image = nil;
+    self.messageTextLabel.attributedText = nil;
     [self.activityView stopAnimating];
 }
 
@@ -599,6 +614,7 @@
 {
     if (!self.activityView.animating) {
         [self.activityView startAnimating];
+        self.messageTextLabel.hidden = YES;
         return YES;
     }
     
@@ -614,6 +630,7 @@
 {
     if (self.activityView.animating) {
         [self.activityView stopAnimating];
+        self.messageTextLabel.hidden = NO;
         return YES;
     }
     
@@ -626,6 +643,16 @@
     NSLog(@"SCBoardTest: presentContentForKey: %@ / %@x%@", mediaKey, @(previewImage.size.width), @(previewImage.size.height));
 }
 
+-(void)setMessageText:(NSString*)messageText withColor:(UIColor*)textColor {
+    if (messageText != nil) {
+        self.messageTextLabel.textColor = textColor;
+        NSString *text = [[NSString alloc] initWithFormat:@"\n%@\n",messageText];
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text];
+        [attrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:4.0] range:NSMakeRange(0, 1)];
+        self.messageTextLabel.attributedText = attrString;
+    }
+}
+
 @end
 
 @implementation SCVideoEventContentView
@@ -635,12 +662,13 @@
     [super prepareForReuse];
     self.progress.progress = 0.;
     self.progress.hidden = YES;
+    self.messageTextLabel.attributedText = nil;
 }
 
 -(BOOL) showTransferProgress;
 {
     [super showTransferProgress];
-    
+    self.messageTextLabel.hidden = NO;
     if (!self.progress.hidden) {
         self.progress.hidden = NO;
         return YES;
@@ -671,7 +699,17 @@
     self.contentImage.image = previewImage;
     self.duration.text = [[C2CallPhone currentPhone] durationForKey:mediaKey];
     NSLog(@"SCBoardTest: presentContentForKey: %@ / %@x%@", mediaKey, @(previewImage.size.width), @(previewImage.size.height));
+    
+}
 
+-(void)setMessage:(NSString*)messageText withColor:(UIColor*)textColor {
+    if (messageText != nil) {
+        self.messageTextLabel.textColor = textColor;
+        NSString *text = [[NSString alloc] initWithFormat:@"\n%@",messageText];
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text];
+        [attrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:4.0] range:NSMakeRange(0, 1)];
+        self.messageTextLabel.attributedText = attrString;
+    }
 }
 
 @end
@@ -692,7 +730,7 @@
 -(BOOL) showTransferProgress;
 {
     [super showTransferProgress];
-
+    
     if (!self.activityView.animating) {
         [self.activityView startAnimating];
         return YES;
@@ -709,9 +747,9 @@
 -(BOOL) hideTransferProgress;
 {
     [super hideTransferProgress];
-
+    
     self.progress.progress = 0;
-
+    
     if (self.activityView.animating) {
         [self.activityView stopAnimating];
         return YES;
@@ -746,10 +784,10 @@
 -(void) presentContentForLocation:(FCLocation *) loc withPreviewImage:(UIImage *) previewImage
 {
     self.contentImage.image = previewImage;
-
+    
     if (loc.place) {
         self.locationInfoView.hidden = NO;
-         NSString *name = [loc.place objectForKey:@"name"];
+        NSString *name = [loc.place objectForKey:@"name"];
         self.locationInfo.text = name;
     }
 }
@@ -772,7 +810,7 @@
     self.sizeInfo.text = @"--";
     
     [self.activityView stopAnimating];
-
+    
 }
 
 -(BOOL) showTransferProgress;
@@ -793,20 +831,20 @@
     if (self.progressView.hidden) {
         self.progressView.hidden = NO;
     }
-
+    
     self.progress.progress = progress;
 }
 
 -(BOOL) hideTransferProgress;
 {
     [super hideTransferProgress];
-
+    
     if (!self.progressView.hidden) {
         self.progressView.hidden = YES;
         [self.activityView stopAnimating];
         return YES;
     }
-
+    
     return NO;
 }
 
@@ -828,11 +866,11 @@
 {
     NSString *ext = @"";
     NSRange r = [mediaKey rangeOfString:@"." options:NSBackwardsSearch];
-
+    
     if (r.location != NSNotFound) {
         ext = [[mediaKey substringFromIndex:r.location + 1] lowercaseString];
     }
-
+    
     return ext;
 }
 
@@ -858,10 +896,10 @@
         if (sfz > 0) {
             return [NSString stringWithFormat:@"%@ Bytes", @(sfz)];
         }
-
+        
         
     }
-
+    
     return nil;
 }
 
@@ -894,27 +932,27 @@
     if ([[fileType lowercaseString] hasSuffix:@"pptx"]) {
         return [[SCAssetManager instance] imageForName:@"ico_ppt"];
     }
-
+    
     if ([[fileType lowercaseString] hasSuffix:@"txt"]) {
         return [[SCAssetManager instance] imageForName:@"ico_txt"];
     }
-
+    
     if ([[fileType lowercaseString] hasSuffix:@"rtf"]) {
         return [[SCAssetManager instance] imageForName:@"ico_txt"];
     }
-
+    
     if ([[fileType lowercaseString] hasSuffix:@"numbers"]) {
         return [[SCAssetManager instance] imageForName:@"ico_xls"];
     }
-
+    
     if ([[fileType lowercaseString] hasSuffix:@"keynote"]) {
         return [[SCAssetManager instance] imageForName:@"ico_ppt"];
     }
-
+    
     if ([[fileType lowercaseString] hasSuffix:@"pages"]) {
         return [[SCAssetManager instance] imageForName:@"ico_doc"];
     }
-
+    
     
     return nil;
 }

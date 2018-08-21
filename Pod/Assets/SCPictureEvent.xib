@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,6 +33,12 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4R-GL-1Gf">
+                            <rect key="frame" x="4" y="99" width="92" height="1"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UOG-Oc-9hk">
                             <rect key="frame" x="31" y="31" width="37" height="37"/>
                             <color key="color" red="0.40583058529999999" green="0.62739404639999996" blue="1" alpha="0.97819456339999999" colorSpace="custom" customColorSpace="displayP3"/>
@@ -85,9 +91,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="0.75" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="z4R-GL-1Gf" firstAttribute="top" secondItem="2me-a5-Woe" secondAttribute="bottom" id="86S-uF-CTq"/>
+                        <constraint firstAttribute="bottom" secondItem="z4R-GL-1Gf" secondAttribute="bottom" id="B3A-ZY-gYM"/>
                         <constraint firstItem="2me-a5-Woe" firstAttribute="leading" secondItem="Xo1-QS-u17" secondAttribute="leading" constant="1" id="Bql-tl-QUY"/>
                         <constraint firstAttribute="bottom" secondItem="2me-a5-Woe" secondAttribute="bottom" constant="1" id="CI2-AS-SJx"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="100" id="DBK-BS-K1L"/>
+                        <constraint firstItem="z4R-GL-1Gf" firstAttribute="leading" secondItem="2me-a5-Woe" secondAttribute="leading" constant="3" id="T5B-AW-Stt"/>
                         <constraint firstItem="UOG-Oc-9hk" firstAttribute="centerY" secondItem="Xo1-QS-u17" secondAttribute="centerY" id="UNa-8D-ExJ"/>
                         <constraint firstAttribute="trailing" secondItem="Y3h-JI-reo" secondAttribute="trailing" id="WiY-0Y-7RY"/>
                         <constraint firstItem="UOG-Oc-9hk" firstAttribute="centerX" secondItem="Xo1-QS-u17" secondAttribute="centerX" id="XEs-Da-yIA"/>
@@ -96,6 +105,7 @@
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mY5-Op-S2z"/>
                         <constraint firstAttribute="trailing" secondItem="2me-a5-Woe" secondAttribute="trailing" constant="1" id="n3L-WF-yrp"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="241" id="qZU-ft-1NQ"/>
+                        <constraint firstItem="z4R-GL-1Gf" firstAttribute="trailing" secondItem="2me-a5-Woe" secondAttribute="trailing" constant="-3" id="uVH-fh-euG"/>
                         <constraint firstItem="2me-a5-Woe" firstAttribute="top" secondItem="Xo1-QS-u17" secondAttribute="top" constant="1" id="yVp-59-kVD"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -107,6 +117,7 @@
                     <connections>
                         <outlet property="activityView" destination="UOG-Oc-9hk" id="ILU-KX-gNP"/>
                         <outlet property="contentImage" destination="2me-a5-Woe" id="1Cf-9p-zlc"/>
+                        <outlet property="messageTextLabel" destination="z4R-GL-1Gf" id="vxI-sA-Vsr"/>
                     </connections>
                 </view>
             </subviews>
